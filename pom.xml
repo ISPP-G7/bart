@@ -21,6 +21,10 @@
     		<name>Roman Flores Rodriguez</name>
     		<email>romanflodriguez@gmail.com</email>
   		</contributor>
+		<contributor>
+    		<name>Angel Lorenzo Casas</name>
+    		<email>anglorcas@alum.us.es</email>
+  		</contributor>
 	</contributors>
 	<dependencies>
 		<dependency>

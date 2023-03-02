@@ -17,6 +17,10 @@
 		<java.version>17</java.version>
 	</properties>
 	<contributors>
+	<contributor>
+    		<name>Pablo Gutiérrez Ceballos</name>
+    		<email>pabloguti1006@gmail.com</email>
+  		</contributor>
   		<contributor>
     		<name>Roman Flores Rodriguez</name>
     		<email>romanflodriguez@gmail.com</email>

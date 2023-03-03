@@ -1,5 +1,10 @@
 package com.appbart.classes;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "arrendadores")
 public class Arrendador extends Usuario {
     private String nombreEmpresa;
     // otros campos específicos de Arrendador

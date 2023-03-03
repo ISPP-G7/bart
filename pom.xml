@@ -29,6 +29,10 @@
     		<name>Angel Lorenzo Casas</name>
     		<email>anglorcas@alum.us.es</email>
   		</contributor>
+		  <contributor>
+    		<name>José Antonio Reina Muñoz</name>
+    		<email>josreimun@alum.us.es</email>
+  		</contributor>
 	</contributors>
 	<dependencies>
 		<dependency>

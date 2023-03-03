@@ -1,4 +1,11 @@
 package com.appbart.classes;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "usuarios")
+
 public class Usuario {
     private String nombreUsuario;
     private String contrasena;

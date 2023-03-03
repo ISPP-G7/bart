@@ -17,7 +17,7 @@
 		<java.version>17</java.version>
 	</properties>
 	<contributors>
-	<contributor>
+		<contributor>
     		<name>Pablo Gutiérrez Ceballos</name>
     		<email>pabloguti1006@gmail.com</email>
   		</contributor>
@@ -29,9 +29,13 @@
     		<name>Angel Lorenzo Casas</name>
     		<email>anglorcas@alum.us.es</email>
   		</contributor>
-		  <contributor>
+		<contributor>
     		<name>José Antonio Reina Muñoz</name>
     		<email>josreimun@alum.us.es</email>
+  		</contributor>
+		<contributor>
+    		<name>Manuel Navarro Sicre</name>
+    		<email>mannavsic@alum.us.es</email>
   		</contributor>
 	</contributors>
 	<dependencies>

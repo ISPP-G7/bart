@@ -5,6 +5,7 @@ package com.appbart.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.appbart.classes.Artista;
 import com.appbart.classes.ArtistaService;
+
 
 @RestController
 @RequestMapping("/artistas")
@@ -35,7 +37,19 @@ public class ArtistaController {
         Iterable<Artista> artistas = artistaService.getAllArtistas();
         return new ResponseEntity<>(artistas, HttpStatus.OK);
     }
+    @GetMapping("/artista")
+    public String perfilArtista(Model model) {
+    // Obtener información específica de la entidad Artista
+    Artista artista = artistaService.getArtistaById(1L);
     
+    // Añadir información a la plantilla
+    model.addAttribute("nombre", artista.getNombreArtistico());
+    model.addAttribute("nombreUsuario", artista.getNombreUsuario());
+    // ...
+    
+    // Devolver la plantilla correspondiente
+    return "artista/perfil";
+}
     @GetMapping("/{id}")
     public ResponseEntity<Artista> obtenerArtistaPorId(@PathVariable("id") Long id) {
         Artista artista = artistaService.getArtistaById(id);

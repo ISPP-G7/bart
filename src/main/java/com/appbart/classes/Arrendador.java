@@ -9,8 +9,8 @@ public class Arrendador extends Usuario {
     private String nombreEmpresa;
     // otros campos específicos de Arrendador
 
-    public Arrendador(String nombreUsuario, String contrasena, String nombreEmpresa) {
-        super(nombreUsuario, contrasena);
+    public Arrendador(Integer id, String nombreUsuario, String contrasena, String nombreEmpresa) {
+        super(id, nombreUsuario, contrasena);
         this.nombreEmpresa = nombreEmpresa;
     }
 

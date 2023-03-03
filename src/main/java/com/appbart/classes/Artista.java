@@ -9,8 +9,8 @@ public class Artista extends Usuario {
     private String nombreArtistico;
     // otros campos específicos de Artista
 
-    public Artista(String nombreUsuario, String contrasena, String nombreArtistico) {
-        super(nombreUsuario, contrasena);
+    public Artista(Integer id, String nombreUsuario, String contrasena, String nombreArtistico) {
+        super(id, nombreUsuario, contrasena);
         this.nombreArtistico = nombreArtistico;
     }
 

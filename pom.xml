@@ -45,6 +45,10 @@
     		<name>Antonio José López Cubiles</name>
     		<email>antlopcub@alum.us.es</email>
   		</contributor>
+		<contributor>
+    		<name>Pablo Parra Méndez</name>
+    		<email>pabparmen@alum.us.es</email>
+  		</contributor>
 	</contributors>
 	<dependencies>
 		<dependency>

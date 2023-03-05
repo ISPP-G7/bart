@@ -53,6 +53,10 @@
     		<name>Luis Cerrato Sánchez</name>
     		<email>luicersan@alum.us.es</email>
   		</contributor>
+		<contributor>
+    		<name>Álvaro Rodríguez García</name>
+    		<email>alvrodgar2@alum.us.es</email>
+  		</contributor>
 	</contributors>
 	<dependencies>
 		<dependency>

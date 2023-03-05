@@ -49,6 +49,10 @@
     		<name>Pablo Parra Méndez</name>
     		<email>pabparmen@alum.us.es</email>
   		</contributor>
+		<contributor>
+    		<name>Luis Cerrato Sánchez</name>
+    		<email>luicersan@alum.us.es</email>
+  		</contributor>
 	</contributors>
 	<dependencies>
 		<dependency>

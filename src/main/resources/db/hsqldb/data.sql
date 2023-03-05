@@ -1,4 +1,5 @@
 -- Creacion manual de artistas
+
 CREATE TABLE artistas (
     id INTEGER PRIMARY KEY,
     nombreUsuario VARCHAR(255),

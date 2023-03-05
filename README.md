@@ -14,3 +14,6 @@ maven-apache 3.9.0 or superior
 
 plugins y entorno:
  recomendamos el uso de vscode y plugins de spring y maven
+
+siempre con base de datos vacia se para popular usaremos 
+mvn sql:execute

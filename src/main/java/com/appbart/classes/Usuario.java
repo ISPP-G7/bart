@@ -7,13 +7,23 @@ import jakarta.persistence.Table;
 @Table(name = "usuarios")
 
 public class Usuario {
+    private Integer id;
     private String nombreUsuario;
     private String contrasena;
     // otros campos comunes
 
-    public Usuario(String nombreUsuario, String contrasena) {
+    public Usuario(Integer id, String nombreUsuario, String contrasena) {
+        this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.contrasena = contrasena;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombreUsuario() {

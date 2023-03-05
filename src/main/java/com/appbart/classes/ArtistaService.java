@@ -3,13 +3,11 @@ package com.appbart.classes;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 @Service
 public class ArtistaService {
-    @Autowired
+    
     private ArtistaRepository artistaRepository;
 
     // métodos de servicio que utilizan artistaRepository

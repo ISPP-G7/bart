@@ -50,6 +50,10 @@
     		<email>pabparmen@alum.us.es</email>
   		</contributor>
 		<contributor>
+    		<name>Luis Cerrato Sánchez</name>
+    		<email>luicersan@alum.us.es</email>
+  		</contributor>
+		<contributor>
     		<name>Ernesto Gutiérrez Contreras</name>
     		<email>erngutcon@alum.us.es</email>
   		</contributor>
@@ -92,15 +96,41 @@
 			<scope>test</scope>
 		</dependency>
 	
-   <dependency>
-     <groupId>org.springframework.data</groupId>
-     <artifactId>spring-data-jpa</artifactId>
-     <version>2.1.10.RELEASE</version>
-   </dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>2.1.10.RELEASE</version>
+		</dependency>
+			<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-actuator</artifactId>
+	</dependency>
  </dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+				<version>1.5</version>
+				<configuration>
+				<driver>org.postgresql.Driver</driver>
+				<url>jdbc:postgresql://localhost:5432/bartbd</url>
+				<username>root</username>
+				<password>root</password>
+				<srcFiles>
+					<srcFile>src/main/resources/db/hsqldb/data.sql</srcFile>
+				</srcFiles>
+				</configuration>
+				<dependencies>
+				<dependency>
+					<groupId>org.postgresql</groupId>
+					<artifactId>postgresql</artifactId>
+					<!--No borrar peta-->
+					<version>42.3.1</version>
+				</dependency>
+				</dependencies>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

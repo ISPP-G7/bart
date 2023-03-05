@@ -1,4 +1,4 @@
-package com.appbart.classes;
+package com.appbart.ispp.classes;
 
 
 import java.util.Optional;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ArtistaService {
-    @Autowired
     private ArtistaRepository artistaRepository;
 
     // métodos de servicio que utilizan artistaRepository

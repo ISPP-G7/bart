@@ -1,4 +1,4 @@
-package com.appbart.controller;
+package com.appbart.ispp.controller;
 
 import java.util.List;
 
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.appbart.classes.Arrendador;
-import com.appbart.classes.ArrendadorService;
+import com.appbart.ispp.classes.Arrendador;
+import com.appbart.ispp.classes.ArrendadorService;
+
 
 @RestController
 @RequestMapping("/arrendadores")
 public class ArrendadorController {
     
-    @Autowired
     private ArrendadorService arrendadorService;
     
     @PostMapping("/")

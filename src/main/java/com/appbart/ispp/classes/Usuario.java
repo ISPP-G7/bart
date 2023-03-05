@@ -1,4 +1,4 @@
-package com.appbart.classes;
+package com.appbart.ispp.classes;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

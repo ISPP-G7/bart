@@ -53,6 +53,10 @@
     		<name>Luis Cerrato Sánchez</name>
     		<email>luicersan@alum.us.es</email>
   		</contributor>
+		<contributor>
+    		<name>Miguel Ybarra Manrique</name>
+    		<email>migybaman@alum.us.es</email>
+  		</contributor>
 	</contributors>
 	<dependencies>
 		<dependency>

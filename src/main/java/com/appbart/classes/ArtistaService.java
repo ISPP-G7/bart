@@ -20,12 +20,9 @@ public class ArtistaService {
         return optionalArtista.orElse(null);
     }
     //find all heredados de los repo
-  
     public Artista crearArtista(Artista artista) {
-    
         return artistaRepository.save(artista);
     }
-    
     public Artista getArtistaById(Long id) {
         return artistaRepository.findById(id).orElse(null);
     }

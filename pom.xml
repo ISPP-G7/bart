@@ -92,15 +92,14 @@
 			<scope>test</scope>
 		</dependency>
 	
-   <dependency>
-     <groupId>org.springframework.data</groupId>
-     <artifactId>spring-data-jpa</artifactId>
-     <version>2.1.10.RELEASE</version>
-   </dependency>
-	<dependency>
-  		<groupId>org.codehaus.mojo</groupId>
-		<artifactId>sql-maven-plugin</artifactId>
-		<version>1.5</version>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>2.1.10.RELEASE</version>
+		</dependency>
+			<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-actuator</artifactId>
 	</dependency>
  </dependencies>
 

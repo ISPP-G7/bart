@@ -5,6 +5,7 @@ package com.appbart.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,13 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.appbart.classes.Artista;
 import com.appbart.classes.ArtistaService;
 
 
-@RestController
+@Controller
 @RequestMapping("/artistas")
 public class ArtistaController {
     
@@ -40,11 +40,11 @@ public class ArtistaController {
     @GetMapping("/artista")
     public String perfilArtista(Model model) {
     // Obtener información específica de la entidad Artista
-    Artista artista = artistaService.getArtistaById(1L);
+    //Artista artista = artistaService.getArtistaById(1L);
     
     // Añadir información a la plantilla
-    model.addAttribute("nombre", artista.getNombreArtistico());
-    model.addAttribute("nombreUsuario", artista.getNombreUsuario());
+    //model.addAttribute("nombre", artista.getNombreArtistico());
+    //model.addAttribute("nombreUsuario", artista.getNombreUsuario());
     // ...
     
     // Devolver la plantilla correspondiente

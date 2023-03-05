@@ -2,13 +2,12 @@ package com.appbart.classes;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class ArrendadorService {
-    @Autowired
+    
     private ArrendadorRepository arrendadorRepository;
 
     // métodos de servicio que utilizan arrendadorRepository

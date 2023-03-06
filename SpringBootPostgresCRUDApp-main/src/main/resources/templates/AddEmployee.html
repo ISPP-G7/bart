@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Employee List</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</head>
+<body>
+    <div class="container">
+
+        <h1 class="p-3">Employees List</h1>
+
+        <form th:action="@{/saveEmployee}" th:object="${emp}" method="post">
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="firstName">First Name</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{firstName}" id="firstName"
+                                    class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="lastName">Last Name</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{lastName}" id="lastName"
+                                    class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">Gender</label>
+                    <div class="col-md-6">
+
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Male" />Male
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Female" />Female
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Other" />Other
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">Date of birth</label>
+                    <div class="col-md-6">
+                        <input type="date" th:field="*{dob}" id="dob"
+                                    class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">Email</label>
+                    <div class="col-md-6">
+                        <input type="email" th:field="*{email}" id="email"
+                                    class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col-md-2">
+                    <button class="btn btn-success">Create</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <script th:inline="javascript">
+        window.onload = function() {
+
+            var msg = [[${message}]];
+            if (msg == "Save Failure") {
+				Command: toastr["error"]("Some error occurred, couldn't save user")
+
+				toastr.options = {
+                  "closeButton": true,
+                  "debug": false,
+                  "newestOnTop": false,
+                  "progressBar": true,
+                  "positionClass": "toast-top-right",
+                  "preventDuplicates": false,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                }
+			}
+	    }
+    </script>
+</body>
+</html>

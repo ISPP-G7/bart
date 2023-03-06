@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Employee List</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        a{
+        color: white;
+        }
+        a:hover {
+        color: white;
+        text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <h1 th:text="${message}"></h1>
+
+        <h1 class="p-3">Employees List</h1>
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Date Of Birth</th>
+                    <th>Gender</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+
+                    <tr th:each="employee : ${empList}">
+                        <td th:text="${employee.id}"></td>
+                        <td th:text="${employee.firstName}"></td>
+                        <td th:text="${employee.lastName}"></td>
+                        <td th:text="${employee.email}"></td>
+                        <td th:text="${employee.dob}"></td>
+                        <td th:text="${employee.gender}"></td>
+                        <td><button type="button" class="btn btn-success">
+                            <a th:href="@{/editEmployee/{id}(id=${employee.id})}">Edit</a>
+                        </button></td>
+                        <td><button type="button" class="btn btn-danger">
+                            <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}">Delete</a>
+                        </button></td>
+                    </tr>
+
+            </table>
+
+        <button type="button" class="btn btn-primary btn-block">
+            <a href="/addEmployee">Add New Employee</a>
+        </button>
+
+    </div>
+
+    <script th:inline="javascript">
+        window.onload = function() {
+
+            var msg = [[${message}]];
+            if (msg == "Save Success") {
+				Command: toastr["success"]("User created successfully!!")
+			} else if (msg == "Delete Success") {
+				Command: toastr["success"]("User deleted successfully!!")
+			} else if (msg == "Delete Error") {
+			    Command: toastr["error"]("Some error occurred, couldn't delete user")
+			} else if (msg == "Edit Success") {
+				Command: toastr["success"]("User updated successfully!!")
+			}
+
+			toastr.options = {
+                  "closeButton": true,
+                  "debug": false,
+                  "newestOnTop": false,
+                  "progressBar": true,
+                  "positionClass": "toast-top-right",
+                  "preventDuplicates": false,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                }
+	    }
+    </script>
+</body>
+</html>

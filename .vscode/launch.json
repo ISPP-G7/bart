@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringBootPostgresCrudApplication<SpringBootPostgresCRUD>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.SpringBootPostgresCRUD.SpringBootPostgresCrudApplication",
+            "projectName": "SpringBootPostgresCRUD",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

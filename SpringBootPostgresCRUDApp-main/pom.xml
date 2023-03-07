@@ -16,6 +16,44 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+	<contributors>
+		<contributor>
+    		<name>Pablo Gutiérrez Ceballos</name>
+    		<email>pabloguti1006@gmail.com</email>
+  		</contributor>
+  		<contributor>
+    		<name>Roman Flores Rodriguez</name>
+    		<email>romanflodriguez@gmail.com</email>
+  		</contributor>
+		<contributor>
+    		<name>Angel Lorenzo Casas</name>
+    		<email>anglorcas@alum.us.es</email>
+  		</contributor>
+		<contributor>
+    		<name>José Antonio Reina Muñoz</name>
+    		<email>josreimun@alum.us.es</email>
+  		</contributor>
+		<contributor>
+    		<name>Manuel Navarro Sicre</name>
+    		<email>mannavsic@alum.us.es</email>
+  		</contributor>
+		<contributor>
+    		<name>Alejandro Ortiz Pagador</name>
+    		<email>aleortpag@alum.us.es</email>
+  		</contributor>
+		<contributor>
+    		<name>Antonio José López Cubiles</name>
+    		<email>antlopcub@alum.us.es</email>
+  		</contributor>
+		<contributor>
+    		<name>Pablo Parra Méndez</name>
+    		<email>pabparmen@alum.us.es</email>
+  		</contributor>
+		<contributor>
+    		<name>Luis Cerrato Sánchez</name>
+    		<email>luicersan@alum.us.es</email>
+  		</contributor>
+	</contributors>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

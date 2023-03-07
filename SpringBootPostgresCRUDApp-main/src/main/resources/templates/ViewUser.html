@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>View Employee List</title>
+    <title>View User List</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -30,7 +30,7 @@
 
         <h1 th:text="${message}"></h1>
 
-        <h1 class="p-3">Employees List</h1>
+        <h1 class="p-3">Users List</h1>
 
             <table class="table table-bordered">
                 <tr>
@@ -44,25 +44,25 @@
                     <th>Delete</th>
                 </tr>
 
-                    <tr th:each="employee : ${empList}">
-                        <td th:text="${employee.id}"></td>
-                        <td th:text="${employee.firstName}"></td>
-                        <td th:text="${employee.lastName}"></td>
-                        <td th:text="${employee.email}"></td>
-                        <td th:text="${employee.dob}"></td>
-                        <td th:text="${employee.gender}"></td>
+                    <tr th:each="user : ${usrList}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.dob}"></td>
+                        <td th:text="${user.gender}"></td>
                         <td><button type="button" class="btn btn-success">
-                            <a th:href="@{/editEmployee/{id}(id=${employee.id})}">Edit</a>
+                            <a th:href="@{/editUser/{id}(id=${user.id})}">Edit</a>
                         </button></td>
                         <td><button type="button" class="btn btn-danger">
-                            <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}">Delete</a>
+                            <a th:href="@{/deleteUser/{id}(id=${user.id})}">Delete</a>
                         </button></td>
                     </tr>
 
             </table>
 
         <button type="button" class="btn btn-primary btn-block">
-            <a href="/addEmployee">Add New Employee</a>
+            <a href="/addUser">Add New User</a>
         </button>
 
     </div>

@@ -3,8 +3,8 @@ package com.example.SpringBootPostgresCRUD.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="employees")
-public class Employee {
+@Table(name="users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,10 +20,10 @@ public class Employee {
 
     private String gender;
 
-    public Employee() {
+    public User() {
     }
 
-    public Employee(Long id, String firstName, String lastName, String email, String dob, String gender) {
+    public User(Long id, String firstName, String lastName, String email, String dob, String gender) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

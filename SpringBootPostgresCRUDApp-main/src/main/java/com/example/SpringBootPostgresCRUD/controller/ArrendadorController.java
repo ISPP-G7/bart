@@ -33,7 +33,7 @@ public class ArrendadorController {
     @GetMapping("/addArrendador")
     public String newArrendador(@ModelAttribute("message") String message, Model model) {
         Arrendador arrendador = new Arrendador();
-        model.addAttribute("arrendador", arrendador);
+        model.addAttribute("arr", arrendador);
         model.addAttribute("message", message);
 
         return "AddArrendador";
@@ -64,11 +64,9 @@ public class ArrendadorController {
         model.addAttribute("arr", arr);
         model.addAttribute("message", message);
         model.addAttribute("nombreLocal",arr.getNombreLocal());
-        System.out.println("ayuda2");
-        System.out.println(arr.getNombreLocal());
+
         return "PerfilArrendador";
     }
-
     @PostMapping("/editSaveArrendador")
     public String editSaveArrendador(@ModelAttribute("arr") Arrendador arr, RedirectAttributes redirectAttributes) {
         if (arrService.saveOrUpdateArrendador(arr)) {

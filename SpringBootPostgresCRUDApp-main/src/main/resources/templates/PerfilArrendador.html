@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Perfil de arrendador</title>
+	<title>Perfil de Arrendador</title>
 </head>
 <body>
 	<table>
 		<tr>
-			<td>Nombre del local:</td>
+			<td>Direccion:</td>
             
-			<td th:text="${arr.getNombreLocal()}"></td>
+			<td th:text="${arr.getDireccion()}"></td>
 		</tr>
 		<tr>
-			<td>Dirección del local:</td>
-			<td th:text="${arr.getDireccion()}"></td>
+			<td>Local nombre:</td>
+			<td th:text="${arr.getNombreLocal()}"></td>
 		</tr>
 		<tr>
 			<td>Nombre:</td>
@@ -28,7 +28,7 @@
 		</tr>
 		<tr>
 			<td>Fecha de nacimiento:</td>
-			<td th:text="${art.getDob()}"></td>
+			<td th:text="${arr.getDob()}"></td>
 		</tr>
 		<tr>
 			<td>Género:</td>

@@ -114,8 +114,38 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+				<version>1.5</version>
+				<configuration>
+				<driver>org.postgresql.Driver</driver>
+				<url>jdbc:postgresql://localhost:5432/bartbd</url>
+				<username>root</username>
+				<password>root</password>
+				<srcFiles>
+					<srcFile>src/main/resources/db/hsqldb/data.sql</srcFile>
+				</srcFiles>
+				</configuration>
+				<dependencies>
+				<dependency>
+					<groupId>org.postgresql</groupId>
+					<artifactId>postgresql</artifactId>
+					<!--No borrar peta-->
+					<version>42.3.1</version>
+				</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -66,8 +66,6 @@ public class ArtistaController {
         model.addAttribute("art", art);
         model.addAttribute("message", message);
         model.addAttribute("nombreArtistitico",art.getNombre_artistico());
-        System.out.println("ayuda2");
-        System.out.println(art.getNombre_artistico());
         return "PerfilArtista";
     }
 

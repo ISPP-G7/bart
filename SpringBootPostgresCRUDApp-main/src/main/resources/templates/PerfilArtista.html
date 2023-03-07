@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Perfil de Artista</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>Nombre artístico:</td>
+            
+			<td th:text="${art.getNombre_artistico()}"></td>
+		</tr>
+		<tr>
+			<td>Categoría artística:</td>
+			<td th:text="${art.getCategoria_artistica()}"></td>
+		</tr>
+		<tr>
+			<td>Nombre:</td>
+			<td th:text="${art.getFirstName()}"></td>
+		</tr>
+		<tr>
+			<td>Apellido:</td>
+			<td th:text="${art.getLastName()}"></td>
+		</tr>
+		<tr>
+			<td>Email:</td>
+			<td th:text="${art.getEmail()}"></td>
+		</tr>
+		<tr>
+			<td>Fecha de nacimiento:</td>
+			<td th:text="${art.getDob()}"></td>
+		</tr>
+		<tr>
+			<td>Género:</td>
+			<td th:text="${art.getGender()}"></td>
+		</tr>
+	</table>
+</body>
+</html>

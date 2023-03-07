@@ -1,7 +1,7 @@
 package com.example.SpringBootPostgresCRUD.entity;
 
 import javax.persistence.*;
-
+@Inheritance(strategy=InheritanceType.JOINED)
 @Entity
 @Table(name="users")
 public class User {

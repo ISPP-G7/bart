@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Perfil de arrendador</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>Nombre del local:</td>
+            
+			<td th:text="${arr.getNombreLocal()}"></td>
+		</tr>
+		<tr>
+			<td>Dirección del local:</td>
+			<td th:text="${arr.getDireccion()}"></td>
+		</tr>
+		<tr>
+			<td>Nombre:</td>
+			<td th:text="${arr.getFirstName()}"></td>
+		</tr>
+		<tr>
+			<td>Apellido:</td>
+			<td th:text="${arr.getLastName()}"></td>
+		</tr>
+		<tr>
+			<td>Email:</td>
+			<td th:text="${arr.getEmail()}"></td>
+		</tr>
+		<tr>
+			<td>Fecha de nacimiento:</td>
+			<td th:text="${art.getDob()}"></td>
+		</tr>
+		<tr>
+			<td>Género:</td>
+			<td th:text="${arr.getGender()}"></td>
+		</tr>
+	</table>
+</body>
+</html>

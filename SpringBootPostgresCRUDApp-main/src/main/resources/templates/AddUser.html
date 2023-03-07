@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>View Employee List</title>
+    <title>View User List</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -18,9 +18,9 @@
 <body>
     <div class="container">
 
-        <h1 class="p-3">Employees List</h1>
+        <h1 class="p-3">Users List</h1>
 
-        <form th:action="@{/saveEmployee}" th:object="${emp}" method="post">
+        <form th:action="@{/saveUser}" th:object="${usr}" method="post">
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="firstName">First Name</label>

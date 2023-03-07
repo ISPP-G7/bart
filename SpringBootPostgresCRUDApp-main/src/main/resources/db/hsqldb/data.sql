@@ -1,6 +1,6 @@
 -- Eliminar tablas si existen
 -- DROP TABLE IF EXISTS artistas;
- -- DROP TABLE IF EXISTS arrendadores;
+DROP TABLE IF EXISTS arrendadores;
 DROP TABLE IF EXISTS anuncios;
 
 -- Creación de tablas
@@ -9,13 +9,17 @@ DROP TABLE IF EXISTS anuncios;
     nombreUsuario VARCHAR(255),
     contrasena VARCHAR(255),
     nombreArtistico VARCHAR(255)
-);
+);*/
 CREATE TABLE arrendadores (
     id INTEGER PRIMARY KEY,
-    nombreUsuario VARCHAR(255),
-    contrasena VARCHAR(255),
-    nombreEmpresa VARCHAR(255)
-);*/
+    firstName VARCHAR(255),
+    lastName VARCHAR(255),
+    email VARCHAR(255),
+    dob VARCHAR(255),
+    gender VARCHAR(255),
+    nombreLocal VARCHAR(255),
+    direccion VARCHAR(255)
+);
 
 CREATE TABLE anuncios (
   id INT NOT NULL,
@@ -39,4 +43,5 @@ INSERT INTO anuncios(id,titulo, ubicacion, precio, especificaciones, estilo) VAL
 (1,'Título del anuncio', 'Ciudad, País', 1000.00, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Rock');
 INSERT INTO anuncios(id,titulo, ubicacion, precio, especificaciones, estilo) VALUES 
 (2,'Título del anuncio', 'Ciudad, País', 1000.00, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'RAP');
-
+INSERT INTO arrendadores(id, firstName, lastName, email, dob, gender, nombreLocal, direccion) VALUES
+(1, 'Paco', 'Perez', 'paco@gmail.com', '11/05/1970', 'Male', 'Bar Paco', 'Renia Mercedes N3');

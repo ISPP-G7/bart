@@ -35,8 +35,8 @@ CREATE TABLE anuncios (
 -- Inserción de datos
 /*INSERT INTO artistas(id, nombreUsuario, contrasena, nombreArtistico) VALUES (1, 'artista1', '4rt1st4', 'Lennon');
 INSERT INTO arrendadores(id, nombreUsuario, contrasena, nombreEmpresa) VALUES (1, 'empresa1', '3mpr3s4', 'Alfonso');*/
-INSERT INTO anuncios(id,titulo, ubicacion, precio, especificaciones, estilo, artista_id) VALUES 
+INSERT INTO anuncios(id,titulo, ubicacion, precio, especificaciones, estilo) VALUES 
 (1,'Título del anuncio', 'Ciudad, País', 1000.00, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Rock');
-INSERT INTO anuncios(id,titulo, ubicacion, precio, especificaciones, estilo, arrendador_id) VALUES 
+INSERT INTO anuncios(id,titulo, ubicacion, precio, especificaciones, estilo) VALUES 
 (2,'Título del anuncio', 'Ciudad, País', 1000.00, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'RAP');
 

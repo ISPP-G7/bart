@@ -1,8 +1,10 @@
 package com.example.SpringBootPostgresCRUD.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Min;
@@ -18,6 +20,7 @@ import lombok.Getter;
 @Table(name = "anuncios")
 public class Anuncio {
 
+    @Id
     private Integer id;
 
     @NotBlank

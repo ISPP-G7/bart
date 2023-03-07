@@ -60,6 +60,16 @@ public class ArtistaController {
 
         return "EditArtista";
     }
+    @GetMapping("/perfilArtista/{id}")
+    public String perfilArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
+        Artista art = artService.getArtistaById(id);
+        model.addAttribute("art", art);
+        model.addAttribute("message", message);
+        model.addAttribute("nombreArtistitico",art.getNombre_artistico());
+        System.out.println("ayuda2");
+        System.out.println(art.getNombre_artistico());
+        return "PerfilArtista";
+    }
 
     @PostMapping("/editSaveArtista")
     public String editSaveArtista(@ModelAttribute("art") Artista art, RedirectAttributes redirectAttributes) {

@@ -22,6 +22,9 @@ public class ArtistaService {
     }
 
     public Artista getArtistaById(Long id) {
+        System.out.println("ayuda");
+        System.out.println(artistaRepository.findById(id).get().getNombre_artistico());
+
         return artistaRepository.findById(id).get();
     }
 

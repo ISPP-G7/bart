@@ -22,7 +22,7 @@ public class EmployeeController {
     @Autowired
     EmployeeService empService;
 
-    @GetMapping({"/", "/viewEmployees"})
+    @GetMapping({"/viewEmployees"})
     public String viewEmployees(@ModelAttribute("message") String message, Model model) {
         List<Employee> empList = empService.getAllEmployees();
 

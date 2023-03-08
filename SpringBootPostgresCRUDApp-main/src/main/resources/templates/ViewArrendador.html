@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ver lista de arrendadores</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        a{
+        color: white;
+        }
+        a:hover {
+        color: white;
+        text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <h1 th:text="${message}"></h1>
+
+        <h1 class="p-3">Lista de arrendadores</h1>
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Género</th>
+                    <th>Nombre del local</th>
+                    <th>Dirección del local</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+
+                    <tr th:each="Arrendador : ${arrList}">
+                        <td th:text="${Arrendador.id}"></td>
+                        <td th:text="${Arrendador.firstName}"></td>
+                        <td th:text="${Arrendador.lastName}"></td>
+                        <td th:text="${Arrendador.email}"></td>
+                        <td th:text="${Arrendador.dob}"></td>
+                        <td th:text="${Arrendador.gender}"></td>
+                        <td th:text="${Arrendador.nombreLocal}"></td>
+                        <td th:text="${Arrendador.direccion}"></td>
+                        <td><button type="button" class="btn btn-success">
+                            <a th:href="@{/editArrendador/{id}(id=${Arrendador.id})}">Editar</a>
+                        </button></td>
+                        <td><button type="button" class="btn btn-danger">
+                            <a th:href="@{/deleteArrendador/{id}(id=${Arrendador.id})}">Eliminar</a>
+                        </button></td>
+                    </tr>
+
+            </table>
+
+        <button type="button" class="btn btn-primary btn-block">
+            <a href="/addArrendador">Añadir nuevo arrendador</a>
+        </button>
+
+    </div>
+
+    <script th:inline="javascript">
+        window.onload = function() {
+
+            var msg = [[${message}]];
+            if (msg == "Save Success") {
+				Command: toastr["success"]("Arrendador creado con éxito")
+			} else if (msg == "Delete Success") {
+				Command: toastr["success"]("Arrendador eliminado con éxito")
+			} else if (msg == "Delete Error") {
+			    Command: toastr["error"]("Ha ocurrido un error, no se pudo eliminar el arrendador")
+			} else if (msg == "Edit Success") {
+				Command: toastr["success"]("Arrendador actualizado con éxito")
+			}
+
+			toastr.options = {
+                  "closeButton": true,
+                  "debug": false,
+                  "newestOnTop": false,
+                  "progressBar": true,
+                  "positionClass": "toast-top-right",
+                  "preventDuplicates": false,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                }
+	    }
+    </script>
+</body>
+</html>

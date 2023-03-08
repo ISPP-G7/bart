@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>View Artist List</title>
+    <title>Ver lista de arrendadores</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -18,12 +18,12 @@
 <body>
     <div class="container">
 
-        <h1 class="p-3">Add Artist</h1>
+        <h1 class="p-3">Add arrendador</h1>
 
-        <form th:action="@{/saveArtista}" th:object="${art}" method="post">
+        <form th:action="@{/saveArrendador}" th:object="${arr}" method="post">
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="firstName">First Name</label>
+                    <label class="col-md-3" for="firstName">Nombre</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{firstName}" id="firstName"
                                     class="form-control input-sm" required="required" />
@@ -33,7 +33,7 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="lastName">Last Name</label>
+                    <label class="col-md-3" for="lastName">Apellido</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{lastName}" id="lastName"
                                     class="form-control input-sm" required="required" />
@@ -43,22 +43,22 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">Gender</label>
+                    <label class="col-md-3">Género</label>
                     <div class="col-md-6">
 
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Male" />Male
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Male" />Masculino
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Female" />Female
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Female" />Femenino
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Other" />Other
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Other" />Otro
                             </label>
                         </div>
 
@@ -68,7 +68,7 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">Date of birth</label>
+                    <label class="col-md-3">Fecha de nacimiento</label>
                     <div class="col-md-6">
                         <input type="date" th:field="*{dob}" id="dob"
                                     class="form-control input-sm" required="required" />
@@ -87,23 +87,23 @@
             </div>
                        <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">nombreArtistico</label>
+                    <label class="col-md-3">Nombre del local</label>
                     <div class="col-md-6">
-                        <input type="text" th:field="*{nombre_artistico}" id="nombre_artistico"
+                        <input type="text" th:field="*{nombreLocal}" id="nombreLocal"
                                     class="form-control input-sm" required="required" />
                     </div>
                 </div>
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">categoriaArtistica</label>
+                    <label class="col-md-3">Dirección del local</label>
                     <div class="col-md-6">
-                        <input type="text" th:field="*{categoria_artistica}" id="categoria_artistica"
+                        <input type="text" th:field="*{direccion}" id="direccion"
                                     class="form-control input-sm" required="required" />
                     </div>
                 </div>
             </div>
             <div class="row p-2">
                 <div class="col-md-2">
-                    <button class="btn btn-success">Create</button>
+                    <button class="btn btn-success">Crear</button>
                 </div>
             </div>
         </form>
@@ -115,7 +115,7 @@
 
             var msg = [[${message}]];
             if (msg == "Save Failure") {
-				Command: toastr["error"]("Some error occurred, couldn't save Artist")
+				Command: toastr["error"]("Ha ocurrido un error, no se pudo guardar el arrendador")
 
 				toastr.options = {
                   "closeButton": true,

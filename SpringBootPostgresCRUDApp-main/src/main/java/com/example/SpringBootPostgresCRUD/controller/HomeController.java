@@ -34,12 +34,15 @@ public class HomeController {
     public String home(Model model) throws IOException {
         List<List<String>> coordenadasList=new ArrayList<>();
 
-
         List<Arrendador> arrendadoresList = arrService.getAllArrendadores();
         System.out.println("hola");
         System.out.println(arrendadoresList.size());
         int i=0;
+        List<List<String>> arrendadoresNombreLocalMapListAux=new ArrayList<>();
+        
         for (Arrendador arrendador : arrendadoresList) {
+            List<String> arrendadoresNombreLocalMap=new ArrayList<>();
+            arrendadoresNombreLocalMap.add((arrendador.getDireccion()));
             List<String> coordenadas= new ArrayList<>();
             String direccion = arrendador.getDireccion().replace(" ", "+");
             String url = "https://nominatim.openstreetmap.org/search?q=" + direccion + "&format=jsonv2&limit=1";
@@ -47,24 +50,29 @@ public class HomeController {
             String jsonResponse = restTemplate.getForObject(url, String.class);
             JsonParser jsonParser = objectMapper.createParser(jsonResponse);
             List<Place> places = objectMapper.readValue(jsonParser, new TypeReference<List<Place>>(){});
-         
-            coordenadas.add((places.get(i).getLat()));
-            coordenadas.add((places.get(i).getLon()));
-          
-            System.out.println("entro");
-            System.out.println(coordenadas);
+           
+            if (!places.isEmpty()) {
+                coordenadas.add((places.get(0).getLat()));
+                coordenadas.add((places.get(0).getLon()));
+                arrendadoresNombreLocalMapListAux.add(arrendadoresNombreLocalMap);
 
-            coordenadasList.add(coordenadas);
-            //latitud,longitud
-           // coordenadas.add(places.get(0)Integer.parseInt(.getLat())
-           model.addAttribute("coordenadas", coordenadas);
-           model.addAttribute("coordenadasList", coordenadasList);
-           System.out.println("listam");
-           System.out.println(coordenadasList);
-       
-        } 
-       
-     
+                System.out.println("entro");
+                System.out.println(coordenadas);
+        
+                coordenadasList.add(coordenadas);
+            }
+        
+            model.addAttribute("coordenadas", coordenadas);
+            model.addAttribute("coordenadasList", coordenadasList);
+            System.out.println("listam");
+            System.out.println(coordenadasList);
+        }
+        
+        System.out.println("auda2321");
+        System.out.println(arrendadoresNombreLocalMapListAux);
+        model.addAttribute("arrendadoresNombreLocalMapListAux", arrendadoresNombreLocalMapListAux);
+        
+
         return "Home";
     }
 

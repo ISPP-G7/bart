@@ -81,44 +81,58 @@
 		<p>Nuestros locales disponibles:</p>
 		
 
-	<div id="map" style="width: 600px; height: 400px"></div>
+	<div id="map" th:data-arrendadores="${arrendadoresNombreLocalMapListAux}" style="width: 600px; height: 400px"></div>
 	</div>
-    <div id="map" style="height: 500px;"></div>
+
 
 <!-- Agrega el script para inicializar el mapa -->
 <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
 <script>
-    var map = L.map('map').setView([37.3891, -5.9845], 14);
-    mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; ' + mapLink + ' Contributors',
-        maxZoom: 18,
-    }).addTo(map);
+// Crea el mapa centrado en Sevilla
+var map = L.map('map').setView([37.3891, -5.9845], 14);
 
-	var coordenadasList = JSON.parse('${coordenadasList}');
+// Agrega una capa de OpenStreetMap al mapa
+var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; ' + mapLink + ' Contributors',
+    maxZoom: 18
+}).addTo(map);
+
+// Variable con una lista de coordenadas
+var coordenadasList = [[${coordenadasList}]];
+var arrendadoresNombreLocalMapListAux = document.getElementById('map').getAttribute('data-arrendadores').replace("[","").replace("]","").split(",");
+console.error(arrendadoresNombreLocalMapListAux[1])
+console.error("uwu")
 
 
-    // Agrega un marcador para cada ubicación en la lista de coordenadas
-    coordenadasList.forEach(function(coordenadas) {
-		L.marker(coordenadas,{draggable: true}).addTo(map);
-        L.marker(coordenadas).addTo(map);
-    });
-</script>
+// Función que agrega marcadores al mapa desde una lista de coordenadas
+	function agregarMarcadoresDesdeCoordenadas(coordList) {
+		for (var i = 0; i < coordList.length; i++) {
+			var marker = L.marker(coordList[i]).addTo(map);
+			marker.bindPopup("<b>Ubicación " + arrendadoresNombreLocalMapListAux[i] + "</b><br>Latitud: " + coordList[i][0] + "<br>Longitud: " + coordList[i][1]).openPopup();
+		}
+	}
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<div>
-	coordenadas
-	<p th:text="${coordenadas}"></p>
-		<table>
-			<tr>
-				<td>Direccion:</td>
-				
-				<td th:text="${coordenadasList}"></td>
-			</tr>
-		</table>
-	</div>
-</body>
+	// Llama a la función para agregar los marcadores al mapa
+	agregarMarcadoresDesdeCoordenadas(coordenadasList);
 
-</html>
+	</script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<div>
+		coordenadas
+		<p th:text="${coordenadas}"></p>
+			<table>
+				<tr>
+					<td>Direccion:</td>
+					<td th:text="${arrendadoresNombreLocalMapListAux}"></td>
+
+					<td th:text="${coordenadasList}"></td>
+				</tr>
+			</table>
+		</div>
+	</body>
+
+	</html>

@@ -11,17 +11,16 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.Valid;
-import lombok.Setter;
-import lombok.Getter;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
+import lombok.Setter;
+import lombok.Getter;
 
 @Getter
 @Setter
 @Entity
-
 @Table(name = "anunciosArrendador")
-public class AnuncioArrendador {
+public class AnuncioArrendador /* extends Anuncio */ {
 
     @Id
     private Long id;
@@ -52,6 +51,10 @@ public class AnuncioArrendador {
     @Valid
     @OneToOne
     private Arrendador arrendador_id;
+
+    public AnuncioArrendador() {
+
+    }
 
     public AnuncioArrendador(Long id, String nombreLocal, String ubicacion,
             Float precio, String descripcionArrendador, Estilo estilo) {

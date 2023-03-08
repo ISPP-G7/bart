@@ -53,6 +53,10 @@ public class AnuncioArtista {
     @OneToOne
     private Artista artista_id;
 
+    public AnuncioArtista() {
+
+    }
+
     public AnuncioArtista(Long id, String pseudonimoArtista, String ubicacion,
             Float precio, String descripcionArtista, Estilo estilo) {
         this.id = id;

@@ -35,8 +35,7 @@ public class HomeController {
         List<List<String>> coordenadasList=new ArrayList<>();
 
         List<Arrendador> arrendadoresList = arrService.getAllArrendadores();
-        System.out.println("hola");
-        System.out.println(arrendadoresList.size());
+        
         int i=0;
         List<List<String>> arrendadoresNombreLocalMapListAux=new ArrayList<>();
         
@@ -54,22 +53,14 @@ public class HomeController {
             if (!places.isEmpty()) {
                 coordenadas.add((places.get(0).getLat()));
                 coordenadas.add((places.get(0).getLon()));
-                arrendadoresNombreLocalMapListAux.add(arrendadoresNombreLocalMap);
-
-                System.out.println("entro");
-                System.out.println(coordenadas);
-        
+                arrendadoresNombreLocalMapListAux.add(arrendadoresNombreLocalMap);     
                 coordenadasList.add(coordenadas);
             }
         
             model.addAttribute("coordenadas", coordenadas);
             model.addAttribute("coordenadasList", coordenadasList);
-            System.out.println("listam");
-            System.out.println(coordenadasList);
-        }
         
-        System.out.println("auda2321");
-        System.out.println(arrendadoresNombreLocalMapListAux);
+        }
         model.addAttribute("arrendadoresNombreLocalMapListAux", arrendadoresNombreLocalMapListAux);
         
 

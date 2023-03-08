@@ -6,16 +6,40 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link 
+        rel="stylesheet" 
+        href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"
+    />
 	<style>
 		.navbar-brand img {
 			max-height: 50px;
 			border-radius: 8px;
 		}
+		
+		.navbar {
+			background-color: #6B3D6E;
+		}
+		
+		.nav-link {
+			color: white !important;
+		}
+		
+		h1 {
+			color: #6B3D6E;
+		}
+		#map-container {
+			width: 80%;
+			margin: 0 auto;
+			border: 1px;
+			border-radius: 8px;
+			overflow: hidden;
+			margin-top: 20px;
+		}
 	</style>
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg">
 		<a class="navbar-brand" href="#">
 			<img src="/logo.png" alt="Logo de Bart">
 		</a>
@@ -53,10 +77,48 @@
 		<p>La plataforma de contratación bidireccional entre artistas y locales.</p>
 		<!-- Aquí podrías añadir más contenido HTML, como formularios, listas, etc. -->
 	</div>
+	<div id="map-container">
+		<p>Nuestros locales disponibles:</p>
+		
+
+	<div id="map" style="width: 600px; height: 400px"></div>
+	</div>
+    <div id="map" style="height: 500px;"></div>
+
+<!-- Agrega el script para inicializar el mapa -->
+<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([37.3891, -5.9845], 14);
+    mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; ' + mapLink + ' Contributors',
+        maxZoom: 18,
+    }).addTo(map);
+
+	var coordenadasList = JSON.parse('${coordenadasList}');
+
+
+    // Agrega un marcador para cada ubicación en la lista de coordenadas
+    coordenadasList.forEach(function(coordenadas) {
+		L.marker(coordenadas,{draggable: true}).addTo(map);
+        L.marker(coordenadas).addTo(map);
+    });
+</script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<div>
+	coordenadas
+	<p th:text="${coordenadas}"></p>
+		<table>
+			<tr>
+				<td>Direccion:</td>
+				
+				<td th:text="${coordenadasList}"></td>
+			</tr>
+		</table>
+	</div>
 </body>
 
 </html>

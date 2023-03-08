@@ -4,45 +4,75 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import com.example.SpringBootPostgresCRUD.service.AnuncioService;
 import com.example.SpringBootPostgresCRUD.entity.Anuncio;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.ui.Model;
+import java.util.List;
 
 @Controller
-@RequestMapping(value = "/anuncios")
 public class AnuncioController {
 
-    private static final String VISTA_CREAR_ANUNCIO_FORMULARIO = "jsp/CrearAnuncioFormulario";
-    private final AnuncioService AnuncioService;
+    @Autowired
+    AnuncioService anuncioService;
 
-    public AnuncioController(AnuncioService anuncioService) {
-        this.AnuncioService = anuncioService;
+    @GetMapping({ "/viewAnuncios" })
+    public String viewArtistas(@ModelAttribute("message") String message, Model model) {
+        List<Anuncio> anuList = anuncioService.getAllAnuncios();
+
+        model.addAttribute("anuList", anuList);
+        model.addAttribute("message", message);
+
+        return "ViewArtista";
     }
 
-    @GetMapping(value = "/nuevo")
-    public String initCreationForm(Map<String, Object> model) {
-        Anuncio anuncio = new Anuncio(null, null, null, null, null, null);
-        model.put("anuncio", anuncio);
+    @GetMapping("/addAnuncio")
+    public String newAnuncio(@ModelAttribute("message") String message, Model model) {
+        Anuncio anu = new Anuncio();
+        model.addAttribute("anu", anu);
+        model.addAttribute("message", message);
 
-        // TODO
-        return VISTA_CREAR_ANUNCIO_FORMULARIO;
+        return "AddAnuncio";
     }
 
-    @PostMapping(value = "/anuncio/nuevo")
-    public String processCreationForm(@Valid Anuncio anuncio, BindingResult result) {
-        // TODO
-        if (result.hasErrors()) {
-            return VISTA_CREAR_ANUNCIO_FORMULARIO;
-        } else {
-            // creating owner, user, and authority
-            this.AnuncioService.crearAnuncio(anuncio);
-            return "redirect:/";
+    @PostMapping("/saveAnuncio")
+    public String saveAnuncio(Anuncio anu, RedirectAttributes redirectAttributes) {
+        if (anuncioService.saveOrUpdateAnuncio(anu)) {
+            redirectAttributes.addFlashAttribute("message", "Save Success");
+            return "redirect:/Home";
         }
+
+        redirectAttributes.addFlashAttribute("message", "Save Failure");
+        return "redirect:/Home";
+    }
+
+    @PostMapping("/editSaveAnuncio")
+    public String editSaveAnuncio(@ModelAttribute("anu") Anuncio anu, RedirectAttributes redirectAttributes) {
+        if (anuncioService.saveOrUpdateAnuncio(anu)) {
+            redirectAttributes.addFlashAttribute("message", "Edit Success");
+            return "redirect:/viewAnuncios";
+        }
+
+        redirectAttributes.addFlashAttribute("message", "Edit Failure");
+        return "redirect:/editAnuncio/" + anu.getId();
+    }
+
+    @GetMapping("/deleteAnuncio/{id}")
+    public String deleteAnuncio(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        if (anuncioService.deleteAnuncio(id)) {
+            redirectAttributes.addFlashAttribute("message", "Delete Success");
+            return "redirect:/viewAnuncios";
+        }
+
+        redirectAttributes.addFlashAttribute("message", "Delete Failure");
+        return "redirect:/viewAnuncios";
     }
 
 }

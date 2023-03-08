@@ -1,7 +1,7 @@
 -- Eliminar tablas si existen
--- DROP TABLE IF EXISTS artistas;
--- DROP TABLE IF EXISTS arrendadores;
--- DROP TABLE IF EXISTS anuncios;
+DROP TABLE IF EXISTS artistas;
+DROP TABLE IF EXISTS arrendadores;
+DROP TABLE IF EXISTS anuncios;
 
 -- Creación de tablas
 CREATE TABLE artistas (
@@ -45,7 +45,7 @@ INSERT INTO artistas(id, firstName, lastName, email, dob, gender, nombreArtistic
 (1, 'Antonio', 'Perez', 'antonio@gmail.com', '11/05/1970', 'Male', 'Paco Sans', 'Rock');
 INSERT INTO arrendadores(id, firstName, lastName, email, dob, gender, nombreLocal, direccion) VALUES
 (1, 'Paco', 'Perez', 'paco@gmail.com', '11/05/1970', 'Male', 'Bar Paco', 'Renia Mercedes N3');
-INSERT INTO anuncios(id,titulo, ubicacion, precio, especificaciones, estilo, artista_id, arrendador_id) VALUES 
-(1,'Título del anuncio', 'Ciudad, País', 1000.00, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Rock', 1, 1);
-INSERT INTO anuncios(id,titulo, ubicacion, precio, especificaciones, estilo, artista_id, arrendador_id) VALUES 
-(2,'Título del anuncio', 'Ciudad, País', 1000.00, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'RAP', 1, 1);
+INSERT INTO anuncios(id,titulo, ubicacion, precio, especificaciones, estilo, artista_id) VALUES 
+(1,'Título del anuncio', 'Ciudad, País', 1000.00, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'ROCK',  1);
+INSERT INTO anuncios(id,titulo, ubicacion, precio, especificaciones, estilo, arrendador_id) VALUES 
+(2,'Título del anuncio', 'Ciudad, País', 1000.00, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'RAP',  1);

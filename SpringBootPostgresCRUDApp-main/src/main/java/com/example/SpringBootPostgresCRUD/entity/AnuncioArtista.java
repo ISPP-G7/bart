@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import javax.persistence.Table;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Min;
@@ -20,8 +20,8 @@ import javax.persistence.EnumType;
 @Setter
 @Entity
 
-@Table(name = "anuncios")
-public class Anuncio {
+@Table(name = "anunciosArtista")
+public class AnuncioArtista {
 
     @Id
     private Long id;
@@ -29,7 +29,7 @@ public class Anuncio {
     @NotBlank
     @Min(10)
     @Max(50)
-    private String titulo;
+    private String pseudonimoArtista;
 
     @NotBlank
     @Min(5)
@@ -43,33 +43,32 @@ public class Anuncio {
     @NotBlank
     @Min(15)
     @Max(300)
-    private String especificaciones;
+    private String descripcionArtista;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private Estilo estilo;
 
-    // falta subir imagenes y poner bien lo del precio fijo/negociable
+    @Valid
+    @OneToOne
+    private Artista artista_id;
 
-    public Anuncio(Long id, String titulo, String ubicacion,
-            Float precio, String especificaciones, Estilo estilo) {
+    public AnuncioArtista(Long id, String pseudonimoArtista, String ubicacion,
+            Float precio, String descripcionArtista, Estilo estilo) {
         this.id = id;
-        this.titulo = titulo;
+        this.pseudonimoArtista = pseudonimoArtista;
         this.ubicacion = ubicacion;
         this.precio = precio;
-        this.especificaciones = especificaciones;
+        this.descripcionArtista = descripcionArtista;
         this.estilo = estilo;
     }
 
-    public Anuncio() {
+    public String getPseudonimoArtista() {
+        return pseudonimoArtista;
     }
 
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setTitulo(String pseudonimoArtista) {
+        this.pseudonimoArtista = pseudonimoArtista;
     }
 
     public Estilo getEstilo() {
@@ -96,12 +95,12 @@ public class Anuncio {
         this.ubicacion = ubicacion;
     }
 
-    public String getEspecificaciones() {
-        return especificaciones;
+    public String getDescripicionArtista() {
+        return descripcionArtista;
     }
 
-    public void setEspecificaciones(String especificaciones) {
-        this.especificaciones = especificaciones;
+    public void setDescripicionArtista(String especificaciones) {
+        this.descripcionArtista = especificaciones;
     }
 
     // otros getters y setters específicos de Artista

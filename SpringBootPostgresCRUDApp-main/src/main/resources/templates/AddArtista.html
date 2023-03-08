@@ -15,13 +15,12 @@
     <script
             src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     
-    <iframe src="Home.html" height="50px" width="100%" frameborder="0" scrolling="no"></iframe>
 
-<?php include('navbar.html'); ?> 
 </head>
 <body>
+    <div th:replace="Home :: Home"></div>
     <div class="container">
-
+        
         <h1 class="p-3">Add Artist</h1>
 
         <form th:action="@{/saveArtista}" th:object="${art}" method="post">

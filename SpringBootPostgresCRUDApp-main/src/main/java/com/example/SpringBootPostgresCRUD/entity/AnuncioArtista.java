@@ -63,53 +63,14 @@ public class AnuncioArtista {
     }
 
     public AnuncioArtista(Long id, String pseudonimoArtista, String ubicacion,
-            Float precio, String descripcionArtista, Estilo estilo) {
+            Float precio, String descripcionArtista, Estilo estilo, Artista artista) {
         this.id = id;
         this.pseudonimoArtista = pseudonimoArtista;
         this.ubicacion = ubicacion;
         this.precio = precio;
         this.descripcionArtista = descripcionArtista;
         this.estilo = estilo;
-    }
-
-    public String getPseudonimoArtista() {
-        return pseudonimoArtista;
-    }
-
-    public void setTitulo(String pseudonimoArtista) {
-        this.pseudonimoArtista = pseudonimoArtista;
-    }
-
-    public Estilo getEstilo() {
-        return estilo;
-    }
-
-    public void setEstilo(Estilo estilo) {
-        this.estilo = estilo;
-    }
-
-    public Float getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Float precio) {
-        this.precio = precio;
-    }
-
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public String getDescripicionArtista() {
-        return descripcionArtista;
-    }
-
-    public void setDescripicionArtista(String especificaciones) {
-        this.descripcionArtista = especificaciones;
+        this.artista= artista;
     }
 
     // otros getters y setters específicos de Artista

@@ -22,7 +22,7 @@ public class ArtistaService {
     }
 
     public Artista getArtistaById(Long id) {
-        return artistaRepository.findById(id).get();
+           return artistaRepository.findById(id).get();
     }
 
     public boolean saveOrUpdateArtista(Artista Artista) {

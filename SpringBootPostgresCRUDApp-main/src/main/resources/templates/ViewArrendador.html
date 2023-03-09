@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>View User List</title>
+    <title>Ver lista de arrendadores</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -31,39 +31,43 @@
 
         <h1 th:text="${message}"></h1>
 
-        <h1 class="p-3">Users List</h1>
+        <h1 class="p-3">Lista de arrendadores</h1>
 
             <table class="table table-bordered">
                 <tr>
                     <th>Id</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
                     <th>Email</th>
-                    <th>Date Of Birth</th>
-                    <th>Gender</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Género</th>
+                    <th>Nombre del local</th>
+                    <th>Dirección del local</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
                 </tr>
 
-                    <tr th:each="user : ${usrList}">
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.firstName}"></td>
-                        <td th:text="${user.lastName}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.dob}"></td>
-                        <td th:text="${user.gender}"></td>
+                    <tr th:each="Arrendador : ${arrList}">
+                        <td th:text="${Arrendador.id}"></td>
+                        <td th:text="${Arrendador.firstName}"></td>
+                        <td th:text="${Arrendador.lastName}"></td>
+                        <td th:text="${Arrendador.email}"></td>
+                        <td th:text="${Arrendador.dob}"></td>
+                        <td th:text="${Arrendador.gender}"></td>
+                        <td th:text="${Arrendador.nombreLocal}"></td>
+                        <td th:text="${Arrendador.direccion}"></td>
                         <td><button type="button" class="btn btn-success">
-                            <a th:href="@{/editUser/{id}(id=${user.id})}">Edit</a>
+                            <a th:href="@{/editArrendador/{id}(id=${Arrendador.id})}">Editar</a>
                         </button></td>
                         <td><button type="button" class="btn btn-danger">
-                            <a th:href="@{/deleteUser/{id}(id=${user.id})}">Delete</a>
+                            <a th:href="@{/deleteArrendador/{id}(id=${Arrendador.id})}">Eliminar</a>
                         </button></td>
                     </tr>
 
             </table>
 
         <button type="button" class="btn btn-primary btn-block">
-            <a href="/addUser">Add New User</a>
+            <a href="/addArrendador">Añadir nuevo arrendador</a>
         </button>
 
     </div>
@@ -73,13 +77,13 @@
 
             var msg = [[${message}]];
             if (msg == "Save Success") {
-				Command: toastr["success"]("User created successfully!!")
+				Command: toastr["success"]("Arrendador creado con éxito")
 			} else if (msg == "Delete Success") {
-				Command: toastr["success"]("User deleted successfully!!")
+				Command: toastr["success"]("Arrendador eliminado con éxito")
 			} else if (msg == "Delete Error") {
-			    Command: toastr["error"]("Some error occurred, couldn't delete user")
+			    Command: toastr["error"]("Ha ocurrido un error, no se pudo eliminar el arrendador")
 			} else if (msg == "Edit Success") {
-				Command: toastr["success"]("User updated successfully!!")
+				Command: toastr["success"]("Arrendador actualizado con éxito")
 			}
 
 			toastr.options = {

@@ -22,6 +22,14 @@
         <h1 class="p-3">Add Anuncio Arrendador</h1>
 
         <form th:action="@{/saveAnuncioArrendador}" th:object="${anu}" method="post">
+            <div>
+                <label for="arrendadores">Selecciona arrendadores:</label>
+                <select id="arrendadores" name="arrendadores" multiple>
+                    <option th:each="arrendador : ${arrendadoresDisponibles}" th:value="${arrendador.id}" th:text="${arrendador.id}"></option>
+                </select>
+            </div>
+
+            
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="nombreLocal">Nombre del Local</label>

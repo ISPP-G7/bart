@@ -67,7 +67,7 @@ public class AnuncioArrendador {
     private Estilo estilo;
 
     @OneToOne
-    private Arrendador arrendador_id;
+    private Arrendador arrendador;
 
     public AnuncioArrendador() {
 

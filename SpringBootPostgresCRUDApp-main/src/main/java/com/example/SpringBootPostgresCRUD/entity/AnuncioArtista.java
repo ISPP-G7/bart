@@ -56,7 +56,7 @@ public class AnuncioArtista {
     private Estilo estilo;
 
     @OneToOne
-    private Artista artista_id;
+    private Artista artista;
 
     public AnuncioArtista() {
 

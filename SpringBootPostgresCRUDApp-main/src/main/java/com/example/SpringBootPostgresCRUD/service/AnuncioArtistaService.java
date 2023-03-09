@@ -32,7 +32,7 @@ public class AnuncioArtistaService {
     }
 
     public boolean saveOrUpdateAnuncioArtista(AnuncioArtista anuncioArtista) {
-        anuncioArtista.setArtista_id(artistaRepository.getById(6L));
+        anuncioArtista.setArtista_id(artistaRepository.getById(6L));//Esto hay que hacer que coja el id del artista automáticamente.
         AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
         if (anuncioArtistaRepository.findById(anu.getId()) != null) {
             return true;

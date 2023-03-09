@@ -14,6 +14,8 @@ import javax.validation.Valid;
 import lombok.Setter;
 import lombok.Getter;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.EnumType;
 
 @Getter
@@ -24,34 +26,37 @@ import javax.persistence.EnumType;
 public class AnuncioArtista {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
-    @Min(10)
-    @Max(50)
+    //@NotBlank
+    //@Min(10)
+    //@Max(50)
     private String pseudonimoArtista;
 
-    @NotBlank
-    @Min(5)
-    @Max(60)
+    //@NotBlank
+    /*@Min(5)
+    @Max(60)*/
     private String ubicacion;
 
-    @NotNull
-    @Positive
+    /*@NotNull
+    @Positive*/
     private Float precio;
 
-    @NotBlank
-    @Min(15)
-    @Max(300)
+   // @NotBlank
+    //@Min(15)
+    //@Max(300)
     private String descripcionArtista;
 
-    @NotNull
+    //@NotNull
     @Enumerated(EnumType.STRING)
     private Estilo estilo;
 
-    @Valid
+
     @OneToOne
     private Artista artista_id;
+
+ 
 
     public AnuncioArtista() {
 

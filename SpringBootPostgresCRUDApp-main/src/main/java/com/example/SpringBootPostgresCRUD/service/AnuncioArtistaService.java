@@ -8,12 +8,18 @@ import org.springframework.stereotype.Service;
 
 import com.example.SpringBootPostgresCRUD.entity.AnuncioArtista;
 import com.example.SpringBootPostgresCRUD.repo.AnuncioArtistaRepository;
+import com.example.SpringBootPostgresCRUD.repo.ArtistaRepository;
 
 @Service
 public class AnuncioArtistaService {
 
     @Autowired
     private AnuncioArtistaRepository anuncioArtistaRepository;
+
+    @Autowired
+    private ArtistaRepository artistaRepository;
+
+
 
     // métodos de servicio que utilizan artistaRepositorys
     // Constructor
@@ -26,6 +32,7 @@ public class AnuncioArtistaService {
     }
 
     public boolean saveOrUpdateAnuncioArtista(AnuncioArtista anuncioArtista) {
+        anuncioArtista.setArtista_id(artistaRepository.getById(6L));
         AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
         if (anuncioArtistaRepository.findById(anu.getId()) != null) {
             return true;

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.SpringBootPostgresCRUD.service.AnuncioArrendadorService;
 import com.example.SpringBootPostgresCRUD.service.AnuncioArtistaService;
-import com.example.SpringBootPostgresCRUD.entity.Anuncio;
 import com.example.SpringBootPostgresCRUD.entity.AnuncioArrendador;
 import com.example.SpringBootPostgresCRUD.entity.AnuncioArtista;
 

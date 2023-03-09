@@ -29,34 +29,34 @@ public class AnuncioArtista {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //@NotBlank
-    //@Min(10)
-    //@Max(50)
+    // @NotBlank
+    // @Min(10)
+    // @Max(50)
     private String pseudonimoArtista;
 
-    //@NotBlank
+    // @NotBlank
     /*@Min(5)
-    @Max(60)*/
+     @Max(60)
+     */
     private String ubicacion;
 
-    /*@NotNull
-    @Positive*/
+    /*
+    @NotNull
+    @Positive
+     */
     private Float precio;
 
-   // @NotBlank
-    //@Min(15)
-    //@Max(300)
+    // @NotBlank
+    // @Min(15)
+    // @Max(300)
     private String descripcionArtista;
 
-    //@NotNull
+    // @NotNull
     @Enumerated(EnumType.STRING)
     private Estilo estilo;
 
-
     @OneToOne
     private Artista artista_id;
-
- 
 
     public AnuncioArtista() {
 

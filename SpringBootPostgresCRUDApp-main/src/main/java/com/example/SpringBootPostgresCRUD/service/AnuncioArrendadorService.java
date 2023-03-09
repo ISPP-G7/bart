@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.example.SpringBootPostgresCRUD.entity.AnuncioArrendador;
 import com.example.SpringBootPostgresCRUD.repo.AnuncioArrendadorRepository;
+import com.example.SpringBootPostgresCRUD.repo.ArrendadorRepository;
 
 @Service
 public class AnuncioArrendadorService {
 
     @Autowired
     private AnuncioArrendadorRepository anuncioArrendadorRepository;
+
+    @Autowired
+    private ArrendadorRepository arrendadorRepository;
 
     public List<AnuncioArrendador> getAllAnunciosArrendador() {
         List<AnuncioArrendador> AnuncioArrendadorList = new ArrayList<>();
@@ -24,6 +28,8 @@ public class AnuncioArrendadorService {
     }
 
     public boolean saveOrUpdateAnuncioArrendador(AnuncioArrendador anuncioArrendador) {
+        anuncioArrendador.setArrendador_id(arrendadorRepository.getById(3L));// Esto hay que hacer que coja el id del
+                                                                             // artista automáticamente.
         AnuncioArrendador anu = anuncioArrendadorRepository.save(anuncioArrendador);
         if (anuncioArrendadorRepository.findById(anu.getId()) != null) {
             return true;

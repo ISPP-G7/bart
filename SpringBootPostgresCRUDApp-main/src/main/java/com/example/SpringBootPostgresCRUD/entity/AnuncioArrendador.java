@@ -13,6 +13,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.Valid;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import lombok.Setter;
 import lombok.Getter;
 
@@ -20,35 +22,50 @@ import lombok.Getter;
 @Setter
 @Entity
 @Table(name = "anunciosArrendador")
-public class AnuncioArrendador /* extends Anuncio */ {
+public class AnuncioArrendador {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
-    @Min(10)
-    @Max(50)
+    /*
+     * @NotBlank
+     * 
+     * @Min(10)
+     * 
+     * @Max(50)
+     */
     private String nombreLocal;
 
-    @NotBlank
-    @Min(5)
-    @Max(60)
+    /*
+     * @NotBlank
+     * 
+     * @Min(5)
+     * 
+     * @Max(60)
+     */
     private String ubicacion;
 
-    @NotNull
-    @Positive
+    /*
+     * @NotNull
+     * 
+     * @Positive
+     */
     private Float precio;
 
-    @NotBlank
-    @Min(15)
-    @Max(300)
+    /*
+     * @NotBlank
+     * 
+     * @Min(15)
+     * 
+     * @Max(300)
+     */
     private String descripcionArrendador;
 
-    @NotNull
+    // @NotNull
     @Enumerated(EnumType.STRING)
     private Estilo estilo;
 
-    @Valid
     @OneToOne
     private Arrendador arrendador_id;
 

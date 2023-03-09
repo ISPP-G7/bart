@@ -64,17 +64,6 @@ public class AnuncioArtistaController {
         return "redirect:/addAnuncioArtista";
     }
 
-    @PostMapping("/editSaveAnuncioArtista")
-    public String editSaveAnuncioArtista(@ModelAttribute("anu") AnuncioArtista anu,
-            RedirectAttributes redirectAttributes,HttpServletRequest request) {
-        if (anuncioArtistaService.saveOrUpdateAnuncioArtista(anu,Long.parseLong(request.getParameter("artistas")))) {
-            redirectAttributes.addFlashAttribute("message", "Edit Success");
-            return "redirect:/viewAnunciosArtista";
-        }
-
-        redirectAttributes.addFlashAttribute("message", "Edit Failure");
-        return "redirect:/editAnunciosArtista/" + anu.getId();
-    }
 
     @GetMapping("/deleteAnuncioArtista/{id}")
     public String deleteAnuncioArtista(@PathVariable Long id, RedirectAttributes redirectAttributes) {
@@ -96,6 +85,19 @@ public class AnuncioArtistaController {
         model.addAttribute("message", message);
 
         return "EditAnuncioArtista";
+    }
+
+    
+    @PostMapping("/editSaveAnuncioArtista")
+    public String editSaveAnuncioArtista(@ModelAttribute("anu") AnuncioArtista anu,
+            RedirectAttributes redirectAttributes) {
+        if (anuncioArtistaService.updateAnuncioArtista(anu)) {
+            redirectAttributes.addFlashAttribute("message", "Edit Success");
+            return "redirect:/viewAnunciosArtista";
+        }
+
+        redirectAttributes.addFlashAttribute("message", "Edit Failure");
+        return "redirect:/editAnunciosArtista/" + anu.getId();
     }
 
     

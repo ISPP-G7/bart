@@ -23,12 +23,6 @@
         <h1 class="p-3">Edit Anuncio</h1>
 
         <form th:action="@{/editSaveAnuncioArtista}" th:object="${anu}" method="post">
-            <div>
-                <label for="artistas">Selecciona artistas:</label>
-                <select id="artistas" name="artistas" multiple>
-                    <option th:each="artista : ${artistasDisponibles}" th:value="${artista.id}" th:text="${artista.id}"></option>
-                </select>
-            </div>
 
             <div class="row">
                 <div class="form-group col-md-12">

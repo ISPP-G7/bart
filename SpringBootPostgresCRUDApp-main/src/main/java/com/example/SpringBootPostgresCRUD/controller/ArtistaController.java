@@ -18,7 +18,14 @@ public class ArtistaController {
 
     @Autowired
     ArtistaService artService;
+    @GetMapping("/SignUpArtista")
+    public String signUpUser(@ModelAttribute("message") String message, Model model) {
+        Artista art = new Artista();
+        model.addAttribute("art", art);
+        model.addAttribute("message", message);
 
+        return "signUpArtista";
+    }
     @GetMapping({"/viewArtistas"})
     public String viewArtistas(@ModelAttribute("message") String message, Model model) {
         List<Artista> artList = artService.getAllArtistas();

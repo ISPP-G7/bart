@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Artist List</title>
+    <title>Sign Up Artista</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -21,7 +21,7 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
         
-        <h1 class="p-3">Add Artist</h1>
+        <h1 class="p-3">Sign Up Artista</h1>
 
         <form th:action="@{/saveArtista}" th:object="${art}" method="post">
             <div class="row">
@@ -88,7 +88,19 @@
                     </div>
                 </div>
             </div>
-                       <div class="row">
+
+            
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">Password</label>
+                    <div class="col-md-6">
+                        <input type="password" th:field="*{password}" id="password"
+                                   class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+            </div>
+            
+                <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3">nombreArtistico</label>
                     <div class="col-md-6">

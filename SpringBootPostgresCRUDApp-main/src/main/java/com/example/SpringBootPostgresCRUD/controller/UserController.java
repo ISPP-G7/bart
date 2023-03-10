@@ -1,6 +1,7 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
 import com.example.SpringBootPostgresCRUD.entity.User;
+import com.example.SpringBootPostgresCRUD.repo.UserRepository;
 import com.example.SpringBootPostgresCRUD.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,17 @@ public class UserController {
 
     @Autowired
     UserService usrService;
+    @Autowired
+    UserRepository usrRepo;
 
+    @GetMapping("/SignUpUser")
+    public String signUpUser(@ModelAttribute("message") String message, Model model) {
+        User usr = new User();
+        model.addAttribute("usr", usr);
+        model.addAttribute("message", message);
+
+        return "signUpUser";
+    }
     @GetMapping({"/viewUsers"})
     public String viewUsers(@ModelAttribute("message") String message, Model model) {
         List<User> usrList = usrService.getAllUsers();

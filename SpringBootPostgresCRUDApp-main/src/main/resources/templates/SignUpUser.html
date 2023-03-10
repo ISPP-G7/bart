@@ -19,7 +19,7 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
 
-        <h1 class="p-3">Add user</h1>
+        <h1 class="p-3">Sign up user</h1>
 
         <form th:action="@{/saveUser}" th:object="${usr}" method="post">
             <div class="row">
@@ -31,7 +31,15 @@
                     </div>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">Password</label>
+                    <div class="col-md-6">
+                        <input type="password" th:field="*{password}" id="password"
+                                   class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="lastName">Last Name</label>

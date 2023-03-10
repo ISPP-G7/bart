@@ -37,6 +37,14 @@ public class AnuncioArrendadorService {
         return false;
     }
 
+    public boolean updateAnuncioArrendador(AnuncioArrendador anuncioArrendador) {
+        AnuncioArrendador anu = anuncioArrendadorRepository.save(anuncioArrendador);
+        if (anuncioArrendadorRepository.findById(anu.getId()) != null) {
+            return true;
+        }
+        return false;
+    }
+    
     public AnuncioArrendador getAnuncioArrendadorById(Long id) {
         return anuncioArrendadorRepository.findById(id).get();
     }

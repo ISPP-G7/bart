@@ -1,23 +1,31 @@
 package com.example.SpringBootPostgresCRUD.entity;
 
-import java.time.LocalTime;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Entity
+@Table(name = "messages")
 public class Message {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private String senderName;
-    private String receiverName;
-    private String message;
-    private LocalTime date;
-    private Status status;
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "userSender")
+    private User userSender;
+
+    @ManyToOne
+    @JoinColumn(name = "userReciever")
+    private User userReciever;
 }

@@ -28,7 +28,6 @@ public class ArtistaController {
 
         model.addAttribute("artList", artList);
         model.addAttribute("message", message);
-
         return "ViewArtista";
     }
 

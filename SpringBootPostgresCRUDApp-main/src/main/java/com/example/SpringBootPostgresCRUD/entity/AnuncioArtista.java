@@ -73,5 +73,16 @@ public class AnuncioArtista {
         this.artista= artista;
     }
 
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
+
+	public void setArtista(Artista byId) {
+		// TODO Auto-generated method stub
+		this.artista = byId;
+		
+	}
+
     // otros getters y setters específicos de Artista
 }

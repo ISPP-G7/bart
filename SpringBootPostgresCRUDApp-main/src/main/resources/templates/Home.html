@@ -8,31 +8,51 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
 	<style>
-		.navbar-brand img {
-			max-height: 50px;
-			border-radius: 8px;
+		/* Hacer el navbar responsive */
+		.navbar-expand-lg {
+			flex-wrap: nowrap;
 		}
-		
+	
+		.navbar-collapse {
+			justify-content: flex-end;
+		}
+	
+		.navbar-toggler {
+			margin-right: 0;
+		}
+	
+		/* Cambiar el color principal */
 		.navbar {
-			background-color: #6B3D6E;
+			background-color: #967BB6;
 		}
-		
+	
+		/* Cambiar el color de los links */
 		.nav-link {
-			color: white !important;
+			color: white;
 		}
-		
+	
+		/* Cambiar el color del h1 */
 		h1 {
-			color: #6B3D6E;
+			color: #967BB6;
 		}
+	
+		/* Hacer el contenedor del mapa responsive */
 		#map-container {
-			width: 80%;
-			margin: 0 auto;
-			border: 1px;
+			width: 100%;
+			max-width: 800px;
+			margin: 20px auto;
+			border: 1px solid #967BB6;
 			border-radius: 8px;
 			overflow: hidden;
-			margin-top: 20px;
+		}
+	
+		/* Hacer el mapa responsive */
+		#map {
+			width: 100%;
+			height: 400px;
 		}
 	</style>
+	
 </head>
 
 <body>

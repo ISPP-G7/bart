@@ -19,7 +19,14 @@ public class ArrendadorController {
     
     @Autowired
     ArrendadorService arrService;
+    @GetMapping("/SignUpArrendador")
+    public String signUpUser(@ModelAttribute("message") String message, Model model) {
+        Arrendador arr = new Arrendador();
+        model.addAttribute("arr", arr);
+        model.addAttribute("message", message);
 
+        return "signUpArrendador";
+    }
     @GetMapping({"/viewArrendadores"})
     public String viewArrendadores(@ModelAttribute("message") String message, Model model) {
         List<Arrendador> arrList = arrService.getAllArrendadores();

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Artist List</title>
+    <title>Add user</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -14,16 +14,14 @@
             src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script
             src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    
-
 </head>
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="container">
-        
-        <h1 class="p-3">Add Artist</h1>
 
-        <form th:action="@{/saveArtista}" th:object="${art}" method="post">
+        <h1 class="p-3">Sign up user</h1>
+
+        <form th:action="@{/saveUser}" th:object="${usr}" method="post">
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="firstName">First Name</label>
@@ -33,7 +31,15 @@
                     </div>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">Password</label>
+                    <div class="col-md-6">
+                        <input type="password" th:field="*{password}" id="password"
+                                   class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="lastName">Last Name</label>
@@ -88,22 +94,7 @@
                     </div>
                 </div>
             </div>
-                       <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3">nombreArtistico</label>
-                    <div class="col-md-6">
-                        <input type="text" th:field="*{nombre_artistico}" id="nombre_artistico"
-                                    class="form-control input-sm" required="required" />
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <label class="col-md-3">categoriaArtistica</label>
-                    <div class="col-md-6">
-                        <input type="text" th:field="*{categoria_artistica}" id="categoria_artistica"
-                                    class="form-control input-sm" required="required" />
-                    </div>
-                </div>
-            </div>
+
             <div class="row p-2">
                 <div class="col-md-2">
                     <button class="btn btn-success">Create</button>
@@ -118,7 +109,7 @@
 
             var msg = [[${message}]];
             if (msg == "Save Failure") {
-				Command: toastr["error"]("Some error occurred, couldn't save Artist")
+				Command: toastr["error"]("Some error occurred, couldn't save user")
 
 				toastr.options = {
                   "closeButton": true,
@@ -140,5 +131,4 @@
 	    }
     </script>
 </body>
-<?php include('navbar.html'); ?>
 </html>

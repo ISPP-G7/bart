@@ -44,6 +44,8 @@ CREATE TABLE anuncios (
 
 
 -- Inserción de datos
+--INSERT INTO users(firstName, lastName, email, dob, gender, password) VALUES
+--(1, 'Antonio', 'Perez', 'antonio@gmail.com', '11/05/1970', 'Male', 'password');
 INSERT INTO artistas(id, firstName, lastName, email, dob, gender, nombreArtistico, categoriaArtistica) VALUES
 (1, 'Antonio', 'Perez', 'antonio@gmail.com', '11/05/1970', 'Male', 'Paco Sans', 'Rock');
 INSERT INTO arrendadores(id, firstName, lastName, email, dob, gender, nombreLocal, direccion) VALUES

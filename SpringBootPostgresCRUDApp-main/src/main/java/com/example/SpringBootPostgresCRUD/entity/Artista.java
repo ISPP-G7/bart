@@ -13,9 +13,9 @@ public class Artista extends User {
     public Artista() {
     }
 
-    public Artista(Long id, String firstName, String lastName, String email, String dob, String gender,
+    public Artista(Long id, String password, String firstName, String lastName, String email, String dob, String gender,
             String nombre_artistico, String categoria_artistica) {
-        super(id, firstName, lastName, email, dob, gender);
+        super(id, password, firstName, lastName, email, dob, gender);
         this.nombre_artistico = nombre_artistico;
         this.categoria_artistica = categoria_artistica;
     }

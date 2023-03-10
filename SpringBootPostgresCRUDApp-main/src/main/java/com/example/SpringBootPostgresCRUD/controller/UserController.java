@@ -10,18 +10,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class UserController {
 
     @Autowired
     UserService usrService;
+    @Autowired
+    UserRepository usrRepo;
 
+    @GetMapping("/SignUpUser")
+    public String signUpUser(@ModelAttribute("message") String message, Model model) {
+        User usr = new User();
+        model.addAttribute("usr", usr);
+        model.addAttribute("message", message);
+
+        return "signUpUser";
+    }
     @GetMapping({"/viewUsers"})
     public String viewUsers(@ModelAttribute("message") String message, Model model) {
         List<User> usrList = usrService.getAllUsers();

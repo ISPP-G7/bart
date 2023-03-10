@@ -1,7 +1,6 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
 import com.example.SpringBootPostgresCRUD.entity.Artista;
-import com.example.SpringBootPostgresCRUD.repo.ArtistaRepository;
 import com.example.SpringBootPostgresCRUD.service.ArtistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,18 +9,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ArtistaController {
 
     @Autowired
     ArtistaService artService;
+    @GetMapping("/SignUpArtista")
+    public String signUpUser(@ModelAttribute("message") String message, Model model) {
+        Artista art = new Artista();
+        model.addAttribute("art", art);
+        model.addAttribute("message", message);
 
+        return "signUpArtista";
+    }
     @GetMapping({"/viewArtistas"})
     public String viewArtistas(@ModelAttribute("message") String message, Model model) {
         List<Artista> artList = artService.getAllArtistas();

@@ -2,6 +2,8 @@ package com.example.SpringBootPostgresCRUD.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -44,17 +46,17 @@ public class MessageController {
     public String viewMessages(@PathVariable("email2") String email2, @ModelAttribute("message") String message,
             Model model) {
         String email1 = SecurityContextHolder.getContext().getAuthentication().getName();
-        List<Message> mensajes = messageService.getAllMessagesBySenderAndReceiver(email1, email2);
-        model.addAttribute("emailReceiver", email2);
+        List<Message> mensajes = messageService.getByPreviousChat(email1, email2);
+        model.addAttribute("emailReceiverS", email2);
         model.addAttribute("mensajes", mensajes);
         model.addAttribute("message", message);
         return "ViewMessage";
     }
 
-    @PostMapping("/saveMessage/{emailReceiver}")
-    public String saveMessage(@PathVariable("emailReceiver") String emailReceiver,
-            @RequestParam("bodyMessage") String bodyMessage,
-            RedirectAttributes redirectAttributes) {
+    @PostMapping("/saveMessage")
+    public String saveMessage(@RequestParam("bodyMessage") String bodyMessage,
+            RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        String emailReceiver = request.getRequestURL().toString().split("/")[1].trim();
         Message msg = new Message();
         String emailSender = SecurityContextHolder.getContext().getAuthentication().getName();
         User userSender = userService.getUserByEmail(emailSender);
@@ -68,7 +70,7 @@ public class MessageController {
         } else {
             redirectAttributes.addFlashAttribute("message", "Save Failure");
         }
-        return "redirect:/viewMessages/" + emailReceiver;
+        return "redirect:/ViewMessage" + emailReceiver;
     }
 
     @GetMapping("/deleteMessage/{id}")

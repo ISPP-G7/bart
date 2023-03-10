@@ -27,14 +27,14 @@
             <td th:text="${Message.userSender.email}"></td>
             <td th:text="${Message.userReceiver.email}"></td>
             <td><button type="button" class="btn btn-danger">
-                    <a th:href="@{/deleteMessage/{id}(id=${Message.id})}">Delete</a>
+                    <a th:href="@{/deleteMessage/}+${Message.id}+'/'+${Message.userReceiver.email}">Delete</a>
                 </button></td>
         </tr>
     </table>
 
 
 
-    <form method="post" th:action="@{/saveMessage}">
+    <form method="post" th:action="@{/saveMessage/}+${emailReceiverS}">
         <input type="text" name="bodyMessage">
         <input type="submit" value="Enviar">
     </form>

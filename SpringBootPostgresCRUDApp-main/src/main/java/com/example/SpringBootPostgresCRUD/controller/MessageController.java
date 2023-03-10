@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.SpringBootPostgresCRUD.entity.Message;
 import com.example.SpringBootPostgresCRUD.entity.User;
@@ -53,10 +54,10 @@ public class MessageController {
         return "ViewMessage";
     }
 
-    @PostMapping("/saveMessage")
-    public String saveMessage(@RequestParam("bodyMessage") String bodyMessage,
-            RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        String emailReceiver = request.getRequestURL().toString().split("/")[1].trim();
+    @PostMapping("/saveMessage/{emailReceiver}")
+    public String saveMessage(@PathVariable("emailReceiver") String emailReceiver,
+            @RequestParam("bodyMessage") String bodyMessage,
+            RedirectAttributes redirectAttributes) {
         Message msg = new Message();
         String emailSender = SecurityContextHolder.getContext().getAuthentication().getName();
         User userSender = userService.getUserByEmail(emailSender);
@@ -70,17 +71,24 @@ public class MessageController {
         } else {
             redirectAttributes.addFlashAttribute("message", "Save Failure");
         }
-        return "redirect:/ViewMessage" + emailReceiver;
+        return "redirect:/viewMessages/" + emailReceiver;
     }
 
-    @GetMapping("/deleteMessage/{id}")
-    public String deleteMessage(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    @GetMapping("/deleteMessage/{id}/{emailReceiver}")
+    public String deleteMessage(@PathVariable Long id, @PathVariable("emailReceiver") String emailReceiver,
+            RedirectAttributes redirectAttributes) {
         if (messageService.deleteMessage(id)) {
             redirectAttributes.addFlashAttribute("message", "Delete Success");
-            return "redirect:/viewMessages";
+            return "redirect:/viewMessages/" + emailReceiver;
         }
         redirectAttributes.addFlashAttribute("message", "Delete Failure");
-        return "redirect:/viewMessages";
+        return "redirect:/viewMessages/" + emailReceiver;
+    }
+
+    @GetMapping("/refresh")
+    public RedirectView refresh(HttpServletRequest request) {
+        String currentUrl = request.getRequestURL().toString();
+        return new RedirectView(currentUrl);
     }
 
 }

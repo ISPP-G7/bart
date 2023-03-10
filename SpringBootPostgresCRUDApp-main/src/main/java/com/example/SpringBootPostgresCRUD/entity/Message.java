@@ -31,9 +31,4 @@ public class Message {
     @JoinColumn(name = "userReceiver")
     private User userReceiver;
 
-	public Long getId() {
-		// TODO Auto-generated method stub
-		return this.id;
-	}
-
 }

@@ -59,7 +59,9 @@ public class HomeController {
 
         }
         model.addAttribute("arrendadoresNombreLocalMapListAux", arrendadoresNombreLocalMapListAux);
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+
+        // Para que aparezca el nombre de usuario
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             model.addAttribute("nombreUsuario", SecurityContextHolder.getContext().getAuthentication().getName());
         } else {
             model.addAttribute("nombreUsuario", "");

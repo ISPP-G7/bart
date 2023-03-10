@@ -19,7 +19,10 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     @Query("SELECT message FROM Message message WHERE message.userSender.email= :email or message.userReceiver=:email")
     public List<Message> findBySenderOrReceiverEmail(@Param("email") String email);
 
-    @Query("SELECT message FROM Message message WHERE (message.userReceiver.email= :email1 and message.userSender=:email2) or  (message.userReceiver.email= :email2 and message.userSender=:email1)")
+    @Query("SELECT message FROM Message message WHERE (message.userReceiver.email= :email1 and message.userSender=:email2) or (message.userReceiver.email= :email2 and message.userSender=:email1)")
     public List<Message> findByPreviousChat(@Param("email1") String email1, @Param("email2") String email2);
 
+    @Query("SELECT message FROM Message message WHERE message.userReceiver.email= :email1 and message.userSender=:email2")
+    public List<Message> findAllMessagesBySenderAndReceiver(@Param("email1") String email1,
+            @Param("email2") String email2);
 }

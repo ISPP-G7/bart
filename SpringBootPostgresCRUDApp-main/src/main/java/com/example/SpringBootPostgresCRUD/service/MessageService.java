@@ -27,8 +27,8 @@ public class MessageService {
     }
 
     public boolean saveOrUpdateMessage(Message Message) {
-        Message ars = messageRepository.save(Message);
-        if (messageRepository.findById(ars.getId()) != null) {
+        Message msg = messageRepository.save(Message);
+        if (messageRepository.findById(msg.getId()) != null) {
             return true;
         }
         return false;
@@ -42,8 +42,19 @@ public class MessageService {
         return false;
     }
 
-    public List<Message> findByPreviousChat(String email1, String email2) {
+    public List<Message> findBySenderOrReceiverEmail(String email) {
+        return messageRepository.findBySenderOrReceiverEmail(email);
+    }
+
+    public List<Message> getByPreviousChat(String email1, String email2) {
         return messageRepository.findByPreviousChat(email1, email2);
+    }
+
+    public List<Message> getAllMessagesBySenderAndReceiver(String email1, String email2) {
+        List<Message> lista1 = messageRepository.findAllMessagesBySenderAndReceiver(email1, email2);
+        List<Message> lista2 = messageRepository.findAllMessagesBySenderAndReceiver(email2, email1);
+        lista1.addAll(lista2);
+        return lista1;
     }
 
 }

@@ -16,16 +16,19 @@ import lombok.Setter;
 @Entity
 @Table(name = "messages")
 public class Message {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
+
+    private String messageBody;
 
     @ManyToOne
     @JoinColumn(name = "userSender")
     private User userSender;
 
     @ManyToOne
-    @JoinColumn(name = "userReciever")
-    private User userReciever;
+    @JoinColumn(name = "userReceiver")
+    private User userReceiver;
+
 }

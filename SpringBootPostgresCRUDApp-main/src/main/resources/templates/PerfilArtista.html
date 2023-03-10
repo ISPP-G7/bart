@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Perfil de Artista</title>
 </head>
+
 <body>
 	<div th:replace="Home :: Home"></div>
 	<table>
 		<tr>
 			<td>Nombre artístico:</td>
-            
+
 			<td th:text="${art.getNombre_artistico()}"></td>
 		</tr>
 		<tr>
@@ -36,5 +38,7 @@
 			<td th:text="${art.getGender()}"></td>
 		</tr>
 	</table>
+
 </body>
+
 </html>

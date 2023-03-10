@@ -3,6 +3,7 @@ package com.example.SpringBootPostgresCRUD.controller;
 import com.example.SpringBootPostgresCRUD.entity.Artista;
 import com.example.SpringBootPostgresCRUD.service.ArtistaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ public class ArtistaController {
 
     @Autowired
     ArtistaService artService;
+
     @GetMapping("/SignUpArtista")
     public String signUpUser(@ModelAttribute("message") String message, Model model) {
         Artista art = new Artista();
@@ -26,7 +28,8 @@ public class ArtistaController {
 
         return "signUpArtista";
     }
-    @GetMapping({"/viewArtistas"})
+
+    @GetMapping({ "/viewArtistas" })
     public String viewArtistas(@ModelAttribute("message") String message, Model model) {
         List<Artista> artList = artService.getAllArtistas();
 
@@ -63,12 +66,13 @@ public class ArtistaController {
 
         return "EditArtista";
     }
+
     @GetMapping("/perfilArtista/{id}")
     public String perfilArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
         Artista art = artService.getArtistaById(id);
         model.addAttribute("art", art);
         model.addAttribute("message", message);
-        model.addAttribute("nombreArtistitico",art.getNombre_artistico());
+        model.addAttribute("nombreArtistitico", art.getNombre_artistico());
         return "PerfilArtista";
     }
 

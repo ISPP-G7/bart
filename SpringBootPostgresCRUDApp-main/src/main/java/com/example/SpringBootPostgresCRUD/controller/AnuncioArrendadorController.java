@@ -1,6 +1,7 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,6 +26,7 @@ public class AnuncioArrendadorController {
     AnuncioArrendadorService anuncioArrendadorService;
     @Autowired
     ArrendadorService arrendadorService;
+
     @GetMapping({ "/viewAnunciosArrendador" })
     public String viewAnunciosArrendador(@ModelAttribute("message") String message, Model model) {
         List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendador();
@@ -38,24 +40,28 @@ public class AnuncioArrendadorController {
     @GetMapping("/addAnuncioArrendador")
     public String newAnuncioArrendador(@ModelAttribute("message") String message, Model model) {
         AnuncioArrendador anu = new AnuncioArrendador();
-        List<Arrendador> arrList = arrendadorService.getAllArrendadores();
-
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
         model.addAttribute("anu", anu);
         model.addAttribute("message", message);
-        model.addAttribute("arrendadoresDisponibles",arrList);
+        model.addAttribute("arrendador", arrendador);
 
         return "AddAnuncioArrendador";
     }
 
     @PostMapping("/saveAnuncioArrendador")
-    public String saveAnuncioArrendador(AnuncioArrendador anu, RedirectAttributes redirectAttributes,HttpServletRequest request) {
-        if (anuncioArrendadorService.saveOrUpdateAnuncioArrendador(anu,Long.parseLong(request.getParameter("arrendadores")))) {
+    public String saveAnuncioArrendador(AnuncioArrendador anu, RedirectAttributes redirectAttributes,
+            HttpServletRequest request) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+        if (anuncioArrendadorService.saveOrUpdateAnuncioArrendador(anu, arrendador.getId())) {
             redirectAttributes.addFlashAttribute("message", "Save Success");
             return "redirect:/viewAnunciosArrendador";
         }
 
         redirectAttributes.addFlashAttribute("message", "Save Failure");
         return "redirect:/addAnuncioArrendador";
+
     }
 
     @GetMapping("/deleteAnuncioArrendador/{id}")

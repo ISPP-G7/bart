@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>View Artist List</title>
+    <title>Ver lista de artistas</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -29,7 +29,7 @@
 
         <h1 th:text="${message}"></h1>
 
-        <h1 class="p-3">Artists List</h1>
+        <h1 class="p-3">Lista de artistas</h1>
 
         <table class="table table-bordered">
             <tr>
@@ -70,6 +70,7 @@
 
         <button type="button" class="btn btn-primary btn-block">
             <a href="/SignUpArtista">Add New Artist</a>
+
         </button>
 
     </div>
@@ -79,32 +80,33 @@
 
             var msg = [[${ message }]];
             if (msg == "Save Success") {
-                Command: toastr["success"]("Artist created successfully!!")
-            } else if (msg == "Delete Success") {
-                Command: toastr["success"]("Artist deleted successfully!!")
-            } else if (msg == "Delete Error") {
-                Command: toastr["error"]("Some error occurred, couldn't delete Artist")
-            } else if (msg == "Edit Success") {
-                Command: toastr["success"]("Artist updated successfully!!")
-            }
 
-            toastr.options = {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": true,
-                "positionClass": "toast-top-right",
-                "preventDuplicates": false,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": "5000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            }
-        }
+				Command: toastr["success"]("Artista creado con éxito")
+			} else if (msg == "Delete Success") {
+				Command: toastr["success"]("Artista eliminado con éxito")
+			} else if (msg == "Delete Error") {
+			    Command: toastr["error"]("Ha ocurrido un error, no se pudo eliminar el artista")
+			} else if (msg == "Edit Success") {
+				Command: toastr["success"]("Artista actualizado con éxito")
+			}
+
+			toastr.options = {
+                  "closeButton": true,
+                  "debug": false,
+                  "newestOnTop": false,
+                  "progressBar": true,
+                  "positionClass": "toast-top-right",
+                  "preventDuplicates": false,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                }
+	    }
     </script>
 </body>
 

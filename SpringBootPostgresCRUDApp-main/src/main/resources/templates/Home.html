@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<title>Bart - Contratación bidireccional entre artistas y locales</title>
@@ -120,6 +120,9 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/viewAllMessages">Chats</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/login">login</a>
 					</li>
 					<li class="nav-item">
 						<span class="nav-link" th:text="${nombreUsuario}"></span>

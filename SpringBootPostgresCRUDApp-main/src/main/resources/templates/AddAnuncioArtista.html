@@ -24,10 +24,7 @@
 
         <form th:action="@{/saveAnuncioArtista}" th:object="${anu}" method="post">
             <div>
-                <label for="artistas">Selecciona artistas:</label>
-                <select id="artistas" name="artistas" multiple>
-                    <option th:each="artista : ${artistasDisponibles}" th:value="${artista.id}" th:text="${artista.id}"></option>
-                </select>
+                <input id="artista" name="artista" type="text" th:field="${artista.id}" class="form-control input-sm"/>
             </div>
 
             <div class="row">

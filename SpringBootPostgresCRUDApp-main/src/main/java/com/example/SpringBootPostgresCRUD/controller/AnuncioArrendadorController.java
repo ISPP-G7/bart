@@ -56,11 +56,11 @@ public class AnuncioArrendadorController {
         Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
         if (anuncioArrendadorService.saveOrUpdateAnuncioArrendador(anu, arrendador.getId())) {
             redirectAttributes.addFlashAttribute("message", "Save Success");
-            return "redirect:/";
+            return "redirect:/viewAnunciosArrendador";
         }
 
         redirectAttributes.addFlashAttribute("message", "Save Failure");
-        return "redirect:/";
+        return "redirect:/viewAnunciosArrendador";
     }
 
     @GetMapping("/editAnuncioArrendador/{id}")
@@ -78,11 +78,11 @@ public class AnuncioArrendadorController {
             RedirectAttributes redirectAttributes) {
         if (anuncioArrendadorService.updateAnuncioArrendador(anu)) {
             redirectAttributes.addFlashAttribute("message", "Edit Success");
-            return "redirect:/";
+            return "redirect:/viewAnunciosArrendador";
         }
 
         redirectAttributes.addFlashAttribute("message", "Edit Failure");
-        return "redirect:/" + anu.getId();
+        return "redirect:/viewAnunciosArrendador" + anu.getId();
     }
 
     @GetMapping("/deleteAnuncioArrendador/{id}")

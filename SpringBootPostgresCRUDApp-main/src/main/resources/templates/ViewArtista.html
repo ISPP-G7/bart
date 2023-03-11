@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>View Artist List</title>
+    <title>Ver lista de artistas</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -31,20 +31,20 @@
 
         <h1 th:text="${message}"></h1>
 
-        <h1 class="p-3">Artists List</h1>
+        <h1 class="p-3">Lista de artistas</h1>
 
             <table class="table table-bordered">
                 <tr>
                     <th>Id</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
                     <th>Email</th>
-                    <th>Date Of Birth</th>
-                    <th>Gender</th>
-                    <th>nombreArtistico</th>
-                    <th>categoriaArtistica</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Género</th>
+                    <th>Nombre artístico</th>
+                    <th>Categoría artística</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
                 </tr>
 
                     <tr th:each="Artist : ${artList}">
@@ -57,17 +57,17 @@
                         <td th:text="${Artist.nombre_artistico}"></td>
                         <td th:text="${Artist.categoria_artistica}"></td>
                         <td><button type="button" class="btn btn-success">
-                            <a th:href="@{/editArtista/{id}(id=${Artist.id})}">Edit</a>
+                            <a th:href="@{/editArtista/{id}(id=${Artist.id})}">Editar</a>
                         </button></td>
                         <td><button type="button" class="btn btn-danger">
-                            <a th:href="@{/deleteArtista/{id}(id=${Artist.id})}">Delete</a>
+                            <a th:href="@{/deleteArtista/{id}(id=${Artist.id})}">Eliminar</a>
                         </button></td>
                     </tr>
 
             </table>
 
         <button type="button" class="btn btn-primary btn-block">
-            <a href="/addArtista">Add New Artist</a>
+            <a href="/addArtista">Añadir nuevo artista</a>
         </button>
 
     </div>
@@ -77,13 +77,13 @@
 
             var msg = [[${message}]];
             if (msg == "Save Success") {
-				Command: toastr["success"]("Artist created successfully!!")
+				Command: toastr["success"]("Artista creado con éxito")
 			} else if (msg == "Delete Success") {
-				Command: toastr["success"]("Artist deleted successfully!!")
+				Command: toastr["success"]("Artista eliminado con éxito")
 			} else if (msg == "Delete Error") {
-			    Command: toastr["error"]("Some error occurred, couldn't delete Artist")
+			    Command: toastr["error"]("Ha ocurrido un error, no se pudo eliminar el artista")
 			} else if (msg == "Edit Success") {
-				Command: toastr["success"]("Artist updated successfully!!")
+				Command: toastr["success"]("Artista actualizado con éxito")
 			}
 
 			toastr.options = {

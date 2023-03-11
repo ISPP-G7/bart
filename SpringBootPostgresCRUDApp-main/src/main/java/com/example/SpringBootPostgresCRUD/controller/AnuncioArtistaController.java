@@ -24,6 +24,7 @@ public class AnuncioArtistaController {
     AnuncioArtistaService anuncioArtistaService;
     @Autowired
     ArtistaService artistaService;
+
     @GetMapping({ "/viewAnunciosArtista" })
     public String viewAnuncioArtista(@ModelAttribute("message") String message, Model model) {
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtista();
@@ -37,9 +38,9 @@ public class AnuncioArtistaController {
     @GetMapping("/addAnuncioArtista")
     public String newAnuncioArtista(@ModelAttribute("message") String message, Model model) {
         AnuncioArtista anu = new AnuncioArtista();
-        String email=SecurityContextHolder.getContext().getAuthentication().getName();
-        Artista artista = artistaService.getArtistaByMailArtista(email); //Con esto cogemos el artista logueado
-        model.addAttribute("artista",artista);
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Artista artista = artistaService.getArtistaByMailArtista(email); // Con esto cogemos el artista logueado
+        model.addAttribute("artista", artista);
         model.addAttribute("anu", anu);
         model.addAttribute("message", message);
 
@@ -47,11 +48,11 @@ public class AnuncioArtistaController {
     }
 
     @PostMapping("/saveAnuncioArtista")
-    public String saveAnuncioArtista(AnuncioArtista anu, RedirectAttributes redirectAttributes,HttpServletRequest request
-    ) {
-        String email=SecurityContextHolder.getContext().getAuthentication().getName();
-        Artista artista = artistaService.getArtistaByMailArtista(email); //Con esto cogemos el artista logueado
-        if (anuncioArtistaService.saveOrUpdateAnuncioArtista(anu,artista.getId())) {
+    public String saveAnuncioArtista(AnuncioArtista anu, RedirectAttributes redirectAttributes,
+            HttpServletRequest request) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Artista artista = artistaService.getArtistaByMailArtista(email); // Con esto cogemos el artista logueado
+        if (anuncioArtistaService.saveOrUpdateAnuncioArtista(anu, artista.getId())) {
             redirectAttributes.addFlashAttribute("message", "Save Success");
             return "redirect:/viewAnunciosArtista";
         }
@@ -59,7 +60,6 @@ public class AnuncioArtistaController {
         redirectAttributes.addFlashAttribute("message", "Save Failure");
         return "redirect:/addAnuncioArtista";
     }
-
 
     @GetMapping("/deleteAnuncioArtista/{id}")
     public String deleteAnuncioArtista(@PathVariable Long id, RedirectAttributes redirectAttributes) {
@@ -69,7 +69,7 @@ public class AnuncioArtistaController {
         }
 
         redirectAttributes.addFlashAttribute("message", "Delete Failure");
-        return "redirect:/viewAnunciossArtista";
+        return "redirect:/viewAnunciosArtista";
     }
 
     @GetMapping("/editAnuncioArtista/{id}")
@@ -82,7 +82,6 @@ public class AnuncioArtistaController {
         return "EditAnuncioArtista";
     }
 
-    
     @PostMapping("/editSaveAnuncioArtista")
     public String editSaveAnuncioArtista(@ModelAttribute("anu") AnuncioArtista anu,
             RedirectAttributes redirectAttributes) {
@@ -95,5 +94,4 @@ public class AnuncioArtistaController {
         return "redirect:/editAnunciosArtista/" + anu.getId();
     }
 
-    
 }

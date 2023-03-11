@@ -23,10 +23,11 @@ public class ArrendadorService {
     }
 
     public Arrendador getArrendadorById(Long id) {
-        System.out.println("ayuda");
-        System.out.println(arrRepository.findById(id).get().getNombreLocal());
-
         return arrRepository.findById(id).get();
+    }
+
+    public Arrendador getArrendadorByMailArrendador(String mail) {
+        return arrRepository.getArrendadorByMailArrendador(mail);
     }
 
     public boolean saveOrUpdateArrendador(Arrendador Arrendador) {

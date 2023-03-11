@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Añadir anuncio de arrendador</title>
+    <title>Add Anuncio</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -19,42 +20,14 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
 
-        <h1 class="p-3">Añadir anuncio de arrendador</h1>
+        <h1 class="p-3">Edit Anuncio</h1>
 
-        <form th:action="@{/saveAnuncioArrendador}" th:object="${anu}" method="post">
-            <div>
-                <input id="arrendador" name="arrendador" type="hidden" th:field="${arrendador.id}" class="form-control input-sm"/>
-
-            </div>
-
+        <form th:action="@{/editSaveAnuncioArrendador}" th:object="${anu}" method="post">
             
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="nombreLocal">Nombre del local</label>
                     <div class="col-md-6">
-                        <input type="text" th:field="*{nombreLocal}" id="nombreLocal"
-                                    class="form-control input-sm" required="required" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3" for="ubicacion">Ubicación</label>
-                    <div class="col-md-6">
-                        <input type="text" th:field="*{ubicacion}" id="ubicacion"
-                                    class="form-control input-sm" required="required" />
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3" for="precio">Precio</label>
-                    <div class="col-md-6">
-                        <input type="text" th:field="*{precio}" id="precio"
-                                    class="form-control input-sm" required="required" />
+                        <input type="hidden" th:field="*{id}" class="form-control input-sm" />
                     </div>
                 </div>
             </div>
@@ -122,7 +95,7 @@
 
             <div class="row p-2">
                 <div class="col-md-2">
-                    <button class="btn btn-success">Crear</button>
+                    <button class="btn btn-success">Edit</button>
                 </div>
             </div>
         </form>
@@ -134,7 +107,7 @@
 
             var msg = [[${message}]];
             if (msg == "Save Failure") {
-				Command: toastr["error"]("Ha ocurrido un error, no se pudo guardar el anuncio")
+				Command: toastr["error"]("Some error occurred, couldn't save Anuncio")
 
 				toastr.options = {
                   "closeButton": true,

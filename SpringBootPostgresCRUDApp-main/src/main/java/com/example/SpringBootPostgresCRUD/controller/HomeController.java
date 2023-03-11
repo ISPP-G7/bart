@@ -32,7 +32,6 @@ public class HomeController {
 
         List<Arrendador> arrendadoresList = arrService.getAllArrendadores();
 
-        int i = 0;
         List<List<String>> arrendadoresNombreLocalMapListAux = new ArrayList<>();
 
         for (Arrendador arrendador : arrendadoresList) {

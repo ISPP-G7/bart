@@ -3,7 +3,6 @@ package com.example.SpringBootPostgresCRUD.controller;
 import com.example.SpringBootPostgresCRUD.entity.Artista;
 import com.example.SpringBootPostgresCRUD.service.ArtistaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

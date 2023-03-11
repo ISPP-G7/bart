@@ -1,7 +1,7 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Controller
 public class HomeController {
 
@@ -27,42 +26,47 @@ public class HomeController {
     @Autowired
     private ArrendadorService arrService;
 
-    @GetMapping({"/", "/home"})
+    @GetMapping({ "/", "/home" })
     public String home(Model model) throws IOException {
-        List<List<String>> coordenadasList=new ArrayList<>();
+        List<List<String>> coordenadasList = new ArrayList<>();
 
         List<Arrendador> arrendadoresList = arrService.getAllArrendadores();
-        
-        int i=0;
-        List<List<String>> arrendadoresNombreLocalMapListAux=new ArrayList<>();
-        
+
+        List<List<String>> arrendadoresNombreLocalMapListAux = new ArrayList<>();
+
         for (Arrendador arrendador : arrendadoresList) {
-            List<String> arrendadoresNombreLocalMap=new ArrayList<>();
+            List<String> arrendadoresNombreLocalMap = new ArrayList<>();
             arrendadoresNombreLocalMap.add((arrendador.getDireccion()));
-            List<String> coordenadas= new ArrayList<>();
+            List<String> coordenadas = new ArrayList<>();
             String direccion = arrendador.getDireccion().replace(" ", "+");
             String url = "https://nominatim.openstreetmap.org/search?q=" + direccion + "&format=jsonv2&limit=1";
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonResponse = restTemplate.getForObject(url, String.class);
             JsonParser jsonParser = objectMapper.createParser(jsonResponse);
-            List<Place> places = objectMapper.readValue(jsonParser, new TypeReference<List<Place>>(){});
-           
+            List<Place> places = objectMapper.readValue(jsonParser, new TypeReference<List<Place>>() {
+            });
+
             if (!places.isEmpty()) {
                 coordenadas.add((places.get(0).getLat()));
                 coordenadas.add((places.get(0).getLon()));
-                arrendadoresNombreLocalMapListAux.add(arrendadoresNombreLocalMap);     
+                arrendadoresNombreLocalMapListAux.add(arrendadoresNombreLocalMap);
                 coordenadasList.add(coordenadas);
             }
-        
+
             model.addAttribute("coordenadas", coordenadas);
             model.addAttribute("coordenadasList", coordenadasList);
-        
+
         }
         model.addAttribute("arrendadoresNombreLocalMapListAux", arrendadoresNombreLocalMapListAux);
-        
+
+        // Para que aparezca el nombre de usuario
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            model.addAttribute("nombreUsuario", SecurityContextHolder.getContext().getAuthentication().getName());
+        } else {
+            model.addAttribute("nombreUsuario", "");
+        }
 
         return "Home";
     }
 
-   
 }

@@ -5,12 +5,6 @@ import javax.persistence.Id;
 
 import javax.persistence.Table;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.Valid;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
@@ -122,6 +116,16 @@ public class AnuncioArrendador {
     public void setDescripicionArrendador(String especificaciones) {
         this.descripcionArrendador = especificaciones;
     }
+
+	public void setArrendador(Arrendador byId) {
+		// TODO Auto-generated method stub
+		this.arrendador = byId;
+	}
+
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
 
     // otros getters y setters específicos de Arrendador
 }

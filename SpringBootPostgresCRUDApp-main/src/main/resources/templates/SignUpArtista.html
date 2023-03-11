@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Título</title>
+    <title>Sign Up Artista</title>
+
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet"
@@ -13,60 +14,54 @@
             src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script
             src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    
+
 </head>
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="container">
-        <h1 class="p-3">Editar usuario</h1>
+        
+        <h1 class="p-3">Sign Up Artista</h1>
 
-        <form th:action="@{/editSaveUser}" th:object="${usr}" method="post">
-
+        <form th:action="@{/saveArtista}" th:object="${art}" method="post">
             <div class="row">
                 <div class="form-group col-md-12">
-                    <div class="col-md-6">
-                        <input type="hidden" th:field="*{id}" class="form-control input-sm" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3" for="firstName">Nombre</label>
+                    <label class="col-md-3" for="firstName">First Name</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{firstName}" id="firstName"
-                               class="form-control input-sm" required="required" />
+                                    class="form-control input-sm" required="required" />
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="lastName">Apellidos</label>
+                    <label class="col-md-3" for="lastName">Last Name</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{lastName}" id="lastName"
-                               class="form-control input-sm" required="required" />
+                                    class="form-control input-sm" required="required" />
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">Género</label>
+                    <label class="col-md-3">Gender</label>
                     <div class="col-md-6">
 
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Male" />Masculino
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Male" />Male
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Female" />Femenino
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Female" />Female
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Other" />Otro
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Other" />Other
                             </label>
                         </div>
 
@@ -76,10 +71,10 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">Fecha de nacimiento</label>
+                    <label class="col-md-3">Date of birth</label>
                     <div class="col-md-6">
                         <input type="date" th:field="*{dob}" id="dob"
-                               class="form-control input-sm" required="required" />
+                                    class="form-control input-sm" required="required" />
                     </div>
                 </div>
             </div>
@@ -89,25 +84,53 @@
                     <label class="col-md-3">Email</label>
                     <div class="col-md-6">
                         <input type="email" th:field="*{email}" id="email"
-                               class="form-control input-sm" required="required" />
+                                    class="form-control input-sm" required="required" />
                     </div>
                 </div>
             </div>
 
+            
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">Password</label>
+                    <div class="col-md-6">
+                        <input type="password" th:field="*{password}" id="password"
+                                   class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+            </div>
+            
+                <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">nombreArtistico</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{nombre_artistico}" id="nombre_artistico"
+                                    class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">categoriaArtistica</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{categoria_artistica}" id="categoria_artistica"
+                                    class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+            </div>
             <div class="row p-2">
                 <div class="col-md-2">
-                    <button class="btn btn-success">Actualizar</button>
+                    <button class="btn btn-success">Create</button>
                 </div>
             </div>
         </form>
+
     </div>
 
     <script th:inline="javascript">
         window.onload = function() {
 
             var msg = [[${message}]];
-            if (msg == "Edit Failure") {
-				Command: toastr["error"]("Ha ocurrido un error, no se pudo actualizar el usuario")
+            if (msg == "Save Failure") {
+				Command: toastr["error"]("Some error occurred, couldn't save Artist")
 
 				toastr.options = {
                   "closeButton": true,
@@ -129,4 +152,5 @@
 	    }
     </script>
 </body>
+<?php include('navbar.html'); ?>
 </html>

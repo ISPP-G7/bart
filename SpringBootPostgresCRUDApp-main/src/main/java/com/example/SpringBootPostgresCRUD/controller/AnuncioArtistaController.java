@@ -2,6 +2,7 @@ package com.example.SpringBootPostgresCRUD.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,8 +37,9 @@ public class AnuncioArtistaController {
     @GetMapping("/addAnuncioArtista")
     public String newAnuncioArtista(@ModelAttribute("message") String message, Model model) {
         AnuncioArtista anu = new AnuncioArtista();
-        List<Artista> artList = artistaService.getAllArtistas();
-        model.addAttribute("artistasDisponibles",artList);
+        String email=SecurityContextHolder.getContext().getAuthentication().getName();
+        Artista artista = artistaService.getArtistaByMailArtista(email); //Con esto cogemos el artista logueado
+        model.addAttribute("artista",artista);
         model.addAttribute("anu", anu);
         model.addAttribute("message", message);
 
@@ -47,7 +49,9 @@ public class AnuncioArtistaController {
     @PostMapping("/saveAnuncioArtista")
     public String saveAnuncioArtista(AnuncioArtista anu, RedirectAttributes redirectAttributes,HttpServletRequest request
     ) {
-        if (anuncioArtistaService.saveOrUpdateAnuncioArtista(anu,Long.parseLong(request.getParameter("artistas")))) {
+        String email=SecurityContextHolder.getContext().getAuthentication().getName();
+        Artista artista = artistaService.getArtistaByMailArtista(email); //Con esto cogemos el artista logueado
+        if (anuncioArtistaService.saveOrUpdateAnuncioArtista(anu,artista.getId())) {
             redirectAttributes.addFlashAttribute("message", "Save Success");
             return "redirect:/viewAnunciosArtista";
         }

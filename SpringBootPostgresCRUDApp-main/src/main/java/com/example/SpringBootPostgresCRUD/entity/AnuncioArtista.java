@@ -5,12 +5,6 @@ import javax.persistence.Id;
 
 import javax.persistence.Table;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.Valid;
 import lombok.Setter;
 import lombok.Getter;
 import javax.persistence.Enumerated;
@@ -72,6 +66,17 @@ public class AnuncioArtista {
         this.estilo = estilo;
         this.artista= artista;
     }
+
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
+
+	public void setArtista(Artista byId) {
+		// TODO Auto-generated method stub
+		this.artista = byId;
+		
+	}
 
     // otros getters y setters específicos de Artista
 }

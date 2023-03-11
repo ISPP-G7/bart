@@ -14,8 +14,8 @@ public class Arrendador extends User {
 
     }
 
-    public Arrendador(Long id, String firstName, String lastName, String email, String dob, String gender, String nombreLocal, String direccion) {
-        super(id, firstName, lastName, email, dob, gender);
+    public Arrendador(Long id,String password, String firstName, String lastName, String email, String dob, String gender, String nombreLocal, String direccion) {
+        super(id,password, firstName, lastName, email, dob, gender);
         this.nombreLocal = nombreLocal;
         this.direccion = direccion;
     }

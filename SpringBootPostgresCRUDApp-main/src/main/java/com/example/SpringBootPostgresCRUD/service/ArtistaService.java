@@ -24,6 +24,9 @@ public class ArtistaService {
     public Artista getArtistaById(Long id) {
            return artistaRepository.findById(id).get();
     }
+    public Artista getArtistaByMailArtista(String mail){
+        return artistaRepository.getArtistaByMailArtista(mail);
+    }
 
     public boolean saveOrUpdateArtista(Artista Artista) {
         Artista ars = artistaRepository.save(Artista);

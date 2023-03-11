@@ -31,8 +31,16 @@ public class AnuncioArtistaService {
         return AnuncioArtistaList;
     }
 
-    public boolean saveOrUpdateAnuncioArtista(AnuncioArtista anuncioArtista) {
-        anuncioArtista.setArtista_id(artistaRepository.getById(6L));//Esto hay que hacer que coja el id del artista automáticamente.
+    public boolean saveOrUpdateAnuncioArtista(AnuncioArtista anuncioArtista,Long artistaIdSeleccionado) {
+        anuncioArtista.setArtista(artistaRepository.getById(artistaIdSeleccionado));//Esto hay que hacer que coja el id del artista automáticamente.
+        AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
+        if (anuncioArtistaRepository.findById(anu.getId()) != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateAnuncioArtista(AnuncioArtista anuncioArtista) {
         AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
         if (anuncioArtistaRepository.findById(anu.getId()) != null) {
             return true;

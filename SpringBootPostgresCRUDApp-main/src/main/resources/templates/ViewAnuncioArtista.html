@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ver lista de usuarios</title>
+    <title>Vista Anuncios Artistas</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -31,39 +31,37 @@
 
         <h1 th:text="${message}"></h1>
 
-        <h1 class="p-3">Lista de usuarios</h1>
+        <h1 class="p-3">Anunces Artists List</h1>
 
             <table class="table table-bordered">
                 <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Email</th>
-                    <th>Fecha de nacimiento</th>
-                    <th>Género</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
+                    <th>Pseudonimo Artista</th>
+                    <th>Ubicacion</th>
+                    <th>Precio</th>
+                    <th>Descripcion Artista</th>
+                    <th>Estilo</th>
                 </tr>
 
-                    <tr th:each="user : ${usrList}">
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.firstName}"></td>
-                        <td th:text="${user.lastName}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.dob}"></td>
-                        <td th:text="${user.gender}"></td>
+                    <tr th:each="Anuncio : ${anuList}">
+                        <td th:text="${Anuncio.id}"></td>
+                        <td th:text="${Anuncio.pseudonimoArtista}"></td>
+                        <td th:text="${Anuncio.ubicacion}"></td>
+                        <td th:text="${Anuncio.precio}"></td>
+                        <td th:text="${Anuncio.descripcionArtista}"></td>
+                        <td th:text="${Anuncio.estilo}"></td>
                         <td><button type="button" class="btn btn-success">
-                            <a th:href="@{/editUser/{id}(id=${user.id})}">Editar</a>
+                            <a th:href="@{/editAnuncioArtista/{id}(id=${Anuncio.id})}">Edit</a>
                         </button></td>
                         <td><button type="button" class="btn btn-danger">
-                            <a th:href="@{/deleteUser/{id}(id=${user.id})}">Eliminar</a>
+                            <a th:href="@{/deleteAnuncioArtista/{id}(id=${Anuncio.id})}">Delete</a>
                         </button></td>
                     </tr>
 
             </table>
 
         <button type="button" class="btn btn-primary btn-block">
-            <a href="/addUser">Añadir nuevo usuario</a>
+            <a href="/addAnuncioArtista">Add New Anuncio</a>
         </button>
 
     </div>
@@ -73,13 +71,13 @@
 
             var msg = [[${message}]];
             if (msg == "Save Success") {
-				Command: toastr["success"]("Usuario creado con éxito")
+				Command: toastr["success"]("Anuncio created successfully!!")
 			} else if (msg == "Delete Success") {
-				Command: toastr["success"]("Usuario eliminado con éxito")
+				Command: toastr["success"]("Anuncio deleted successfully!!")
 			} else if (msg == "Delete Error") {
-			    Command: toastr["error"]("Ha ocurrido un error, no se pudo eliminar el usuario")
+			    Command: toastr["error"]("Some error occurred, couldn't delete Anuncio")
 			} else if (msg == "Edit Success") {
-				Command: toastr["success"]("Usuario actualizado con éxito")
+				Command: toastr["success"]("Anuncio updated successfully!!")
 			}
 
 			toastr.options = {
@@ -100,5 +98,6 @@
                 }
 	    }
     </script>
+
 </body>
 </html>

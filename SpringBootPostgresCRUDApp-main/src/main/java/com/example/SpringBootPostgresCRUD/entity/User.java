@@ -20,16 +20,25 @@ public class User {
 
     private String gender;
 
+    private String password;
+
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, String dob, String gender) {
+    public User(Long id, String firstName, String lastName, String email, String dob, String gender,String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dob = dob;
         this.gender = gender;
+        this.password=password;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {

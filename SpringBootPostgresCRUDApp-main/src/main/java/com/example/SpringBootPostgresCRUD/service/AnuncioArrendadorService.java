@@ -27,8 +27,8 @@ public class AnuncioArrendadorService {
         return AnuncioArrendadorList;
     }
 
-    public boolean saveOrUpdateAnuncioArrendador(AnuncioArrendador anuncioArrendador) {
-        anuncioArrendador.setArrendador_id(arrendadorRepository.getById(3L));// Esto hay que hacer que coja el id del
+    public boolean saveOrUpdateAnuncioArrendador(AnuncioArrendador anuncioArrendador,Long arrendadorIdSeleccionado) {
+        anuncioArrendador.setArrendador(arrendadorRepository.getById(arrendadorIdSeleccionado));// Esto hay que hacer que coja el id del
                                                                              // artista automáticamente.
         AnuncioArrendador anu = anuncioArrendadorRepository.save(anuncioArrendador);
         if (anuncioArrendadorRepository.findById(anu.getId()) != null) {

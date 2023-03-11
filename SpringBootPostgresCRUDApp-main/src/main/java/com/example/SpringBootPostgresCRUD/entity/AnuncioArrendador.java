@@ -123,5 +123,15 @@ public class AnuncioArrendador {
         this.descripcionArrendador = especificaciones;
     }
 
+	public void setArrendador(Arrendador byId) {
+		// TODO Auto-generated method stub
+		this.arrendador = byId;
+	}
+
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
+
     // otros getters y setters específicos de Arrendador
 }

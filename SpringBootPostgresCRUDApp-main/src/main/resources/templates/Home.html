@@ -1,41 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<title>Bart - Contratación bidireccional entre artistas y locales</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
 	<style>
 		/* Hacer el navbar responsive */
 		.navbar-expand-lg {
 			flex-wrap: nowrap;
 		}
-	
+
 		.navbar-collapse {
 			justify-content: flex-end;
 		}
-	
+
 		.navbar-toggler {
 			margin-right: 0;
 		}
-	
+
 		/* Cambiar el color principal */
 		.navbar {
 			background-color: #967BB6;
 		}
-	
+
 		/* Cambiar el color de los links */
 		.nav-link {
 			color: white;
 		}
-	
+
 		/* Cambiar el color del h1 */
 		h1 {
 			color: #967BB6;
 		}
-	
+
 		/* Hacer el contenedor del mapa responsive */
 		#map-container {
 			width: 100%;
@@ -45,14 +45,15 @@
 			border-radius: 8px;
 			overflow: hidden;
 		}
-	
+
 		/* Hacer el mapa responsive */
 		#map {
 			width: 100%;
 			height: 400px;
+
 		}
 	</style>
-	
+
 </head>
 
 <body>
@@ -62,18 +63,19 @@
 				max-height: 50px;
 				border-radius: 8px;
 			}
-			
+
 			.navbar {
 				background-color: #6B3D6E;
 			}
-			
+
 			.nav-link {
 				color: white !important;
 			}
-			
+
 			h1 {
 				color: #6B3D6E;
 			}
+
 			#map-container {
 				width: 80%;
 				margin: 0 auto;
@@ -102,7 +104,7 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Contacto</a>
-	
+
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/viewUsers">Usuarios</a>
@@ -111,13 +113,24 @@
 						<a class="nav-link" href="/viewArtistas">Artistas</a>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link" href="/viewAnunciosArtista">Anuncios de Artistas</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="/viewArrendadores">Arrendadores</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/viewAllMessages">Chats</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/login">login</a>
+					</li>
+					<li class="nav-item">
+						<span class="nav-link" th:text="${nombreUsuario}"></span>
 					</li>
 				</ul>
 			</div>
 		</nav>
 	</div>
-
 
 
 	<div class="container mt-5">
@@ -127,50 +140,52 @@
 	</div>
 	<div id="map-container">
 		<p>Nuestros locales disponibles:</p>
-		
 
-	<div id="map" th:data-arrendadores="${arrendadoresNombreLocalMapListAux}" style="width: 600px; height: 400px"></div>
+
+
+		<div id="map" th:data-arrendadores="${arrendadoresNombreLocalMapListAux}" style="width: 600px; height: 400px">
+		</div>
 	</div>
 
 
-<!-- Agrega el script para inicializar el mapa -->
-<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
-<script>
-// Crea el mapa centrado en Sevilla
-var map = L.map('map').setView([37.3891, -5.9845], 14);
+	<!-- Agrega el script para inicializar el mapa -->
+	<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+	<script>
+		// Crea el mapa centrado en Sevilla
+		var map = L.map('map').setView([37.3891, -5.9845], 14);
 
-// Agrega una capa de OpenStreetMap al mapa
-var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; ' + mapLink + ' Contributors',
-    maxZoom: 18
-}).addTo(map);
+		// Agrega una capa de OpenStreetMap al mapa
+		var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+		L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; ' + mapLink + ' Contributors',
+			maxZoom: 18
+		}).addTo(map);
 
-// Variable con una lista de coordenadas
-var coordenadasList = [[${coordenadasList}]];
-var arrendadoresNombreLocalMapListAux = document.getElementById('map').getAttribute('data-arrendadores').replace("[","").replace("]","").split(",");
-/* manual debbuger pa js le das a f12 en navegador y miras console
-console.error(arrendadoresNombreLocalMapListAux[1])
-console.error("uwu")
-*/
+		// Variable con una lista de coordenadas
+		var coordenadasList = [['${coordenadasList}']];
+		var arrendadoresNombreLocalMapListAux = document.getElementById('map').getAttribute('data-arrendadores').replace("[", "").replace("]", "").split(",");
+		/* manual debbuger pa js le das a f12 en navegador y miras console
+		console.error(arrendadoresNombreLocalMapListAux[1])
+		console.error("uwu")
+		*/
 
-// Función que agrega marcadores al mapa desde una lista de coordenadas
-	function agregarMarcadoresDesdeCoordenadas(coordList) {
-		for (var i = 0; i < coordList.length; i++) {
-			var marker = L.marker(coordList[i]).addTo(map);
-			marker.bindPopup("<b>Ubicación " + arrendadoresNombreLocalMapListAux[i] + "</b><br>Latitud: " + coordList[i][0] + "<br>Longitud: " + coordList[i][1]).openPopup();
+		// Función que agrega marcadores al mapa desde una lista de coordenadas
+		function agregarMarcadoresDesdeCoordenadas(coordList) {
+			for (var i = 0; i < coordList.length; i++) {
+				var marker = L.marker(coordList[i]).addTo(map);
+				marker.bindPopup("<b>Ubicación " + arrendadoresNombreLocalMapListAux[i] + "</b><br>Latitud: " + coordList[i][0] + "<br>Longitud: " + coordList[i][1]).openPopup();
+			}
 		}
-	}
 
-	// Llama a la función para agregar los marcadores al mapa
-	agregarMarcadoresDesdeCoordenadas(coordenadasList);
+		// Llama a la función para agregar los marcadores al mapa
+		agregarMarcadoresDesdeCoordenadas(coordenadasList);
 
 	</script>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		
-	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-	</html>
+</body>
+
+</html>

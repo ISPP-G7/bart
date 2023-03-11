@@ -1,6 +1,8 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,18 +32,25 @@ public class MessageController {
     @Autowired
     UserService userService;
 
-    // @GetMapping("/viewAllMessages")
-    // public String viewAllMessages(@ModelAttribute("message") String message,
-    // Model model) {
-    // String email =
-    // SecurityContextHolder.getContext().getAuthentication().getName();
-    // List<Message> todosMensajes =
-    // messageService.findBySenderOrReceiverEmail(email);
-    // // Map<String, List<Message>> map = new HashMap<>();
+    @GetMapping("/viewAllMessages")
+    public String viewAllMessages(@ModelAttribute("message") String message,
+            Model model) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<Message> todosMensajes = messageService.findBySenderOrReceiverEmail(email);
+        Set<String> contactos = new HashSet<>();
+        for (Message m : todosMensajes) {
+            if (m.getUserSender().getEmail() == email) {
+                contactos.add(m.getUserSender().getEmail());
+            } else {
+                contactos.add(m.getUserReceiver().getEmail());
 
-    // model.addAttribute("message", message);
-    // return "ViewMessage";
-    // }
+            }
+        }
+
+        model.addAttribute("contactos", contactos);
+        model.addAttribute("message", message);
+        return "ViewAllMessages";
+    }
 
     @GetMapping("/viewMessages/{email2}")
     public String viewMessages(@PathVariable("email2") String email2, @ModelAttribute("message") String message,

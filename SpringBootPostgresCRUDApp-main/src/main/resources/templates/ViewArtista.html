@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>View Artist List</title>
 
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <style>
-        a{
-        color: white;
+        a {
+            color: white;
         }
+
         a:hover {
-        color: white;
-        text-decoration: none;
+            color: white;
+            text-decoration: none;
         }
     </style>
 </head>
+
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="container">
@@ -33,38 +31,42 @@
 
         <h1 class="p-3">Artists List</h1>
 
-            <table class="table table-bordered">
-                <tr>
-                    <th>Id</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Date Of Birth</th>
-                    <th>Gender</th>
-                    <th>nombreArtistico</th>
-                    <th>categoriaArtistica</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
+        <table class="table table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Date Of Birth</th>
+                <th>Gender</th>
+                <th>nombreArtistico</th>
+                <th>categoriaArtistica</th>
+                <th>Chat</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
 
-                    <tr th:each="Artist : ${artList}">
-                        <td th:text="${Artist.id}"></td>
-                        <td th:text="${Artist.firstName}"></td>
-                        <td th:text="${Artist.lastName}"></td>
-                        <td th:text="${Artist.email}"></td>
-                        <td th:text="${Artist.dob}"></td>
-                        <td th:text="${Artist.gender}"></td>
-                        <td th:text="${Artist.nombre_artistico}"></td>
-                        <td th:text="${Artist.categoria_artistica}"></td>
-                        <td><button type="button" class="btn btn-success">
-                            <a th:href="@{/editArtista/{id}(id=${Artist.id})}">Edit</a>
-                        </button></td>
-                        <td><button type="button" class="btn btn-danger">
-                            <a th:href="@{/deleteArtista/{id}(id=${Artist.id})}">Delete</a>
-                        </button></td>
-                    </tr>
+            <tr th:each="Artist : ${artList}">
+                <td th:text="${Artist.id}"></td>
+                <td th:text="${Artist.firstName}"></td>
+                <td th:text="${Artist.lastName}"></td>
+                <td th:text="${Artist.email}"></td>
+                <td th:text="${Artist.dob}"></td>
+                <td th:text="${Artist.gender}"></td>
+                <td th:text="${Artist.nombre_artistico}"></td>
+                <td th:text="${Artist.categoria_artistica}"></td>
+                <td><button type="button" class="btn btn-success">
+                        <a th:href="@{/viewMessages/{email}(email=${Artist.email})}">Chat</a>
+                    </button></td>
+                <td><button type="button" class="btn btn-success">
+                        <a th:href="@{/editArtista/{id}(id=${Artist.id})}">Edit</a>
+                    </button></td>
+                <td><button type="button" class="btn btn-danger">
+                        <a th:href="@{/deleteArtista/{id}(id=${Artist.id})}">Delete</a>
+                    </button></td>
+            </tr>
 
-            </table>
+        </table>
 
         <button type="button" class="btn btn-primary btn-block">
             <a href="/addArtista">Add New Artist</a>
@@ -73,36 +75,37 @@
     </div>
 
     <script th:inline="javascript">
-        window.onload = function() {
+        window.onload = function () {
 
-            var msg = [[${message}]];
+            var msg = [[${ message }]];
             if (msg == "Save Success") {
-				Command: toastr["success"]("Artist created successfully!!")
-			} else if (msg == "Delete Success") {
-				Command: toastr["success"]("Artist deleted successfully!!")
-			} else if (msg == "Delete Error") {
-			    Command: toastr["error"]("Some error occurred, couldn't delete Artist")
-			} else if (msg == "Edit Success") {
-				Command: toastr["success"]("Artist updated successfully!!")
-			}
+                Command: toastr["success"]("Artist created successfully!!")
+            } else if (msg == "Delete Success") {
+                Command: toastr["success"]("Artist deleted successfully!!")
+            } else if (msg == "Delete Error") {
+                Command: toastr["error"]("Some error occurred, couldn't delete Artist")
+            } else if (msg == "Edit Success") {
+                Command: toastr["success"]("Artist updated successfully!!")
+            }
 
-			toastr.options = {
-                  "closeButton": true,
-                  "debug": false,
-                  "newestOnTop": false,
-                  "progressBar": true,
-                  "positionClass": "toast-top-right",
-                  "preventDuplicates": false,
-                  "showDuration": "300",
-                  "hideDuration": "1000",
-                  "timeOut": "5000",
-                  "extendedTimeOut": "1000",
-                  "showEasing": "swing",
-                  "hideEasing": "linear",
-                  "showMethod": "fadeIn",
-                  "hideMethod": "fadeOut"
-                }
-	    }
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
     </script>
 </body>
+
 </html>

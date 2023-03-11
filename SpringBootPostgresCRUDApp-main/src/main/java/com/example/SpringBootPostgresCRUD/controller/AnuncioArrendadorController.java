@@ -1,6 +1,7 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,6 +26,7 @@ public class AnuncioArrendadorController {
     AnuncioArrendadorService anuncioArrendadorService;
     @Autowired
     ArrendadorService arrendadorService;
+
     @GetMapping({ "/viewAnunciosArrendador" })
     public String viewAnunciosArrendador(@ModelAttribute("message") String message, Model model) {
         List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendador();
@@ -38,36 +40,49 @@ public class AnuncioArrendadorController {
     @GetMapping("/addAnuncioArrendador")
     public String newAnuncioArrendador(@ModelAttribute("message") String message, Model model) {
         AnuncioArrendador anu = new AnuncioArrendador();
-        List<Arrendador> arrList = arrendadorService.getAllArrendadores();
-
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
         model.addAttribute("anu", anu);
         model.addAttribute("message", message);
-        model.addAttribute("arrendadoresDisponibles",arrList);
+        model.addAttribute("arrendador", arrendador);
 
         return "AddAnuncioArrendador";
     }
 
     @PostMapping("/saveAnuncioArrendador")
-    public String saveAnuncioArrendador(AnuncioArrendador anu, RedirectAttributes redirectAttributes,HttpServletRequest request) {
-        if (anuncioArrendadorService.saveOrUpdateAnuncioArrendador(anu,Long.parseLong(request.getParameter("arrendadores")))) {
+    public String saveAnuncioArrendador(AnuncioArrendador anu, RedirectAttributes redirectAttributes,
+            HttpServletRequest request) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+        if (anuncioArrendadorService.saveOrUpdateAnuncioArrendador(anu, arrendador.getId())) {
             redirectAttributes.addFlashAttribute("message", "Save Success");
-            return "redirect:/Home";
+            return "redirect:/viewAnunciosArrendador";
         }
 
         redirectAttributes.addFlashAttribute("message", "Save Failure");
-        return "redirect:/Home";
+        return "redirect:/viewAnunciosArrendador";
+    }
+
+    @GetMapping("/editAnuncioArrendador/{id}")
+    public String editArrendador(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
+        AnuncioArrendador arr = anuncioArrendadorService.getAnuncioArrendadorById(id);
+
+        model.addAttribute("anu", arr);
+        model.addAttribute("message", message);
+
+        return "EditAnuncioArrendador";
     }
 
     @PostMapping("/editSaveAnuncioArrendador")
-    public String editSaveAnuncioArrendador(@ModelAttribute("anu") AnuncioArrendador anu,HttpServletRequest request,
+    public String editSaveAnuncioArrendador(@ModelAttribute("anu") AnuncioArrendador anu, HttpServletRequest request,
             RedirectAttributes redirectAttributes) {
-                if (anuncioArrendadorService.saveOrUpdateAnuncioArrendador(anu,Long.parseLong(request.getParameter("arrendadores")))) {
-                    redirectAttributes.addFlashAttribute("message", "Edit Success");
-            return "redirect:/viewAnuncioArrendadors";
+        if (anuncioArrendadorService.updateAnuncioArrendador(anu)) {
+            redirectAttributes.addFlashAttribute("message", "Edit Success");
+            return "redirect:/viewAnunciosArrendador";
         }
 
         redirectAttributes.addFlashAttribute("message", "Edit Failure");
-        return "redirect:/editAnuncioArrendador/" + anu.getId();
+        return "redirect:/viewAnunciosArrendador" + anu.getId();
     }
 
     @GetMapping("/deleteAnuncioArrendador/{id}")

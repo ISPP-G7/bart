@@ -42,8 +42,8 @@
                     <th>Descripcion arrendador</th>
                     <th>Estilo</th>
                     <th>Estado</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
+                    <th>Aceptar</th>
+    
                 </tr>
 
                     <tr th:each="Anuncio : ${anuList}">
@@ -55,19 +55,14 @@
                         <td th:text="${Anuncio.estilo}"></td>
                         <td th:text="${Anuncio.estaAceptado}"></td>
 
-                        <td><button type="button" class="btn btn-success">
-                            <a th:href="@{/editAnuncioArrendador/{id}(id=${Anuncio.id})}">Editar</a>
-                        </button></td>
                         <td><button type="button" class="btn btn-danger">
-                            <a th:href="@{/deleteAnuncioArrendador/{id}(id=${Anuncio.id})}">Borrar</a>
+                            <a th:href="@{/aceptarAnuncioArrendador/{id}(id=${Anuncio.id})}">Aceptar</a>
                         </button></td>
                     </tr>
 
             </table>
 
-        <button type="button" class="btn btn-primary btn-block">
-            <a href="/addAnuncioArrendador">Añadir anuncio</a>
-        </button>
+ 
 
     </div>
 

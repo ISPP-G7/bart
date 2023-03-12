@@ -36,10 +36,32 @@ public class AnuncioArrendadorController {
 
         return "ViewAnuncioArrendador";
     }
+    @GetMapping("/aceptarAnuncioArrendador/{id}")
+    public String aceptarAnuncioArrendador(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        AnuncioArrendador anar=  anuncioArrendadorService.getAnuncioArrendadorById(id);
+        if (anuncioArrendadorService.aceptarAnuncioArrendador(anar)) {
+            redirectAttributes.addFlashAttribute("message", "Accept Success");
+            return "redirect:/viewAnunciosArrendadorParaArtistas";
+        }
+
+        redirectAttributes.addFlashAttribute("message", "Delete Failure");
+        return "redirect:/viewAnunciosArrendadorParaArtistas";
+    }
+    @GetMapping({ "/viewAnunciosArrendadorParaArtistas" })
+    public String viewAnunciosArrendadorParaArtistas(@ModelAttribute("message") String message, Model model) {
+        List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendadorNoAceptados();
+       
+
+        model.addAttribute("anuList", anuList);
+        model.addAttribute("message", message);
+
+        return "viewAnunciosArrendadorParaArtistas";
+    }
 
     @GetMapping("/addAnuncioArrendador")
     public String newAnuncioArrendador(@ModelAttribute("message") String message, Model model) {
         AnuncioArrendador anu = new AnuncioArrendador();
+        anu.setEstaAceptado(false);
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
         model.addAttribute("anu", anu);

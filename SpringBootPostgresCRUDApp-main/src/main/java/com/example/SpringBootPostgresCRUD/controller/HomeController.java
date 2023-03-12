@@ -10,7 +10,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.SpringBootPostgresCRUD.auxiliarClaseMap.Place;
 import com.example.SpringBootPostgresCRUD.entity.Arrendador;
+import com.example.SpringBootPostgresCRUD.entity.User;
 import com.example.SpringBootPostgresCRUD.service.ArrendadorService;
+import com.example.SpringBootPostgresCRUD.service.UserService;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +25,8 @@ import java.util.List;
 public class HomeController {
 
     private RestTemplate restTemplate = new RestTemplate();
-
+    @Autowired
+    private UserService userService;
     @Autowired
     private ArrendadorService arrService;
 
@@ -65,6 +68,9 @@ public class HomeController {
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
             model.addAttribute("nombreUsuario", SecurityContextHolder.getContext().getAuthentication().getName());
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
         } else {
             model.addAttribute("nombreUsuario", "");
         }

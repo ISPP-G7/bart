@@ -1,7 +1,10 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
 import com.example.SpringBootPostgresCRUD.entity.Artista;
+import com.example.SpringBootPostgresCRUD.entity.User;
 import com.example.SpringBootPostgresCRUD.service.ArtistaService;
+import com.example.SpringBootPostgresCRUD.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,7 +19,8 @@ import java.util.List;
 
 @Controller
 public class ArtistaController {
-
+    @Autowired
+    UserService userService;
     @Autowired
     ArtistaService artService;
 
@@ -35,6 +39,9 @@ public class ArtistaController {
         List<Artista> artList = artService.getAllArtistas();
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
             is_logged=true;
         }
         model.addAttribute("isLogged", is_logged);
@@ -78,6 +85,10 @@ public class ArtistaController {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
+            model.addAttribute("isLogged",  is_logged);
         }
         Artista art = artService.getArtistaById(id);
         model.addAttribute("art", art);

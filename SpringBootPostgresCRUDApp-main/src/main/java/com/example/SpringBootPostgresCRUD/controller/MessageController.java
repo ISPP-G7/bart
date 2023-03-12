@@ -35,6 +35,14 @@ public class MessageController {
     @GetMapping("/viewAllMessages")
     public String viewAllMessages(@ModelAttribute("message") String message,
             Model model) {
+                Boolean is_logged=false;
+                if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+                    is_logged=true;
+                    String email=SecurityContextHolder.getContext().getAuthentication().getName();
+                    User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+                    model.addAttribute("usuario",usr);
+                }
+                model.addAttribute("isLogged", is_logged);
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         List<Message> todosMensajes = messageService.findBySenderOrReceiverEmail(email);
         Set<String> contactos = new HashSet<>();
@@ -55,6 +63,14 @@ public class MessageController {
     @GetMapping("/viewMessages/{email2}")
     public String viewMessages(@PathVariable("email2") String email2, @ModelAttribute("message") String message,
             Model model) {
+                Boolean is_logged=false;
+                if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+                    is_logged=true;
+                    String email=SecurityContextHolder.getContext().getAuthentication().getName();
+                    User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+                    model.addAttribute("usuario",usr);
+                }
+                model.addAttribute("isLogged", is_logged);
         String email1 = SecurityContextHolder.getContext().getAuthentication().getName();
         List<Message> mensajes = messageService.getByPreviousChat(email1, email2);
         model.addAttribute("emailReceiverS", email2);
@@ -67,6 +83,7 @@ public class MessageController {
     public String saveMessage(@PathVariable("emailReceiver") String emailReceiver,
             @RequestParam("bodyMessage") String bodyMessage,
             RedirectAttributes redirectAttributes) {
+                
         Message msg = new Message();
         String emailSender = SecurityContextHolder.getContext().getAuthentication().getName();
         User userSender = userService.getUserByEmail(emailSender);

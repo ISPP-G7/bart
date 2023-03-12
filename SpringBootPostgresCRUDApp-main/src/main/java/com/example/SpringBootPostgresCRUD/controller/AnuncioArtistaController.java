@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.example.SpringBootPostgresCRUD.service.AnuncioArtistaService;
 import com.example.SpringBootPostgresCRUD.service.ArrendadorService;
 import com.example.SpringBootPostgresCRUD.service.ArtistaService;
+import com.example.SpringBootPostgresCRUD.service.UserService;
 import com.example.SpringBootPostgresCRUD.entity.AnuncioArtista;
 import com.example.SpringBootPostgresCRUD.entity.Arrendador;
 import com.example.SpringBootPostgresCRUD.entity.Artista;
+import com.example.SpringBootPostgresCRUD.entity.User;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
@@ -21,6 +23,8 @@ import java.util.List;
 
 @Controller
 public class AnuncioArtistaController {
+    @Autowired
+    UserService userService;
     @Autowired
     ArrendadorService arrendadorService;
     @Autowired
@@ -50,6 +54,9 @@ public class AnuncioArtistaController {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
         }
         model.addAttribute("isLogged", is_logged);
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArrendadorNoAceptados();
@@ -67,6 +74,9 @@ public class AnuncioArtistaController {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
         }
         model.addAttribute("isLogged", is_logged);
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtista();
@@ -82,6 +92,9 @@ public class AnuncioArtistaController {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
         }
         model.addAttribute("isLogged", is_logged);
         AnuncioArtista anu = new AnuncioArtista();
@@ -124,6 +137,9 @@ public class AnuncioArtistaController {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
         }
         model.addAttribute("isLogged", is_logged);
         AnuncioArtista ann = anuncioArtistaService.getAnuncioArtistaById(id);

@@ -41,8 +41,9 @@
                     <th>Email</th>
                     <th>Fecha de nacimiento</th>
                     <th>Género</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
+                    <th>Es artista</th>
+                    <th>Es arrendador</th>
+                   
                 </tr>
 
                     <tr th:each="user : ${usrList}">
@@ -52,12 +53,9 @@
                         <td th:text="${user.email}"></td>
                         <td th:text="${user.dob}"></td>
                         <td th:text="${user.gender}"></td>
-                        <td><button type="button" class="btn btn-success">
-                            <a th:href="@{/editUser/{id}(id=${user.id})}">Editar</a>
-                        </button></td>
-                        <td><button type="button" class="btn btn-danger">
-                            <a th:href="@{/deleteUser/{id}(id=${user.id})}">Eliminar</a>
-                        </button></td>
+                        <td th:text="${user.esArtista}"></td>
+                        <td th:text="${user.esArrendador}"></td>
+
                     </tr>
 
             </table>

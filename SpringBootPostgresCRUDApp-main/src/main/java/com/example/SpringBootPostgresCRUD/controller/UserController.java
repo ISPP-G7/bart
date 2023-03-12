@@ -27,6 +27,9 @@ public class UserController {
     public String signUpUser(@ModelAttribute("message") String message, Model model) {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = usrService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
             is_logged=true;
         }
         model.addAttribute("isLogged", is_logged);
@@ -41,6 +44,9 @@ public class UserController {
     public String viewUsers(@ModelAttribute("message") String message, Model model) {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = usrService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
             is_logged=true;
         }
         model.addAttribute("isLogged", is_logged);
@@ -58,6 +64,9 @@ public class UserController {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = usrService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
         }
         model.addAttribute("isLogged", is_logged);
 
@@ -83,6 +92,9 @@ public class UserController {
     public String editUser(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = usrService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
             is_logged=true;
         }
         model.addAttribute("isLogged", is_logged);
@@ -95,8 +107,16 @@ public class UserController {
     }
 
     @PostMapping("/editSaveUser")
-    public String editSaveUser(@ModelAttribute("usr") User usr, RedirectAttributes redirectAttributes) {
-      
+    public String editSaveUser(@ModelAttribute("usr") User usr, RedirectAttributes redirectAttributes,Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User user = usrService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",user);
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
+
         if (usrService.saveOrUpdateUser(usr)) {
             redirectAttributes.addFlashAttribute("message", "Edit Success");
             return "redirect:/viewUsers";

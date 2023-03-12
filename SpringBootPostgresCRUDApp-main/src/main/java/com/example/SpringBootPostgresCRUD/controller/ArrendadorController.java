@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.SpringBootPostgresCRUD.entity.Arrendador;
+import com.example.SpringBootPostgresCRUD.entity.User;
 import com.example.SpringBootPostgresCRUD.service.ArrendadorService;
+import com.example.SpringBootPostgresCRUD.service.UserService;
 
 @Controller
 public class ArrendadorController {
-    
+    @Autowired
+    UserService userService;
     @Autowired
     ArrendadorService arrService;
     @GetMapping("/SignUpArrendador")
@@ -25,6 +28,9 @@ public class ArrendadorController {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
         }
         model.addAttribute("isLogged", is_logged);
 
@@ -40,6 +46,9 @@ public class ArrendadorController {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
         }
         model.addAttribute("isLogged", is_logged);
 
@@ -56,6 +65,9 @@ public class ArrendadorController {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
         }
         model.addAttribute("isLogged", is_logged);
 
@@ -83,6 +95,9 @@ public class ArrendadorController {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            model.addAttribute("usuario",usr);
         }
         model.addAttribute("isLogged", is_logged);
 

@@ -24,6 +24,15 @@
         <form th:action="@{/saveArrendador}" th:object="${arr}" method="post">
             <div class="row">
                 <div class="form-group col-md-12">
+                    <label class="col-md-3" for="urlImagen">URL Imagen de Perfil</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{urlImagen}" id="urlImagen"
+                                    class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
                     <label class="col-md-3" for="firstName">Nombre</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{firstName}" id="firstName"

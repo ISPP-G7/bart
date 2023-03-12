@@ -2,13 +2,25 @@
 <html>
 <head>
 	<title>Perfil de arrendador</title>
+	<link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 <body>
 	<div th:replace="Home :: Home"></div>
 	<table>
 		<tr>
+			<img th:src="${arr.getUrlImagen()}" style="max-width: 200px;">
+		</tr>
+		<tr>
 			<td>Dirección:</td>
-            
 			<td th:text="${arr.getDireccion()}"></td>
 		</tr>
 		<tr>

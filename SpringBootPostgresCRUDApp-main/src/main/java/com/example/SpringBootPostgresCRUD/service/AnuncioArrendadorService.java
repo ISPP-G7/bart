@@ -73,8 +73,9 @@ public class AnuncioArrendadorService {
         }
         return false;
     }
-    public boolean aceptarAnuncioArrendador(AnuncioArrendador anar) {
+    public boolean aceptarAnuncioArrendador(AnuncioArrendador anar,Long artista_accept_id) {
         anar.setEstaAceptado(true);
+        anar.setArtista_accept_id(artista_accept_id);
        anuncioArrendadorRepository.save(anar);
         if (anuncioArrendadorRepository.findById(anar.getId()) != null) {
             return true;

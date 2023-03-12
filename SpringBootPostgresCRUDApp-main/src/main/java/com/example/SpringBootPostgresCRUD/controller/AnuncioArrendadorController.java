@@ -60,29 +60,8 @@ public class AnuncioArrendadorController {
         }
 
         redirectAttributes.addFlashAttribute("message", "Save Failure");
-        return "redirect:/viewAnunciosArrendador";
-    }
+        return "redirect:/addAnuncioArrendador";
 
-    @GetMapping("/editAnuncioArrendador/{id}")
-    public String editArrendador(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
-        AnuncioArrendador arr = anuncioArrendadorService.getAnuncioArrendadorById(id);
-
-        model.addAttribute("anu", arr);
-        model.addAttribute("message", message);
-
-        return "EditAnuncioArrendador";
-    }
-
-    @PostMapping("/editSaveAnuncioArrendador")
-    public String editSaveAnuncioArrendador(@ModelAttribute("anu") AnuncioArrendador anu, HttpServletRequest request,
-            RedirectAttributes redirectAttributes) {
-        if (anuncioArrendadorService.updateAnuncioArrendador(anu)) {
-            redirectAttributes.addFlashAttribute("message", "Edit Success");
-            return "redirect:/viewAnunciosArrendador";
-        }
-
-        redirectAttributes.addFlashAttribute("message", "Edit Failure");
-        return "redirect:/viewAnunciosArrendador" + anu.getId();
     }
 
     @GetMapping("/deleteAnuncioArrendador/{id}")
@@ -95,5 +74,28 @@ public class AnuncioArrendadorController {
         redirectAttributes.addFlashAttribute("message", "Delete Failure");
         return "redirect:/viewAnunciosArrendador";
     }
+
+    @GetMapping("/editAnuncioArrendador/{id}")
+    public String editArrendador(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
+        AnuncioArrendador ann = anuncioArrendadorService.getAnuncioArrendadorById(id);
+
+        model.addAttribute("anu", ann);
+        model.addAttribute("message", message);
+
+        return "EditAnuncioArrendador";
+    }
+
+    @PostMapping("/editSaveAnuncioArrendador")
+    public String editSaveAnuncioArrendador(@ModelAttribute("anu") AnuncioArrendador anu,HttpServletRequest request,
+            RedirectAttributes redirectAttributes) {
+                if (anuncioArrendadorService.updateAnuncioArrendador(anu)) {
+                    redirectAttributes.addFlashAttribute("message", "Edit Success");
+            return "redirect:/viewAnunciosArrendador";
+        }
+
+        redirectAttributes.addFlashAttribute("message", "Edit Failure");
+        return "redirect:/editAnuncioArrendador/" + anu.getId();
+    }
+
 
 }

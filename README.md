@@ -1,6 +1,6 @@
-# Bart - La plataforma de intercambio entre artistas y arrendadoras de espacios
+# Bart - La plataforma de intercambio entre artistas y arrendadores de espacios
 
-Bart es una aplicación que conecta a artistas y arrendadoras de espacios para sesiones artísticas. Con Bart, los artistas pueden ofrecer sus servicios y los arrendadoras pueden publicar sus locales disponibles para sesiones artísticas.
+Bart es una aplicación que conecta a artistas y arrendadores de espacios para sesiones artísticas. Con Bart, los artistas pueden ofrecer sus servicios y los arrendadoras pueden publicar sus locales disponibles para sesiones artísticas.
 
 ## Instalación
 

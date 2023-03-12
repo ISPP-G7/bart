@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.SpringBootPostgresCRUD.service.AnuncioArtistaService;
+import com.example.SpringBootPostgresCRUD.service.ArrendadorService;
 import com.example.SpringBootPostgresCRUD.service.ArtistaService;
 import com.example.SpringBootPostgresCRUD.entity.AnuncioArtista;
+import com.example.SpringBootPostgresCRUD.entity.Arrendador;
 import com.example.SpringBootPostgresCRUD.entity.Artista;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,11 +21,41 @@ import java.util.List;
 
 @Controller
 public class AnuncioArtistaController {
-
+    @Autowired
+    ArrendadorService arrendadorService;
     @Autowired
     AnuncioArtistaService anuncioArtistaService;
     @Autowired
     ArtistaService artistaService;
+
+    //working on arrendador acepta artista 
+    @GetMapping("/aceptarAnuncioArtista/{id}")
+    public String aceptarAnuncioArtista(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        
+        String email=SecurityContextHolder.getContext().getAuthentication().getName();
+        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+        Long arrendador_accept_id= arrendador.getId();
+        AnuncioArtista anar=  anuncioArtistaService.getAnuncioArtistaById(id);
+        if (anuncioArtistaService.aceptarAnuncioArtista(anar,arrendador_accept_id)) {
+            redirectAttributes.addFlashAttribute("message", "Accept Success");
+            return "redirect:/viewAnunciosArtistaParaArrendadores";
+        }
+
+        redirectAttributes.addFlashAttribute("message", "Delete Failure");
+        return "redirect:/viewAnunciosArtistaParaArrendadores";
+    }
+
+    @GetMapping({ "/viewAnunciosArtistaParaArrendadores" })
+    public String viewAnunciosArtistaParaArrendadores(@ModelAttribute("message") String message, Model model) {
+        List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArrendadorNoAceptados();
+       
+
+        model.addAttribute("anuList", anuList);
+        model.addAttribute("message", message);
+
+        return "viewAnunciosArtistaParaArrendadores";
+    }
+
 
     @GetMapping({ "/viewAnunciosArtista" })
     public String viewAnuncioArtista(@ModelAttribute("message") String message, Model model) {

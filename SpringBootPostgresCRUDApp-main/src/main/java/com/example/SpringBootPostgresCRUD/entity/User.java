@@ -20,16 +20,30 @@ public class User {
 
     private String gender;
 
+    private String password;
+    
+    private Boolean es_arrendador;
+    private Boolean es_artista;
+
+
+
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, String dob, String gender) {
+    public User(Long id, String firstName, String lastName, String email, String dob, String gender,String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dob = dob;
         this.gender = gender;
+        this.password=password;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {
@@ -79,4 +93,17 @@ public class User {
     public void setGender(String gender) {
         this.gender = gender;
     }
+    public Boolean getEsArtista(){
+        return es_artista;
+    }
+    public Boolean getEsArrendador(){
+        return es_arrendador;
+    }
+    public void setEsArtista(Boolean es_artista){
+        this.es_artista= es_artista;
+    }
+    public void setEsArrendador(Boolean es_arrendador){
+        this.es_arrendador=es_arrendador;
+    }
+
 }

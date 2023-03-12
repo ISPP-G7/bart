@@ -64,38 +64,82 @@
 			}
 		</style>
 
-		<nav class="navbar navbar-expand-lg">
+		<nav class="navbar navbar-expand-lg navbar-dark">
 			<a class="navbar-brand" href="/home">
 				<img src="/logo.png" alt="Logo de Bart">
 			</a>
+		
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
+				<span class="navbar-toggler-icon"></span>			
 			</button>
+		
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="/home">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Locales</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Contacto</a>
-	
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/viewUsers">Usuarios</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/viewArtistas">Artistas</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/viewArrendadores">Arrendadores</a>
-					</li>
+					<!-- Si el usuario no está logueado -->
+					<th:block th:if="${not isLogged}">
+						<li class="nav-item">
+							<a class="nav-link" href="/login">Login</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/SignUpArtista">SignUpArtista</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/SignUpArrendador">SignUpArrendador</a>
+						</li>
+					</th:block>
+		
+					<!-- Si el usuario está logueado -->
+					<th:block th:if="${isLogged}">
+						<li class="nav-item active">
+							<a class="nav-link" href="/home">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Contacto</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/viewUsers">Vista de usuarios</a>
+						</li>
+						<li th:if="${usuario.esArtista}" class="nav-item">
+							<a class="nav-link" href="/viewArtistas">Vista de artistas</a>
+						</li>
+						<li th:if="${usuario.esArtista}" class="nav-item">
+							<a class="nav-link" href="/viewAnunciosArrendadorParaArtistas">Anuncios ofertados por Arrendadores</a>
+						</li>
+						<li th:if="${usuario.esArtista}" class="nav-item">
+							<a class="nav-link" href="/viewAnunciosArtista">Cree y vea anuncios de artistas</a>
+						</li>
+						<li th:if="${usuario.esArtista}" class="nav-item">
+							<a class="nav-link" href="/viewAllMessages">Chat</a>
+						</li>
+						<li th:if="${usuario.esArtista}" class="nav-item">
+							<a class="nav-link" href="/viewArrendadores">Vista de arrendadores</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewArrendadores">Vista de arrendadores</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewAnunciosArtistaParaArrendadores">Anuncios ofertados por artistas</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewAnunciosArrendador">Cree y vea anuncios de arrendadores</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewAllMessages">Chat</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewArtistas">Artistas</a>
+						</li>
+						<li class="nav-item">
+							<span class="nav-link" th:text="${nombreUsuario}"></span>
+						</li>
+					</th:block>
+
 				</ul>
 			</div>
 		</nav>
+		
+		
 	</div>
 
 

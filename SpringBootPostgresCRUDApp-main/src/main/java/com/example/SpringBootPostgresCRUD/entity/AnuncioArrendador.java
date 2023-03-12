@@ -5,12 +5,6 @@ import javax.persistence.Id;
 
 import javax.persistence.Table;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.Valid;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
@@ -35,6 +29,8 @@ public class AnuncioArrendador {
      * 
      * @Max(50)
      */
+    
+    private Long artista_accept_id;
     private String nombreLocal;
 
     /*
@@ -67,7 +63,8 @@ public class AnuncioArrendador {
     private Estilo estilo;
 
     @OneToOne
-    private Arrendador arrendador_id;
+    private Arrendador arrendador;
+    private boolean estaAceptado = false;
 
     public AnuncioArrendador() {
 
@@ -123,5 +120,27 @@ public class AnuncioArrendador {
         this.descripcionArrendador = especificaciones;
     }
 
+	public void setArrendador(Arrendador byId) {
+		// TODO Auto-generated method stub
+		this.arrendador = byId;
+	}
+
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
+    public boolean getEstaAceptado() {
+        return estaAceptado;
+    }
+    
+    public void setEstaAceptado(boolean estaAceptado) {
+        this.estaAceptado = estaAceptado;
+    }
+    public Long getArtista_accept_id() {
+        return artista_accept_id;
+    }
+    public void setArtista_accept_id(Long artista_accept_id) {
+        this.artista_accept_id = artista_accept_id;
+    }
     // otros getters y setters específicos de Arrendador
 }

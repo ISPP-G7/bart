@@ -5,12 +5,6 @@ import javax.persistence.Id;
 
 import javax.persistence.Table;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.Valid;
 import lombok.Setter;
 import lombok.Getter;
 import javax.persistence.Enumerated;
@@ -33,6 +27,7 @@ public class AnuncioArtista {
     // @Min(10)
     // @Max(50)
     private String pseudonimoArtista;
+    private Long arrendador_accept_id;
 
     // @NotBlank
     /*@Min(5)
@@ -56,61 +51,46 @@ public class AnuncioArtista {
     private Estilo estilo;
 
     @OneToOne
-    private Artista artista_id;
+    private Artista artista;
+    private boolean estaAceptado = false;
 
     public AnuncioArtista() {
 
     }
 
     public AnuncioArtista(Long id, String pseudonimoArtista, String ubicacion,
-            Float precio, String descripcionArtista, Estilo estilo) {
+            Float precio, String descripcionArtista, Estilo estilo, Artista artista) {
         this.id = id;
         this.pseudonimoArtista = pseudonimoArtista;
         this.ubicacion = ubicacion;
         this.precio = precio;
         this.descripcionArtista = descripcionArtista;
         this.estilo = estilo;
+        this.artista= artista;
     }
 
-    public String getPseudonimoArtista() {
-        return pseudonimoArtista;
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
+    public boolean getEstaAceptado() {
+        return estaAceptado;
+    }
+    
+    public void setEstaAceptado(boolean estaAceptado) {
+        this.estaAceptado = estaAceptado;
     }
 
-    public void setTitulo(String pseudonimoArtista) {
-        this.pseudonimoArtista = pseudonimoArtista;
+	public void setArtista(Artista byId) {
+		// TODO Auto-generated method stub
+		this.artista = byId;
+		
+	}
+    public Long getArrendador_accept_id() {
+        return arrendador_accept_id;
     }
-
-    public Estilo getEstilo() {
-        return estilo;
+    public void setArrendador_accept_id(Long arrendador_accept_id) {
+        this.arrendador_accept_id = arrendador_accept_id;
     }
-
-    public void setEstilo(Estilo estilo) {
-        this.estilo = estilo;
-    }
-
-    public Float getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Float precio) {
-        this.precio = precio;
-    }
-
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public String getDescripicionArtista() {
-        return descripcionArtista;
-    }
-
-    public void setDescripicionArtista(String especificaciones) {
-        this.descripcionArtista = especificaciones;
-    }
-
     // otros getters y setters específicos de Artista
 }

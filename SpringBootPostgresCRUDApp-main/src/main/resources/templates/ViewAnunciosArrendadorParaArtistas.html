@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ver lista de usuarios</title>
+    <title>Anuncios de arrendadores</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -31,38 +31,38 @@
 
         <h1 th:text="${message}"></h1>
 
-        <h1 class="p-3">Lista de usuarios</h1>
+        <h1 class="p-3">Anuncios de arrendadores</h1>
 
             <table class="table table-bordered">
                 <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Email</th>
-                    <th>Fecha de nacimiento</th>
-                    <th>Género</th>
-                    <th>Es artista</th>
-                    <th>Es arrendador</th>
-                   
+                    <th>Nombre Local</th>
+                    <th>Ubicación</th>
+                    <th>Precio</th>
+                    <th>Descripcion arrendador</th>
+                    <th>Estilo</th>
+                    <th>Estado</th>
+                    <th>Aceptar</th>
+    
                 </tr>
 
-                    <tr th:each="user : ${usrList}">
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.firstName}"></td>
-                        <td th:text="${user.lastName}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.dob}"></td>
-                        <td th:text="${user.gender}"></td>
-                        <td th:text="${user.esArtista}"></td>
-                        <td th:text="${user.esArrendador}"></td>
+                    <tr th:each="Anuncio : ${anuList}">
+                        <td th:text="${Anuncio.id}"></td>
+                        <td th:text="${Anuncio.nombreLocal}"></td>
+                        <td th:text="${Anuncio.ubicacion}"></td>
+                        <td th:text="${Anuncio.precio}"></td>
+                        <td th:text="${Anuncio.descripcionArrendador}"></td>
+                        <td th:text="${Anuncio.estilo}"></td>
+                        <td th:text="${Anuncio.estaAceptado}"></td>
 
+                        <td><button type="button" class="btn btn-danger">
+                            <a th:href="@{/aceptarAnuncioArrendador/{id}(id=${Anuncio.id})}">Aceptar</a>
+                        </button></td>
                     </tr>
 
             </table>
 
-        <button type="button" class="btn btn-primary btn-block">
-            <a href="/addUser">Añadir nuevo usuario</a>
-        </button>
+ 
 
     </div>
 
@@ -70,14 +70,14 @@
         window.onload = function() {
 
             var msg = [[${message}]];
-            if (msg == "Save Success") {
-				Command: toastr["success"]("Usuario creado con éxito")
-			} else if (msg == "Delete Success") {
-				Command: toastr["success"]("Usuario eliminado con éxito")
-			} else if (msg == "Delete Error") {
-			    Command: toastr["error"]("Ha ocurrido un error, no se pudo eliminar el usuario")
-			} else if (msg == "Edit Success") {
-				Command: toastr["success"]("Usuario actualizado con éxito")
+            if (msg == "Anuncio creado con éxito") {
+				Command: toastr["success"]("Anuncio creado con éxito")
+			} else if (msg == "Anuncio borrado con éxito") {
+				Command: toastr["success"]("Anuncio borrado con éxito")
+			} else if (msg == "Ha ocurrido un error, no se ha podido borrar el anuncio") {
+			    Command: toastr["error"]("Ha ocurrido un error, no se ha podido borrar el anuncio")
+			} else if (msg == "Anuncio actualizado con éxito") {
+				Command: toastr["success"]("Anuncio actualizado con éxito")
 			}
 
 			toastr.options = {
@@ -98,5 +98,6 @@
                 }
 	    }
     </script>
+
 </body>
 </html>

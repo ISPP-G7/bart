@@ -23,14 +23,17 @@ public class ArrendadorService {
     }
 
     public Arrendador getArrendadorById(Long id) {
-        System.out.println("ayuda");
-        System.out.println(arrRepository.findById(id).get().getNombreLocal());
-
         return arrRepository.findById(id).get();
     }
 
-    public boolean saveOrUpdateArrendador(Arrendador Arrendador) {
-        Arrendador arr = arrRepository.save(Arrendador);
+    public Arrendador getArrendadorByMailArrendador(String mail) {
+        return arrRepository.getArrendadorByMailArrendador(mail);
+    }
+
+    public boolean saveOrUpdateArrendador(Arrendador arrendador) {
+        arrendador.setEsArrendador(true);
+        arrendador.setEsArtista(false);
+        Arrendador arr = arrRepository.save(arrendador);
         if (arrRepository.findById(arr.getId()) != null) {
             return true;
         }

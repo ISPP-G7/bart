@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>View User List</title>
+    <title>Add user</title>
+
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -19,12 +20,12 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
 
-        <h1 class="p-3">Users List</h1>
+        <h1 class="p-3">Add user</h1>
 
         <form th:action="@{/saveUser}" th:object="${usr}" method="post">
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="firstName">First Name</label>
+                    <label class="col-md-3" for="firstName">Nombre</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{firstName}" id="firstName"
                                     class="form-control input-sm" required="required" />
@@ -34,7 +35,7 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="lastName">Last Name</label>
+                    <label class="col-md-3" for="lastName">Apellidos</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{lastName}" id="lastName"
                                     class="form-control input-sm" required="required" />
@@ -44,22 +45,22 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">Gender</label>
+                    <label class="col-md-3">Género</label>
                     <div class="col-md-6">
 
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Male" />Male
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Male" />Masculino
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Female" />Female
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Female" />Femenino
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Other" />Other
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Other" />Otro
                             </label>
                         </div>
 
@@ -69,7 +70,7 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">Date of birth</label>
+                    <label class="col-md-3">Fecha de nacimiento</label>
                     <div class="col-md-6">
                         <input type="date" th:field="*{dob}" id="dob"
                                     class="form-control input-sm" required="required" />
@@ -89,7 +90,7 @@
 
             <div class="row p-2">
                 <div class="col-md-2">
-                    <button class="btn btn-success">Create</button>
+                    <button class="btn btn-success">Crear</button>
                 </div>
             </div>
         </form>
@@ -101,7 +102,7 @@
 
             var msg = [[${message}]];
             if (msg == "Save Failure") {
-				Command: toastr["error"]("Some error occurred, couldn't save user")
+				Command: toastr["error"]("Ha ocurrido un error, no se pudo guardar el arrendador")
 
 				toastr.options = {
                   "closeButton": true,

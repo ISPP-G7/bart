@@ -24,9 +24,14 @@ public class ArtistaService {
     public Artista getArtistaById(Long id) {
            return artistaRepository.findById(id).get();
     }
+    public Artista getArtistaByMailArtista(String mail){
+        return artistaRepository.getArtistaByMailArtista(mail);
+    }
 
-    public boolean saveOrUpdateArtista(Artista Artista) {
-        Artista ars = artistaRepository.save(Artista);
+    public boolean saveOrUpdateArtista(Artista artista) {
+        artista.setEsArtista(true);
+        artista.setEsArrendador(false);
+        Artista ars = artistaRepository.save(artista);
         if (artistaRepository.findById(ars.getId()) != null) {
             return true;
         }

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Anuncio</title>
+    <title>Añadir anuncio</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -14,17 +15,64 @@
             src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script
             src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <style>
+                body {
+                    background-color: #9b59b6;
+                }
+                
+                h1 {
+                    color: white;
+                }
+                
+                label {
+                    color: #fff;
+                }
+                
+                input[type="text"], input[type="checkbox"] {
+                    background-color: #fff;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    color: #555;
+                    font-size: 16px;
+                    margin-top: 5px;
+                    padding: 10px 15px;
+                    width: 100%;
+                }
+                
+                input[type="submit"] {
+                    background-color: red;
+                    border: none;
+                    border-radius: 4px;
+                    color: #fff;
+                    font-size: 16px;
+                    margin-top: 10px;
+                    padding: 10px 15px;
+                }
+                
+                @media screen and (max-width: 768px) {
+                    input[type="text"], input[type="checkbox"], input[type="submit"] {
+                        font-size: 14px;
+                        padding: 8px 12px;
+                    }
+                }
+            </style>
+            
 </head>
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="container">
 
-        <h1 class="p-3">Add Anuncio</h1>
+        <h1 class="p-3">Añadir anuncio</h1>
 
         <form th:action="@{/saveAnuncioArtista}" th:object="${anu}" method="post">
+            <div>
+                <input id="artista" name="artista" type="hidden" th:field="${artista.id}" class="form-control input-sm"/>
+
+            </div>
+
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="pseudonimoArtista">Nombre del Artista</label>
+                    <label class="col-md-3" for="pseudonimoArtista">Nombre del artista</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{pseudonimoArtista}" id="pseudonimoArtista"
                                     class="form-control input-sm" required="required" />
@@ -34,7 +82,7 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="ubicacion">Ubicacion</label>
+                    <label class="col-md-3" for="ubicacion">Ubicación</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{ubicacion}" id="ubicacion"
                                     class="form-control input-sm" required="required" />
@@ -70,7 +118,7 @@
 
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="REGGAETON" />Reggaeton
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="REGGAETON" />Reggaetón
                             </label>
                         </div>
                         <div class="form-check-inline">
@@ -90,7 +138,7 @@
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="HIPHOP" />HipHop
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="HIPHOP" />Hip Hop
                             </label>
                         </div>
                         <div class="form-check-inline">
@@ -105,7 +153,7 @@
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="ELECTRONICA" />Electronica
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="ELECTRONICA" />Electrónica
                             </label>
                         </div>
 
@@ -116,7 +164,7 @@
 
             <div class="row p-2">
                 <div class="col-md-2">
-                    <button class="btn btn-success">Create</button>
+                    <button class="btn btn-success">Crear</button>
                 </div>
             </div>
         </form>
@@ -128,7 +176,7 @@
 
             var msg = [[${message}]];
             if (msg == "Save Failure") {
-				Command: toastr["error"]("Some error occurred, couldn't save Anuncio")
+				Command: toastr["error"]("Ha ocurrido un error, no se pudo guardar el anuncio")
 
 				toastr.options = {
                   "closeButton": true,

@@ -1,56 +1,22 @@
 -- Eliminar tablas si existen
-DROP TABLE IF EXISTS message;
-DROP TABLE IF EXISTS anuncios;
-DROP TABLE IF EXISTS anuncios_artista;
-DROP TABLE IF EXISTS anuncios_arrendador;
-DROP TABLE IF EXISTS artistas;
-DROP TABLE IF EXISTS arrendadores;
-
+DROP TABLE IF EXISTS public.messages CASCADE;
+DROP TABLE IF EXISTS public.users CASCADE;
+DROP TABLE IF EXISTS public.artistas CASCADE;
+DROP TABLE IF EXISTS public.anuncios_artista CASCADE;
+DROP TABLE IF EXISTS public.anuncios_arrendador CASCADE;
+DROP TABLE IF EXISTS public.arrendadores CASCADE;
+C
 -- Creación de tablas
-CREATE TABLE artistas (
-    id INTEGER PRIMARY KEY,
-    firstName VARCHAR(255),
-    lastName VARCHAR(255),
-    email VARCHAR(255),
-    dob VARCHAR(255),
-    gender VARCHAR(255),
-    nombreArtistico VARCHAR(255),
-    categoriaArtistica VARCHAR(255)
-);
-CREATE TABLE arrendadores (
-    id INTEGER PRIMARY KEY,
-    firstName VARCHAR(255),
-    lastName VARCHAR(255),
-    email VARCHAR(255),
-    dob VARCHAR(255),
-    gender VARCHAR(255),
-    nombreLocal VARCHAR(255),
-    direccion VARCHAR(255)
-);
-
-CREATE TABLE anuncios (
-  id INT NOT NULL,
-  titulo VARCHAR(50) NOT NULL,
-  ubicacion VARCHAR(60) NOT NULL,
-  precio FLOAT NOT NULL,
-  especificaciones VARCHAR(300) NOT NULL,
-  estilo VARCHAR(255) NOT NULL,
-  artista_id INT ,
-  arrendador_id INT,
-  PRIMARY KEY (id),
-  FOREIGN KEY (artista_id) REFERENCES artistas(id),
-  FOREIGN KEY (arrendador_id) REFERENCES arrendadores(id)
-);
-
-
--- Inserción de datos
---INSERT INTO users(firstName, lastName, email, dob, gender, password) VALUES
---(1, 'Antonio', 'Perez', 'antonio@gmail.com', '11/05/1970', 'Male', 'password');
-INSERT INTO artistas(id, firstName, lastName, email, dob, gender, nombreArtistico, categoriaArtistica) VALUES
-(1, 'Antonio', 'Perez', 'antonio@gmail.com', '11/05/1970', 'Male', 'Paco Sans', 'Rock');
-INSERT INTO arrendadores(id, firstName, lastName, email, dob, gender, nombreLocal, direccion) VALUES
-(1, 'Paco', 'Perez', 'paco@gmail.com', '11/05/1970', 'Male', 'Bar Paco', 'Renia Mercedes N3');
-INSERT INTO anuncios(id,titulo, ubicacion, precio, especificaciones, estilo, artista_id) VALUES 
-(1,'Título del anuncio', 'Ciudad, País', 1000.00, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'ROCK',  1);
-INSERT INTO anuncios(id,titulo, ubicacion, precio, especificaciones, estilo, arrendador_id) VALUES 
-(2,'Título del anuncio', 'Ciudad, País', 1000.00, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'RAP',  1);
+INSERT INTO public.users (id,dob,email,es_arrendador,es_artista,first_name,gender,last_name,"password") VALUES
+	 (116,'2001-02-21','testArtista@gmail.com',false,true,'testArtista','Male','testArtista','testArtista'),
+	 (118,'2023-03-02','testArrendador@gmail.com',true,false,'testArrendador','Male','testArrendador','testArrendador');
+INSERT INTO public.arrendadores (direccion,nombre_local,url_imagen,id) VALUES
+	 ('ÑAM ÑAM SEVILLA','testArrendador',NULL,118);
+INSERT INTO public.artistas (categoria_artistica,nombre_artistico,url_imagen,id) VALUES
+	 ('testArtista','testArtista','imagen.txt',116);
+INSERT INTO public.anuncios_artista (id,arrendador_accept_id,descripcion_artista,esta_aceptado,estilo,precio,pseudonimo_artista,ubicacion,artista_id) VALUES
+	 (117,NULL,'testArtista',false,'REGGAETON',12.0,'testArtista','testArtista',116);
+INSERT INTO public.anuncios_arrendador (id,artista_accept_id,descripcion_arrendador,esta_aceptado,estilo,nombre_local,precio,ubicacion,arrendador_id) VALUES
+	 (120,NULL,'testArrendador',false,'REGGAETON','testArrendador',12.0,'testArrendador',118);
+INSERT INTO public.messages (id,message_body,user_receiver,user_sender) VALUES
+	 (121,'12112',118,118);

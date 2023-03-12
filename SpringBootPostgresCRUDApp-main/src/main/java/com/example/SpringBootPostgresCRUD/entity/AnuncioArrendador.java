@@ -29,8 +29,8 @@ public class AnuncioArrendador {
      * 
      * @Max(50)
      */
-    @OneToOne
-    private Artista artista;
+    
+    private Long artista_accept_id;
     private String nombreLocal;
 
     /*
@@ -136,11 +136,11 @@ public class AnuncioArrendador {
     public void setEstaAceptado(boolean estaAceptado) {
         this.estaAceptado = estaAceptado;
     }
-    public Artista getArtista() {
-        return artista;
+    public Long getArtista_accept_id() {
+        return artista_accept_id;
     }
-    public void setArtista(Artista artista) {
-        this.artista = artista;
+    public void setArtista_accept_id(Long artista_accept_id) {
+        this.artista_accept_id = artista_accept_id;
     }
     // otros getters y setters específicos de Arrendador
 }

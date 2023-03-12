@@ -21,6 +21,11 @@ public class User {
     private String gender;
 
     private String password;
+    
+    private Boolean es_arrendador;
+    private Boolean es_artista;
+
+
 
     public User() {
     }
@@ -88,4 +93,17 @@ public class User {
     public void setGender(String gender) {
         this.gender = gender;
     }
+    public Boolean getEsArtista(){
+        return es_artista;
+    }
+    public Boolean getEsArrendador(){
+        return es_arrendador;
+    }
+    public void setEsArtista(Boolean es_artista){
+        this.es_artista= es_artista;
+    }
+    public void setEsArrendador(Boolean es_arrendador){
+        this.es_arrendador=es_arrendador;
+    }
+
 }

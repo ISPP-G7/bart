@@ -3,6 +3,7 @@ package com.example.SpringBootPostgresCRUD.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,14 @@ public class ArrendadorController {
     ArrendadorService arrService;
     @GetMapping("/SignUpArrendador")
     public String signUpUser(@ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
+
         Arrendador arr = new Arrendador();
+        arr.setEsArrendador(true);
         model.addAttribute("arr", arr);
         model.addAttribute("message", message);
 
@@ -29,6 +37,12 @@ public class ArrendadorController {
     }
     @GetMapping({"/viewArrendadores"})
     public String viewArrendadores(@ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
+
         List<Arrendador> arrList = arrService.getAllArrendadores();
 
         model.addAttribute("arrList", arrList);
@@ -39,6 +53,12 @@ public class ArrendadorController {
 
     @GetMapping("/addArrendador")
     public String newArrendador(@ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
+
         Arrendador arrendador = new Arrendador();
         model.addAttribute("arr", arrendador);
         model.addAttribute("message", message);
@@ -48,6 +68,7 @@ public class ArrendadorController {
 
     @PostMapping("/saveArrendador")
     public String saveArrendador(Arrendador arr, RedirectAttributes redirectAttributes) {
+        
         if (arrService.saveOrUpdateArrendador(arr)) {
             redirectAttributes.addFlashAttribute("message", "Save Success");
             return "redirect:/viewArrendadores";
@@ -59,6 +80,12 @@ public class ArrendadorController {
 
     @GetMapping("/editArrendador/{id}")
     public String editArrendador(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
+
         Arrendador arr = arrService.getArrendadorById(id);
         model.addAttribute("arr", arr);
         model.addAttribute("message", message);
@@ -67,6 +94,12 @@ public class ArrendadorController {
     }
     @GetMapping("/perfilArrendador/{id}")
     public String perfilArrendador(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
+
         Arrendador arr = arrService.getArrendadorById(id);
         model.addAttribute("arr", arr);
         model.addAttribute("message", message);
@@ -76,6 +109,7 @@ public class ArrendadorController {
     }
     @PostMapping("/editSaveArrendador")
     public String editSaveArrendador(@ModelAttribute("arr") Arrendador arr, RedirectAttributes redirectAttributes) {
+     
         if (arrService.saveOrUpdateArrendador(arr)) {
             redirectAttributes.addFlashAttribute("message", "Edit Success");
             return "redirect:/viewArrendadores";
@@ -87,7 +121,7 @@ public class ArrendadorController {
 
     @GetMapping("/deleteArrendador/{id}")
     public String deleteArrendador(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        if (arrService.deleteArrendador(id)) {
+               if (arrService.deleteArrendador(id)) {
             redirectAttributes.addFlashAttribute("message", "Delete Success");
             return "redirect:/viewArrendadores";
         }

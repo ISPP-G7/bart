@@ -1,6 +1,7 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +28,8 @@ public class HomeController {
     private ArrendadorService arrService;
 
     @GetMapping({ "/", "/home" })
-    public String home(Model model) throws IOException {
+    public String home(Model model,Authentication authentication) throws IOException {
+        Boolean is_logged= false;
         List<List<String>> coordenadasList = new ArrayList<>();
 
         List<Arrendador> arrendadoresList = arrService.getAllArrendadores();
@@ -61,10 +63,13 @@ public class HomeController {
 
         // Para que aparezca el nombre de usuario
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
             model.addAttribute("nombreUsuario", SecurityContextHolder.getContext().getAuthentication().getName());
         } else {
             model.addAttribute("nombreUsuario", "");
         }
+        model.addAttribute("isLogged", is_logged);
+
 
         return "Home";
     }

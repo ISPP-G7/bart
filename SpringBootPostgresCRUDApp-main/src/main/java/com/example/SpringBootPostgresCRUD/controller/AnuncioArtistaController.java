@@ -47,6 +47,11 @@ public class AnuncioArtistaController {
 
     @GetMapping({ "/viewAnunciosArtistaParaArrendadores" })
     public String viewAnunciosArtistaParaArrendadores(@ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArrendadorNoAceptados();
        
 
@@ -59,6 +64,11 @@ public class AnuncioArtistaController {
 
     @GetMapping({ "/viewAnunciosArtista" })
     public String viewAnuncioArtista(@ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtista();
 
         model.addAttribute("anuList", anuList);
@@ -69,6 +79,11 @@ public class AnuncioArtistaController {
 
     @GetMapping("/addAnuncioArtista")
     public String newAnuncioArtista(@ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
         AnuncioArtista anu = new AnuncioArtista();
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Artista artista = artistaService.getArtistaByMailArtista(email); // Con esto cogemos el artista logueado
@@ -106,6 +121,11 @@ public class AnuncioArtistaController {
 
     @GetMapping("/editAnuncioArtista/{id}")
     public String editArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
         AnuncioArtista ann = anuncioArtistaService.getAnuncioArtistaById(id);
 
         model.addAttribute("anu", ann);

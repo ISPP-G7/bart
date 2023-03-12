@@ -30,8 +30,10 @@ public class ArrendadorService {
         return arrRepository.getArrendadorByMailArrendador(mail);
     }
 
-    public boolean saveOrUpdateArrendador(Arrendador Arrendador) {
-        Arrendador arr = arrRepository.save(Arrendador);
+    public boolean saveOrUpdateArrendador(Arrendador arrendador) {
+        arrendador.setEsArrendador(true);
+        arrendador.setEsArtista(false);
+        Arrendador arr = arrRepository.save(arrendador);
         if (arrRepository.findById(arr.getId()) != null) {
             return true;
         }

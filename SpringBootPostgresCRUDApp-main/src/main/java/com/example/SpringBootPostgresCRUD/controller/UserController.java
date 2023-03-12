@@ -4,6 +4,7 @@ import com.example.SpringBootPostgresCRUD.entity.User;
 import com.example.SpringBootPostgresCRUD.repo.UserRepository;
 import com.example.SpringBootPostgresCRUD.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,12 @@ public class UserController {
 
     @GetMapping("/SignUpUser")
     public String signUpUser(@ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
+
         User usr = new User();
         model.addAttribute("usr", usr);
         model.addAttribute("message", message);
@@ -32,6 +39,12 @@ public class UserController {
     }
     @GetMapping({"/viewUsers"})
     public String viewUsers(@ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
+
         List<User> usrList = usrService.getAllUsers();
 
         model.addAttribute("usrList", usrList);
@@ -42,6 +55,12 @@ public class UserController {
 
     @GetMapping("/addUser")
     public String newUser(@ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
+
         User usr = new User();
         model.addAttribute("usr", usr);
         model.addAttribute("message", message);
@@ -62,6 +81,12 @@ public class UserController {
 
     @GetMapping("/editUser/{id}")
     public String editUser(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+        }
+        model.addAttribute("isLogged", is_logged);
+
         User usr = usrService.getUserById(id);
         model.addAttribute("usr", usr);
         model.addAttribute("message", message);
@@ -71,6 +96,7 @@ public class UserController {
 
     @PostMapping("/editSaveUser")
     public String editSaveUser(@ModelAttribute("usr") User usr, RedirectAttributes redirectAttributes) {
+      
         if (usrService.saveOrUpdateUser(usr)) {
             redirectAttributes.addFlashAttribute("message", "Edit Success");
             return "redirect:/viewUsers";
@@ -82,6 +108,7 @@ public class UserController {
 
     @GetMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+       
         if (usrService.deleteUser(id)) {
             redirectAttributes.addFlashAttribute("message", "Delete Success");
             return "redirect:/viewUsers";

@@ -40,9 +40,9 @@ public class MessageController {
         Set<String> contactos = new HashSet<>();
         for (Message m : todosMensajes) {
             if (m.getUserSender().getEmail() == email) {
-                contactos.add(m.getUserSender().getEmail());
-            } else {
                 contactos.add(m.getUserReceiver().getEmail());
+            } else {
+                contactos.add(m.getUserSender().getEmail());
 
             }
         }

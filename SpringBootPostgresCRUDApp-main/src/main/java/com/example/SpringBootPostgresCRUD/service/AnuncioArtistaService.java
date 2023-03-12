@@ -60,4 +60,24 @@ public class AnuncioArtistaService {
         return false;
     }
 
+    public List<AnuncioArtista> getAllAnunciosArrendadorNoAceptados() {
+        List<AnuncioArtista> anuncioArtistaList= anuncioArtistaRepository.findAll();
+        List<AnuncioArtista> anuncioArtistaListAux= new ArrayList<>();
+        for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
+            if(anuncioArtista.getEstaAceptado()==false){
+                anuncioArtistaListAux.add(anuncioArtista);
+            }
+            
+        }
+        return anuncioArtistaListAux;
+    }
+    public boolean aceptarAnuncioArtista(AnuncioArtista anar,Long arrendador_accept_id) {
+        anar.setEstaAceptado(true);
+        anar.setArrendador_accept_id(arrendador_accept_id);
+       anuncioArtistaRepository.save(anar);
+        if (anuncioArtistaRepository.findById(anar.getId()) != null) {
+            return true;
+        }
+        return false;
+    }
 }

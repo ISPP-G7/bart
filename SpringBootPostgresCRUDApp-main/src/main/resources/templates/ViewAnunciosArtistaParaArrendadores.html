@@ -40,11 +40,9 @@
                     <th>Ubicacion</th>
                     <th>Precio</th>
                     <th>Descripcion Artista</th>
-                    <th>Estilo</th>
+                    <th>Estilo</th> 
                     <th>Estado</th>
-                    <th>ID_Arrendador</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
+                    <th>Aceptar</th>
                 </tr>
 
                     <tr th:each="Anuncio : ${anuList}">
@@ -55,21 +53,13 @@
                         <td th:text="${Anuncio.descripcionArtista}"></td>
                         <td th:text="${Anuncio.estilo}"></td>
                         <td th:text="${Anuncio.estaAceptado}"></td>
-                        <td th:text="${Anuncio.arrendador_accept_id}"></td>
-
-                        <td><button type="button" class="btn btn-success">
-                            <a th:href="@{/editAnuncioArtista/{id}(id=${Anuncio.id})}">Edit</a>
-                        </button></td>
                         <td><button type="button" class="btn btn-danger">
-                            <a th:href="@{/deleteAnuncioArtista/{id}(id=${Anuncio.id})}">Delete</a>
+                            <a th:href="@{/aceptarAnuncioArtista/{id}(id=${Anuncio.id})}">Aceptar</a>
                         </button></td>
                     </tr>
 
             </table>
 
-        <button type="button" class="btn btn-primary btn-block">
-            <a href="/addAnuncioArtista">Add New Anuncio</a>
-        </button>
 
     </div>
 

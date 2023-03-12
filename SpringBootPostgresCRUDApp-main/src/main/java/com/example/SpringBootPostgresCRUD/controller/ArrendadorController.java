@@ -12,16 +12,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.SpringBootPostgresCRUD.entity.Arrendador;
+import com.example.SpringBootPostgresCRUD.entity.*;
 import com.example.SpringBootPostgresCRUD.service.ArrendadorService;
+import com.example.SpringBootPostgresCRUD.service.RoleService;
+import com.example.SpringBootPostgresCRUD.service.UserService;
 
 @Controller
 public class ArrendadorController {
     
     @Autowired
     ArrendadorService arrService;
+    @Autowired
+    UserService usrService;
+
+    @Autowired
+    RoleService roleService;
+
     @GetMapping("/SignUpArrendador")
     public String signUpUser(@ModelAttribute("message") String message, Model model) {
         Arrendador arr = new Arrendador();
+        Role role = new Role();
+        role.setName("ROLE_ARRENDADOR");
+        roleService.saveRole(role);
+        arr.setRoles(role);
         model.addAttribute("arr", arr);
         model.addAttribute("message", message);
 

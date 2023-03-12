@@ -1,5 +1,8 @@
 package com.example.SpringBootPostgresCRUD.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @DiscriminatorValue("Arrendador")  
@@ -35,5 +38,11 @@ public class Arrendador extends User {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+    @OneToOne
+    //@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Role roles;
+
+   
 
 }

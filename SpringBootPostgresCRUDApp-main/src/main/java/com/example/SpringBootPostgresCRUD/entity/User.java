@@ -1,5 +1,8 @@
 package com.example.SpringBootPostgresCRUD.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 @Inheritance(strategy=InheritanceType.JOINED)
 @Entity
@@ -88,4 +91,19 @@ public class User {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    @OneToOne
+    //@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinColumn(name= "role_id")
+    private Role roles;
+
+   
+    public Role getRol() {
+        return roles;
+    }
+
+    public void setRoles(Role roles) {
+        this.roles = roles;
+    }
+
 }

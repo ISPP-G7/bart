@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Add Anuncio</title>
 
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        body {
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            height: 100vh;
+        }
+
+        h1,
+        div {
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="container">
@@ -23,7 +32,7 @@
         <h1 class="p-3">Edit Anuncio</h1>
 
         <form th:action="@{/editSaveAnuncioArtista}" th:object="${anu}" method="post">
-            
+
             <div class="row">
                 <div class="form-group col-md-12">
                     <div class="col-md-6">
@@ -34,20 +43,20 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="pseudonimoArtista">Nombre del Artista</label>
+                    <label class="col-md-3" for="pseudonimoArtista">Nombre del artista</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{pseudonimoArtista}" id="pseudonimoArtista"
-                                    class="form-control input-sm" required="required" />
+                            class="form-control input-sm" required="required" />
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="ubicacion">Ubicacion</label>
+                    <label class="col-md-3" for="ubicacion">Ubicación</label>
                     <div class="col-md-6">
-                        <input type="text" th:field="*{ubicacion}" id="ubicacion"
-                                    class="form-control input-sm" required="required" />
+                        <input type="text" th:field="*{ubicacion}" id="ubicacion" class="form-control input-sm"
+                            required="required" />
                     </div>
                 </div>
             </div>
@@ -57,8 +66,8 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="precio">Precio</label>
                     <div class="col-md-6">
-                        <input type="text" th:field="*{precio}" id="precio"
-                                    class="form-control input-sm" required="required" />
+                        <input type="text" th:field="*{precio}" id="precio" class="form-control input-sm"
+                            required="required" />
                     </div>
                 </div>
             </div>
@@ -68,7 +77,7 @@
                     <label class="col-md-3" for="descripcionArtista">Descripción del artista</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{descripcionArtista}" id="descripcionArtista"
-                                    class="form-control input-sm" required="required" />
+                            class="form-control input-sm" required="required" />
                     </div>
                 </div>
             </div>
@@ -80,7 +89,8 @@
 
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="REGGAETON" />Reggaeton
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                    value="REGGAETON" />Reggaeton
                             </label>
                         </div>
                         <div class="form-check-inline">
@@ -100,12 +110,14 @@
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="HIPHOP" />HipHop
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                    value="HIPHOP" />HipHop
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="FLAMENCO" />Flamenco
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                    value="FLAMENCO" />Flamenco
                             </label>
                         </div>
                         <div class="form-check-inline">
@@ -115,7 +127,8 @@
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="ELECTRONICA" />Electronica
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                    value="ELECTRONICA" />Electronica
                             </label>
                         </div>
 
@@ -126,7 +139,7 @@
 
             <div class="row p-2">
                 <div class="col-md-2">
-                    <button class="btn btn-success">Edit</button>
+                    <button class="btn btn-success">Editar</button>
                 </div>
             </div>
         </form>
@@ -134,30 +147,31 @@
     </div>
 
     <script th:inline="javascript">
-        window.onload = function() {
+        window.onload = function () {
 
-            var msg = [[${message}]];
+            var msg = [[${ message }]];
             if (msg == "Save Failure") {
-				Command: toastr["error"]("Some error occurred, couldn't save Anuncio")
+                Command: toastr["error"]("Some error occurred, couldn't save Anuncio")
 
-				toastr.options = {
-                  "closeButton": true,
-                  "debug": false,
-                  "newestOnTop": false,
-                  "progressBar": true,
-                  "positionClass": "toast-top-right",
-                  "preventDuplicates": false,
-                  "showDuration": "300",
-                  "hideDuration": "1000",
-                  "timeOut": "5000",
-                  "extendedTimeOut": "1000",
-                  "showEasing": "swing",
-                  "hideEasing": "linear",
-                  "showMethod": "fadeIn",
-                  "hideMethod": "fadeOut"
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
                 }
-			}
-	    }
+            }
+        }
     </script>
 </body>
+
 </html>

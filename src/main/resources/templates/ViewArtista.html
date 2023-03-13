@@ -41,9 +41,9 @@
                 <th>Gender</th>
                 <th>nombreArtistico</th>
                 <th>categoriaArtistica</th>
-                <th>Chat</th>
                 <th>Edit</th>
-q            </tr>
+                q
+            </tr>
 
             <tr th:each="Artist : ${artList}">
                 <td th:text="${Artist.id}"></td>
@@ -55,17 +55,14 @@ q            </tr>
                 <td th:text="${Artist.nombre_artistico}"></td>
                 <td th:text="${Artist.categoria_artistica}"></td>
                 <td><button type="button" class="btn btn-success">
-                        <a th:href="@{/viewMessages/{email}(email=${Artist.email})}">Chat</a>
-                    </button></td>
-                <td><button type="button" class="btn btn-success">
                         <a th:href="@{/editArtista/{id}(id=${Artist.id})}">Edit</a>
                     </button></td>
-             
+
             </tr>
 
         </table>
 
-       
+
 
     </div>
 
@@ -75,33 +72,33 @@ q            </tr>
             var msg = [[${ message }]];
             if (msg == "Save Success") {
 
-				Command: toastr["success"]("Artista creado con éxito")
-			} else if (msg == "Delete Success") {
-				Command: toastr["success"]("Artista eliminado con éxito")
-			} else if (msg == "Delete Error") {
-			    Command: toastr["error"]("Ha ocurrido un error, no se pudo eliminar el artista")
-			} else if (msg == "Edit Success") {
-				Command: toastr["success"]("Artista actualizado con éxito")
-			} else if (msg == "No tienes permiso para editar este perfil.") {
-            Command: toastr["warning"]("No tienes permiso para editar este perfil.")
-            }   
-		    	toastr.options = {
-                  "closeButton": true,
-                  "debug": false,
-                  "newestOnTop": false,
-                  "progressBar": true,
-                  "positionClass": "toast-top-right",
-                  "preventDuplicates": false,
-                  "showDuration": "300",
-                  "hideDuration": "1000",
-                  "timeOut": "5000",
-                  "extendedTimeOut": "1000",
-                  "showEasing": "swing",
-                  "hideEasing": "linear",
-                  "showMethod": "fadeIn",
-                  "hideMethod": "fadeOut"
-                }
-	    }
+                Command: toastr["success"]("Artista creado con éxito")
+            } else if (msg == "Delete Success") {
+                Command: toastr["success"]("Artista eliminado con éxito")
+            } else if (msg == "Delete Error") {
+                Command: toastr["error"]("Ha ocurrido un error, no se pudo eliminar el artista")
+            } else if (msg == "Edit Success") {
+                Command: toastr["success"]("Artista actualizado con éxito")
+            } else if (msg == "No tienes permiso para editar este perfil.") {
+                Command: toastr["warning"]("No tienes permiso para editar este perfil.")
+            }
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
     </script>
 </body>
 

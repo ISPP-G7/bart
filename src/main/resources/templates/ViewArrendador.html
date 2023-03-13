@@ -41,9 +41,8 @@
                 <th>Género</th>
                 <th>Nombre del local</th>
                 <th>Dirección del local</th>
-                <th>Chat</th>
                 <th>Editar</th>
-               
+
             </tr>
 
             <tr th:each="Arrendador : ${arrList}">
@@ -56,12 +55,9 @@
                 <td th:text="${Arrendador.nombreLocal}"></td>
                 <td th:text="${Arrendador.direccion}"></td>
                 <td><button type="button" class="btn btn-success">
-                        <a th:href="@{/viewMessages/{email}(email=${Arrendador.email})}">Chat</a>
-                    </button></td>
-                <td><button type="button" class="btn btn-success">
                         <a th:href="@{/editArrendador/{id}(id=${Arrendador.id})}">Editar</a>
                     </button></td>
-               
+
             </tr>
 
         </table>
@@ -85,7 +81,7 @@
             } else if (msg == "No tienes permiso para editar este perfil.") {
                 Command: toastr["warning"]("No tienes permiso para editar este perfil.")
             }
-    
+
             toastr.options = {
                 "closeButton": true,
                 "debug": false,
@@ -104,7 +100,7 @@
             }
         }
     </script>
-    
+
 </body>
 
 </html>

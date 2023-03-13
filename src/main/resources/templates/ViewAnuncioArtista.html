@@ -44,7 +44,6 @@
                     <th>Estado</th>
                     <th>ID_Arrendador</th>
                     <th>Editar</th>
-                    <th>Eliminar</th>
                 </tr>
 
                     <tr th:each="Anuncio : ${anuList}">
@@ -60,10 +59,7 @@
                         <td><button type="button" class="btn btn-success">
                             <a th:href="@{/editAnuncioArtista/{id}(id=${Anuncio.id})}">Edit</a>
                         </button></td>
-                        <td><button type="button" class="btn btn-danger">
-                            <a th:href="@{/deleteAnuncioArtista/{id}(id=${Anuncio.id})}">Delete</a>
-                        </button></td>
-                    </tr>
+                        
 
             </table>
 
@@ -85,7 +81,9 @@
 			    Command: toastr["error"]("Some error occurred, couldn't delete Anuncio")
 			} else if (msg == "Edit Success") {
 				Command: toastr["success"]("Anuncio updated successfully!!")
-			}
+			}else if (msg == "No tienes permiso para editar este anuncio.") {
+                Command: toastr["warning"]("No tienes permiso para editar este anuncio.")
+            }  
 
 			toastr.options = {
                   "closeButton": true,

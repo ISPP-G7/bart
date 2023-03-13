@@ -43,7 +43,7 @@
                 <th>Dirección del local</th>
                 <th>Chat</th>
                 <th>Editar</th>
-                <th>Eliminar</th>
+               
             </tr>
 
             <tr th:each="Arrendador : ${arrList}">
@@ -61,9 +61,7 @@
                 <td><button type="button" class="btn btn-success">
                         <a th:href="@{/editArrendador/{id}(id=${Arrendador.id})}">Editar</a>
                     </button></td>
-                <td><button type="button" class="btn btn-danger">
-                        <a th:href="@{/deleteArrendador/{id}(id=${Arrendador.id})}">Eliminar</a>
-                    </button></td>
+               
             </tr>
 
         </table>
@@ -75,7 +73,6 @@
 
     <script th:inline="javascript">
         window.onload = function () {
-
             var msg = [[${ message }]];
             if (msg == "Save Success") {
                 Command: toastr["success"]("Arrendador creado con éxito")
@@ -85,8 +82,10 @@
                 Command: toastr["error"]("Ha ocurrido un error, no se pudo eliminar el arrendador")
             } else if (msg == "Edit Success") {
                 Command: toastr["success"]("Arrendador actualizado con éxito")
+            } else if (msg == "No tienes permiso para editar este perfil.") {
+                Command: toastr["warning"]("No tienes permiso para editar este perfil.")
             }
-
+    
             toastr.options = {
                 "closeButton": true,
                 "debug": false,
@@ -105,6 +104,7 @@
             }
         }
     </script>
+    
 </body>
 
 </html>

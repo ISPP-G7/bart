@@ -43,8 +43,7 @@
                 <th>categoriaArtistica</th>
                 <th>Chat</th>
                 <th>Edit</th>
-                <th>Delete</th>
-            </tr>
+q            </tr>
 
             <tr th:each="Artist : ${artList}">
                 <td th:text="${Artist.id}"></td>
@@ -61,17 +60,12 @@
                 <td><button type="button" class="btn btn-success">
                         <a th:href="@{/editArtista/{id}(id=${Artist.id})}">Edit</a>
                     </button></td>
-                <td><button type="button" class="btn btn-danger">
-                        <a th:href="@{/deleteArtista/{id}(id=${Artist.id})}">Delete</a>
-                    </button></td>
+             
             </tr>
 
         </table>
 
-        <button type="button" class="btn btn-primary btn-block">
-            <a href="/SignUpArtista">Add New Artist</a>
-
-        </button>
+       
 
     </div>
 
@@ -88,9 +82,10 @@
 			    Command: toastr["error"]("Ha ocurrido un error, no se pudo eliminar el artista")
 			} else if (msg == "Edit Success") {
 				Command: toastr["success"]("Artista actualizado con éxito")
-			}
-
-			toastr.options = {
+			} else if (msg == "No tienes permiso para editar este perfil.") {
+            Command: toastr["warning"]("No tienes permiso para editar este perfil.")
+            }   
+		    	toastr.options = {
                   "closeButton": true,
                   "debug": false,
                   "newestOnTop": false,

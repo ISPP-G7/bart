@@ -81,7 +81,8 @@ public class ArtistaController {
     }
 
     @GetMapping("/editArtista/{id}")
-    public String editArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
+    public String editArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model,RedirectAttributes redirectAttributes) {
+        Long IDaux=0l;
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
@@ -89,14 +90,22 @@ public class ArtistaController {
             User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
             model.addAttribute("isLogged",  is_logged);
+            IDaux=usr.getId();
+
         }
+        if(IDaux.equals(id)){
         Artista art = artService.getArtistaById(id);
         model.addAttribute("art", art);
         model.addAttribute("message", message);
 
         return "EditArtista";
-    }
+    }else{
+        redirectAttributes.addFlashAttribute("message", "No tienes permiso para editar este perfil.");
+        return "redirect:/viewArtistas";
 
+        
+    }
+    }
     @GetMapping("/perfilArtista/{id}")
     public String perfilArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
         Boolean is_logged=false;

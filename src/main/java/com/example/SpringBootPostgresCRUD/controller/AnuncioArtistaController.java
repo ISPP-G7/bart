@@ -57,6 +57,7 @@ public class AnuncioArtistaController {
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
+            model.addAttribute("nombreUsuario",email);
         }
         model.addAttribute("isLogged", is_logged);
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArrendadorNoAceptados();
@@ -77,6 +78,7 @@ public class AnuncioArtistaController {
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
+            model.addAttribute("nombreUsuario",email);
         }
         model.addAttribute("isLogged", is_logged);
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtista();
@@ -103,6 +105,7 @@ public class AnuncioArtistaController {
         model.addAttribute("artista", artista);
         model.addAttribute("anu", anu);
         model.addAttribute("message", message);
+        model.addAttribute("nombreUsuario",email);
 
         return "AddAnuncioArtista";
     }
@@ -142,6 +145,7 @@ public class AnuncioArtistaController {
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
+            model.addAttribute("nombreUsuario",email);
             IDaux=usr.getId();
 
         }

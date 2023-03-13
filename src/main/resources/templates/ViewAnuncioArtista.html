@@ -16,6 +16,21 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <style>
+        body {
+            background-image: linear-gradient(to bottom right , #8e12ab, #dc4e4f);
+            height: 100vh;
+        } 
+        h1{
+            color: white
+        }
+        table.table-bordered tr:first-child th {
+             background-color: #6B3D6E;
+             color: white;
+        }
+
+        table.table-bordered tr:not(:first-child) td {
+            background-color: #fff;
+        }
         a{
         color: white;
         }
@@ -31,15 +46,15 @@
 
         <h1 th:text="${message}"></h1>
 
-        <h1 class="p-3">Anunces Artists List</h1>
+        <h1 class="p-3">Anuncios de artistas</h1>
 
             <table class="table table-bordered">
                 <tr>
                     <th>Id</th>
-                    <th>Pseudonimo Artista</th>
-                    <th>Ubicacion</th>
+                    <th>Pseudónimo artista</th>
+                    <th>Ubicación</th>
                     <th>Precio</th>
-                    <th>Descripcion Artista</th>
+                    <th>Descripción artista</th>
                     <th>Estilo</th>
                     <th>Estado</th>
                     <th>ID_Arrendador</th>
@@ -64,7 +79,7 @@
             </table>
 
         <button type="button" class="btn btn-primary btn-block">
-            <a href="/addAnuncioArtista">Add New Anuncio</a>
+            <a href="/addAnuncioArtista">Añadir anuncio</a>
         </button>
 
     </div>

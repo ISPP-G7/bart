@@ -6,24 +6,31 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
 	<style>
 		.navbar-brand img {
 			max-height: 50px;
 			border-radius: 8px;
 		}
-		
+
+		body {
+			background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+			height: 100vh;
+		}
+
 		.navbar {
 			background-color: #6B3D6E;
 		}
-		
+
 		.nav-link {
 			color: white !important;
 		}
-		
-		h1 {
-			color: #6B3D6E;
+
+		h1,
+		p {
+			color: white;
 		}
+
 		#map-container {
 			width: 80%;
 			margin: 0 auto;
@@ -42,18 +49,15 @@
 				max-height: 50px;
 				border-radius: 8px;
 			}
-			
+
 			.navbar {
 				background-color: #6B3D6E;
 			}
-			
+
 			.nav-link {
 				color: white !important;
 			}
-			
-			h1 {
-				color: #6B3D6E;
-			}
+
 			#map-container {
 				width: 80%;
 				margin: 0 auto;
@@ -68,12 +72,12 @@
 			<a class="navbar-brand" href="/home">
 				<img src="/logo.png" alt="Logo de Bart">
 			</a>
-		
+
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>			
+				<span class="navbar-toggler-icon"></span>
 			</button>
-		
+
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ml-auto">
 					<!-- Si el usuario no está logueado -->
@@ -88,7 +92,7 @@
 							<a class="nav-link" href="/SignUpArrendador">SignUpArrendador</a>
 						</li>
 					</th:block>
-		
+
 					<!-- Si el usuario está logueado -->
 					<th:block th:if="${isLogged}">
 						<li class="nav-item active">
@@ -104,7 +108,8 @@
 							<a class="nav-link" href="/viewArtistas">Vista de artistas</a>
 						</li>
 						<li th:if="${usuario.esArtista}" class="nav-item">
-							<a class="nav-link" href="/viewAnunciosArrendadorParaArtistas">Anuncios ofertados por Arrendadores</a>
+							<a class="nav-link" href="/viewAnunciosArrendadorParaArtistas">Anuncios ofertados por
+								Arrendadores</a>
 						</li>
 						<li th:if="${usuario.esArtista}" class="nav-item">
 							<a class="nav-link" href="/viewAnunciosArtista">Cree y vea anuncios de artistas</a>
@@ -119,7 +124,8 @@
 							<a class="nav-link" href="/viewArrendadores">Vista de arrendadores</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
-							<a class="nav-link" href="/viewAnunciosArtistaParaArrendadores">Anuncios ofertados por artistas</a>
+							<a class="nav-link" href="/viewAnunciosArtistaParaArrendadores">Anuncios ofertados por
+								artistas</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewAnunciosArrendador">Cree y vea anuncios de arrendadores</a>
@@ -138,8 +144,8 @@
 				</ul>
 			</div>
 		</nav>
-		
-		
+
+
 	</div>
 
 
@@ -151,50 +157,51 @@
 	</div>
 	<div id="map-container">
 		<p>Nuestros locales disponibles:</p>
-		
 
-	<div id="map" th:data-arrendadores="${arrendadoresNombreLocalMapListAux}" style="width: 600px; height: 400px"></div>
+
+		<div id="map" th:data-arrendadores="${arrendadoresNombreLocalMapListAux}" style="width: 600px; height: 400px">
+		</div>
 	</div>
 
 
-<!-- Agrega el script para inicializar el mapa -->
-<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
-<script>
-// Crea el mapa centrado en Sevilla
-var map = L.map('map').setView([37.3891, -5.9845], 14);
+	<!-- Agrega el script para inicializar el mapa -->
+	<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+	<script>
+		// Crea el mapa centrado en Sevilla
+		var map = L.map('map').setView([37.3891, -5.9845], 14);
 
-// Agrega una capa de OpenStreetMap al mapa
-var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; ' + mapLink + ' Contributors',
-    maxZoom: 18
-}).addTo(map);
+		// Agrega una capa de OpenStreetMap al mapa
+		var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+		L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; ' + mapLink + ' Contributors',
+			maxZoom: 18
+		}).addTo(map);
 
-// Variable con una lista de coordenadas
-var coordenadasList = [[${coordenadasList}]];
-var arrendadoresNombreLocalMapListAux = document.getElementById('map').getAttribute('data-arrendadores').replace("[","").replace("]","").split(",");
-/* manual debbuger pa js le das a f12 en navegador y miras console
-console.error(arrendadoresNombreLocalMapListAux[1])
-console.error("uwu")
-*/
+		// Variable con una lista de coordenadas
+		var coordenadasList = [[${ coordenadasList }]];
+		var arrendadoresNombreLocalMapListAux = document.getElementById('map').getAttribute('data-arrendadores').replace("[", "").replace("]", "").split(",");
+		/* manual debbuger pa js le das a f12 en navegador y miras console
+		console.error(arrendadoresNombreLocalMapListAux[1])
+		console.error("uwu")
+		*/
 
-// Función que agrega marcadores al mapa desde una lista de coordenadas
-	function agregarMarcadoresDesdeCoordenadas(coordList) {
-		for (var i = 0; i < coordList.length; i++) {
-			var marker = L.marker(coordList[i]).addTo(map);
-			marker.bindPopup("<b>Ubicación " + arrendadoresNombreLocalMapListAux[i] + "</b><br>Latitud: " + coordList[i][0] + "<br>Longitud: " + coordList[i][1]).openPopup();
+		// Función que agrega marcadores al mapa desde una lista de coordenadas
+		function agregarMarcadoresDesdeCoordenadas(coordList) {
+			for (var i = 0; i < coordList.length; i++) {
+				var marker = L.marker(coordList[i]).addTo(map);
+				marker.bindPopup("<b>Ubicación " + arrendadoresNombreLocalMapListAux[i] + "</b><br>Latitud: " + coordList[i][0] + "<br>Longitud: " + coordList[i][1]).openPopup();
+			}
 		}
-	}
 
-	// Llama a la función para agregar los marcadores al mapa
-	agregarMarcadoresDesdeCoordenadas(coordenadasList);
+		// Llama a la función para agregar los marcadores al mapa
+		agregarMarcadoresDesdeCoordenadas(coordenadasList);
 
 	</script>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		
-	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-	</html>
+</body>
+
+</html>

@@ -49,6 +49,7 @@ public class ArrendadorController {
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
+            model.addAttribute("nombreUsuario",email);
         }
         model.addAttribute("isLogged", is_logged);
 
@@ -99,6 +100,7 @@ public class ArrendadorController {
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
+            model.addAttribute("nombreUsuario",email);  
             IDaux=usr.getId();
         }
         model.addAttribute("isLogged", is_logged);
@@ -123,6 +125,10 @@ public class ArrendadorController {
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
+            model.addAttribute("isLogged", is_logged);
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el arrendador logueado
+            model.addAttribute("usuario",usr);
         }
         model.addAttribute("isLogged", is_logged);
 

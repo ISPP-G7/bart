@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Vista Anuncios Artistas</title>
+    <title>Anuncios de artistas</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -12,8 +12,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <style>
-        a {
-            color: white;
+
+        body {
+            background-image: linear-gradient(to bottom right , #8e12ab, #dc4e4f);
+            height: 100vh;
+        } 
+        h1{
+            color: white
+        }
+        table.table-bordered tr:first-child th {
+             background-color: #6B3D6E;
+             color: white;
+        }
+
+        table.table-bordered tr:not(:first-child) td {
+            background-color: #fff;
+        }
+        a{
+        color: white;
+
         }
 
         a:hover {
@@ -29,7 +46,8 @@
 
         <h1 th:text="${message}"></h1>
 
-        <h1 class="p-3">Anunces Artists List</h1>
+        <h1 class="p-3">Anuncios de artistas</h1>
+
 
         <table class="table table-bordered">
             <tr>

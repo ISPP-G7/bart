@@ -42,7 +42,7 @@ Si deseas contribuir a Bart, puedes seguir los siguientes pasos:
 
 ## Créditos
 
-Bart fue desarrollado por el equipo ISPP-G7 para el proyecto final del curso de Ingeniería de Software del programa Full Stack de Acámica.
+Bart fue desarrollado por el equipo ISPP-G7 para el proyecto final de ISSP de Ingeniería de Software de la universidad de Sevilla.
 
 ## Contacto
 

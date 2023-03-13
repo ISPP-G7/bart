@@ -133,21 +133,33 @@ public class AnuncioArtistaController {
     }
 
     @GetMapping("/editAnuncioArtista/{id}")
-    public String editArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
+    public String editArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model,RedirectAttributes redirectAttributes) {
+        Long IDaux=0l;
+
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
+            IDaux=usr.getId();
+
         }
-        model.addAttribute("isLogged", is_logged);
         AnuncioArtista ann = anuncioArtistaService.getAnuncioArtistaById(id);
+
+        if(IDaux.equals(ann.getArtista().getId())){
+
+        model.addAttribute("isLogged", is_logged);
 
         model.addAttribute("anu", ann);
         model.addAttribute("message", message);
 
         return "EditAnuncioArtista";
+    }else{
+        redirectAttributes.addFlashAttribute("message", "No tienes permiso para editar este anuncio.");
+        return "redirect:/viewAnunciosArtista";
+
+    }
     }
 
     @PostMapping("/editSaveAnuncioArtista")

@@ -100,7 +100,7 @@ public class ArrendadorController {
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
-            model.addAttribute("nombreUsuario",email);
+            model.addAttribute("nombreUsuario",email);  
             IDaux=usr.getId();
         }
         model.addAttribute("isLogged", is_logged);

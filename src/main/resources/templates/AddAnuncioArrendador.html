@@ -1,20 +1,64 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Añadir anuncio de arrendador</title>
 
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        body {
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            height: 100vh;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        label {
+            color: #fff;
+        }
+
+        input[type="text"],
+        input[type="checkbox"] {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #555;
+            font-size: 16px;
+            margin-top: 5px;
+            padding: 10px 15px;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            background-color: red;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            margin-top: 10px;
+            padding: 10px 15px;
+        }
+
+        @media screen and (max-width: 768px) {
+
+            input[type="text"],
+            input[type="checkbox"],
+            input[type="submit"] {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="container">
@@ -23,17 +67,18 @@
 
         <form th:action="@{/saveAnuncioArrendador}" th:object="${anu}" method="post">
             <div>
-                <input id="arrendador" name="arrendador" type="hidden" th:field="${arrendador.id}" class="form-control input-sm"/>
+                <input id="arrendador" name="arrendador" type="hidden" th:field="${arrendador.id}"
+                    class="form-control input-sm" />
 
             </div>
 
-            
+
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="nombreLocal">Nombre del local</label>
                     <div class="col-md-6">
-                        <input type="text" th:field="*{nombreLocal}" id="nombreLocal"
-                                    class="form-control input-sm" required="required" />
+                        <input type="text" th:field="*{nombreLocal}" id="nombreLocal" class="form-control input-sm"
+                            required="required" />
                     </div>
                 </div>
             </div>
@@ -42,8 +87,8 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="ubicacion">Ubicación</label>
                     <div class="col-md-6">
-                        <input type="text" th:field="*{ubicacion}" id="ubicacion"
-                                    class="form-control input-sm" required="required" />
+                        <input type="text" th:field="*{ubicacion}" id="ubicacion" class="form-control input-sm"
+                            required="required" />
                     </div>
                 </div>
             </div>
@@ -53,8 +98,8 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="precio">Precio</label>
                     <div class="col-md-6">
-                        <input type="text" th:field="*{precio}" id="precio"
-                                    class="form-control input-sm" required="required" />
+                        <input type="text" th:field="*{precio}" id="precio" class="form-control input-sm"
+                            required="required" />
                     </div>
                 </div>
             </div>
@@ -64,7 +109,7 @@
                     <label class="col-md-3" for="descripcionArrendador">Descripción del arrendador</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{descripcionArrendador}" id="descripcionArrendador"
-                                    class="form-control input-sm" required="required" />
+                            class="form-control input-sm" required="required" />
                     </div>
                 </div>
             </div>
@@ -76,7 +121,8 @@
 
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="REGGAETON" />Reggaetón
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                    value="REGGAETON" />Reggaetón
                             </label>
                         </div>
                         <div class="form-check-inline">
@@ -96,12 +142,14 @@
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="HIPHOP" />Hip Hop
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                    value="HIPHOP" />Hip Hop
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="FLAMENCO" />Flamenco
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                    value="FLAMENCO" />Flamenco
                             </label>
                         </div>
                         <div class="form-check-inline">
@@ -111,7 +159,8 @@
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="ELECTRONICA" />Electrónica
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                    value="ELECTRONICA" />Electrónica
                             </label>
                         </div>
 
@@ -130,30 +179,31 @@
     </div>
 
     <script th:inline="javascript">
-        window.onload = function() {
+        window.onload = function () {
 
-            var msg = [[${message}]];
+            var msg = [[${ message }]];
             if (msg == "Save Failure") {
-				Command: toastr["error"]("Ha ocurrido un error, no se pudo guardar el anuncio")
+                Command: toastr["error"]("Ha ocurrido un error, no se pudo guardar el anuncio")
 
-				toastr.options = {
-                  "closeButton": true,
-                  "debug": false,
-                  "newestOnTop": false,
-                  "progressBar": true,
-                  "positionClass": "toast-top-right",
-                  "preventDuplicates": false,
-                  "showDuration": "300",
-                  "hideDuration": "1000",
-                  "timeOut": "5000",
-                  "extendedTimeOut": "1000",
-                  "showEasing": "swing",
-                  "hideEasing": "linear",
-                  "showMethod": "fadeIn",
-                  "hideMethod": "fadeOut"
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
                 }
-			}
-	    }
+            }
+        }
     </script>
 </body>
+
 </html>

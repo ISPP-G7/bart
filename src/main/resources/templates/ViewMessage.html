@@ -10,6 +10,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        body {
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            height: 100vh;
+        }
+
+        h1 {
+            color: white
+        }
+
+        table.table-bordered tr:first-child th {
+            background-color: #6B3D6E;
+            color: white;
+        }
+
+        table.table-bordered tr:not(:first-child) td {
+            background-color: #fff;
+        }
+
+        a {
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,9 +41,9 @@
     <table class="table table-bordered">
         <tr>
             <th>Id</th>
-            <th>Message Body</th>
-            <th>User Sender</th>
-            <th>User Receiver</th>
+            <th>Mensaje</th>
+            <th>Remitente</th>
+            <th>Destinatario</th>
         </tr>
 
         <tr th:each="Message : ${mensajes}">
@@ -27,9 +51,6 @@
             <td th:text="${Message.messageBody}"></td>
             <td th:text="${Message.userSender.email}"></td>
             <td th:text="${Message.userReceiver.email}"></td>
-            <td><button type="button" class="btn btn-danger">
-                    <a th:href="@{/deleteMessage/}+${Message.id}+'/'+${Message.userReceiver.email}">Delete</a>
-                </button></td>
         </tr>
     </table>
 

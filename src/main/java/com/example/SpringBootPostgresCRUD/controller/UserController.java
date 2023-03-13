@@ -47,6 +47,7 @@ public class UserController {
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = usrService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
+            model.addAttribute("nombreUsuario",email);
             is_logged=true;
         }
         model.addAttribute("isLogged", is_logged);
@@ -67,6 +68,7 @@ public class UserController {
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = usrService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
+            model.addAttribute("nombreUsuario",email);
         }
         model.addAttribute("isLogged", is_logged);
 

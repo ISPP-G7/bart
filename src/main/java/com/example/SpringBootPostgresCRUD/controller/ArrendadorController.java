@@ -91,21 +91,32 @@ public class ArrendadorController {
     }
 
     @GetMapping("/editArrendador/{id}")
-    public String editArrendador(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
+    public String editArrendador(@PathVariable Long id, @ModelAttribute("message") String message, Model model,RedirectAttributes redirectAttributes) {
+        Long IDaux=0l;
         Boolean is_logged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged=true;
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
+            IDaux=usr.getId();
         }
         model.addAttribute("isLogged", is_logged);
+        if(IDaux.equals(id)){
+            Arrendador arr = arrService.getArrendadorById(id);
+        
+            model.addAttribute("arr", arr);
+            model.addAttribute("message", message);
+    
+            return "EditArrendador";
 
-        Arrendador arr = arrService.getArrendadorById(id);
-        model.addAttribute("arr", arr);
-        model.addAttribute("message", message);
-
-        return "EditArrendador";
+        }else{
+            redirectAttributes.addFlashAttribute("message", "No tienes permiso para editar este perfil.");
+            return "redirect:/viewArrendadores";
+    
+            
+        }
+       
     }
     @GetMapping("/perfilArrendador/{id}")
     public String perfilArrendador(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
@@ -136,6 +147,7 @@ public class ArrendadorController {
 
     @GetMapping("/deleteArrendador/{id}")
     public String deleteArrendador(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        
                if (arrService.deleteArrendador(id)) {
             redirectAttributes.addFlashAttribute("message", "Delete Success");
             return "redirect:/viewArrendadores";

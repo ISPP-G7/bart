@@ -1,4 +1,4 @@
-package com.example.SpringBootPostgresCRUD.configuration;
+package com.example.SpringBootPostgresCRUD.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

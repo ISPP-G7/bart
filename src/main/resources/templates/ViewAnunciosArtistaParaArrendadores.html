@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Anuncios de artistas</title>
 
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <style>
+
         body {
             background-image: linear-gradient(to bottom right , #8e12ab, #dc4e4f);
             height: 100vh;
@@ -33,13 +30,16 @@
         }
         a{
         color: white;
+
         }
+
         a:hover {
-        color: white;
-        text-decoration: none;
+            color: white;
+            text-decoration: none;
         }
     </style>
 </head>
+
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="container">
@@ -48,68 +48,74 @@
 
         <h1 class="p-3">Anuncios de artistas</h1>
 
-            <table class="table table-bordered">
-                <tr>
-                    <th>Id</th>
-                    <th>Pseudónimo artista</th>
-                    <th>Ubicación</th>
-                    <th>Precio</th>
-                    <th>Descripción artista</th>
-                    <th>Estilo</th> 
-                    <th>Estado</th>
-                    <th>Aceptar</th>
-                </tr>
 
-                    <tr th:each="Anuncio : ${anuList}">
-                        <td th:text="${Anuncio.id}"></td>
-                        <td th:text="${Anuncio.pseudonimoArtista}"></td>
-                        <td th:text="${Anuncio.ubicacion}"></td>
-                        <td th:text="${Anuncio.precio}"></td>
-                        <td th:text="${Anuncio.descripcionArtista}"></td>
-                        <td th:text="${Anuncio.estilo}"></td>
-                        <td th:text="${Anuncio.estaAceptado}"></td>
-                        <td><button type="button" class="btn btn-danger">
-                            <a th:href="@{/aceptarAnuncioArtista/{id}(id=${Anuncio.id})}">Aceptar</a>
-                        </button></td>
-                    </tr>
+        <table class="table table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Pseudonimo Artista</th>
+                <th>Ubicacion</th>
+                <th>Precio</th>
+                <th>Descripcion Artista</th>
+                <th>Estilo</th>
+                <th>Estado</th>
+                <th>Chat</th>
+                <th>Aceptar</th>
+            </tr>
 
-            </table>
+            <tr th:each="Anuncio : ${anuList}">
+                <td th:text="${Anuncio.id}"></td>
+                <td th:text="${Anuncio.pseudonimoArtista}"></td>
+                <td th:text="${Anuncio.ubicacion}"></td>
+                <td th:text="${Anuncio.precio}"></td>
+                <td th:text="${Anuncio.descripcionArtista}"></td>
+                <td th:text="${Anuncio.estilo}"></td>
+                <td th:text="${Anuncio.estaAceptado}"></td>
+                <td><button type="button" class="btn btn-success">
+                        <a th:href="@{/viewMessages/{email}(email=${Anuncio.Artista.email})}">Chat</a>
+                    </button></td>
+                <td><button type="button" class="btn btn-danger">
+                        <a th:href="@{/aceptarAnuncioArtista/{id}(id=${Anuncio.id})}">Aceptar</a>
+                    </button></td>
+            </tr>
+
+        </table>
 
 
     </div>
 
     <script th:inline="javascript">
-        window.onload = function() {
+        window.onload = function () {
 
-            var msg = [[${message}]];
+            var msg = [[${ message }]];
             if (msg == "Save Success") {
-				Command: toastr["success"]("Anuncio created successfully!!")
-			} else if (msg == "Delete Success") {
-				Command: toastr["success"]("Anuncio deleted successfully!!")
-			} else if (msg == "Delete Error") {
-			    Command: toastr["error"]("Some error occurred, couldn't delete Anuncio")
-			} else if (msg == "Edit Success") {
-				Command: toastr["success"]("Anuncio updated successfully!!")
-			}
+                Command: toastr["success"]("Anuncio created successfully!!")
+            } else if (msg == "Delete Success") {
+                Command: toastr["success"]("Anuncio deleted successfully!!")
+            } else if (msg == "Delete Error") {
+                Command: toastr["error"]("Some error occurred, couldn't delete Anuncio")
+            } else if (msg == "Edit Success") {
+                Command: toastr["success"]("Anuncio updated successfully!!")
+            }
 
-			toastr.options = {
-                  "closeButton": true,
-                  "debug": false,
-                  "newestOnTop": false,
-                  "progressBar": true,
-                  "positionClass": "toast-top-right",
-                  "preventDuplicates": false,
-                  "showDuration": "300",
-                  "hideDuration": "1000",
-                  "timeOut": "5000",
-                  "extendedTimeOut": "1000",
-                  "showEasing": "swing",
-                  "hideEasing": "linear",
-                  "showMethod": "fadeIn",
-                  "hideMethod": "fadeOut"
-                }
-	    }
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
     </script>
 
 </body>
+
 </html>

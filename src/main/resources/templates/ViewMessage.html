@@ -50,9 +50,6 @@ body {
             <td th:text="${Message.messageBody}"></td>
             <td th:text="${Message.userSender.email}"></td>
             <td th:text="${Message.userReceiver.email}"></td>
-            <td><button type="button" class="btn btn-danger">
-                    <a th:href="@{/deleteMessage/}+${Message.id}+'/'+${Message.userReceiver.email}">Delete</a>
-                </button></td>
         </tr>
     </table>
 

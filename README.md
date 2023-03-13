@@ -38,9 +38,11 @@ Si deseas contribuir a Bart, puedes seguir los siguientes pasos:
 1.  Realiza un fork del repositorio en GitHub.
 2.  Clona el repositorio en tu máquina local.
 3.  Realiza los cambios necesarios y haz commit a tus cambios en una nueva rama.
-4.  Realiza un pull request desde tu rama hacia la rama `main` del repositorio original.## Créditos
+4.  Realiza un pull request desde tu rama hacia la rama `main` del repositorio original.
 
-Bart fue desarrollado por el equipo ISPP-G7 para el proyecto final del curso de Ingeniería de Software del programa Full Stack de Acámica.
+## Créditos
+
+Bart fue desarrollado por el equipo ISPP-G7 para el proyecto final de ISSP de Ingeniería de Software de la universidad de Sevilla.
 
 ## Contacto
 

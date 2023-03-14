@@ -2,7 +2,7 @@ version: '3.1'
 services:
   app:
     container_name: bart
-    image: romflorod/bart:1
+    image: bart
     build: ./
     ports:
       - "8080:8080"

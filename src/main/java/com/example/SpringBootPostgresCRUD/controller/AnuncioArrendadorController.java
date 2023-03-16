@@ -85,7 +85,7 @@ public class AnuncioArrendadorController {
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
 
-        return "viewAnunciosArrendadorParaArtistas";
+        return "ViewAnunciosArrendadorParaArtistas";
     }
 
     @GetMapping("/addAnuncioArrendador")

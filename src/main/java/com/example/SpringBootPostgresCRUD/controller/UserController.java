@@ -38,7 +38,7 @@ public class UserController {
         model.addAttribute("usr", usr);
         model.addAttribute("message", message);
 
-        return "signUpUser";
+        return "SignUpUser";
     }
     @GetMapping({"/viewUsers"})
     public String viewUsers(@ModelAttribute("message") String message, Model model) {

@@ -66,7 +66,7 @@ public class AnuncioArtistaController {
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
 
-        return "viewAnunciosArtistaParaArrendadores";
+        return "ViewAnunciosArtistaParaArrendadores";
     }
 
 

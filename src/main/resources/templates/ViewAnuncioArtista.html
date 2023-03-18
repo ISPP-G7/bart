@@ -32,10 +32,10 @@
             background-color: #fff;
         }
         a{
-        color: white;
+        color: black;
         }
         a:hover {
-        color: white;
+        color: lightgray;
         text-decoration: none;
         }
     </style>
@@ -62,7 +62,7 @@
                 </tr>
 
                     <tr th:each="Anuncio : ${anuList}">
-                        <td th:text="${Anuncio.id}"></td>
+                        <td><a th:href="@{/anuncioArtista/{id}(id=${Anuncio.id})}">[[${Anuncio.id}]]</a></td>
                         <td th:text="${Anuncio.pseudonimoArtista}"></td>
                         <td th:text="${Anuncio.ubicacion}"></td>
                         <td th:text="${Anuncio.precio}"></td>

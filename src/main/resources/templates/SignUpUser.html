@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Add user</title>
+    <title>Registrarse como usuario</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -45,12 +45,12 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
 
-        <h1 class="p-3">Sign up user</h1>
+        <h1 class="p-3">Registrarse como usuario</h1>
 
         <form th:action="@{/saveUser}" th:object="${usr}" method="post">
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="firstName">First Name</label>
+                    <label class="col-md-3" for="firstName">Nombre</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{firstName}" id="firstName" class="form-control input-sm" />
                     </div>
@@ -58,7 +58,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">Password</label>
+                    <label class="col-md-3">Contraseña</label>
                     <div class="col-md-6">
                         <input type="password" th:field="*{password}" id="password" class="form-control input-sm"
                             required="required" />
@@ -67,7 +67,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="lastName">Last Name</label>
+                    <label class="col-md-3" for="lastName">Apellido/s</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{lastName}" id="lastName" class="form-control input-sm"
                             required="required" />
@@ -77,23 +77,23 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">Gender</label>
+                    <label class="col-md-3">Género</label>
                     <div class="col-md-6">
 
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Male" />Male
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Male" />Masculino
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" th:field="*{gender}"
-                                    value="Female" />Female
+                                    value="Female" />Femenino
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Other" />Other
+                                <input type="radio" class="form-check-input" th:field="*{gender}" value="Other" />Otro
                             </label>
                         </div>
 
@@ -103,7 +103,7 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">Date of birth</label>
+                    <label class="col-md-3">Fecha de nacimiento</label>
                     <div class="col-md-6">
                         <input type="date" th:field="*{dob}" id="dob" class="form-control input-sm"
                             required="required" />
@@ -123,7 +123,7 @@
 
             <div class="row p-2">
                 <div class="col-md-2">
-                    <button class="btn btn-success">Create</button>
+                    <button class="btn btn-success">Crear</button>
                 </div>
             </div>
         </form>

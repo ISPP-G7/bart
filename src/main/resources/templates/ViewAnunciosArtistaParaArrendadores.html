@@ -14,11 +14,11 @@
     <style>
 
         body {
-            background-image: linear-gradient(to bottom right , #8e12ab, #dc4e4f);
-            height: 100vh;
-        } 
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh;
+        }
         h1{
-            color: white
+            color: white;
         }
         table.table-bordered tr:first-child th {
              background-color: #6B3D6E;
@@ -45,8 +45,19 @@
     <div class="container">
 
         <h1 class="p-3">Anuncios de artistas</h1>
-
-
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-md-4" th:each="Anuncio : ${anuList}" style="margin-bottom: 10px;">
+                <div class="card">
+                    <img class="card-img-top" th:src="${Anuncio.artista.urlImagen}" style="width: 100%; max-height: 200px; object-fit: cover;"alt="imagen perfil artista">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${Anuncio.pseudonimoArtista}"></h5>
+                        <p class="card-text" th:text="${Anuncio.descripcionArtista}"></p><p class="card-text" th:text="${Anuncio.precio}"></p>
+                        <a class="btn btn-primary" th:href="@{/anuncioArtista/{id}(id=${Anuncio.id})}">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
         <table class="table table-bordered">
             <tr>
                 <th>Id</th>
@@ -76,7 +87,7 @@
                     </button></td>
             </tr>
 
-        </table>
+        </table>-->
 
 
     </div>
@@ -113,7 +124,7 @@
             }
         }
     </script>
-
+    <footer th:replace="Home :: Footer"></footer>
 </body>
 
 </html>

@@ -13,8 +13,8 @@
 
     <style>
         body {
-            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
-            height: 100vh;
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
         }
 
         h1 {
@@ -60,7 +60,7 @@
         <input type="text" name="bodyMessage">
         <input type="submit" value="Enviar">
     </form>
-
+    <footer th:replace="Home :: Footer"></footer>
 </body>
 
 </html>

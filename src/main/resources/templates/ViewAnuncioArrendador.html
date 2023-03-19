@@ -57,38 +57,7 @@
                 </div>
             </div>
         </div>
-            <!--
-            <table class="table table-bordered">
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre local</th>
-                    <th>Ubicación</th>
-                    <th>Precio</th>
-                    <th>Descripción arrendador</th>
-                    <th>Estilo</th>
-                    <th>Estado</th>
-                    <th>ID_Artista</th>
-                    <th>Editar</th>
-                </tr>
-
-                    <tr th:each="Anuncio : ${anuList}">
-                        <td><a th:href="@{/anuncioArrendador/{id}(id=${Anuncio.id})}">[[${Anuncio.id}]]</a></td>
-                        <td th:text="${Anuncio.nombreLocal}"></td>
-                        <td th:text="${Anuncio.ubicacion}"></td>
-                        <td th:text="${Anuncio.precio}"></td>
-                        <td th:text="${Anuncio.descripcionArrendador}"></td>
-                        <td th:text="${Anuncio.estilo}"></td>
-                        <td th:text="${Anuncio.estaAceptado}"></td>
-                        <td th:text="${Anuncio.artista_accept_id}"></td>
-
-                        <td><button type="button" class="btn btn-success">
-                            <a th:href="@{/editAnuncioArrendador/{id}(id=${Anuncio.id})}">Editar</a>
-                        </button></td>
-                      
-                    </tr>
-
-            </table>
-            -->
+           
         <button type="button" class="btn btn-primary btn-block">
             <a href="/addAnuncioArrendador">Añadir anuncio</a>
         </button>

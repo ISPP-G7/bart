@@ -29,14 +29,13 @@
         table.table-bordered tr:not(:first-child) td {
             background-color: #fff;
         }
-
-        a {
-            color: white;
+        a{
+        color: black;
         }
-
+        
         a:hover {
-            color: white;
-            text-decoration: none;
+        color: lightgray;
+        text-decoration: none;
         }
     </style>
 </head>
@@ -47,35 +46,36 @@
 
         <h1 class="p-3">Anuncios de artistas</h1>
 
-        <table class="table table-bordered">
-            <tr>
-                <th>Id</th>
-                <th>Pseudónimo artista</th>
-                <th>Ubicación</th>
-                <th>Precio</th>
-                <th>Descripción artista</th>
-                <th>Estilo</th>
-                <th>Estado</th>
-                <th>ID_Arrendador</th>
-                <th>Editar</th>
-            </tr>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Id</th>
+                    <th>Pseudónimo artista</th>
+                    <th>Ubicación</th>
+                    <th>Precio</th>
+                    <th>Descripción artista</th>
+                    <th>Estilo</th>
+                    <th>Estado</th>
+                    <th>ID_Arrendador</th>
+                    <th>Editar</th>
+                </tr>
 
-            <tr th:each="Anuncio : ${anuList}">
-                <td th:text="${Anuncio.id}"></td>
-                <td th:text="${Anuncio.pseudonimoArtista}"></td>
-                <td th:text="${Anuncio.ubicacion}"></td>
-                <td th:text="${Anuncio.precio}"></td>
-                <td th:text="${Anuncio.descripcionArtista}"></td>
-                <td th:text="${Anuncio.estilo}"></td>
-                <td th:text="${Anuncio.estaAceptado}"></td>
-                <td th:text="${Anuncio.arrendador_accept_id}"></td>
+                    <tr th:each="Anuncio : ${anuList}">
+                        <td><a th:href="@{/anuncioArtista/{id}(id=${Anuncio.id})}">[[${Anuncio.id}]]</a></td>
+                        <td th:text="${Anuncio.pseudonimoArtista}"></td>
+                        <td th:text="${Anuncio.ubicacion}"></td>
+                        <td th:text="${Anuncio.precio}"></td>
+                        <td th:text="${Anuncio.descripcionArtista}"></td>
+                        <td th:text="${Anuncio.estilo}"></td>
+                        <td th:text="${Anuncio.estaAceptado}"></td>
+                        <td th:text="${Anuncio.arrendador_accept_id}"></td>
 
-                <td><button type="button" class="btn btn-success">
-                        <a th:href="@{/editAnuncioArtista/{id}(id=${Anuncio.id})}">Edit</a>
-                    </button></td>
+                        <td><button type="button" class="btn btn-success">
+                            <a th:href="@{/editAnuncioArtista/{id}(id=${Anuncio.id})}">Edit</a>
+                        </button></td>
+                        
 
+            </table>
 
-        </table>
 
         <button type="button" class="btn btn-primary btn-block">
             <a href="/addAnuncioArtista">Añadir anuncio</a>

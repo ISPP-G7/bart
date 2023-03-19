@@ -53,6 +53,10 @@
                         <h5 class="card-title" th:text="${Anuncio.pseudonimoArtista}"></h5>
                         <p class="card-text" th:text="${Anuncio.descripcionArtista}"></p><p class="card-text" th:text="${Anuncio.precio}"></p>
                         <a class="btn btn-primary" th:href="@{/anuncioArtista/{id}(id=${Anuncio.id})}">Ver detalles</a>
+                        <a class="btn btn-primary" th:href="@{/viewMessages/{email}(email=${Anuncio.Artista.email})}">Chat</a>
+                        <a class="btn btn-primary" th:href="@{/aceptarAnuncioArtista/{id}(id=${Anuncio.id})}">Aceptar</a>
+
+
                     </div>
                 </div>
             </div>

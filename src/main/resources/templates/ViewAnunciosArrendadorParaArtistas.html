@@ -54,44 +54,13 @@
                         <h5 class="card-title" th:text="${Anuncio.nombreLocal}"></h5>
                         <p class="card-text" th:text="${Anuncio.ubicacion}"></p><p class="card-text" th:text="${Anuncio.precio}"></p>
                         <a class="btn btn-primary" th:href="@{/anuncioArrendador/{id}(id=${Anuncio.id})}">Ver detalles</a>
+                        <a class="btn btn-primary" th:href="@{/viewMessages/{email}(email=${Anuncio.Arrendador.email})}">Chat</a>
+                        <a class="btn btn-primary" th:href="@{/aceptarAnuncioArrendador/{id}(id=${Anuncio.id})}">Aceptar</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!--
-        <table class="table table-bordered">
-            <tr>
-                <th>Id</th>
-                <th>Nombre Local</th>
-                <th>Ubicación</th>
-                <th>Precio</th>
-                <th>Descripcion arrendador</th>
-                <th>Estilo</th>
-                <th>Estado</th>
-                <th>Chat</th>
-                <th>Aceptar</th>
-
-            </tr>
-
-            <tr th:each="Anuncio : ${anuList}">
-                <td><a th:href="@{/anuncioArrendador/{id}(id=${Anuncio.id})}">[[${Anuncio.id}]]</a></td>
-                <td th:text="${Anuncio.nombreLocal}"></td>
-                <td th:text="${Anuncio.ubicacion}"></td>
-                <td th:text="${Anuncio.precio}"></td>
-                <td th:text="${Anuncio.descripcionArrendador}"></td>
-                <td th:text="${Anuncio.estilo}"></td>
-                <td th:text="${Anuncio.estaAceptado}"></td>
-                <td><button type="button" class="btn btn-success">
-                        <a th:href="@{/viewMessages/{email}(email=${Anuncio.Arrendador.email})}">Chat</a>
-                    </button></td>
-                <td><button type="button" class="btn btn-danger">
-                        <a th:href="@{/aceptarAnuncioArrendador/{id}(id=${Anuncio.id})}">Aceptar</a>
-                    </button></td>
-            </tr>
-
-        </table>
-    -->
-
+      
     </div>
 
     <script th:inline="javascript">

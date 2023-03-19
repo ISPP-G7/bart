@@ -178,5 +178,21 @@ public class AnuncioArrendadorController {
         return "redirect:/editAnuncioArrendador/" + anu.getId();
     }
 
+    @GetMapping("/anuncioArrendador/{id}")
+    public String viewAnuncioArrendador(@PathVariable Long id, Model model){
+        Boolean is_logged=false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged=true;
+            String email=SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el arrendador logueado
+            model.addAttribute("usuario",usr);
+            model.addAttribute("nombreUsuario",email);
+        }
+        AnuncioArrendador anuncio = anuncioArrendadorService.getAnuncioArrendadorById(id);
+        model.addAttribute("isLogged", is_logged);
+        model.addAttribute("anuncio", anuncio);
+        return "AnuncioArrendadorInfo";
+    }
+
 
 }

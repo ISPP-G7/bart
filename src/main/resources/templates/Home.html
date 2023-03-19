@@ -14,8 +14,8 @@
 		}
 
 		body {
-			background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
-			height: 100vh;
+			background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
 		}
 
 		.navbar {
@@ -208,7 +208,32 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+		<footer class="footer" th:fragment="Footer">
+			<style>
+				html {
+					min-height: 100%;
+					position: relative;
+				}
+				body {
+					margin: 0;
+					margin-bottom: 40px; 
+				}
+				.center {
+				  display: block;
+				  text-align: center;
+				}
+				footer {
+					position: absolute;
+					bottom: 0;
+					width: 100%;
+					height: 40px;
+					color: white;
+				}
+			  </style>
+			<div class="container" style="color: white;">
+				<span class="center">© 2023 Bart. Todos los derechos reservados.</span>
+			</div>
+		</footer>
 </body>
 
 </html>

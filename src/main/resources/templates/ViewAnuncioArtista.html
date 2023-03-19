@@ -12,11 +12,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <style>
+        
         body {
-            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
-            height: 100vh;
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            background-size: 100vw 200vh;
         }
-
+    
         h1 {
             color: white
         }
@@ -45,38 +46,18 @@
     <div class="container">
 
         <h1 class="p-3">Anuncios de artistas</h1>
-
-            <table class="table table-bordered">
-                <tr>
-                    <th>Id</th>
-                    <th>Pseudónimo artista</th>
-                    <th>Ubicación</th>
-                    <th>Precio</th>
-                    <th>Descripción artista</th>
-                    <th>Estilo</th>
-                    <th>Estado</th>
-                    <th>ID_Arrendador</th>
-                    <th>Editar</th>
-                </tr>
-
-                    <tr th:each="Anuncio : ${anuList}">
-                        <td><a th:href="@{/anuncioArtista/{id}(id=${Anuncio.id})}">[[${Anuncio.id}]]</a></td>
-                        <td th:text="${Anuncio.pseudonimoArtista}"></td>
-                        <td th:text="${Anuncio.ubicacion}"></td>
-                        <td th:text="${Anuncio.precio}"></td>
-                        <td th:text="${Anuncio.descripcionArtista}"></td>
-                        <td th:text="${Anuncio.estilo}"></td>
-                        <td th:text="${Anuncio.estaAceptado}"></td>
-                        <td th:text="${Anuncio.arrendador_accept_id}"></td>
-
-                        <td><button type="button" class="btn btn-success">
-                            <a th:href="@{/editAnuncioArtista/{id}(id=${Anuncio.id})}">Edit</a>
-                        </button></td>
-                        
-
-            </table>
-
-
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-md-4" th:each="Anuncio : ${anuList}" style="margin-bottom: 10px;">
+                <div class="card">
+                    <img class="card-img-top" th:src="${Anuncio.artista.urlImagen}" style="width: 100%; max-height: 200px; object-fit: cover;"alt="imagen perfil artista">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${Anuncio.pseudonimoArtista}"></h5>
+                        <p class="card-text" th:text="${Anuncio.descripcionArtista}"></p><p class="card-text" th:text="${Anuncio.precio}"></p>
+                        <a class="btn btn-primary" th:href="@{/anuncioArtista/{id}(id=${Anuncio.id})}">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <button type="button" class="btn btn-primary btn-block">
             <a href="/addAnuncioArtista">Añadir anuncio</a>
         </button>
@@ -117,7 +98,7 @@
             }
         }
     </script>
-
+    <footer th:replace="Home :: Footer"></footer>
 </body>
 
 </html>

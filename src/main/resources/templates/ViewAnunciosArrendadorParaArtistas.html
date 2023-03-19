@@ -14,8 +14,8 @@
     <style>
 
         body {
-            background-image: linear-gradient(to bottom right , #8e12ab, #dc4e4f);
-            height: 100vh;
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
         } 
         h1{
             color: white
@@ -47,7 +47,20 @@
         <h1 th:text="${message}"></h1>
 
         <h1 class="p-3">Anuncios de arrendadores</h1>
-
+        
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-md-4" th:each="Anuncio : ${anuList}" style="margin-bottom: 10px;">
+                <div class="card">
+                    <img class="card-img-top" th:src="${Anuncio.arrendador.urlImagen}" style="width: 100%; max-height: 200px; object-fit: cover;"alt="imagen perfil arrendador">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${Anuncio.nombreLocal}"></h5>
+                        <p class="card-text" th:text="${Anuncio.ubicacion}"></p><p class="card-text" th:text="${Anuncio.precio}"></p>
+                        <a class="btn btn-primary" th:href="@{/anuncioArrendador/{id}(id=${Anuncio.id})}">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
         <table class="table table-bordered">
             <tr>
                 <th>Id</th>
@@ -79,7 +92,7 @@
             </tr>
 
         </table>
-
+    -->
 
     </div>
 
@@ -115,7 +128,7 @@
             }
         }
     </script>
-
+    <footer th:replace="Home :: Footer"></footer>
 </body>
 
 </html>

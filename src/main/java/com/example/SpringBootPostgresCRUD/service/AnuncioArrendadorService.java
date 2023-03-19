@@ -42,19 +42,7 @@ public class AnuncioArrendadorService {
     }
 
     public boolean saveOrUpdateAnuncioArrendador(AnuncioArrendador anuncioArrendador, Long arrendadorIdSeleccionado) {
-        anuncioArrendador.setArrendador(arrendadorRepository.getById(arrendadorIdSeleccionado));// Esto hay que hacer
-                                                                                                // que coja el id del //
-                                                                                                // artista
-                                                                                                // automáticamente.
-        AnuncioArrendador anu = anuncioArrendadorRepository.save(anuncioArrendador);
-        if (anuncioArrendadorRepository.findById(anu.getId()) != null) {
-            return true;
-        }
-        return false;
-    }
-
-
-    public boolean updateAnuncioArrendador(AnuncioArrendador anuncioArrendador) {
+        anuncioArrendador.setArrendador(arrendadorRepository.getById(arrendadorIdSeleccionado));
         AnuncioArrendador anu = anuncioArrendadorRepository.save(anuncioArrendador);
         if (anuncioArrendadorRepository.findById(anu.getId()) != null) {
             return true;

@@ -39,7 +39,7 @@ public class AnuncioArtistaService {
         }
         return false;
     }
-
+/* 
     public boolean updateAnuncioArtista(AnuncioArtista anuncioArtista) {
         AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
         if (anuncioArtistaRepository.findById(anu.getId()) != null) {
@@ -47,7 +47,7 @@ public class AnuncioArtistaService {
         }
         return false;
     }
-
+*/
     public AnuncioArtista getAnuncioArtistaById(Long id) {
         return anuncioArtistaRepository.findById(id).get();
     }

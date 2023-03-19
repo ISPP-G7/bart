@@ -4,7 +4,9 @@
 <head>
 	<title>Bart - Contratación bidireccional entre artistas y locales</title>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
 	<style>
@@ -39,6 +41,14 @@
 			overflow: hidden;
 			margin-top: 20px;
 		}
+
+		/* Estilos para dispositivos móviles */
+        @media (max-width: 767px) {
+            .anuncio {
+                padding: 20px;
+            }
+        }
+
 		
 	</style>
 </head>

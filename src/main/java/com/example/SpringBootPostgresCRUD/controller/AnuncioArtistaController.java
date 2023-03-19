@@ -169,7 +169,7 @@ public class AnuncioArtistaController {
     @PostMapping("/editSaveAnuncioArtista")
     public String editSaveAnuncioArtista(@ModelAttribute("anu") AnuncioArtista anu,
             RedirectAttributes redirectAttributes) {
-        if (anuncioArtistaService.updateAnuncioArtista(anu)) {
+        if (anuncioArtistaService.saveOrUpdateAnuncioArtista(anu, anu.getArtista().getId())) {
             redirectAttributes.addFlashAttribute("message", "Edit Success");
             return "redirect:/viewAnunciosArtista";
         }

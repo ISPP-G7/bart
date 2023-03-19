@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Vista Anuncios Artistas</title>
+    <title>Anuncios de artistas</title>
 
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <style>
         body {
-            background-image: linear-gradient(to bottom right , #8e12ab, #dc4e4f);
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
             height: 100vh;
-        } 
-        h1{
+        }
+
+        h1 {
             color: white
         }
+
         table.table-bordered tr:first-child th {
-             background-color: #6B3D6E;
-             color: white;
+            background-color: #6B3D6E;
+            color: white;
         }
 
         table.table-bordered tr:not(:first-child) td {
@@ -34,17 +32,17 @@
         a{
         color: black;
         }
+        
         a:hover {
         color: lightgray;
         text-decoration: none;
         }
     </style>
 </head>
+
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="container">
-
-        <h1 th:text="${message}"></h1>
 
         <h1 class="p-3">Anuncios de artistas</h1>
 
@@ -78,6 +76,7 @@
 
             </table>
 
+
         <button type="button" class="btn btn-primary btn-block">
             <a href="/addAnuncioArtista">Añadir anuncio</a>
         </button>
@@ -85,39 +84,40 @@
     </div>
 
     <script th:inline="javascript">
-        window.onload = function() {
+        window.onload = function () {
 
-            var msg = [[${message}]];
+            var msg = [[${ message }]];
             if (msg == "Save Success") {
-				Command: toastr["success"]("Anuncio created successfully!!")
-			} else if (msg == "Delete Success") {
-				Command: toastr["success"]("Anuncio deleted successfully!!")
-			} else if (msg == "Delete Error") {
-			    Command: toastr["error"]("Some error occurred, couldn't delete Anuncio")
-			} else if (msg == "Edit Success") {
-				Command: toastr["success"]("Anuncio updated successfully!!")
-			}else if (msg == "No tienes permiso para editar este anuncio.") {
+                Command: toastr["success"]("Anuncio created successfully!!")
+            } else if (msg == "Delete Success") {
+                Command: toastr["success"]("Anuncio deleted successfully!!")
+            } else if (msg == "Delete Error") {
+                Command: toastr["error"]("Some error occurred, couldn't delete Anuncio")
+            } else if (msg == "Edit Success") {
+                Command: toastr["success"]("Anuncio updated successfully!!")
+            } else if (msg == "No tienes permiso para editar este anuncio.") {
                 Command: toastr["warning"]("No tienes permiso para editar este anuncio.")
-            }  
+            }
 
-			toastr.options = {
-                  "closeButton": true,
-                  "debug": false,
-                  "newestOnTop": false,
-                  "progressBar": true,
-                  "positionClass": "toast-top-right",
-                  "preventDuplicates": false,
-                  "showDuration": "300",
-                  "hideDuration": "1000",
-                  "timeOut": "5000",
-                  "extendedTimeOut": "1000",
-                  "showEasing": "swing",
-                  "hideEasing": "linear",
-                  "showMethod": "fadeIn",
-                  "hideMethod": "fadeOut"
-                }
-	    }
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
     </script>
 
 </body>
+
 </html>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Sign up arrendadores</title>
+    <title>Registrarse como arrendador</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -45,7 +45,7 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
 
-        <h1 class="p-3">Sign up arrendador</h1>
+        <h1 class="p-3">Registrarse como arrendador</h1>
 
         <form th:action="@{/saveArrendador}" th:object="${arr}" method="post">
             <div class="row">
@@ -69,7 +69,7 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="lastName">Apellido</label>
+                    <label class="col-md-3" for="lastName">Apellido/s</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{lastName}" id="lastName" class="form-control input-sm"
                             required="required" />
@@ -125,7 +125,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">Password</label>
+                    <label class="col-md-3">Contraseña</label>
                     <div class="col-md-6">
                         <input type="password" th:field="*{password}" id="password" class="form-control input-sm"
                             required="required" />

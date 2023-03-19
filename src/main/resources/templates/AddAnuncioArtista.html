@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Añadir anuncio</title>
+    <title>Añadir anuncio de artista</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -61,7 +61,7 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
 
-        <h1 class="p-3">Añadir anuncio</h1>
+        <h1 class="p-3">Añadir anuncio de artista</h1>
 
         <form th:action="@{/saveAnuncioArtista}" th:object="${anu}" method="post">
             <div>

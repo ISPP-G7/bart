@@ -64,7 +64,7 @@ public class AnuncioArtistaService {
         List<AnuncioArtista> anuncioArtistaList= anuncioArtistaRepository.findAll();
         List<AnuncioArtista> anuncioArtistaListAux= new ArrayList<>();
         for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
-            if(anuncioArtista.getEstaAceptado()==false){
+            if(anuncioArtista.isEstaAceptado()==false){
                 anuncioArtistaListAux.add(anuncioArtista);
             }
             

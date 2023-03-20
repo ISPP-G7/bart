@@ -31,7 +31,7 @@ public class AnuncioArrendadorService {
         List<AnuncioArrendador> AnuncioArrendadorListAux = new ArrayList<>();
 
         for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
-            if(anuncioArrendador.getEstaAceptado()==false){
+            if(anuncioArrendador.isEstaAceptado()==false){
                 AnuncioArrendadorListAux.add(anuncioArrendador);
             }
         }

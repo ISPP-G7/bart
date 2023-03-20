@@ -74,7 +74,7 @@ public class AnuncioArrendadorController {
     }
 
     @GetMapping({ "/viewAnunciosArrendadorParaArtistas" })
-    public String viewAnunciosArrendadorParaArtistas(@ModelAttribute("message") String message, Model model) {
+    public String viewAnunciosArrendadorParaArtistas(@ModelAttribute("message") String message, Model model,@Param("palabraClave") String palabraClave) {
         Boolean is_logged = false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged = true;
@@ -84,10 +84,11 @@ public class AnuncioArrendadorController {
             model.addAttribute("nombreUsuario", email);
         }
         model.addAttribute("isLogged", is_logged);
-        List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendadorNoAceptados();
+        List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendadorNoAceptadosFiltrados(palabraClave);
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
+        model.addAttribute("palabraClave", palabraClave);
 
         return "viewAnunciosArrendadorParaArtistas";
     }

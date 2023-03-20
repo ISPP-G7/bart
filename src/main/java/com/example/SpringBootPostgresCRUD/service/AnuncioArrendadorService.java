@@ -29,10 +29,10 @@ public class AnuncioArrendadorService {
 
     public List<AnuncioArrendador> getAllAnunciosArrendadorFiltrados(String palabraClave) {
         List<AnuncioArrendador> AnuncioArrendadorList = new ArrayList<>();
-        if (palabraClave != null) {
-            anuncioArrendadorRepository.busquedaFiltrada(palabraClave)
+        if (palabraClave.toLowerCase() != null) {
+            anuncioArrendadorRepository.busquedaFiltrada(palabraClave.toLowerCase())
                     .forEach(AnuncioArrendador -> AnuncioArrendadorList.add(AnuncioArrendador));
-            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave);
+            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave.toLowerCase());
         }
         anuncioArrendadorRepository.findAll()
                 .forEach(AnuncioArrendador -> AnuncioArrendadorList.add(AnuncioArrendador));
@@ -42,6 +42,25 @@ public class AnuncioArrendadorService {
     public List<AnuncioArrendador> getAllAnunciosArrendadorNoAceptados() {
         List<AnuncioArrendador> AnuncioArrendadorList = anuncioArrendadorRepository.findAll();
         List<AnuncioArrendador> AnuncioArrendadorListAux = new ArrayList<>();
+
+        for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
+            if (anuncioArrendador.getEstaAceptado() == false) {
+                AnuncioArrendadorListAux.add(anuncioArrendador);
+            }
+        }
+
+        return AnuncioArrendadorListAux;
+    }
+
+    public List<AnuncioArrendador> getAllAnunciosArrendadorNoAceptadosFiltrados(String palabraClave) {
+        List<AnuncioArrendador> AnuncioArrendadorList = anuncioArrendadorRepository.findAll();
+        List<AnuncioArrendador> AnuncioArrendadorListAux = new ArrayList<>();
+
+        if (palabraClave != null) {
+            anuncioArrendadorRepository.busquedaFiltrada(palabraClave)
+                    .forEach(AnuncioArrendador -> AnuncioArrendadorListAux.add(AnuncioArrendador));
+            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave);
+        }
 
         for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
             if (anuncioArrendador.getEstaAceptado() == false) {

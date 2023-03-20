@@ -78,7 +78,7 @@
     <script th:inline="javascript">
         window.onload = function() {
 
-            var msg = [[${message}]];
+            var msg = [[${ message }]];
             if (msg == "Anuncio creado con éxito") {
 				Command: toastr["success"]("Anuncio creado con éxito")
 			} else if (msg == "Anuncio borrado con éxito") {

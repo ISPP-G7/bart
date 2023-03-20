@@ -29,10 +29,10 @@ public class AnuncioArrendadorService {
 
     public List<AnuncioArrendador> getAllAnunciosArrendadorFiltrados(String palabraClave) {
         List<AnuncioArrendador> AnuncioArrendadorList = new ArrayList<>();
-        if (palabraClave.toLowerCase() != null) {
-            anuncioArrendadorRepository.busquedaFiltrada(palabraClave.toLowerCase())
+        if (palabraClave != null) {
+            anuncioArrendadorRepository.busquedaFiltrada(palabraClave)
                     .forEach(AnuncioArrendador -> AnuncioArrendadorList.add(AnuncioArrendador));
-            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave.toLowerCase());
+            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave.toUpperCase());
         }
         anuncioArrendadorRepository.findAll()
                 .forEach(AnuncioArrendador -> AnuncioArrendadorList.add(AnuncioArrendador));
@@ -59,7 +59,7 @@ public class AnuncioArrendadorService {
         if (palabraClave != null) {
             anuncioArrendadorRepository.busquedaFiltrada(palabraClave)
                     .forEach(AnuncioArrendador -> AnuncioArrendadorListAux.add(AnuncioArrendador));
-            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave);
+            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave.toUpperCase());
         }
 
         for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {

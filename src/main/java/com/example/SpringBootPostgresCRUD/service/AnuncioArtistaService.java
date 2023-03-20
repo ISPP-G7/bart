@@ -34,7 +34,7 @@ public class AnuncioArtistaService {
         if (palabraClave != null) {
             anuncioArtistaRepository.busquedaFiltrada(palabraClave)
                     .forEach(AnuncioArtista -> AnuncioArtistaList.add(AnuncioArtista));
-            return anuncioArtistaRepository.busquedaFiltrada(palabraClave);
+            return anuncioArtistaRepository.busquedaFiltrada(palabraClave.toUpperCase());
         }
         anuncioArtistaRepository.findAll().forEach(AnuncioArtista -> AnuncioArtistaList.add(AnuncioArtista));
 
@@ -84,6 +84,23 @@ public class AnuncioArtistaService {
         return anuncioArtistaListAux;
     }
 
+    public List<AnuncioArtista> getAllAnunciosArrendadorNoAceptadosFiltrados(String palabraClave) {
+        List<AnuncioArtista> anuncioArtistaList = anuncioArtistaRepository.findAll();
+        List<AnuncioArtista> anuncioArtistaListAux = new ArrayList<>();
+        if (palabraClave != null) {
+            anuncioArtistaRepository.busquedaFiltrada(palabraClave)
+                    .forEach(AnuncioArrendador -> anuncioArtistaListAux.add(AnuncioArrendador));
+            return anuncioArtistaRepository.busquedaFiltrada(palabraClave.toUpperCase());
+        }
+
+        for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
+            if (anuncioArtista.getEstaAceptado() == false) {
+                anuncioArtistaListAux.add(anuncioArtista);
+            }
+
+        }
+        return anuncioArtistaListAux;
+    }
     public boolean aceptarAnuncioArtista(AnuncioArtista anar, Long arrendador_accept_id) {
         anar.setEstaAceptado(true);
         anar.setArrendador_accept_id(arrendador_accept_id);

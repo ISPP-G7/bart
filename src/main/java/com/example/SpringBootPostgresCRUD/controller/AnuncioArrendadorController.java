@@ -1,6 +1,7 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,8 @@ public class AnuncioArrendadorController {
     ArrendadorService arrendadorService;
 
     @GetMapping({ "/viewAnunciosArrendador" })
-    public String viewAnunciosArrendador(@ModelAttribute("message") String message, Model model) {
+    public String viewAnunciosArrendador(@ModelAttribute("message") String message, Model model,
+            @Param("palabraClave") String palabraClave) {
         Boolean is_logged = false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
             is_logged = true;
@@ -46,10 +48,11 @@ public class AnuncioArrendadorController {
         }
         model.addAttribute("isLogged", is_logged);
 
-        List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendador();
+        List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendadorFiltrados(palabraClave);
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
+        model.addAttribute("palabraClave", palabraClave);
 
         return "ViewAnuncioArrendador";
     }

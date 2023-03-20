@@ -46,6 +46,18 @@
     <div class="container">
 
         <h1 class="p-3">Anuncios de artistas</h1>
+        <br>
+            <form class="form-inline" th:action="@{/viewAnunciosArtista}">
+                <div class="form-group mb-2">
+                    <label>Filtrar:</label>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" name="palabraClave" class="form-control" id="palabraClave" th:value="${palabraClave}" placeholder="Búsqueda por estilo, nombre..." required>
+                </div>
+                <input type="submit" class="btn btn-info mb-2" value="Buscar">
+                <input type="button" class="btn btn-secondary mb-2" value="Limpiar" onclick="limpiarCampos()">
+            </form>
+    </br>
         <div class="row" style="margin-bottom: 10px;">
             <div class="col-md-4" th:each="Anuncio : ${anuList}" style="margin-bottom: 10px;">
                 <div class="card">
@@ -96,6 +108,11 @@
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             }
+        }
+    </script>
+    <script type="text/javascript">
+        function limpiarCampos(){
+            window.location='/viewAnunciosArrendador';
         }
     </script>
     <footer th:replace="Home :: Footer"></footer>

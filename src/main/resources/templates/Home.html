@@ -5,8 +5,8 @@
 	<title>Bart - Contratación bidireccional entre artistas y locales</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
 	<style>
@@ -14,10 +14,10 @@
 			max-height: 50px;
 			border-radius: 8px;
 		}
-		
+
 		body {
 			background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
-            background-size: 100vw 200vh; 
+			background-size: 100vw 200vh;
 		}
 
 		.navbar {
@@ -43,13 +43,11 @@
 		}
 
 		/* Estilos para dispositivos móviles */
-        @media (max-width: 767px) {
-            .anuncio {
-                padding: 20px;
-            }
-        }
-
-		
+		@media (max-width: 767px) {
+			.anuncio {
+				padding: 20px;
+			}
+		}
 	</style>
 </head>
 
@@ -168,88 +166,87 @@
 		<h1>Bienvenido a Bart</h1>
 		<p>La plataforma de contratación bidireccional entre artistas y locales.</p>
 		<!-- Aquí podrías añadir más contenido HTML, como formularios, listas, etc. -->
+		<p>Artistas anunciados</p>
+		<iframe style="border-radius:12px"
+			src="https://open.spotify.com/embed/playlist/7mlc9n74nSDqgUh339UXtO?utm_source=generator&theme=0"
+			width="100%" height="375" frameBorder="0" allowfullscreen=""
+			allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 	</div>
-	<div id="playlist-container" style="border-radius:12px; width:100%; float:right;">
-		<p>Artistas anunciados</p>	
-		<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/7mlc9n74nSDqgUh339UXtO?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-	</div>
-	
-		<div id="map-container">
-			<p>Nuestros locales disponibles:</p>
 
-
-			<div id="map" th:data-arrendadores="${arrendadoresNombreLocalMapListAux}"
-				style="width: 600px; height: 400px">
-			</div>
+	<div class="container mt-5" id="map-container">
+		<p>Nuestros locales disponibles:</p>
+		<div id="map" th:data-arrendadores="${arrendadoresNombreLocalMapListAux}" style="width: 600px; height: 400px">
 		</div>
+	</div>
 
 
-		<!-- Agrega el script para inicializar el mapa -->
-		<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
-		<script>
-			// Crea el mapa centrado en Sevilla
-			var map = L.map('map').setView([37.3891, -5.9845], 14);
+	<!-- Agrega el script para inicializar el mapa -->
+	<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+	<script>
+		// Crea el mapa centrado en Sevilla
+		var map = L.map('map').setView([37.3891, -5.9845], 14);
 
-			// Agrega una capa de OpenStreetMap al mapa
-			var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-			L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				attribution: '&copy; ' + mapLink + ' Contributors',
-				maxZoom: 18
-			}).addTo(map);
+		// Agrega una capa de OpenStreetMap al mapa
+		var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+		L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; ' + mapLink + ' Contributors',
+			maxZoom: 18
+		}).addTo(map);
 
-			// Variable con una lista de coordenadas
-			var coordenadasList = [[${ coordenadasList }]];
-			var arrendadoresNombreLocalMapListAux = document.getElementById('map').getAttribute('data-arrendadores').replace("[", "").replace("]", "").split(",");
-			/* manual debbuger pa js le das a f12 en navegador y miras console
-			console.error(arrendadoresNombreLocalMapListAux[1])
-			console.error("uwu")
-			*/
+		// Variable con una lista de coordenadas
+		var coordenadasList = [[${ coordenadasList }]];
+		var arrendadoresNombreLocalMapListAux = document.getElementById('map').getAttribute('data-arrendadores').replace("[", "").replace("]", "").split(",");
+		/* manual debbuger pa js le das a f12 en navegador y miras console
+		console.error(arrendadoresNombreLocalMapListAux[1])
+		console.error("uwu")
+		*/
 
-			// Función que agrega marcadores al mapa desde una lista de coordenadas
-			function agregarMarcadoresDesdeCoordenadas(coordList) {
-				for (var i = 0; i < coordList.length; i++) {
-					var marker = L.marker(coordList[i]).addTo(map);
-					marker.bindPopup("<b>Ubicación " + arrendadoresNombreLocalMapListAux[i] + "</b><br>Latitud: " + coordList[i][0] + "<br>Longitud: " + coordList[i][1]).openPopup();
-				}
+		// Función que agrega marcadores al mapa desde una lista de coordenadas
+		function agregarMarcadoresDesdeCoordenadas(coordList) {
+			for (var i = 0; i < coordList.length; i++) {
+				var marker = L.marker(coordList[i]).addTo(map);
+				marker.bindPopup("<b>Ubicación " + arrendadoresNombreLocalMapListAux[i] + "</b><br>Latitud: " + coordList[i][0] + "<br>Longitud: " + coordList[i][1]).openPopup();
+			}
+		}
+
+		// Llama a la función para agregar los marcadores al mapa
+		agregarMarcadoresDesdeCoordenadas(coordenadasList);
+
+	</script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<footer class="footer" th:fragment="Footer">
+		<style>
+			html {
+				min-height: 100%;
+				position: relative;
 			}
 
-			// Llama a la función para agregar los marcadores al mapa
-			agregarMarcadoresDesdeCoordenadas(coordenadasList);
+			body {
+				margin: 0;
+				margin-bottom: 40px;
+			}
 
-		</script>
+			.center {
+				display: block;
+				text-align: center;
+			}
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		<footer class="footer" th:fragment="Footer">
-			<style>
-				html {
-					min-height: 100%;
-					position: relative;
-				}
-		
-				body {
-					margin: 0;
-					margin-bottom: 40px;
-				}
-		
-				.center {
-					display: block;
-					text-align: center;
-				}
-		
-				footer {
-					position: absolute;
-					bottom: 0;
-					width: 100%;
-					height: 40px;
-					color: white;
-				}
-			</style>
-			<div class="container" style="color: white;">
-				<span class="center">© 2023 Bart. Todos los derechos reservados. <a href="https://ispp-g7.github.io/" style="color:white;">Visita nuestra página web</a></span>
-			</div>
-		</footer>
-		
+			footer {
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				height: 40px;
+				color: white;
+			}
+		</style>
+		<div class="container" style="color: white;">
+			<span class="center">© 2023 Bart. Todos los derechos reservados. <a href="https://ispp-g7.github.io/"
+					style="color:white;">Visita nuestra página web</a></span>
+		</div>
+	</footer>
+
 
 </html>

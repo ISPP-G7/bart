@@ -12,7 +12,7 @@ import com.example.SpringBootPostgresCRUD.entity.AnuncioArrendador;
 @Repository
 public interface AnuncioArrendadorRepository extends JpaRepository<AnuncioArrendador, Long> {
 
-    @Query("SELECT a FROM AnuncioArrendador a WHERE" + " CONCAT(a.nombreLocal, a.estilo)"
+    @Query("SELECT a FROM AnuncioArrendador a WHERE" + " CONCAT(a.estilo)"
             + " LIKE %?1%")
     public List<AnuncioArrendador> busquedaFiltrada(String palabraClave);
 

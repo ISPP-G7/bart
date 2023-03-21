@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sala de Chat</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        body {
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            height: 100vh;
+        }
+
+        h1 {
+            color: white
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div th:replace="Home :: Home"></div> -->
+    <input type="hidden" value="${email}">
+
+    <script>
+        import React, { userState } from 'react';
+        import { over } from 'stompjs';
+        import SockJS from 'sockjs-client';
+
+        var stompClient = null;
+
+        const ChatRoom = () => {
+            const [userData, setUserData] = userState({
+                username: "",
+                receivername: "",
+                connected: false,
+                message: ""
+            })
+
+            const handleUserName = (event) => {
+                const { value } = event.target;
+                setUserData({ ...userData, "username": value })
+            }
+
+            const registerUser = () => {
+                let Sock = new SockJS('http://localhost:8080/ws');
+            }
+
+            return (
+                <div className="container">
+
+                </div>
+            )
+        }
+    </script>
+
+</body>
+
+</html>

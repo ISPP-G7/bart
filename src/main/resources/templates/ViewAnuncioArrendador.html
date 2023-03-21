@@ -58,6 +58,9 @@
                         <p class="card-text" th:text="${Anuncio.precio}"></p>
                         <a class="btn btn-primary" th:href="@{/anuncioArrendador/{id}(id=${Anuncio.id})}">Ver
                             detalles</a>
+                        <button type="button" class="btn btn-success">
+                        <a th:href="@{/editAnuncioArrendador/{id}(id=${Anuncio.id})}">Editar</a>
+                        </button>
                     </div>
                 </div>
                 <br>

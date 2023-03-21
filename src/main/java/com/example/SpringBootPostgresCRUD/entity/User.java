@@ -2,8 +2,6 @@ package com.example.SpringBootPostgresCRUD.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 
 
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -14,11 +12,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Min(value = 3)
-    @Max(value = 50)
+    
     private String firstName;
-    @Min(value = 3)
-    @Max(value = 70)
+    
     private String lastName;
     @Email
     private String email;

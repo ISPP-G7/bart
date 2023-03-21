@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
@@ -28,15 +26,11 @@ public class AnuncioArtista {
     private Long id;
 
     @NotBlank
-    @Min(10)
-    @Max(50)
     private String pseudonimoArtista;
 
     private Long arrendador_accept_id;
 
     @NotBlank
-    @Min(5)
-    @Max(60)
     private String ubicacion;
 
     @NotNull
@@ -44,8 +38,6 @@ public class AnuncioArtista {
     private Float precio;
 
     @NotBlank
-    @Min(15)
-    @Max(300)
     private String descripcionArtista;
 
     @NotNull

@@ -40,6 +40,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @SuppressWarnings("deprecation")
     @Bean
     public NoOpPasswordEncoder noOpPasswordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();//Este hash no es seguro TODO
     }
 }

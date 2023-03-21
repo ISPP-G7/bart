@@ -37,7 +37,7 @@ public class MessageController {
             Model model) {
 
                 Boolean is_logged=false;
-                if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+                if (SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
                     is_logged=true;
                     String email=SecurityContextHolder.getContext().getAuthentication().getName();
                     User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
@@ -67,7 +67,7 @@ public class MessageController {
             Model model) {
 
                 Boolean is_logged=false;
-                if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+                if (SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
                     is_logged=true;
                     String email=SecurityContextHolder.getContext().getAuthentication().getName();
                     User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado

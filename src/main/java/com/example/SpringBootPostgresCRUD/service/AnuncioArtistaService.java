@@ -34,27 +34,19 @@ public class AnuncioArtistaService {
     public boolean saveOrUpdateAnuncioArtista(AnuncioArtista anuncioArtista,Long artistaIdSeleccionado) {
         anuncioArtista.setArtista(artistaRepository.getById(artistaIdSeleccionado));//Esto hay que hacer que coja el id del artista automáticamente.
         AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
-        if (anuncioArtistaRepository.findById(anu.getId()) != null) {
+        if (anuncioArtistaRepository.findById(anu.getId()).isPresent()) {
             return true;
         }
         return false;
     }
-/* 
-    public boolean updateAnuncioArtista(AnuncioArtista anuncioArtista) {
-        AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
-        if (anuncioArtistaRepository.findById(anu.getId()) != null) {
-            return true;
-        }
-        return false;
-    }
-*/
+
     public AnuncioArtista getAnuncioArtistaById(Long id) {
-        return anuncioArtistaRepository.findById(id).get();
+        return anuncioArtistaRepository.findById(id).get();//aquí habría que comprobar que no es nulo antes de pasarlo, si es nulo pasar excepción. TODO
     }
 
     public boolean deleteAnuncioArtista(Long id) {
         anuncioArtistaRepository.deleteById(id);
-        if (anuncioArtistaRepository.findById(id) != null) {
+        if (anuncioArtistaRepository.findById(id).isPresent()) {
             return true;
         }
         return false;
@@ -64,7 +56,7 @@ public class AnuncioArtistaService {
         List<AnuncioArtista> anuncioArtistaList= anuncioArtistaRepository.findAll();
         List<AnuncioArtista> anuncioArtistaListAux= new ArrayList<>();
         for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
-            if(anuncioArtista.isEstaAceptado()==false){
+            if(!anuncioArtista.isEstaAceptado()){
                 anuncioArtistaListAux.add(anuncioArtista);
             }
             
@@ -75,7 +67,7 @@ public class AnuncioArtistaService {
         anar.setEstaAceptado(true);
         anar.setArrendador_accept_id(arrendador_accept_id);
        anuncioArtistaRepository.save(anar);
-        if (anuncioArtistaRepository.findById(anar.getId()) != null) {
+        if (anuncioArtistaRepository.findById(anar.getId()).isPresent()) {
             return true;
         }
         return false;

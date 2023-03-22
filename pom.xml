@@ -117,7 +117,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		<!-- Stripe -->
+		<dependency>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>20.79.0</version>
+		</dependency>
+		<!--  -->
 	</dependencies>
 	<profiles>
 		<profile>
@@ -160,16 +166,6 @@
 						borrar peta-->
 						<version>42.3.1</version>
 					</dependency>
-
-					<!-- Stripe -->
-					<dependency>
-						<groupId>com.stripe</groupId>
-						<artifactId>stripe-java</artifactId>
-						<version>20.79.0</version>
-					</dependency>
-
-					<!--  -->
-
 				</dependencies>
 			</plugin>
 			<plugin>

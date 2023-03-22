@@ -7,22 +7,26 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Entity
-@Table(name = "transacciones")
 @Getter
 @Setter
-public class Transaccion{
+@Table(name = "transacciones")
+public class Transaccion {
+
+	public enum Currency {
+		EUR;
+	}
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	private User artista;
 	private User arrendador;
 	private EstadoTransaccion estadoTransaccion;
 	private Date fechaCreacionDeTransaccion;
 	private Date fechaActuacion;
 
-  
+	private Double cantidad;
+	private Currency currency;
+
 }

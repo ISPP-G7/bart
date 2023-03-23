@@ -32,36 +32,41 @@ public class AnuncioArtistaController {
     @Autowired
     ArtistaService artistaService;
 
-    //working on arrendador acepta artista 
+    // working on arrendador acepta artista
     @GetMapping("/aceptarAnuncioArtista/{id}")
-    public String aceptarAnuncioArtista(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        
-        String email=SecurityContextHolder.getContext().getAuthentication().getName();
-        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
-        Long arrendador_accept_id= arrendador.getId();
-        AnuncioArtista anar=  anuncioArtistaService.getAnuncioArtistaById(id);
-        if (anuncioArtistaService.aceptarAnuncioArtista(anar,arrendador_accept_id)) {
-            redirectAttributes.addFlashAttribute("message", "Accept Success");
-            return "redirect:/viewAnunciosArtistaParaArrendadores";
-        }
+    public String aceptarAnuncioArtista(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
 
-        redirectAttributes.addFlashAttribute("message", "Delete Failure");
-        return "redirect:/viewAnunciosArtistaParaArrendadores";
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+        Long arrendador_accept_id = arrendador.getId();
+        AnuncioArtista anar = anuncioArtistaService.getAnuncioArtistaById(id);
+
+        Boolean is_logged = false;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+            is_logged = true;
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
+            model.addAttribute("nombreUsuario", email);
+        }
+        model.addAttribute("isLogged", is_logged);
+
+        model.addAttribute("arrendador_id", arrendador_accept_id);
+        model.addAttribute("anuncio", anar);
+        return "Transaccion";
     }
 
     @GetMapping({ "/viewAnunciosArtistaParaArrendadores" })
     public String viewAnunciosArtistaParaArrendadores(@ModelAttribute("message") String message, Model model) {
-        Boolean is_logged=false;
+        Boolean is_logged = false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged=true;
-            String email=SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
-            model.addAttribute("usuario",usr);
-            model.addAttribute("nombreUsuario",email);
+            is_logged = true;
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
+            model.addAttribute("nombreUsuario", email);
         }
         model.addAttribute("isLogged", is_logged);
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArrendadorNoAceptados();
-       
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
@@ -69,16 +74,15 @@ public class AnuncioArtistaController {
         return "viewAnunciosArtistaParaArrendadores";
     }
 
-
     @GetMapping({ "/viewAnunciosArtista" })
     public String viewAnuncioArtista(@ModelAttribute("message") String message, Model model) {
-        Boolean is_logged=false;
+        Boolean is_logged = false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged=true;
-            String email=SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
-            model.addAttribute("usuario",usr);
-            model.addAttribute("nombreUsuario",email);
+            is_logged = true;
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
+            model.addAttribute("nombreUsuario", email);
         }
         model.addAttribute("isLogged", is_logged);
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtista();
@@ -91,12 +95,12 @@ public class AnuncioArtistaController {
 
     @GetMapping("/addAnuncioArtista")
     public String newAnuncioArtista(@ModelAttribute("message") String message, Model model) {
-        Boolean is_logged=false;
+        Boolean is_logged = false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged=true;
-            String email=SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
-            model.addAttribute("usuario",usr);
+            is_logged = true;
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
         }
         model.addAttribute("isLogged", is_logged);
         AnuncioArtista anu = new AnuncioArtista();
@@ -105,7 +109,7 @@ public class AnuncioArtistaController {
         model.addAttribute("artista", artista);
         model.addAttribute("anu", anu);
         model.addAttribute("message", message);
-        model.addAttribute("nombreUsuario",email);
+        model.addAttribute("nombreUsuario", email);
 
         return "AddAnuncioArtista";
     }
@@ -136,34 +140,35 @@ public class AnuncioArtistaController {
     }
 
     @GetMapping("/editAnuncioArtista/{id}")
-    public String editArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model,RedirectAttributes redirectAttributes) {
-        Long IDaux=0l;
+    public String editArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model,
+            RedirectAttributes redirectAttributes) {
+        Long IDaux = 0l;
 
-        Boolean is_logged=false;
+        Boolean is_logged = false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged=true;
-            String email=SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
-            model.addAttribute("usuario",usr);
-            model.addAttribute("nombreUsuario",email);
-            IDaux=usr.getId();
+            is_logged = true;
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
+            model.addAttribute("nombreUsuario", email);
+            IDaux = usr.getId();
 
         }
         AnuncioArtista ann = anuncioArtistaService.getAnuncioArtistaById(id);
 
-        if(IDaux.equals(ann.getArtista().getId())){
+        if (IDaux.equals(ann.getArtista().getId())) {
 
-        model.addAttribute("isLogged", is_logged);
+            model.addAttribute("isLogged", is_logged);
 
-        model.addAttribute("anu", ann);
-        model.addAttribute("message", message);
+            model.addAttribute("anu", ann);
+            model.addAttribute("message", message);
 
-        return "EditAnuncioArtista";
-    }else{
-        redirectAttributes.addFlashAttribute("message", "No tienes permiso para editar este anuncio.");
-        return "redirect:/viewAnunciosArtista";
+            return "EditAnuncioArtista";
+        } else {
+            redirectAttributes.addFlashAttribute("message", "No tienes permiso para editar este anuncio.");
+            return "redirect:/viewAnunciosArtista";
 
-    }
+        }
     }
 
     @PostMapping("/editSaveAnuncioArtista")
@@ -179,14 +184,14 @@ public class AnuncioArtistaController {
     }
 
     @GetMapping("/anuncioArtista/{id}")
-    public String viewAnuncioArtista(@PathVariable Long id, Model model){
-        Boolean is_logged=false;
+    public String viewAnuncioArtista(@PathVariable Long id, Model model) {
+        Boolean is_logged = false;
         if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged=true;
-            String email=SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
-            model.addAttribute("usuario",usr);
-            model.addAttribute("nombreUsuario",email);
+            is_logged = true;
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
+            model.addAttribute("nombreUsuario", email);
         }
         AnuncioArtista anuncio = anuncioArtistaService.getAnuncioArtistaById(id);
         model.addAttribute("isLogged", is_logged);

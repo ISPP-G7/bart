@@ -20,8 +20,13 @@ public class Transaccion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+	@OneToOne
 	private User artista;
+
+	@OneToOne
 	private User arrendador;
+
 	private EstadoTransaccion estadoTransaccion;
 	private Date fechaCreacionDeTransaccion;
 	private Date fechaActuacion;

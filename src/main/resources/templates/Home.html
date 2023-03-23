@@ -27,6 +27,17 @@
 		.nav-link {
 			color: white !important;
 		}
+		.cont {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.playlist-container {
+			margin-top: 20px;
+			border-radius: 12px;
+			width: 80%;
+		}
 
 		h1,
 		p {
@@ -77,6 +88,7 @@
 				overflow: hidden;
 				margin-top: 20px;
 			}
+
 		</style>
 
 		<nav class="navbar navbar-expand-lg navbar-dark">
@@ -113,39 +125,39 @@
 							<a class="nav-link" href="#">Contacto</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="/viewUsers">Vista de usuarios</a>
+							<a class="nav-link" href="/viewUsers">Lista de usuarios</a>
 						</li>
 						<li th:if="${usuario.esArtista}" class="nav-item">
-							<a class="nav-link" href="/viewArtistas">Vista de artistas</a>
+							<a class="nav-link" href="/viewArtistas">Lista de artistas</a>
 						</li>
 						<li th:if="${usuario.esArtista}" class="nav-item">
-							<a class="nav-link" href="/viewAnunciosArrendadorParaArtistas">Anuncios ofertados por
-								Arrendadores</a>
+							<a class="nav-link" href="/viewAnunciosArrendadorParaArtistas">Anuncios de
+								Locales</a>
 						</li>
 						<li th:if="${usuario.esArtista}" class="nav-item">
-							<a class="nav-link" href="/viewAnunciosArtista">Cree y vea anuncios de artistas</a>
+							<a class="nav-link" href="/viewAnunciosArtista">Crea y vea anuncios de artistas</a>
 						</li>
 						<li th:if="${usuario.esArtista}" class="nav-item">
 							<a class="nav-link" href="/viewAllMessages">Chat</a>
 						</li>
 						<li th:if="${usuario.esArtista}" class="nav-item">
-							<a class="nav-link" href="/viewArrendadores">Vista de arrendadores</a>
+							<a class="nav-link" href="/viewArrendadores">Lista de locales</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
-							<a class="nav-link" href="/viewArrendadores">Vista de arrendadores</a>
+							<a class="nav-link" href="/viewArrendadores">Lista de locales</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
-							<a class="nav-link" href="/viewAnunciosArtistaParaArrendadores">Anuncios ofertados por
+							<a class="nav-link" href="/viewAnunciosArtistaParaArrendadores">Anuncios de
 								artistas</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
-							<a class="nav-link" href="/viewAnunciosArrendador">Cree y vea anuncios de arrendadores</a>
+							<a class="nav-link" href="/viewAnunciosArrendador">Crea y vea anuncios de locales</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewAllMessages">Chat</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
-							<a class="nav-link" href="/viewArtistas">Vista de Artistas</a>
+							<a class="nav-link" href="/viewArtistas">Lista de Artistas</a>
 						</li>
 				
 						<nav class="navbar navbar-expand-lg " th:if="${usuario.esArrendador}">
@@ -192,10 +204,10 @@
 		<p>La plataforma de contratación bidireccional entre artistas y locales.</p>
 		<!-- Aquí podrías añadir más contenido HTML, como formularios, listas, etc. -->
 	</div>
-	<div id="playlist-container" style="border-radius:12px; width:100%; float:right;">
-		<p>Artistas anunciados</p>	
-		<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/7mlc9n74nSDqgUh339UXtO?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-	</div>
+	<div class="cont">
+		<div class="playlist-container" style="border-radius:12px;">
+			<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/7mlc9n74nSDqgUh339UXtO?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+		</div>
 	
 		<div id="map-container">
 			<p>Nuestros locales disponibles:</p>
@@ -205,7 +217,7 @@
 				style="width: 600px; height: 400px">
 			</div>
 		</div>
-
+	</div>
 
 		<!-- Agrega el script para inicializar el mapa -->
 		<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>

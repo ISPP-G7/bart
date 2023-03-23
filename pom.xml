@@ -142,24 +142,33 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>sql-maven-plugin</artifactId>
 				<version>1.5</version>
-				<configuration>
-				<driver>org.postgresql.Driver</driver>
-				<url>jdbc:postgresql://localhost:5432/bartbd</url>
-				<username>root</username>
-				<password>root</password>
-				<srcFiles>
-					<srcFile>src/main/resources/db/hsqldb/data.sql</srcFile>
-				</srcFiles>
-				</configuration>
 				<dependencies>
-				<dependency>
-					<groupId>org.postgresql</groupId>
-					<artifactId>postgresql</artifactId>
-					<!--No borrar peta-->
-					<version>42.3.1</version>
-				</dependency>
-				
+					<dependency>
+						<groupId>org.postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<version>42.3.1</version>
+					</dependency>
 				</dependencies>
+				<configuration>
+					<driver>org.postgresql.Driver</driver>
+					<url>jdbc:postgresql://localhost:5432/bartbd</url>
+					<username>root</username>
+					<password>root</password>
+				</configuration>
+				<executions>
+					<execution>
+						<id>execute-sql</id>
+						<phase>package</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<srcFiles>
+								<srcFile>src/main/resources/db/hsqldb/data.sql</srcFile>
+							</srcFiles>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

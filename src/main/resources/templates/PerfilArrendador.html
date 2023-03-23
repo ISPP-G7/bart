@@ -31,7 +31,7 @@
     display: block;
     margin: 0 auto;
     max-width: 100%;
-    border-radius: 50%;
+    border-radius: 20%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
     }
 
@@ -80,10 +80,10 @@
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="arrendador-perfil">
-        <h1>[[${arrendador.nombreLocal}]]</h1>
+        <h1>[[${arr.nombreLocal}]]</h1>
     <table>
         <tr>
-            <img th:src="${arr.getUrlImagen()}" style="max-width: 200px; display: block; margin: 0 auto;">
+            <img th:src="${arr.getUrlImagen()}" style="max-width: 300px;" alt="Imagen de perfil">
         </tr>
         <tr>
             <td><h2>Dirección:</h2></td>

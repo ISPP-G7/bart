@@ -53,6 +53,13 @@ public class MessageController {
                     User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
                     model.addAttribute("usuario",usr);
                     model.addAttribute("nombreUsuario",email);
+                    if(usr.getEsArrendador()){
+                        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+                        model.addAttribute("arrendador", arrendador);
+                    } else if(usr.getEsArtista()){
+                        Artista artista = artistaService.getArtistaByMailArtista(email);
+                        model.addAttribute("artista", artista);
+                    }
                 }
                 model.addAttribute("isLogged", isLogged);
 

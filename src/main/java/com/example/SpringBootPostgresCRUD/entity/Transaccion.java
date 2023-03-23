@@ -26,7 +26,7 @@ public class Transaccion {
 	private Date fechaCreacionDeTransaccion;
 	private Date fechaActuacion;
 
-	private Double cantidad;
+	private Integer amount;
 	private Currency currency;
 
 }

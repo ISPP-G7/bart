@@ -32,7 +32,7 @@ public class AnuncioArrendadorService {
         if (palabraClave != null) {
             anuncioArrendadorRepository.busquedaFiltrada(palabraClave)
                     .forEach(AnuncioArrendador -> AnuncioArrendadorList.add(AnuncioArrendador));
-            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave.toUpperCase());
+            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave);
         }
         anuncioArrendadorRepository.findAll()
                 .forEach(AnuncioArrendador -> AnuncioArrendadorList.add(AnuncioArrendador));
@@ -59,7 +59,7 @@ public class AnuncioArrendadorService {
         if (palabraClave != null) {
             anuncioArrendadorRepository.busquedaFiltrada(palabraClave)
                     .forEach(AnuncioArrendador -> AnuncioArrendadorListAux.add(AnuncioArrendador));
-            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave.toUpperCase());
+            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave);
         }
 
         for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {

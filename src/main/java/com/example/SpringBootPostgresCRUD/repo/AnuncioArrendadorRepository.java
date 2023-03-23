@@ -12,8 +12,8 @@ import com.example.SpringBootPostgresCRUD.entity.AnuncioArrendador;
 @Repository
 public interface AnuncioArrendadorRepository extends JpaRepository<AnuncioArrendador, Long> {
 
-    @Query("SELECT a FROM AnuncioArrendador a WHERE" + " CONCAT(a.estilo)"
-            + " LIKE %?1%")
+    @Query("SELECT a FROM AnuncioArrendador a WHERE" + " LOWER(CONCAT(a.nombreLocal, a.estilo))"
+            + " LIKE LOWER(CONCAT('%', ?1, '%'))")
     public List<AnuncioArrendador> busquedaFiltrada(String palabraClave);
 
 }

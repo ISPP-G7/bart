@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Editar artista</title>
+    <title>Título</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -12,8 +12,8 @@
 
     <style>
         body {
-            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
-            background-size: 100vw 200vh; 
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            height: 100vh;
         }
 
         h1 {
@@ -67,7 +67,7 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="lastName">Apellido/s</label>
+                    <label class="col-md-3" for="lastName">Apellidos</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{lastName}" id="lastName" class="form-control input-sm"
                             required="required" />
@@ -140,7 +140,7 @@
 
             <div class="row p-2">
                 <div class="col-md-2">
-                    <button class="btn btn-success">Editar</button>
+                    <button class="btn btn-success">Actualizar</button>
                 </div>
             </div>
         </form>
@@ -172,7 +172,6 @@
             }
         }
     </script>
-    <footer th:replace="Home :: Footer"></footer>
 </body>
 
 </html>

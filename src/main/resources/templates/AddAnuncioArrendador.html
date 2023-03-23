@@ -13,8 +13,8 @@
 
     <style>
         body {
-            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
-            background-size: 100vw 200vh; 
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            height: 100vh;
         }
 
         h1 {
@@ -121,45 +121,45 @@
 
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{estilo}"
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
                                     value="REGGAETON" />Reggaetón
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{estilo}" value="POP" />Pop
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="POP" />Pop
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{estilo}" value="ROCK" />Rock
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="ROCK" />Rock
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{estilo}" value="TRAP" />Trap
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="TRAP" />Trap
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{estilo}"
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
                                     value="HIPHOP" />Hip Hop
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{estilo}"
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
                                     value="FLAMENCO" />Flamenco
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{estilo}" value="JAZZ" />Jazz
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="JAZZ" />Jazz
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" th:field="*{estilo}"
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
                                     value="ELECTRONICA" />Electrónica
                             </label>
                         </div>
@@ -204,8 +204,6 @@
             }
         }
     </script>
-    
-    <footer th:replace="Home :: Footer"></footer>
 </body>
 
 </html>

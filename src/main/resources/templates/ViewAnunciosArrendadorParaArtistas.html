@@ -14,8 +14,8 @@
     <style>
 
         body {
-            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
-            background-size: 100vw 200vh; 
+            background-image: linear-gradient(to bottom right , #8e12ab, #dc4e4f);
+            height: 100vh;
         } 
         h1{
             color: white
@@ -28,8 +28,8 @@
         table.table-bordered tr:not(:first-child) td {
             background-color: #fff;
         }
-        a {
-        color: black;
+        a{
+        color: white;
 
         }
 
@@ -44,35 +44,43 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
 
-        <h1 class="p-3">Anuncios de arrendadores</h1>
-        <br>
-            <form class="form-inline" th:action="@{/viewAnunciosArrendadorParaArtistas}">
-                <div class="form-group mb-2">
-                    <label>Filtrar:</label>
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <input type="text" name="palabraClave" class="form-control" id="palabraClave" th:value="${palabraClave}" placeholder="Búsqueda por estilo, nombre..." required>
-                </div>
-                <input type="submit" class="btn btn-info mb-2" value="Buscar">
-                <input type="button" class="btn btn-secondary mb-2" value="Limpiar" onclick="limpiarCampos()">
-            </form>
-    </br>
+        <h1 th:text="${message}"></h1>
 
-        <div class="row" style="margin-bottom: 10px;">
-            <div class="col-md-4" th:each="Anuncio : ${anuList}" style="margin-bottom: 10px;">
-                <div class="card">
-                    <img class="card-img-top" th:src="${Anuncio.arrendador.urlImagen}" style="width: 100%; max-height: 200px; object-fit: cover;"alt="imagen perfil arrendador">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${Anuncio.nombreLocal}"></h5>
-                        <p class="card-text" th:text="${Anuncio.ubicacion}"></p><p class="card-text" th:text="${Anuncio.precio}"></p>
-                        <a class="btn btn-primary" th:href="@{/anuncioArrendador/{id}(id=${Anuncio.id})}">Ver detalles</a>
-                        <a class="btn btn-primary" th:href="@{/viewMessages/{email}(email=${Anuncio.Arrendador.email})}">Chat</a>
-                        <a class="btn btn-primary" th:href="@{/aceptarAnuncioArrendador/{id}(id=${Anuncio.id})}">Aceptar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-      
+        <h1 class="p-3">Anuncios de arrendadores</h1>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Nombre Local</th>
+                <th>Ubicación</th>
+                <th>Precio</th>
+                <th>Descripcion arrendador</th>
+                <th>Estilo</th>
+                <th>Estado</th>
+                <th>Chat</th>
+                <th>Aceptar</th>
+
+            </tr>
+
+            <tr th:each="Anuncio : ${anuList}">
+                <td th:text="${Anuncio.id}"></td>
+                <td th:text="${Anuncio.nombreLocal}"></td>
+                <td th:text="${Anuncio.ubicacion}"></td>
+                <td th:text="${Anuncio.precio}"></td>
+                <td th:text="${Anuncio.descripcionArrendador}"></td>
+                <td th:text="${Anuncio.estilo}"></td>
+                <td th:text="${Anuncio.estaAceptado}"></td>
+                <td><button type="button" class="btn btn-success">
+                        <a th:href="@{/viewMessages/{email}(email=${Anuncio.Arrendador.email})}">Chat</a>
+                    </button></td>
+                <td><button type="button" class="btn btn-danger">
+                        <a th:href="@{/aceptarAnuncioArrendador/{id}(id=${Anuncio.id})}">Aceptar</a>
+                    </button></td>
+            </tr>
+
+        </table>
+
+
     </div>
 
     <script th:inline="javascript">
@@ -107,12 +115,7 @@
             }
         }
     </script>
-    <script type="text/javascript">
-        function limpiarCampos(){
-            window.location='/viewAnunciosArrendadorParaArtistas';
-        }
-    </script>
-    <footer th:replace="Home :: Footer"></footer>
+
 </body>
 
 </html>

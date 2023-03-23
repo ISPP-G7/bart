@@ -15,36 +15,69 @@
             color: white;
         }
 
-        h1 {
-            color: white;
-        }
+        .artista-perfil {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    color: black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    }
 
-        table.table-bordered tr:first-child th {
-            background-color: #6B3D6E;
-            color: white;
-        }
+    .artista-perfil img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    }
 
-        table.table-bordered tr:not(:first-child) td {
-            background-color: #fff;
-        }
+    .artista-perfil table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 16px;
+    }
 
-        div {
-            color: white;
-        }
+    .artista-perfil table td,
+    .artista-perfil table th {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    }
 
-        a:hover {
-            color: white;
-            text-decoration: none;
-        }
+    .artista-perfil table th {
+    font-weight: 600;
+    background-color: #f8f8f8;
+    color: #333;
+    }
 
-        /* Centering content */
-        table {
-            margin: 0 auto;
-        }
+    .artista-perfil a {
+    color: #3d5afe;
+    text-decoration: none;
+    }
+
+    .artista-perfil a:hover {
+    text-decoration: underline;
+    }
+
+    .artista-perfil h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    }
+
+    .artista-perfil h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    }
     </style>
 </head>
 <body>
     <div th:replace="Home :: Home"></div>
+    <div class="artista-perfil">
+        <h1>[[${artista.nombre_artistico}]]</h1>
     <table>
         <tr>
             <img th:src="${art.getUrlImagen()}" style="max-width: 200px;">
@@ -78,6 +111,7 @@
             <td th:text="${art.getGender()}"></td>
         </tr>
     </table>
+    </div>
     <footer th:replace="Home :: Footer"></footer>
 </body>
 </html>

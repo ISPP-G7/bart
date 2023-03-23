@@ -66,6 +66,16 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
+                    <label class="col-md-3" for="urlImagen">Imagen</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{urlImagen}" id="urlImagen" class="form-control input-sm"
+                            required="required" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
                     <label class="col-md-3" for="lastName">Apellido</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{lastName}" id="lastName" class="form-control input-sm"
@@ -132,6 +142,14 @@
                     <label class="col-md-3">Dirección</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{direccion}" id="direccion" class="form-control input-sm"
+                            required="required" />
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">Contraseña</label>
+                    <div class="col-md-6">
+                        <input type="password" th:field="*{password}" id="direccion" class="form-control input-sm"
                             required="required" />
                     </div>
                 </div>

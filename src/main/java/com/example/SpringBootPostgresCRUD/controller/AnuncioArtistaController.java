@@ -132,7 +132,13 @@ public class AnuncioArtistaController {
             model.addAttribute("usuario",usr);
             model.addAttribute("nombreUsuario",email);
             IDaux=usr.getId();
-
+            if(usr.getEsArrendador()){
+                Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+                model.addAttribute("arrendador", arrendador);
+            } else if(usr.getEsArtista()){
+                Artista artista = artistaService.getArtistaByMailArtista(email);
+                model.addAttribute("artista", artista);
+            }
         }
         AnuncioArtista ann = anuncioArtistaService.getAnuncioArtistaById(id);
 
@@ -183,6 +189,13 @@ public class AnuncioArtistaController {
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
+            if(usr.getEsArrendador()){
+                Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+                model.addAttribute("arrendador", arrendador);
+            } else if(usr.getEsArtista()){
+                Artista artista = artistaService.getArtistaByMailArtista(email);
+                model.addAttribute("artista", artista);
+            }
         }
         model.addAttribute("isLogged", isLogged);
     }

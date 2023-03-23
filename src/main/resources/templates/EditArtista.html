@@ -54,7 +54,15 @@
                     </div>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="urlImagen">Imagen</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{urlImagen}" id="urlImagen" class="form-control input-sm"
+                            required="required" />
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="firstName">Nombre</label>
@@ -134,6 +142,14 @@
                     <div class="col-md-6">
                         <input type="text" th:field="*{categoria_artistica}" id="categoria_artistica"
                             class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">Contraseña</label>
+                    <div class="col-md-6">
+                        <input type="password" th:field="*{password}" id="direccion" class="form-control input-sm"
+                            required="required" />
                     </div>
                 </div>
             </div>

@@ -74,20 +74,33 @@
 
     </div>
     <div class="div-formulario">
-
-        <form th:action="@{/paymentintent}" method="post">
-            <div class="row">
-                <label class="" for="firstName">Nombre</label>
-                <input type="text" th:field="*{firstName}" id="firstName" class="form-control input-sm"
-                    required="required" />
-            </div>
+        <form action="/paymentintent" method="POST">
+            <label>
+                Nombre completo:
+                <input type="text" name="nombre_completo" required>
+            </label>
+            <label>
+                Dirección de correo electrónico:
+                <input type="email" name="correo_electronico" required>
+            </label>
+            <label>
+                Número de tarjeta:
+                <input type="text" id="numero_tarjeta" required>
+            </label>
+            <label>
+                Fecha de vencimiento (MM/AA):
+                <input type="text" id="fecha_vencimiento" required>
+            </label>
+            <label>
+                Código de seguridad:
+                <input type="text" id="codigo_seguridad" required>
+            </label>
+            <br>
             <button class="boton" type="submit">Pagar</button>
         </form>
     </div>
 
-    <footer th:replace="Home :: Footer"></footer>
-
-    <!-- <script>
+    <script>
         var public_key = "pk_test_51MoWHzGLYD5jP53mmnzDmqrMP3fiFfO5UpQ1rvOL8qdY4FhZ5DhMvIOPLiwdv99fPF7A4jXipNwe3JpCBSS00fm0007cK1yyGi";
         var stripe = Stripe(public_key);
         var elements = stripe.elements();
@@ -143,8 +156,9 @@
             form.appendChild(hiddenInput);
             form.submit();
         }
-    </script> -->
+    </script>
 
+    <footer th:replace="Home :: Footer"></footer>
 </body>
 
 </html>

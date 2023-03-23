@@ -20,15 +20,14 @@ public class Transaccion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@ManyToOne
-    @JoinColumn(name = "artista")
+	@JoinColumn(name = "artista")
 	private User artista;
 
 	@ManyToOne
-    @JoinColumn(name = "arrendador")
+	@JoinColumn(name = "arrendador")
 	private User arrendador;
-	
 
 	private EstadoTransaccion estadoTransaccion;
 	private Date fechaCreacionDeTransaccion;

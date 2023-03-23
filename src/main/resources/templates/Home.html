@@ -147,12 +147,40 @@
 						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewArtistas">Vista de Artistas</a>
 						</li>
-						<li class="nav-item">
-							<span class="nav-link" th:text="${nombreUsuario}"></span>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/logout">Logout</a>
-						</li>
+						
+						<nav class="navbar navbar-expand-lg " th:if="${usuario.esArrendador}">
+							  <ul class="navbar-nav ml-auto ">
+								<li class="nav-item dropdown ">
+								  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="background-color: #C094E4;" th:text="${nombreUsuario}"></a>
+								  <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color: #C094E4;" >
+									<a class="dropdown-item"  style="color: white;" th:href="@{/perfilArrendador/{id}(id=${arrendador.id})}">Ver mi perfil</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item"  style="color: white;"  th:href="@{/editArrendador/{id}(id=${arrendador.id})}">Editar perfil</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" style="color: white;" href="/logout">Cerrar sesión</a>
+								  </div>
+								</li>
+							  </ul>
+							</div>
+						  </nav>
+
+						  <nav class="navbar navbar-expand-lg " th:if="${usuario.esArtista}">
+							<ul class="navbar-nav ml-auto ">
+							  <li class="nav-item dropdown ">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="background-color: #C094E4;" th:text="${nombreUsuario}"></a>
+								<div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color: #C094E4;" >
+								  <a class="dropdown-item"  style="color: white;" th:href="@{/perfilArtista/{id}(id=${artista.id})}">Ver mi perfil</a>
+								  <div class="dropdown-divider"></div>
+								  <a class="dropdown-item"  style="color: white;"  th:href="@{/editArtista/{id}(id=${artista.id})}">Editar perfil</a>
+								  <div class="dropdown-divider"></div>
+								  <a class="dropdown-item" style="color: white;" href="/logout">Cerrar sesión</a>
+								</div>
+							  </li>
+							</ul>
+						  </div>
+						</nav>
+						  
+				
 					</th:block>
 
 				</ul>

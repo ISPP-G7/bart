@@ -19,8 +19,6 @@ public class AnuncioArtistaService {
     @Autowired
     private ArtistaRepository artistaRepository;
 
-
-
     // métodos de servicio que utilizan artistaRepositorys
     // Constructor
 
@@ -37,7 +35,9 @@ public class AnuncioArtistaService {
         if (anuncioArtistaRepository.findById(anu.getId()).isPresent()) {
             return true;
         }
-        return false;
+        anuncioArtistaRepository.findAll().forEach(AnuncioArtista -> AnuncioArtistaList.add(AnuncioArtista));
+
+        return AnuncioArtistaList;
     }
 
     public AnuncioArtista getAnuncioArtistaById(Long id) {
@@ -53,17 +53,36 @@ public class AnuncioArtistaService {
     }
 
     public List<AnuncioArtista> getAllAnunciosArrendadorNoAceptados() {
-        List<AnuncioArtista> anuncioArtistaList= anuncioArtistaRepository.findAll();
-        List<AnuncioArtista> anuncioArtistaListAux= new ArrayList<>();
+        List<AnuncioArtista> anuncioArtistaList = anuncioArtistaRepository.findAll();
+        List<AnuncioArtista> anuncioArtistaListAux = new ArrayList<>();
         for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
             if(!anuncioArtista.isEstaAceptado()){
                 anuncioArtistaListAux.add(anuncioArtista);
             }
-            
+
         }
         return anuncioArtistaListAux;
     }
-    public boolean aceptarAnuncioArtista(AnuncioArtista anar,Long arrendador_accept_id) {
+
+    public List<AnuncioArtista> getAllAnunciosArrendadorNoAceptadosFiltrados(String palabraClave) {
+        List<AnuncioArtista> anuncioArtistaList = anuncioArtistaRepository.findAll();
+        List<AnuncioArtista> anuncioArtistaListAux = new ArrayList<>();
+        if (palabraClave != null) {
+            anuncioArtistaRepository.busquedaFiltrada(palabraClave)
+                    .forEach(AnuncioArrendador -> anuncioArtistaListAux.add(AnuncioArrendador));
+            return anuncioArtistaRepository.busquedaFiltrada(palabraClave);
+        }
+
+        for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
+            if (anuncioArtista.getEstaAceptado() == false) {
+                anuncioArtistaListAux.add(anuncioArtista);
+            }
+
+        }
+        return anuncioArtistaListAux;
+    }
+
+    public boolean aceptarAnuncioArtista(AnuncioArtista anar, Long arrendador_accept_id) {
         anar.setEstaAceptado(true);
         anar.setArrendador_accept_id(arrendador_accept_id);
        anuncioArtistaRepository.save(anar);

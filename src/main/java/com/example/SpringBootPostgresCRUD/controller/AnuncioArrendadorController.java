@@ -1,6 +1,7 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +46,7 @@ public class AnuncioArrendadorController {
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
+        model.addAttribute("palabraClave", palabraClave);
 
         return "ViewAnuncioArrendador";
     }
@@ -72,6 +74,7 @@ public class AnuncioArrendadorController {
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
+        model.addAttribute("palabraClave", palabraClave);
 
         return "ViewAnunciosArrendadorParaArtistas";
     }

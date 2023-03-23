@@ -2,6 +2,7 @@ package com.example.SpringBootPostgresCRUD.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,8 +38,8 @@ public class AnuncioArtistaController {
     //working on arrendador acepta artista 
     @GetMapping("/aceptarAnuncioArtista/{id}")
     public String aceptarAnuncioArtista(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        
-        String email=SecurityContextHolder.getContext().getAuthentication().getName();
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
         Long arrendadorAcceptId= arrendador.getId();
         AnuncioArtista anar=  anuncioArtistaService.getAnuncioArtistaById(id);
@@ -57,14 +58,12 @@ public class AnuncioArtistaController {
         setUserIfLogged(model);
 
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArrendadorNoAceptados();
-       
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
 
         return "viewAnunciosArtistaParaArrendadores";
     }
-
 
     @GetMapping({ "/viewAnunciosArtista" })
     public String viewAnuncioArtista(@ModelAttribute("message") String message, Model model) {
@@ -75,6 +74,7 @@ public class AnuncioArtistaController {
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
+        model.addAttribute("palabraClave", palabraClave);
 
         return "ViewAnuncioArtista";
     }
@@ -90,7 +90,7 @@ public class AnuncioArtistaController {
         model.addAttribute("artista", artista);
         model.addAttribute("anu", anu);
         model.addAttribute("message", message);
-        model.addAttribute("nombreUsuario",email);
+        model.addAttribute("nombreUsuario", email);
 
         return "AddAnuncioArtista";
     }
@@ -121,8 +121,9 @@ public class AnuncioArtistaController {
     }
 
     @GetMapping("/editAnuncioArtista/{id}")
-    public String editArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model,RedirectAttributes redirectAttributes) {
-        Long IDaux=0l;
+    public String editArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model,
+            RedirectAttributes redirectAttributes) {
+        Long IDaux = 0l;
 
         Boolean isLogged=false;
         if (SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
@@ -142,19 +143,19 @@ public class AnuncioArtistaController {
         }
         AnuncioArtista ann = anuncioArtistaService.getAnuncioArtistaById(id);
 
-        if(IDaux.equals(ann.getArtista().getId())){
+        if (IDaux.equals(ann.getArtista().getId())) {
 
         model.addAttribute("isLogged", isLogged);
 
-        model.addAttribute("anu", ann);
-        model.addAttribute("message", message);
+            model.addAttribute("anu", ann);
+            model.addAttribute("message", message);
 
-        return "EditAnuncioArtista";
-    }else{
-        redirectAttributes.addFlashAttribute("message", "No tienes permiso para editar este anuncio.");
-        return "redirect:/viewAnunciosArtista";
+            return "EditAnuncioArtista";
+        } else {
+            redirectAttributes.addFlashAttribute("message", "No tienes permiso para editar este anuncio.");
+            return "redirect:/viewAnunciosArtista";
 
-    }
+        }
     }
 
     @PostMapping("/editSaveAnuncioArtista")

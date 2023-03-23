@@ -34,17 +34,12 @@ public class AnuncioArrendadorController {
     @Autowired
     ArrendadorService arrendadorService;
 
+    String anonymousUser = "anonymousUser";
+
     @GetMapping({ "/viewAnunciosArrendador" })
     public String viewAnunciosArrendador(@ModelAttribute("message") String message, Model model) {
-        Boolean is_logged = false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
-        model.addAttribute("isLogged", is_logged);
+
+        setUserIfLogged(model);
 
         List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendador();
 
@@ -59,9 +54,9 @@ public class AnuncioArrendadorController {
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Artista artista = artistaService.getArtistaByMailArtista(email);
-        Long artista_accept_id = artista.getId();
+        Long artistaAcceptId = artista.getId();
         AnuncioArrendador anar = anuncioArrendadorService.getAnuncioArrendadorById(id);
-        if (anuncioArrendadorService.aceptarAnuncioArrendador(anar, artista_accept_id)) {
+        if (anuncioArrendadorService.aceptarAnuncioArrendador(anar, artistaAcceptId)) {
             redirectAttributes.addFlashAttribute("message", "Accept Success");
             return "redirect:/viewAnunciosArrendadorParaArtistas";
         }
@@ -72,34 +67,18 @@ public class AnuncioArrendadorController {
 
     @GetMapping({ "/viewAnunciosArrendadorParaArtistas" })
     public String viewAnunciosArrendadorParaArtistas(@ModelAttribute("message") String message, Model model) {
-        Boolean is_logged = false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
-        model.addAttribute("isLogged", is_logged);
+        setUserIfLogged(model);
         List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendadorNoAceptados();
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
 
-        return "viewAnunciosArrendadorParaArtistas";
+        return "ViewAnunciosArrendadorParaArtistas";
     }
 
     @GetMapping("/addAnuncioArrendador")
     public String newAnuncioArrendador(@ModelAttribute("message") String message, Model model) {
-        Boolean is_logged = false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
-        model.addAttribute("isLogged", is_logged);
+        setUserIfLogged(model);
         AnuncioArrendador anu = new AnuncioArrendador();
         anu.setEstaAceptado(false);
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -142,9 +121,9 @@ public class AnuncioArrendadorController {
     public String editArrendador(@PathVariable Long id, @ModelAttribute("message") String message, Model model,
             RedirectAttributes redirectAttributes) {
         Long IDaux = 0l;
-        Boolean is_logged = false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged = true;
+        Boolean isLogged = false;
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
+            isLogged = true;
             String email = SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
@@ -155,7 +134,7 @@ public class AnuncioArrendadorController {
 
         if (IDaux.equals(ann.getArrendador().getId())) {
 
-            model.addAttribute("isLogged", is_logged);
+            model.addAttribute("isLogged", isLogged);
 
             model.addAttribute("anu", ann);
             model.addAttribute("message", message);
@@ -182,18 +161,23 @@ public class AnuncioArrendadorController {
 
     @GetMapping("/anuncioArrendador/{id}")
     public String viewAnuncioArrendador(@PathVariable Long id, Model model) {
-        Boolean is_logged = false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged = true;
+        setUserIfLogged(model);
+        AnuncioArrendador anuncio = anuncioArrendadorService.getAnuncioArrendadorById(id);
+        model.addAttribute("anuncio", anuncio);
+        return "AnuncioArrendadorInfo";
+    }
+
+    //Comprueba si el usuario está logueado y setea los valores correspondientes
+    public void setUserIfLogged(Model model){
+        Boolean isLogged = false;
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
+            isLogged = true;
             String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el arrendador logueado
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
         }
-        AnuncioArrendador anuncio = anuncioArrendadorService.getAnuncioArrendadorById(id);
-        model.addAttribute("isLogged", is_logged);
-        model.addAttribute("anuncio", anuncio);
-        return "AnuncioArrendadorInfo";
+        model.addAttribute("isLogged", isLogged);
     }
 
 }

@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import javax.persistence.OneToOne;
 import lombok.Setter;
 import lombok.Getter;
@@ -15,7 +18,6 @@ import javax.persistence.EnumType;
 @Getter
 @Setter
 @Entity
-
 @Table(name = "anunciosArtista")
 public class AnuncioArtista {
 
@@ -23,35 +25,28 @@ public class AnuncioArtista {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // @NotBlank
-    // @Min(10)
-    // @Max(50)
+    @NotBlank
     private String pseudonimoArtista;
+
     private Long arrendador_accept_id;
 
-    // @NotBlank
-    /*@Min(5)
-     @Max(60)
-     */
+    @NotBlank
     private String ubicacion;
 
-    /*
     @NotNull
-    @Positive
-     */
+    @PositiveOrZero
     private Float precio;
 
-    // @NotBlank
-    // @Min(15)
-    // @Max(300)
+    @NotBlank
     private String descripcionArtista;
 
-    // @NotNull
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Estilo estilo;
 
     @OneToOne
     private Artista artista;
+
     private boolean estaAceptado = false;
 
     public AnuncioArtista() {
@@ -69,28 +64,5 @@ public class AnuncioArtista {
         this.artista= artista;
     }
 
-	public Long getId() {
-		// TODO Auto-generated method stub
-		return this.id;
-	}
-    public boolean getEstaAceptado() {
-        return estaAceptado;
-    }
-    
-    public void setEstaAceptado(boolean estaAceptado) {
-        this.estaAceptado = estaAceptado;
-    }
-
-	public void setArtista(Artista byId) {
-		// TODO Auto-generated method stub
-		this.artista = byId;
-		
-	}
-    public Long getArrendador_accept_id() {
-        return arrendador_accept_id;
-    }
-    public void setArrendador_accept_id(Long arrendador_accept_id) {
-        this.arrendador_accept_id = arrendador_accept_id;
-    }
     // otros getters y setters específicos de Artista
 }

@@ -1,6 +1,9 @@
 package com.example.SpringBootPostgresCRUD.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.URL;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,9 +14,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Arrendador extends User {
-
+    @NotBlank(message = "La dirección es obligatoria")
     private String nombreLocal;
+    @NotBlank(message = "La dirección es obligatoria")
     private String direccion;
+    @URL(message = "Tiene que ser una URL válida")
+    @NotBlank(message="La url de una imagen es obligatoria")
     private String urlImagen;
     
     public Arrendador() {

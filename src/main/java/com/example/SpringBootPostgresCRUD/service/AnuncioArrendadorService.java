@@ -31,7 +31,7 @@ public class AnuncioArrendadorService {
         List<AnuncioArrendador> AnuncioArrendadorListAux = new ArrayList<>();
 
         for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
-            if(anuncioArrendador.getEstaAceptado()==false){
+            if(!anuncioArrendador.isEstaAceptado()){
                 AnuncioArrendadorListAux.add(anuncioArrendador);
             }
         }
@@ -44,7 +44,7 @@ public class AnuncioArrendadorService {
     public boolean saveOrUpdateAnuncioArrendador(AnuncioArrendador anuncioArrendador, Long arrendadorIdSeleccionado) {
         anuncioArrendador.setArrendador(arrendadorRepository.getById(arrendadorIdSeleccionado));
         AnuncioArrendador anu = anuncioArrendadorRepository.save(anuncioArrendador);
-        if (anuncioArrendadorRepository.findById(anu.getId()) != null) {
+        if (anuncioArrendadorRepository.findById(anu.getId()).isPresent()) {
             return true;
         }
         return false;
@@ -56,7 +56,7 @@ public class AnuncioArrendadorService {
 
     public boolean deleteAnuncioArrendador(Long id) {
         anuncioArrendadorRepository.deleteById(id);
-        if (anuncioArrendadorRepository.findById(id) != null) {
+        if (anuncioArrendadorRepository.findById(id).isPresent()) {
             return true;
         }
         return false;
@@ -65,7 +65,7 @@ public class AnuncioArrendadorService {
         anar.setEstaAceptado(true);
         anar.setArtista_accept_id(artista_accept_id);
        anuncioArrendadorRepository.save(anar);
-        if (anuncioArrendadorRepository.findById(anar.getId()) != null) {
+        if (anuncioArrendadorRepository.findById(anar.getId()).isPresent()) {
             return true;
         }
         return false;

@@ -24,10 +24,12 @@ public class Transaccion {
 	@ManyToOne
     @JoinColumn(name = "artista")
 	private User artista;
+
 	@ManyToOne
     @JoinColumn(name = "arrendador")
 	private User arrendador;
 	
+
 	private EstadoTransaccion estadoTransaccion;
 	private Date fechaCreacionDeTransaccion;
 	private Date fechaActuacion;

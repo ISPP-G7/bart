@@ -1,5 +1,7 @@
 package com.example.SpringBootPostgresCRUD.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +24,8 @@ public class Message {
     private Long id;
 
     private String messageBody;
+
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "userSender")

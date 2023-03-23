@@ -1,5 +1,7 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,7 +37,6 @@ public class MessageController {
     @GetMapping("/viewAllMessages")
     public String viewAllMessages(@ModelAttribute("message") String message,
             Model model) {
-
                 Boolean isLogged=false;
                 if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
                     isLogged=true;
@@ -65,7 +66,7 @@ public class MessageController {
     @GetMapping("/viewMessages/{email2}")
     public String viewMessages(@PathVariable("email2") String email2, @ModelAttribute("message") String message,
             Model model) {
-
+            
                 Boolean isLogged=false;
                 if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
                     isLogged=true;
@@ -75,6 +76,7 @@ public class MessageController {
                     model.addAttribute("nombreUsuario",email);
                 }
                 model.addAttribute("isLogged", isLogged);
+
 
         String email1 = SecurityContextHolder.getContext().getAuthentication().getName();
         List<Message> mensajes = messageService.getByPreviousChat(email1, email2);
@@ -96,6 +98,9 @@ public class MessageController {
         msg.setUserSender(userSender);
         msg.setUserReceiver(userReceiver);
         msg.setMessageBody(bodyMessage);
+
+        Date now = Date.from(Instant.now());
+        msg.setDate(now);
 
         if (messageService.saveOrUpdateMessage(msg)) {
             redirectAttributes.addFlashAttribute("message", "Save Success");

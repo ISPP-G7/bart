@@ -14,52 +14,130 @@
     <style>
         body {
             background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
-            background-size: 100vw 200vh; 
+            background-size: 100vw 200vh;
         }
 
         h1 {
             color: white
         }
 
-        table.table-bordered tr:first-child th {
-            background-color: #6B3D6E;
-            color: white;
-        }
-
-        table.table-bordered tr:not(:first-child) td {
-            background-color: #fff;
-        }
-
         a {
             color: white;
+        }
+
+        .titulo {
+            text-align: center;
+            padding-top: 2%;
+            color: white;
+        }
+
+        .div-chat-formulario {
+            margin: auto;
+            margin-top: 2%;
+            padding: 10px;
+            background-color: #8e12ab;
+            width: 60%;
+            height: 40%;
+            border-radius: 25px;
+        }
+
+        .div-chat {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            max-height: 300px;
+        }
+
+        .chat {
+            list-style-type: none;
+            text-align: center;
+        }
+
+        .div-mensaje {
+            background-color: white;
+            border-radius: 25px;
+            padding-left: 10px;
+            padding-right: 10px;
+            width: fit-content;
+            min-width: 100px;
+            max-width: 70%;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        .mi-mensaje {
+            flex: 1;
+            display: flex;
+            flex-direction: row-reverse;
+            margin-right: 5%;
+            
+        }
+
+        .tu-mensaje {
+            display: flex;
+        }
+
+        .sub-mensaje {
+            font-size: 15px;
+        }
+
+        .formulario {
+            text-align: center;
+        }
+
+        .barra-envio {
+            width: 80%;
+        }
+
+        .boton-envio {
+            background: linear-gradient(to bottom right, #dc4e4f, #8e12ab) no-repeat;
+            color: white;
+            border-radius: 25px;
+            border: 1px solid #dc4e4f;
+            padding-left: 10px;
+            padding-right: 10px;
+            width: fit-content;
         }
     </style>
 </head>
 
 <body>
     <div th:replace="Home :: Home"></div>
-    <table class="table table-bordered">
-        <tr>
-            <th>Id</th>
-            <th>Mensaje</th>
-            <th>Remitente</th>
-            <th>Destinatario</th>
-        </tr>
 
-        <tr th:each="Message : ${mensajes}">
-            <td th:text="${Message.id}"></td>
-            <td th:text="${Message.messageBody}"></td>
-            <td th:text="${Message.userSender.email}"></td>
-            <td th:text="${Message.userReceiver.email}"></td>
-        </tr>
-    </table>
+    <h2 class="titulo">Chat con <span th:text="${emailReceiverS}"></h2>
+    <div class="div-chat-formulario">
+        <div class="div-chat">
 
+            <ul class="chat" th:each="mes : ${mensajes}">
 
+                <div class="mi-mensaje" th:if="${mes.userSender.email} != ${emailReceiverS}">
+                    <div class="div-mensaje">
+                        <li class="mensaje" th:text="${mes.messageBody}"></li>
+                        <br>
+                        <span class="sub-mensaje" th:text="${mes.userSender.email}"></span>
+                        <br>
+                        <span class="sub-mensaje" th:text="${mes.date.hours} + ':' + ${mes.date.minutes}"></span>
+                    </div>
+                </div>
 
-    <form method="post" th:action="@{/saveMessage/}+${emailReceiverS}">
-        <input type="text" name="bodyMessage">
-        <input type="submit" value="Enviar">
-    </form>
+                <div class="tu-mensaje" th:if="${mes.userSender.email} == ${emailReceiverS}">
+                    <div class="div-mensaje">
+                        <li class="mensaje" th:text="${mes.messageBody}"></li>
+                        <br>
+                        <span class="sub-mensaje" th:text="${mes.userSender.email}"></span>
+                        <br>
+                        <span class="sub-mensaje" th:text="${mes.date.hours} + ':' + ${mes.date.minutes}"></span>
+                    </div>
+                </div>
+            </ul>
+        </div>
+
+        <hr>
+        <form class="formulario" method="post" th:action="@{/saveMessage/}+${emailReceiverS}">
+            <input class="barra-envio" type="text" name="bodyMessage">
+            <input class="boton-envio" type="submit" value="Enviar">
+        </form>
+    </div>
+
     <footer th:replace="Home :: Footer"></footer>
 </body>
 

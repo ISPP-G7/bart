@@ -13,46 +13,77 @@
 
     <style>
         body {
-            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
-            background-size: 100vw 200vh; 
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            height: 100vh;
         }
 
         h1 {
             color: white
         }
 
-        table.table-bordered tr:first-child th {
-            background-color: #6B3D6E;
-            color: white;
-        }
-
-        table.table-bordered tr:not(:first-child) td {
-            background-color: #fff;
-        }
-
         a {
             color: white;
+        }
+
+        .titulo {
+            margin-top: 2%;
+            font-family: monospace;
+            text-align: center;
+        }
+
+        .div-tabla {
+            margin: auto;
+            width: fit-content;
+            height: fit-content;
+            /* background-color: #b74dcc; */
+            border-radius: 25px;
+        }
+
+
+        .tabla {
+            border-collapse: separate;
+            border-spacing: 20px;
+            text-align: center;
+        }
+
+        .contacto {
+            width: 75%;
+            color: white;
+            font-size: large;
+            border-bottom: solid black 1px;
+            padding-bottom: 10px;
+        }
+
+        .boton {
+            border-radius: 25px;
+            color: white;
+            background-image: linear-gradient(to bottom right, #dd1759, #b50fc4);
         }
     </style>
 </head>
 
 <body>
     <div th:replace="Home :: Home"></div>
-    <div id="tabla-contactos">
-        <table class="table table-bordered">
-            <tr>
-                <th>Usuario</th>
-                <th>Sala de chat</th>
-            </tr>
+
+    <h1 class="titulo" th:if="${contactos.size == 0}">No tienes Chats activos</h1>
+    <h1 class="titulo" th:if="${contactos.size != 0}">Tus Chats</h1>
+    <div class="div-tabla">
+        <table class="tabla">
 
             <tr th:each="email : ${contactos}">
-                <td th:text="${email}"></td>
-                <td><button type="button" class="btn btn-success">
+
+                <td class="contacto" th:text="${email}"></td>
+
+                <td><button type="button" class="boton">
+
                         <a th:href="@{/viewMessages/{email}(email=${email})}">Ir al chat</a>
-                    </button></td>
+
+                    </button>
+                </td>
             </tr>
         </table>
     </div>
+
     <footer th:replace="Home :: Footer"></footer>
 </body>
 

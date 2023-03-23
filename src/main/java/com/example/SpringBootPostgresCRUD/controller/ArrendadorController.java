@@ -83,25 +83,22 @@ public class ArrendadorController {
     public String editArrendador(@PathVariable Long id, @ModelAttribute("message") String message, Model model,RedirectAttributes redirectAttributes) {
         Long IDaux=0l;
         Boolean isLogged=false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
             isLogged=true;
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+            User usr = userService.getUserByEmail(email); //Con esto cogemos el arrendador logueado
             model.addAttribute("usuario",usr);
+            model.addAttribute("isLogged",  isLogged);
             model.addAttribute("nombreUsuario",email);  
-            IDaux=usr.getId();
             if(usr.getEsArrendador()){
                 Arrendador arrendador = arrService.getArrendadorByMailArrendador(email);
                 model.addAttribute("arrendador", arrendador);
-            } else if(usr.getEsArtista()){
-                Artista artista = artistaService.getArtistaByMailArtista(email);
-                model.addAttribute("artista", artista);
+                IDaux=arrendador.getId();
             }
         }
-        model.addAttribute("isLogged", isLogged);
+        
         if(IDaux.equals(id)){
             Arrendador arr = arrService.getArrendadorById(id);
-        
             model.addAttribute("arr", arr);
             model.addAttribute("message", message);
     
@@ -113,6 +110,7 @@ public class ArrendadorController {
     
             
         }
+    
        
     }
     @GetMapping("/perfilArrendador/{id}")

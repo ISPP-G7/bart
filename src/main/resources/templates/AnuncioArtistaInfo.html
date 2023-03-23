@@ -41,6 +41,9 @@
             color: lightgray;
             text-decoration: none;
         }
+        .anuncio label.form-check-input {
+            color: white;
+        }
     </style>
 </head>
 
@@ -60,9 +63,34 @@
                     <p class="mb-1"><strong>Precio:</strong> [[${anuncio.precio}]]</p>
                     <p class="mb-1"><strong>Descripción:</strong> [[${anuncio.descripcionArtista}]]</p>
                     <p class="mb-1"><strong>Estilo:</strong> [[${anuncio.estilo}]]</p>
+                    <div class="d-flex flex-wrap">
+                        <div class="form-check mr-4">
+                            <input class="form-check-input" type="checkbox" th:checked="${anuncio.requiereInstrumentos}" disabled>
+                            <label class="form-check-label" for="requiereInstrumentos">Requiere instrumentos</label>
+                        </div>
+                        <div class="form-check mr-4">
+                            <input class="form-check-input" type="checkbox" th:checked="${anuncio.requiereIluminacion}" disabled>
+                            <label class="form-check-label" for="requiereIluminacion">Requiere iluminación</label>
+                        </div>
+                        <div class="form-check mr-4">
+                            <input class="form-check-input" type="checkbox" th:checked="${anuncio.requiereAltavoces}" disabled>
+                            <label class="form-check-label" for="requiereAltavoces">Requiere altavoces</label>
+                        </div>
+                        <div class="form-check mr-4">
+                            <input class="form-check-input" type="checkbox" th:checked="${anuncio.requiereMesaDeMezclas}" disabled>
+                            <label class="form-check-label" for="requiereMesaDeMezclas">Requiere mesa de mezclas</label>
+                        </div>
+                        <div class="form-check mr-4">
+                            <input class="form-check-input" type="checkbox" th:checked="${anuncio.requierePortatil}" disabled>
+                            <label class="form-check-label" for="requierePortatil">Requiere portátil</label>
+                        </div>
+                    </div>
+                    <p class="mb-1"><strong>Otros requerimientos:</strong> [[${anuncio.requiereOtrasEspecificaciones}]]</p>
+
                 </div>
             </div>
         </div>
+        
     </div>
     <footer th:replace="Home :: Footer"></footer>
 </body>

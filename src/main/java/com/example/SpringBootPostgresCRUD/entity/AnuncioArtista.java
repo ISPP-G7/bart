@@ -45,7 +45,13 @@ public class AnuncioArtista {
     // @Min(15)
     // @Max(300)
     private String descripcionArtista;
-
+    private boolean requiereMicrofono;
+    private boolean requiereInstrumentos;
+    private boolean requiereIluminacion;
+    private boolean requiereAltavoces;
+    private boolean requiereMesaDeMezclas;
+    private boolean requierePortatil;
+    private String  requiereOtrasEspecificaciones;
     // @NotNull
     @Enumerated(EnumType.STRING)
     private Estilo estilo;
@@ -59,7 +65,9 @@ public class AnuncioArtista {
     }
 
     public AnuncioArtista(Long id, String pseudonimoArtista, String ubicacion,
-            Float precio, String descripcionArtista, Estilo estilo, Artista artista) {
+        Float precio, String descripcionArtista, Estilo estilo, Artista artista,
+        boolean requiereMicrofono, boolean requiereInstrumentos, boolean requiereIluminacion,
+        boolean requiereAltavoces, boolean requiereMesaDeMezclas, boolean requierePortatil,String requiereOtrasEspecificaciones ) {
         this.id = id;
         this.pseudonimoArtista = pseudonimoArtista;
         this.ubicacion = ubicacion;
@@ -67,8 +75,15 @@ public class AnuncioArtista {
         this.descripcionArtista = descripcionArtista;
         this.estilo = estilo;
         this.artista= artista;
+        this.requiereMicrofono = requiereMicrofono;
+        this.requiereInstrumentos = requiereInstrumentos;
+        this.requiereIluminacion = requiereIluminacion;
+        this.requiereAltavoces = requiereAltavoces;
+        this.requiereMesaDeMezclas = requiereMesaDeMezclas;
+        this.requierePortatil = requierePortatil;
+        this.requiereOtrasEspecificaciones=requiereOtrasEspecificaciones;
     }
-
+   
 	public Long getId() {
 		// TODO Auto-generated method stub
 		return this.id;

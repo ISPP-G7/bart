@@ -38,11 +38,13 @@ public class AnuncioArrendadorController {
     String anonymousUser = "anonymousUser";
 
     @GetMapping({ "/viewAnunciosArrendador" })
-    public String viewAnunciosArrendador(@ModelAttribute("message") String message, Model model) {
+    public String viewAnunciosArrendador(@ModelAttribute("message") String message, Model model,
+            @Param("palabraClave") String palabraClave) {
 
         setUserIfLogged(model);
 
-        List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendador();
+        List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendadorFiltrados(palabraClave);
+        ;
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
@@ -68,10 +70,11 @@ public class AnuncioArrendadorController {
     }
 
     @GetMapping({ "/viewAnunciosArrendadorParaArtistas" })
-    public String viewAnunciosArrendadorParaArtistas(@ModelAttribute("message") String message, Model model) {
+    public String viewAnunciosArrendadorParaArtistas(@ModelAttribute("message") String message, Model model,
+            @Param("palabraClave") String palabraClave) {
         setUserIfLogged(model);
-        List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendadorNoAceptados();
-
+        List<AnuncioArrendador> anuList = anuncioArrendadorService
+                .getAllAnunciosArrendadorNoAceptadosFiltrados(palabraClave);
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
         model.addAttribute("palabraClave", palabraClave);
@@ -170,8 +173,8 @@ public class AnuncioArrendadorController {
         return "AnuncioArrendadorInfo";
     }
 
-    //Comprueba si el usuario está logueado y setea los valores correspondientes
-    public void setUserIfLogged(Model model){
+    // Comprueba si el usuario está logueado y setea los valores correspondientes
+    public void setUserIfLogged(Model model) {
         Boolean isLogged = false;
         if (!SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
             isLogged = true;
@@ -179,10 +182,10 @@ public class AnuncioArrendadorController {
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
-            if(usr.getEsArrendador()){
+            if (usr.getEsArrendador()) {
                 Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
                 model.addAttribute("arrendador", arrendador);
-            } else if(usr.getEsArtista()){
+            } else if (usr.getEsArtista()) {
                 Artista artista = artistaService.getArtistaByMailArtista(email);
                 model.addAttribute("artista", artista);
             }

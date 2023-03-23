@@ -29,19 +29,19 @@ public class AnuncioArtistaService {
         return AnuncioArtistaList;
     }
 
-    public boolean saveOrUpdateAnuncioArtista(AnuncioArtista anuncioArtista,Long artistaIdSeleccionado) {
-        anuncioArtista.setArtista(artistaRepository.getById(artistaIdSeleccionado));//Esto hay que hacer que coja el id del artista automáticamente.
+    public boolean saveOrUpdateAnuncioArtista(AnuncioArtista anuncioArtista, Long artistaIdSeleccionado) {
+        anuncioArtista.setArtista(artistaRepository.getById(artistaIdSeleccionado));// Esto hay que hacer que coja el id
+                                                                                    // del artista automáticamente.
         AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
         if (anuncioArtistaRepository.findById(anu.getId()).isPresent()) {
             return true;
         }
-        anuncioArtistaRepository.findAll().forEach(AnuncioArtista -> AnuncioArtistaList.add(AnuncioArtista));
-
-        return AnuncioArtistaList;
+        return false;
     }
 
     public AnuncioArtista getAnuncioArtistaById(Long id) {
-        return anuncioArtistaRepository.findById(id).get();//aquí habría que comprobar que no es nulo antes de pasarlo, si es nulo pasar excepción. TODO
+        return anuncioArtistaRepository.findById(id).get();// aquí habría que comprobar que no es nulo antes de pasarlo,
+                                                           // si es nulo pasar excepción. TODO
     }
 
     public boolean deleteAnuncioArtista(Long id) {
@@ -56,12 +56,24 @@ public class AnuncioArtistaService {
         List<AnuncioArtista> anuncioArtistaList = anuncioArtistaRepository.findAll();
         List<AnuncioArtista> anuncioArtistaListAux = new ArrayList<>();
         for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
-            if(!anuncioArtista.isEstaAceptado()){
+            if (!anuncioArtista.isEstaAceptado()) {
                 anuncioArtistaListAux.add(anuncioArtista);
             }
 
         }
         return anuncioArtistaListAux;
+    }
+
+    public List<AnuncioArtista> getAllAnunciosArtistaFiltrados(String palabraClave) {
+        List<AnuncioArtista> AnuncioArtistaList = new ArrayList<>();
+        if (palabraClave != null) {
+            anuncioArtistaRepository.busquedaFiltrada(palabraClave)
+                    .forEach(AnuncioArtista -> AnuncioArtistaList.add(AnuncioArtista));
+            return anuncioArtistaRepository.busquedaFiltrada(palabraClave);
+        }
+        anuncioArtistaRepository.findAll().forEach(AnuncioArtista -> AnuncioArtistaList.add(AnuncioArtista));
+
+        return AnuncioArtistaList;
     }
 
     public List<AnuncioArtista> getAllAnunciosArrendadorNoAceptadosFiltrados(String palabraClave) {
@@ -74,7 +86,7 @@ public class AnuncioArtistaService {
         }
 
         for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
-            if (anuncioArtista.getEstaAceptado() == false) {
+            if (!anuncioArtista.isEstaAceptado()) {
                 anuncioArtistaListAux.add(anuncioArtista);
             }
 
@@ -85,7 +97,7 @@ public class AnuncioArtistaService {
     public boolean aceptarAnuncioArtista(AnuncioArtista anar, Long arrendador_accept_id) {
         anar.setEstaAceptado(true);
         anar.setArrendador_accept_id(arrendador_accept_id);
-       anuncioArtistaRepository.save(anar);
+        anuncioArtistaRepository.save(anar);
         if (anuncioArtistaRepository.findById(anar.getId()).isPresent()) {
             return true;
         }

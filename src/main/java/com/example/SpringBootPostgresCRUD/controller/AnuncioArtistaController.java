@@ -35,15 +35,15 @@ public class AnuncioArtistaController {
 
     String anonymousUser = "anonymousUser";
 
-    //working on arrendador acepta artista 
+    // working on arrendador acepta artista
     @GetMapping("/aceptarAnuncioArtista/{id}")
     public String aceptarAnuncioArtista(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
-        Long arrendadorAcceptId= arrendador.getId();
-        AnuncioArtista anar=  anuncioArtistaService.getAnuncioArtistaById(id);
-        if (anuncioArtistaService.aceptarAnuncioArtista(anar,arrendadorAcceptId)) {
+        Long arrendadorAcceptId = arrendador.getId();
+        AnuncioArtista anar = anuncioArtistaService.getAnuncioArtistaById(id);
+        if (anuncioArtistaService.aceptarAnuncioArtista(anar, arrendadorAcceptId)) {
             redirectAttributes.addFlashAttribute("message", "Accept Success");
             return "redirect:/viewAnunciosArtistaParaArrendadores";
         }
@@ -53,24 +53,27 @@ public class AnuncioArtistaController {
     }
 
     @GetMapping({ "/viewAnunciosArtistaParaArrendadores" })
-    public String viewAnunciosArtistaParaArrendadores(@ModelAttribute("message") String message, Model model) {
+    public String viewAnunciosArtistaParaArrendadores(@ModelAttribute("message") String message, Model model,
+            @Param("palabraClave") String palabraClave) {
 
         setUserIfLogged(model);
 
-        List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArrendadorNoAceptados();
+        List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArrendadorNoAceptadosFiltrados(palabraClave);
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
+        model.addAttribute("palabraClave", palabraClave);
 
         return "viewAnunciosArtistaParaArrendadores";
     }
 
     @GetMapping({ "/viewAnunciosArtista" })
-    public String viewAnuncioArtista(@ModelAttribute("message") String message, Model model) {
+    public String viewAnuncioArtista(@ModelAttribute("message") String message, Model model,
+            @Param("palabraClave") String palabraClave) {
 
         setUserIfLogged(model);
 
-        List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtista();
+        List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtistaFiltrados(palabraClave);
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
@@ -125,18 +128,18 @@ public class AnuncioArtistaController {
             RedirectAttributes redirectAttributes) {
         Long IDaux = 0l;
 
-        Boolean isLogged=false;
+        Boolean isLogged = false;
         if (SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
-            isLogged=true;
-            String email=SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
-            model.addAttribute("usuario",usr);
-            model.addAttribute("nombreUsuario",email);
-            IDaux=usr.getId();
-            if(usr.getEsArrendador()){
+            isLogged = true;
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
+            model.addAttribute("nombreUsuario", email);
+            IDaux = usr.getId();
+            if (usr.getEsArrendador()) {
                 Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
                 model.addAttribute("arrendador", arrendador);
-            } else if(usr.getEsArtista()){
+            } else if (usr.getEsArtista()) {
                 Artista artista = artistaService.getArtistaByMailArtista(email);
                 model.addAttribute("artista", artista);
             }
@@ -145,7 +148,7 @@ public class AnuncioArtistaController {
 
         if (IDaux.equals(ann.getArtista().getId())) {
 
-        model.addAttribute("isLogged", isLogged);
+            model.addAttribute("isLogged", isLogged);
 
             model.addAttribute("anu", ann);
             model.addAttribute("message", message);
@@ -171,8 +174,8 @@ public class AnuncioArtistaController {
     }
 
     @GetMapping("/anuncioArtista/{id}")
-    public String viewAnuncioArtista(@PathVariable Long id, Model model){
-        
+    public String viewAnuncioArtista(@PathVariable Long id, Model model) {
+
         setUserIfLogged(model);
 
         AnuncioArtista anuncio = anuncioArtistaService.getAnuncioArtistaById(id);
@@ -180,9 +183,8 @@ public class AnuncioArtistaController {
         return "AnuncioArtistaInfo";
     }
 
-
-    //Comprueba si el usuario está logueado y setea los valores correspondientes
-    public void setUserIfLogged(Model model){
+    // Comprueba si el usuario está logueado y setea los valores correspondientes
+    public void setUserIfLogged(Model model) {
         Boolean isLogged = false;
         if (!SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
             isLogged = true;
@@ -190,10 +192,10 @@ public class AnuncioArtistaController {
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
-            if(usr.getEsArrendador()){
+            if (usr.getEsArrendador()) {
                 Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
                 model.addAttribute("arrendador", arrendador);
-            } else if(usr.getEsArtista()){
+            } else if (usr.getEsArtista()) {
                 Artista artista = artistaService.getArtistaByMailArtista(email);
                 model.addAttribute("artista", artista);
             }

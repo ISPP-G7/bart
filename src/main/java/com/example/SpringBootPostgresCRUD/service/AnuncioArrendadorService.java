@@ -27,6 +27,19 @@ public class AnuncioArrendadorService {
         return AnuncioArrendadorList;
     }
 
+    public List<AnuncioArrendador> getAllAnunciosArrendadorNoAceptados() {
+        List<AnuncioArrendador> AnuncioArrendadorList = anuncioArrendadorRepository.findAll();
+        List<AnuncioArrendador> AnuncioArrendadorListAux = new ArrayList<>();
+
+        for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
+            if (!anuncioArrendador.isEstaAceptado()) {
+                AnuncioArrendadorListAux.add(anuncioArrendador);
+            }
+        }
+
+        return AnuncioArrendadorListAux;
+    }
+
     public List<AnuncioArrendador> getAllAnunciosArrendadorFiltrados(String palabraClave) {
         List<AnuncioArrendador> AnuncioArrendadorList = new ArrayList<>();
         if (palabraClave != null) {
@@ -37,19 +50,6 @@ public class AnuncioArrendadorService {
         anuncioArrendadorRepository.findAll()
                 .forEach(AnuncioArrendador -> AnuncioArrendadorList.add(AnuncioArrendador));
         return AnuncioArrendadorList;
-    }
-
-    public List<AnuncioArrendador> getAllAnunciosArrendadorNoAceptados() {
-        List<AnuncioArrendador> AnuncioArrendadorList = anuncioArrendadorRepository.findAll();
-        List<AnuncioArrendador> AnuncioArrendadorListAux = new ArrayList<>();
-
-        for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
-            if(!anuncioArrendador.isEstaAceptado()){
-                AnuncioArrendadorListAux.add(anuncioArrendador);
-            }
-        }
-
-        return AnuncioArrendadorListAux;
     }
 
     public List<AnuncioArrendador> getAllAnunciosArrendadorNoAceptadosFiltrados(String palabraClave) {
@@ -63,7 +63,7 @@ public class AnuncioArrendadorService {
         }
 
         for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
-            if (anuncioArrendador.getEstaAceptado() == false) {
+            if (!anuncioArrendador.isEstaAceptado()) {
                 AnuncioArrendadorListAux.add(anuncioArrendador);
             }
         }
@@ -95,7 +95,7 @@ public class AnuncioArrendadorService {
     public boolean aceptarAnuncioArrendador(AnuncioArrendador anar, Long artista_accept_id) {
         anar.setEstaAceptado(true);
         anar.setArtista_accept_id(artista_accept_id);
-       anuncioArrendadorRepository.save(anar);
+        anuncioArrendadorRepository.save(anar);
         if (anuncioArrendadorRepository.findById(anar.getId()).isPresent()) {
             return true;
         }

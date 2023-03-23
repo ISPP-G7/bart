@@ -45,7 +45,13 @@ public class AnuncioArrendador {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Estilo estilo;
-
+    private String ofreceMicrofono;
+    private String ofreceInstrumentos;
+    private String ofreceIluminacion;
+    private String ofreceAltavoces;
+    private String ofreceMesaDeMezclas;
+    private String ofrecePortatil;
+    private String ofreceOtrasEspecificaciones;
     @OneToOne
     private Arrendador arrendador;
     private boolean estaAceptado = false;
@@ -55,12 +61,20 @@ public class AnuncioArrendador {
     }
 
     public AnuncioArrendador(Long id, String nombreLocal, String ubicacion,
-            Float precio, String descripcionArrendador, Estilo estilo) {
+            Float precio, String descripcionArrendador, Estilo estilo,String ofreceMicrofono,String ofreceInstrumentos,String ofreceIluminacion,
+            String ofreceAltavoces,String ofreceMesaDeMezclas,String ofrecePortatil, String ofreceOtrasEspecificaciones) {
         this.id = id;
         this.nombreLocal = nombreLocal;
         this.ubicacion = ubicacion;
         this.precio = precio;
         this.descripcionArrendador = descripcionArrendador;
         this.estilo = estilo;
+        this.ofreceMicrofono=ofreceMicrofono;
+        this.ofreceInstrumentos=ofreceInstrumentos;
+        this.ofreceIluminacion=ofreceIluminacion;
+        this.ofreceAltavoces=ofreceAltavoces;
+        this.ofreceMesaDeMezclas=ofreceMesaDeMezclas;
+        this.ofrecePortatil=ofrecePortatil;
+        this.ofreceOtrasEspecificaciones=ofreceOtrasEspecificaciones;
     }
 }

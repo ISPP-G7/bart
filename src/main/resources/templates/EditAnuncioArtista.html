@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>Editar anuncio de artista</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -136,8 +137,78 @@
 
 
                     </div>
+                    
                 </div>
             </div>
+            <div class="form-check-inline">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requiereMicrofono">¿Requiere micrófono?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{requiereMicrofono}" id="requiereMicrofono"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-check-inline">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requiereInstrumentos">¿Requiere instrumentos?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{requiereInstrumentos}" id="requiereInstrumentos"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-check-inline">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requiereIluminacion">¿Requiere iluminación?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{requiereIluminacion}" id="requiereIluminacion"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-check-inline">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requiereAltavoces">¿Requiere altavoces?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{requiereAltavoces}" id="requiereAltavoces"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-check-inline">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requiereMesaDeMezclas">¿Requiere mesa de mezclas?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{requiereMesaDeMezclas}" id="requiereMesaDeMezclas"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-check-inline">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requierePortatil">¿Requiere portátil?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{requierePortatil}" id="requierePortatil"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requiereOtrasEspecificaciones">¿Requiere otas especificaciones? Indíquelas.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{requiereOtrasEspecificaciones}" id="requiereOtrasEspecificaciones" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>    
+            </div>
+            
 
             <div class="row p-2">
                 <div class="col-md-2">

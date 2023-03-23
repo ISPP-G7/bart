@@ -6,7 +6,7 @@ TRUNCATE TABLE artistas CASCADE;
 TRUNCATE TABLE users CASCADE;
 
 -- Creación de tablas
-INSERT INTO users (id,first_name,last_name,email,dob,gender,password,es_arrendador,es_artista) VALUES
+/*INSERT INTO users (id,first_name,last_name,email,dob,gender,password,es_arrendador,es_artista) VALUES
 	(1,'José','Fernández', 'namnam@gmail.com','venta de bocadillos y dulce en reina mercedes', 'Masculino','joseNamNam',true,false),
 	(2,'Manolo', 'Platero', 'platero@gmail.com','El mejor rock de los 80 hasta ahora', 'Masculino', 'platero', false, true);
 INSERT INTO arrendadores (id,direccion,nombre_local,url_imagen) VALUES
@@ -18,4 +18,4 @@ INSERT INTO	anuncios_artista (id,pseudonimo_artista,ubicacion,precio,descripcion
 INSERT INTO	anuncios_arrendador (id,nombre_local,ubicacion,precio,descripcion_arrendador, estilo,arrendador_id,esta_aceptado) VALUES
 	(1,'Bocadillos Ñam Ñam','Avenida Reina Mercedes,31',100,'A nuestro público les gusta el rock', 'ROCK',1,false);
 INSERT INTO messages (id,message_body,date,user_sender,user_receiver) VALUES
-	(1,'Hola, estarías dispuesto a tocar en mi garito?','2023-03-22',1,2);
+	(1,'Hola, estarías dispuesto a tocar en mi garito?','2023-03-22',1,2);*/

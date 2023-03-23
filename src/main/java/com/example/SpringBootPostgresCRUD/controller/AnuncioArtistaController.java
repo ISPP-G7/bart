@@ -129,12 +129,14 @@ public class AnuncioArtistaController {
         Long IDaux = 0l;
 
         Boolean isLogged = false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
             isLogged = true;
             String email = SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
+            model.addAttribute("artista", usr);
+
             IDaux = usr.getId();
             if (usr.getEsArrendador()) {
                 Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
@@ -145,7 +147,8 @@ public class AnuncioArtistaController {
             }
         }
         AnuncioArtista ann = anuncioArtistaService.getAnuncioArtistaById(id);
-
+        System.out.println(IDaux);
+        System.out.println("betiiiiiiii");
         if (IDaux.equals(ann.getArtista().getId())) {
 
             model.addAttribute("isLogged", isLogged);

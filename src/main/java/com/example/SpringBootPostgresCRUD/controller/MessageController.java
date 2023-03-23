@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.example.SpringBootPostgresCRUD.entity.Arrendador;
+import com.example.SpringBootPostgresCRUD.entity.Artista;
 import com.example.SpringBootPostgresCRUD.entity.Message;
 import com.example.SpringBootPostgresCRUD.entity.User;
+import com.example.SpringBootPostgresCRUD.service.ArrendadorService;
+import com.example.SpringBootPostgresCRUD.service.ArtistaService;
 import com.example.SpringBootPostgresCRUD.service.MessageService;
 import com.example.SpringBootPostgresCRUD.service.UserService;
 
@@ -31,6 +35,11 @@ public class MessageController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ArtistaService artistaService;
+    @Autowired
+    ArrendadorService arrendadorService;
 
     @GetMapping("/viewAllMessages")
     public String viewAllMessages(@ModelAttribute("message") String message,
@@ -73,6 +82,13 @@ public class MessageController {
                     User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
                     model.addAttribute("usuario",usr);
                     model.addAttribute("nombreUsuario",email);
+                    if(usr.getEsArrendador()){
+                        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+                        model.addAttribute("arrendador", arrendador);
+                    } else if(usr.getEsArtista()){
+                        Artista artista = artistaService.getArtistaByMailArtista(email);
+                        model.addAttribute("artista", artista);
+                    }
                 }
                 model.addAttribute("isLogged", isLogged);
 

@@ -67,7 +67,7 @@ public class HomeController {
 
         }
         model.addAttribute("arrendadoresNombreLocalMapListAux", arrendadoresNombreLocalMapListAux);
-
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
         // Para que aparezca el nombre de usuario
         if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
             is_logged=true;

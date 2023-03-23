@@ -147,7 +147,7 @@
 						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewArtistas">Vista de Artistas</a>
 						</li>
-						
+				
 						<nav class="navbar navbar-expand-lg " th:if="${usuario.esArrendador}">
 							  <ul class="navbar-nav ml-auto ">
 								<li class="nav-item dropdown ">
@@ -161,10 +161,8 @@
 								  </div>
 								</li>
 							  </ul>
-							</div>
-						  </nav>
-
-						  <nav class="navbar navbar-expand-lg " th:if="${usuario.esArtista}">
+						</nav>
+						<nav class="navbar navbar-expand-lg " >
 							<ul class="navbar-nav ml-auto ">
 							  <li class="nav-item dropdown ">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="background-color: #C094E4;" th:text="${nombreUsuario}"></a>
@@ -177,10 +175,7 @@
 								</div>
 							  </li>
 							</ul>
-						  </div>
 						</nav>
-						  
-				
 					</th:block>
 
 				</ul>

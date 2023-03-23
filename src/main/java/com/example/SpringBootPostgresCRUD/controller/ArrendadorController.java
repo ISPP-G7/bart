@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.SpringBootPostgresCRUD.entity.Arrendador;
+import com.example.SpringBootPostgresCRUD.entity.Artista;
 import com.example.SpringBootPostgresCRUD.entity.User;
 import com.example.SpringBootPostgresCRUD.service.ArrendadorService;
+import com.example.SpringBootPostgresCRUD.service.ArtistaService;
 import com.example.SpringBootPostgresCRUD.service.UserService;
 
 @Controller
@@ -23,6 +25,8 @@ public class ArrendadorController {
     UserService userService;
     @Autowired
     ArrendadorService arrService;
+    @Autowired
+    ArtistaService artistaService;
 
     String anonymousUser = "anonymousUser";
 
@@ -86,6 +90,13 @@ public class ArrendadorController {
             model.addAttribute("usuario",usr);
             model.addAttribute("nombreUsuario",email);  
             IDaux=usr.getId();
+            if(usr.getEsArrendador()){
+                Arrendador arrendador = arrService.getArrendadorByMailArrendador(email);
+                model.addAttribute("arrendador", arrendador);
+            } else if(usr.getEsArtista()){
+                Artista artista = artistaService.getArtistaByMailArtista(email);
+                model.addAttribute("artista", artista);
+            }
         }
         model.addAttribute("isLogged", isLogged);
         if(IDaux.equals(id)){
@@ -150,6 +161,13 @@ public class ArrendadorController {
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
+            if(usr.getEsArrendador()){
+                Arrendador arrendador = arrService.getArrendadorByMailArrendador(email);
+                model.addAttribute("arrendador", arrendador);
+            } else if(usr.getEsArtista()){
+                Artista artista = artistaService.getArtistaByMailArtista(email);
+                model.addAttribute("artista", artista);
+            }
         }
         model.addAttribute("isLogged", is_logged);
     }

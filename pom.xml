@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<sonar.host.url>http://localhost:9000</sonar.host.url>
-		<sonar.login>sqp_a6fcae20c7a5cd4b060fdf35ad7db12602bbe24c</sonar.login>
+		<sonar.login>MY KEY</sonar.login>
 		<sonar.projectKey>bart</sonar.projectKey>
 		<sonar.projectName>bart</sonar.projectName>
 	</properties>

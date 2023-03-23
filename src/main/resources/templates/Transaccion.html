@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Transaccion</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh;
+        }
+
+        h1 {
+            color: white
+        }
+
+        a {
+            color: white;
+        }
+
+        .div-datos,
+        .div-formulario {
+            width: 50%;
+            position: absolute;
+            max-width: 42%;
+            padding: 10px;
+            margin-top: 1%;
+            color: white;
+            border: 2px solid black;
+            border-radius: 25px;
+            height: fit-content;
+            max-height: 80%;
+            text-align: center;
+        }
+
+        .div-datos {
+            margin-left: 5%;
+        }
+
+        .div-formulario {
+            margin-left: 55%;
+        }
+
+        .img-artista {
+            border: 1px solid black;
+            border-radius: 25px;
+            padding: 5px;
+        }
+
+        .boton {
+            margin-top: 5%;
+            margin-left: 80%;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="Home :: Home"></div>
+
+    <div class="div-datos">
+        <img class="img-artista" th:src="${anuncio.artista.urlImagen}">
+        <h2 th:text="${anuncio.pseudonimoArtista}"></h2>
+        <h4 th:text="'Ubicacion: ' + ${anuncio.ubicacion}"></h4>
+        <h4 th:text="'Estilo: ' +${anuncio.estilo}"></h4>
+        <h4 th:text="'Precio: ' +${anuncio.precio} + '€'"></h4>
+        <h4 th:text="'Descripcion: ' +${anuncio.descripcionArtista}"></h4>
+
+    </div>
+    <div class="div-formulario">
+
+        <form th:action="@{/paymentintent}" method="post">
+            <div class="row">
+                <label class="" for="firstName">Nombre</label>
+                <input type="text" th:field="*{firstName}" id="firstName" class="form-control input-sm"
+                    required="required" />
+            </div>
+            <button class="boton" type="submit">Pagar</button>
+        </form>
+    </div>
+
+    <footer th:replace="Home :: Footer"></footer>
+
+    <!-- <script>
+        var public_key = "pk_test_51MoWHzGLYD5jP53mmnzDmqrMP3fiFfO5UpQ1rvOL8qdY4FhZ5DhMvIOPLiwdv99fPF7A4jXipNwe3JpCBSS00fm0007cK1yyGi";
+        var stripe = Stripe(public_key);
+        var elements = stripe.elements();
+
+        var style = {
+            base: {
+                fontSize: '16px',
+                color: '#32325d',
+                fontFamily:
+                    '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+                fontSmoothing: 'antialiased',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+            }
+        };
+
+        var card = elements.create('card', { style: style });
+        card.mount('#numero_tarjeta');
+
+        card.addEventListener('change', function (event) {
+            var displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+
+        var form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            stripe.createToken(card).then(function (result) {
+                if (result.error) {
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    stripeTokenHandler(result.token);
+                }
+            });
+        });
+
+        function stripeTokenHandler(token) {
+            var form = document.querySelector('form');
+            var hiddenInput = document.createElement('input');
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', 'stripeToken');
+            hiddenInput.setAttribute('value', token.id);
+            form.appendChild(hiddenInput);
+            form.submit();
+        }
+    </script> -->
+
+</body>
+
+</html>

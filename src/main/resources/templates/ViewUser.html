@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ver lista de usuarios</title>
+    <title>Lista de usuarios</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -17,8 +17,8 @@
 
     <style>
         body {
-            background-image: linear-gradient(to bottom right , #8e12ab, #dc4e4f);
-            height: 100vh;
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
         } 
         h1{
             color: white
@@ -43,8 +43,6 @@
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="container">
-
-        <h1 th:text="${message}"></h1>
 
         <h1 class="p-3">Lista de usuarios</h1>
 
@@ -113,5 +111,6 @@
                 }
 	    }
     </script>
+    <footer th:replace="Home :: Footer"></footer>
 </body>
 </html>

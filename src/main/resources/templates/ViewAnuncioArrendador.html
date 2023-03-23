@@ -17,8 +17,8 @@
 
     <style>
         body {
-            background-image: linear-gradient(to bottom right , #8e12ab, #dc4e4f);
-            height: 100vh;
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
         } 
         h1{
             color: white
@@ -32,10 +32,10 @@
             background-color: #fff;
         }
         a{
-        color: white;
+        color: black;
         }
         a:hover {
-        color: white;
+        color: lightgray;
         text-decoration: none;
         }
     </style>
@@ -43,42 +43,32 @@
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="container">
-
-        <h1 th:text="${message}"></h1>
-
         <h1 class="p-3">Anuncios de arrendadores</h1>
-
-            <table class="table table-bordered">
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre local</th>
-                    <th>Ubicación</th>
-                    <th>Precio</th>
-                    <th>Descripción arrendador</th>
-                    <th>Estilo</th>
-                    <th>Estado</th>
-                    <th>ID_Artista</th>
-                    <th>Editar</th>
-                </tr>
-
-                    <tr th:each="Anuncio : ${anuList}">
-                        <td th:text="${Anuncio.id}"></td>
-                        <td th:text="${Anuncio.nombreLocal}"></td>
-                        <td th:text="${Anuncio.ubicacion}"></td>
-                        <td th:text="${Anuncio.precio}"></td>
-                        <td th:text="${Anuncio.descripcionArrendador}"></td>
-                        <td th:text="${Anuncio.estilo}"></td>
-                        <td th:text="${Anuncio.estaAceptado}"></td>
-                        <td th:text="${Anuncio.artista_accept_id}"></td>
-
-                        <td><button type="button" class="btn btn-success">
-                            <a th:href="@{/editAnuncioArrendador/{id}(id=${Anuncio.id})}">Editar</a>
-                        </button></td>
-                      
-                    </tr>
-
-            </table>
-
+        <br>
+            <form class="form-inline" th:action="@{/viewAnunciosArrendador}">
+                <div class="form-group mb-2">
+                    <label>Filtrar:</label>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" name="palabraClave" class="form-control" id="palabraClave" th:value="${palabraClave}" placeholder="Búsqueda por estilo, nombre..." required>
+                </div>
+                <input type="submit" class="btn btn-info mb-2" value="Buscar">
+                <input type="button" class="btn btn-secondary mb-2" value="Limpiar" onclick="limpiarCampos()">
+            </form>
+    </br>
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-md-4" th:each="Anuncio : ${anuList}" style="margin-bottom: 10px;">
+                <div class="card">
+                    <img class="card-img-top" th:src="${Anuncio.arrendador.urlImagen}" style="width: 100%; max-height: 200px; object-fit: cover;"alt="imagen perfil arrendador">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${Anuncio.nombreLocal}"></h5>
+                        <p class="card-text" th:text="${Anuncio.ubicacion}"></p><p class="card-text" th:text="${Anuncio.precio}"></p>
+                        <a class="btn btn-primary" th:href="@{/anuncioArrendador/{id}(id=${Anuncio.id})}">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+           
         <button type="button" class="btn btn-primary btn-block">
             <a href="/addAnuncioArrendador">Añadir anuncio</a>
         </button>
@@ -88,7 +78,7 @@
     <script th:inline="javascript">
         window.onload = function() {
 
-            var msg = [[${message}]];
+            var msg = [[${ message }]];
             if (msg == "Anuncio creado con éxito") {
 				Command: toastr["success"]("Anuncio creado con éxito")
 			} else if (msg == "Anuncio borrado con éxito") {
@@ -118,7 +108,14 @@
                   "hideMethod": "fadeOut"
                 }
 	    }
-    </script>
 
+        
+    </script>
+    <script type="text/javascript">
+        function limpiarCampos(){
+            window.location='/viewAnunciosArrendador';
+        }
+    </script>
+    <footer th:replace="Home :: Footer"></footer>
 </body>
 </html>

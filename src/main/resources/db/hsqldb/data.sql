@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS public.artistas CASCADE;
 DROP TABLE IF EXISTS public.anuncios_artista CASCADE;
 DROP TABLE IF EXISTS public.anuncios_arrendador CASCADE;
 DROP TABLE IF EXISTS public.arrendadores CASCADE;
-C
+
 -- Creación de tablas
 INSERT INTO public.users (id,dob,email,es_arrendador,es_artista,first_name,gender,last_name,"password") VALUES
 	 (116,'2001-02-21','testArtista@gmail.com',false,true,'testArtista','Male','testArtista','testArtista'),

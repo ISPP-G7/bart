@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Add Anuncio</title>
+    <title>Editar anuncio de arrendador</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -14,8 +14,8 @@
 
     <style>
         body {
-            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
-            height: 100vh;
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
         }
 
         h1,
@@ -29,7 +29,7 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
 
-        <h1 class="p-3">Edit Anuncio</h1>
+        <h1 class="p-3">Editar anuncio de arrendador</h1>
 
         <form th:action="@{/editSaveAnuncioArrendador}" th:object="${anu}" method="post">
 
@@ -40,6 +40,8 @@
                     </div>
                 </div>
             </div>
+
+            <input type="hidden" th:field="*{arrendador.id}" class="form-control input-sm" />
 
             <div class="row">
                 <div class="form-group col-md-12">
@@ -173,6 +175,7 @@
             }
         }
     </script>
+    <footer th:replace="Home :: Footer"></footer>
 </body>
 
 </html>

@@ -46,6 +46,7 @@ public class AnuncioArtista {
     private boolean requiereMesaDeMezclas;
     private boolean requierePortatil;
     private String  requiereOtrasEspecificaciones;
+    private Boolean ofreceActuacionPorEntradas;
     // @NotNull
 
     @NotNull
@@ -64,7 +65,7 @@ public class AnuncioArtista {
     public AnuncioArtista(Long id, String pseudonimoArtista, String ubicacion,
         Float precio, String descripcionArtista, Estilo estilo, Artista artista,
         boolean requiereMicrofono, boolean requiereInstrumentos, boolean requiereIluminacion,
-        boolean requiereAltavoces, boolean requiereMesaDeMezclas, boolean requierePortatil,String requiereOtrasEspecificaciones ) {
+        boolean requiereAltavoces, boolean requiereMesaDeMezclas, boolean requierePortatil,String requiereOtrasEspecificaciones,Boolean ofreceActuacionPorEntradas ) {
         this.id = id;
         this.pseudonimoArtista = pseudonimoArtista;
         this.ubicacion = ubicacion;
@@ -79,6 +80,7 @@ public class AnuncioArtista {
         this.requiereMesaDeMezclas = requiereMesaDeMezclas;
         this.requierePortatil = requierePortatil;
         this.requiereOtrasEspecificaciones=requiereOtrasEspecificaciones;
+        this.ofreceActuacionPorEntradas=ofreceActuacionPorEntradas;
     }
    
 	public Long getId() {

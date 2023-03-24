@@ -84,6 +84,10 @@
                             <input class="form-check-input" type="checkbox" th:checked="${anuncio.requierePortatil}" disabled>
                             <label class="form-check-label" for="requierePortatil">Requiere portátil</label>
                         </div>
+                        <div class="form-check mr-4">
+                            <input class="form-check-input" type="checkbox" th:checked="${anuncio.ofreceActuacionPorEntradas}" disabled>
+                            <label class="form-check-label" for="ofreceActuacionPorEntradas">Requiere actuacion por entradas</label>
+                        </div>
                     </div>
                     <p class="mb-1"><strong>Otros requerimientos:</strong> [[${anuncio.requiereOtrasEspecificaciones}]]</p>
 

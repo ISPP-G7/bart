@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
@@ -19,6 +22,7 @@ import javax.persistence.EnumType;
 @Setter
 @Entity
 @Table(name = "anunciosArtista")
+@Valid
 public class AnuncioArtista {
 
     @Id
@@ -27,14 +31,14 @@ public class AnuncioArtista {
 
     @NotBlank
     private String pseudonimoArtista;
-
+    
     private Long arrendador_accept_id;
 
     @NotBlank
     private String ubicacion;
 
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "El precio no puede estar vacío")
+    @DecimalMin("0.0")
     private Float precio;
 
     @NotBlank

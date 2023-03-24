@@ -1,11 +1,14 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
+import com.example.SpringBootPostgresCRUD.entity.Arrendador;
 import com.example.SpringBootPostgresCRUD.entity.Artista;
 import com.example.SpringBootPostgresCRUD.entity.User;
+import com.example.SpringBootPostgresCRUD.service.ArrendadorService;
 import com.example.SpringBootPostgresCRUD.service.ArtistaService;
 import com.example.SpringBootPostgresCRUD.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +26,10 @@ public class ArtistaController {
     UserService userService;
     @Autowired
     ArtistaService artService;
+    @Autowired
+    ArrendadorService arrendadorService;
+
+    String anonymousUser = "anonymousUser";
 
     @GetMapping("/SignUpArtista")
     public String signUpUser(@ModelAttribute("message") String message, Model model) {
@@ -37,15 +44,9 @@ public class ArtistaController {
     @GetMapping({ "/viewArtistas" })
     public String viewArtistas(@ModelAttribute("message") String message, Model model) {
         List<Artista> artList = artService.getAllArtistas();
-        Boolean is_logged=false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            String email=SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
-            model.addAttribute("usuario",usr);
-            model.addAttribute("nombreUsuario",email);
-            is_logged=true;
-        }
-        model.addAttribute("isLogged", is_logged);
+        
+        setUserIfLogged(model);
+
         model.addAttribute("artList", artList);
         model.addAttribute("message", message);
         return "ViewArtista";
@@ -53,10 +54,7 @@ public class ArtistaController {
 
     @GetMapping("/addArtista")
     public String newArtista(@ModelAttribute("message") String message, Model model) {
-        Boolean is_logged=false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged=true;
-        }
+        
         Artista art = new Artista();
         model.addAttribute("art", art);
         model.addAttribute("message", message);
@@ -66,11 +64,7 @@ public class ArtistaController {
 
     @PostMapping("/saveArtista")
     public String saveArtista(Artista art, RedirectAttributes redirectAttributes) {
-        Boolean is_logged=false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged=true;
-        }
-        
+       
         if (artService.saveOrUpdateArtista(art)) {
 
             redirectAttributes.addFlashAttribute("message", "Save Success");
@@ -84,15 +78,19 @@ public class ArtistaController {
     @GetMapping("/editArtista/{id}")
     public String editArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model,RedirectAttributes redirectAttributes) {
         Long IDaux=0l;
-        Boolean is_logged=false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged=true;
+        Boolean isLogged=false;
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
+            isLogged=true;
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
-            model.addAttribute("isLogged",  is_logged);
+            model.addAttribute("isLogged",  isLogged);
             model.addAttribute("nombreUsuario",email);
-            IDaux=usr.getId();
+            if(usr.getEsArtista()){
+                Artista artista = artService.getArtistaByMailArtista(email);
+                model.addAttribute("artista", artista);
+                IDaux=artista.getId();
+            }
 
         }
         if(IDaux.equals(id)){
@@ -101,23 +99,18 @@ public class ArtistaController {
         model.addAttribute("message", message);
 
         return "EditArtista";
-    }else{
-        redirectAttributes.addFlashAttribute("message", "No tienes permiso para editar este perfil.");
-        return "redirect:/viewArtistas";
+        }else{
+            redirectAttributes.addFlashAttribute("message", "No tienes permiso para editar este perfil.");
+            return "redirect:/viewArtistas";
 
-        
-    }
+            
+        }
     }
     @GetMapping("/perfilArtista/{id}")
     public String perfilArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
-        Boolean is_logged=false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged=true;
-            model.addAttribute("isLogged", is_logged);
-            String email=SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
-            model.addAttribute("usuario",usr);
-        }
+        
+        setUserIfLogged(model);
+
         Artista art = artService.getArtistaById(id);
         model.addAttribute("art", art);
         model.addAttribute("message", message);
@@ -127,10 +120,7 @@ public class ArtistaController {
 
     @PostMapping("/editSaveArtista")
     public String editSaveArtista(@ModelAttribute("art") Artista art, RedirectAttributes redirectAttributes) {
-        Boolean is_logged=false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged=true;
-        }
+       
         if (artService.saveOrUpdateArtista(art)) {
             redirectAttributes.addFlashAttribute("message", "Edit Success");
             return "redirect:/viewArtistas";
@@ -142,10 +132,7 @@ public class ArtistaController {
 
     @GetMapping("/deleteArtista/{id}")
     public String deleteArtista(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        Boolean is_logged=false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged=true;
-        }
+        
         if (artService.deleteArtista(id)) {
             redirectAttributes.addFlashAttribute("message", "Delete Success");
             return "redirect:/viewArtistas";
@@ -155,4 +142,23 @@ public class ArtistaController {
         return "redirect:/viewArtistas";
     }
 
+    //Comprueba si el usuario está logueado y setea los valores correspondientes
+    public void setUserIfLogged(Model model){
+        Boolean isLogged = false;
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
+            isLogged = true;
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
+            model.addAttribute("nombreUsuario", email);
+            if(usr.getEsArrendador()){
+                Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+                model.addAttribute("arrendador", arrendador);
+            } else if(usr.getEsArtista()){
+                Artista artista = artService.getArtistaByMailArtista(email);
+                model.addAttribute("artista", artista);
+            }
+        }
+        model.addAttribute("isLogged", isLogged);
+    }
 }

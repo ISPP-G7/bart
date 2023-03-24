@@ -17,29 +17,31 @@ public class MessageService {
 
     public List<Message> getAllMessages() {
         List<Message> MessageList = new ArrayList<>();
-        messageRepository.findAll().forEach(Message -> MessageList.add(Message));
+        messageRepository.findAll().forEach(MessageList::add);
 
         return MessageList;
     }
 
     public Message getMessageById(Long id) {
-        return messageRepository.findById(id).get();
+        return messageRepository.findById(id).get();//aquí habría que comprobar que no es nulo antes de pasarlo, si es nulo pasar excepción. TODO
     }
 
     public boolean saveOrUpdateMessage(Message Message) {
         Message msg = messageRepository.save(Message);
-        if (messageRepository.findById(msg.getId()) != null) {
-            return true;
+        boolean res = false;
+        if (messageRepository.findById(msg.getId()).isPresent()) {
+            res =  true;
         }
-        return false;
+        return res;
     }
 
     public boolean deleteMessage(Long id) {
         messageRepository.deleteById(id);
-        if (messageRepository.findById(id) != null) {
-            return true;
+        boolean res= false;
+        if (messageRepository.findById(id).isPresent()) {
+            res=true;
         }
-        return false;
+        return res;
     }
 
     public List<Message> findBySenderOrReceiverEmail(String email) {

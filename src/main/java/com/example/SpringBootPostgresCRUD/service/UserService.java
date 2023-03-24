@@ -22,16 +22,16 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id).get();//aquí habría que comprobar que no es nulo antes de pasarlo, si es nulo pasar excepción. TODO
     }
 
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).get();
+        return userRepository.findByEmail(email).get();//aquí habría que comprobar que no es nulo antes de pasarlo, si es nulo pasar excepción. TODO
     }
 
     public boolean saveOrUpdateUser(User user) {
         User usr = userRepository.save(user);
-        if (userRepository.findById(usr.getId()) != null) {
+        if (userRepository.findById(usr.getId()).isPresent()) {
             return true;
         }
         return false;
@@ -39,7 +39,7 @@ public class UserService {
 
     public boolean deleteUser(Long id) {
         userRepository.deleteById(id);
-        if (userRepository.findById(id) != null) {
+        if (userRepository.findById(id).isPresent()) {
             return true;
         }
         return false;

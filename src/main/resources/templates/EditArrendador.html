@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar arrendador</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -56,9 +57,29 @@
 
             <div class="row">
                 <div class="form-group col-md-12">
+                    <label class="col-md-3" for="urlImagen">Imagen de perfil</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{urlImagen}" id="urlImagen" class="form-control input-sm"
+                            required="required" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group col-md-12">
                     <label class="col-md-3" for="firstName">Nombre</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{firstName}" id="firstName" class="form-control input-sm"
+                            required="required" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="urlImagen">Imagen</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{urlImagen}" id="urlImagen" class="form-control input-sm"
                             required="required" />
                     </div>
                 </div>
@@ -132,6 +153,14 @@
                     <label class="col-md-3">Dirección</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{direccion}" id="direccion" class="form-control input-sm"
+                            required="required" />
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">Contraseña</label>
+                    <div class="col-md-6">
+                        <input type="password" th:field="*{password}" id="direccion" class="form-control input-sm"
                             required="required" />
                     </div>
                 </div>

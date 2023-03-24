@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Anuncio arrendador</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -58,6 +59,18 @@
                     <p class="mb-1"><strong>Precio:</strong> [[${anuncio.precio}]]</p>
                     <p class="mb-1"><strong>Descripción:</strong> [[${anuncio.descripcionArrendador}]]</p>
                     <p class="mb-1"><strong>Estilo:</strong> [[${anuncio.estilo}]]</p>
+                    <p class="mb-1"><strong>Ofrece microfono ?:</strong> [[${anuncio.ofreceMicrofono}]]</p>
+                    <p class="mb-1"><strong>Ofrece instrumentos ?:</strong> [[${anuncio.ofreceInstrumentos}]]</p>
+                    <p class="mb-1"><strong>Ofrece iluminacion ?:</strong> [[${anuncio.ofreceIluminacion}]]</p>
+                    <p class="mb-1"><strong>Ofrece altavoces ?:</strong> [[${anuncio.ofreceAltavoces}]]</p>
+                    <p class="mb-1"><strong>Ofrece mesa de mezclas ?:</strong> [[${anuncio.ofreceMesaDeMezclas}]]</p>
+                    <p class="mb-1"><strong>Ofrece mesa portatil ?:</strong> [[${anuncio.ofrecePortatil}]]</p>
+                    <p class="mb-1"><strong>Ofrece alguna otra especificación ?:</strong> [[${anuncio.ofreceOtrasEspecificaciones}]]</p>
+                    <div class="form-check mr-4">
+                        <input class="form-check-input" type="checkbox" th:checked="${anuncio.ofreceActuacionPorEntradas}" disabled>
+                        <label class="form-check-label" for="ofreceActuacionPorEntradas">Ofrece actuacion por entradas</label>
+                    </div>
+
                 </div>
             </div>
         </div>

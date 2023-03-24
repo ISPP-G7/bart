@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>Editar anuncio de arrendador</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -139,6 +140,72 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofreceMicrofono">¿Ofrece microfono? Indíquelo.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofreceMicrofono}" id="ofreceMicrofono" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofreceInstrumentos">¿Ofrece instrumentos? Indíquelo.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofreceInstrumentos}" id="ofreceInstrumentos" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofreceIluminacion">¿Ofrece iluminacion? Indíquelo.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofreceIluminacion}" id="ofreceIluminacion" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofreceAltavoces">¿Ofrece altavoces? Indíquelo.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofreceAltavoces}" id="ofreceAltavoces" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofreceMesaDeMezclas">¿Ofrece mesa de mezclas? Indíquelo.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofreceMesaDeMezclas}" id="ofreceMesaDeMezclas" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofrecePortatil">¿Ofrece portatil? Indíquelo.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofrecePortatil}" id="ofrecePortatil" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofreceOtrasEspecificaciones">¿Ofrece otas especificaciones? Indíquelas.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofreceOtrasEspecificaciones}" id="ofreceOtrasEspecificaciones" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>    
+            <div class="form-check-inline">
+                <div class="form-check-inline">
+                    <label class="col-md-3" for="ofreceActuacionPorEntradas">¿Requiere venta de entradas?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{ofreceActuacionPorEntradas}" id="ofreceActuacionPorEntradas"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>    
 
             <div class="row p-2">
                 <div class="col-md-2">

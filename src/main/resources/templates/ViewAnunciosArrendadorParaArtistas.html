@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Anuncios de arrendadores</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -28,6 +29,7 @@
         table.table-bordered tr:not(:first-child) td {
             background-color: #fff;
         }
+        
         a {
         color: black;
 
@@ -37,6 +39,51 @@
             color: white;
             text-decoration: none;
         }
+
+        .btn {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            color: rgb(255, 255, 255);
+            border-radius: 15px;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(to bottom right, #dc4e4f, #8e12ab) no-repeat;
+        }
+
+        .btn2 {
+            background-color: #99f0f3;
+            color: rgb(0, 0, 0);
+            border-radius: 15px;
+            margin-right: 10px;
+        }
+
+        .btn2:hover {
+            background-color: #99f0f3;
+        }
+
+        .clearable {
+            position: relative;
+        }
+        .clearable input[type="text"] {
+            padding-right: 30px;
+            padding-left: 10px;
+            width: 300px;
+        }
+        .clearable .clear {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-145%);
+            width: 20px;
+            height: 20px;
+            font-size: 35px;
+            color: #ccc;
+            cursor: pointer;
+        }
+        .clearable .clear:hover {
+            color: #080808;
+        }
     </style>
 </head>
 
@@ -45,7 +92,18 @@
     <div class="container">
 
         <h1 class="p-3">Anuncios de arrendadores</h1>
-        
+        <br>
+            <form class="form-inline" th:action="@{/viewAnunciosArrendadorParaArtistas}">
+                <div class="form-floating mx-sm-3 mb-2 clearable">
+                    <input type="text" name="palabraClave" class="form-control search-input" id="palabraClave" th:value="${palabraClave}" placeholder="Busca por estilo o nombre del local" required>
+                    <span class="clear" onclick="limpiarCampos()">&times;</span>
+                </div>
+                <button type="submit" class="btn2 btn-info mb-2">
+                    &#128269;
+                </button>
+            </form>
+    </br>
+
         <div class="row" style="margin-bottom: 10px;">
             <div class="col-md-4" th:each="Anuncio : ${anuList}" style="margin-bottom: 10px;">
                 <div class="card">
@@ -58,6 +116,7 @@
                         <a class="btn btn-primary" th:href="@{/aceptarAnuncioArrendador/{id}(id=${Anuncio.id})}">Aceptar</a>
                     </div>
                 </div>
+                <br>
             </div>
         </div>
       
@@ -93,6 +152,11 @@
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             }
+        }
+    </script>
+    <script type="text/javascript">
+        function limpiarCampos(){
+            window.location='/viewAnunciosArrendadorParaArtistas';
         }
     </script>
     <footer th:replace="Home :: Footer"></footer>

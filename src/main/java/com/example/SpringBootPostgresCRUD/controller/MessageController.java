@@ -1,5 +1,7 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,8 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.example.SpringBootPostgresCRUD.entity.Arrendador;
+import com.example.SpringBootPostgresCRUD.entity.Artista;
 import com.example.SpringBootPostgresCRUD.entity.Message;
 import com.example.SpringBootPostgresCRUD.entity.User;
+import com.example.SpringBootPostgresCRUD.service.ArrendadorService;
+import com.example.SpringBootPostgresCRUD.service.ArtistaService;
 import com.example.SpringBootPostgresCRUD.service.MessageService;
 import com.example.SpringBootPostgresCRUD.service.UserService;
 
@@ -32,19 +38,30 @@ public class MessageController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    ArtistaService artistaService;
+    @Autowired
+    ArrendadorService arrendadorService;
+
     @GetMapping("/viewAllMessages")
     public String viewAllMessages(@ModelAttribute("message") String message,
             Model model) {
-
-                Boolean is_logged=false;
-                if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-                    is_logged=true;
+                Boolean isLogged=false;
+                if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
+                    isLogged=true;
                     String email=SecurityContextHolder.getContext().getAuthentication().getName();
                     User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
                     model.addAttribute("usuario",usr);
                     model.addAttribute("nombreUsuario",email);
+                    if(usr.getEsArrendador()){
+                        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+                        model.addAttribute("arrendador", arrendador);
+                    } else if(usr.getEsArtista()){
+                        Artista artista = artistaService.getArtistaByMailArtista(email);
+                        model.addAttribute("artista", artista);
+                    }
                 }
-                model.addAttribute("isLogged", is_logged);
+                model.addAttribute("isLogged", isLogged);
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         List<Message> todosMensajes = messageService.findBySenderOrReceiverEmail(email);
@@ -65,16 +82,24 @@ public class MessageController {
     @GetMapping("/viewMessages/{email2}")
     public String viewMessages(@PathVariable("email2") String email2, @ModelAttribute("message") String message,
             Model model) {
-
-                Boolean is_logged=false;
-                if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-                    is_logged=true;
+            
+                Boolean isLogged=false;
+                if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
+                    isLogged=true;
                     String email=SecurityContextHolder.getContext().getAuthentication().getName();
                     User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
                     model.addAttribute("usuario",usr);
                     model.addAttribute("nombreUsuario",email);
+                    if(usr.getEsArrendador()){
+                        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+                        model.addAttribute("arrendador", arrendador);
+                    } else if(usr.getEsArtista()){
+                        Artista artista = artistaService.getArtistaByMailArtista(email);
+                        model.addAttribute("artista", artista);
+                    }
                 }
-                model.addAttribute("isLogged", is_logged);
+                model.addAttribute("isLogged", isLogged);
+
 
         String email1 = SecurityContextHolder.getContext().getAuthentication().getName();
         List<Message> mensajes = messageService.getByPreviousChat(email1, email2);
@@ -96,6 +121,9 @@ public class MessageController {
         msg.setUserSender(userSender);
         msg.setUserReceiver(userReceiver);
         msg.setMessageBody(bodyMessage);
+
+        Date now = Date.from(Instant.now());
+        msg.setDate(now);
 
         if (messageService.saveOrUpdateMessage(msg)) {
             redirectAttributes.addFlashAttribute("message", "Save Success");

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Transaccion</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -45,7 +46,7 @@
         }
 
         .div-formulario {
-            margin-left: 55%;
+            margin-left: 53%;
         }
 
         .img-artista {
@@ -74,89 +75,40 @@
 
     </div>
     <div class="div-formulario">
-        <form action="/paymentintent" method="POST">
-            <label>
-                Nombre completo:
-                <input type="text" name="nombre_completo" required>
-            </label>
-            <label>
-                Dirección de correo electrónico:
-                <input type="email" name="correo_electronico" required>
-            </label>
-            <label>
-                Número de tarjeta:
-                <input type="text" id="numero_tarjeta" required>
-            </label>
-            <label>
-                Fecha de vencimiento (MM/AA):
-                <input type="text" id="fecha_vencimiento" required>
-            </label>
-            <label>
-                Código de seguridad:
-                <input type="text" id="codigo_seguridad" required>
-            </label>
-            <br>
+        <form th:action="@{/pay}" th:object="${transaccionPaypal}" method="post">
+            <h3>Pago</h3>
+            <div class="tarjetas">
+                <label>Tarjetas aceptadas &rarr; </label>
+                <i class="fa fa-cc-visa" style="color:navy; background-color: white;"></i>
+                <i class="fa fa-cc-amex" style="color:blue; background-color: white;"></i>
+                <i class="fa fa-cc-mastercard" style="color:red; background-color: white;"></i>
+                <i class="fa fa-cc-discover" style="color:orange; background-color: white;"></i>
+            </div>
+
+            <div class="label">
+                <label for="price">Precio</label>
+                <input type="text" id="price" name="price" th:value="${anuncio.precio}" required>
+            </div>
+            <div class="label">
+                <label for="currency">Moneda</label>
+                <input type="text" id="currency" name="currency" value="EUR" required>
+            </div>
+            <div class="label">
+                <label for="method">Metodo de pago</label>
+                <input type="text" id="method" name="method" value="paypal" required>
+            </div>
+            <div class="label">
+                <label for="intent">Intencion</label>
+                <input type="text" id="intent" name="intent" value="order" required>
+            </div>
+            <div class="label">
+                <label for="description">Descripcion</label>
+                <input type="text" id="description" name="description" placeholder="Descripcion">
+            </div>
+
             <button class="boton" type="submit">Pagar</button>
         </form>
     </div>
-
-    <script>
-        var public_key = "pk_test_51MoWHzGLYD5jP53mmnzDmqrMP3fiFfO5UpQ1rvOL8qdY4FhZ5DhMvIOPLiwdv99fPF7A4jXipNwe3JpCBSS00fm0007cK1yyGi";
-        var stripe = Stripe(public_key);
-        var elements = stripe.elements();
-
-        var style = {
-            base: {
-                fontSize: '16px',
-                color: '#32325d',
-                fontFamily:
-                    '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
-                fontSmoothing: 'antialiased',
-                '::placeholder': {
-                    color: '#aab7c4'
-                }
-            },
-            invalid: {
-                color: '#fa755a',
-                iconColor: '#fa755a'
-            }
-        };
-
-        var card = elements.create('card', { style: style });
-        card.mount('#numero_tarjeta');
-
-        card.addEventListener('change', function (event) {
-            var displayError = document.getElementById('card-errors');
-            if (event.error) {
-                displayError.textContent = event.error.message;
-            } else {
-                displayError.textContent = '';
-            }
-        });
-
-        var form = document.querySelector('form');
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
-            stripe.createToken(card).then(function (result) {
-                if (result.error) {
-                    var errorElement = document.getElementById('card-errors');
-                    errorElement.textContent = result.error.message;
-                } else {
-                    stripeTokenHandler(result.token);
-                }
-            });
-        });
-
-        function stripeTokenHandler(token) {
-            var form = document.querySelector('form');
-            var hiddenInput = document.createElement('input');
-            hiddenInput.setAttribute('type', 'hidden');
-            hiddenInput.setAttribute('name', 'stripeToken');
-            hiddenInput.setAttribute('value', token.id);
-            form.appendChild(hiddenInput);
-            form.submit();
-        }
-    </script>
 
     <footer th:replace="Home :: Footer"></footer>
 </body>

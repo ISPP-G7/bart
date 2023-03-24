@@ -117,12 +117,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- Stripe -->
-		<dependency>
-			<groupId>com.stripe</groupId>
-			<artifactId>stripe-java</artifactId>
-			<version>20.79.0</version>
-		</dependency>
+		<!-- Paypal -->
 		<dependency>
 			<groupId>com.paypal.sdk</groupId>
 			<artifactId>rest-api-sdk</artifactId>
@@ -130,6 +125,7 @@
 		</dependency>
 		<!--  -->
 	</dependencies>
+
 	<profiles>
 		<profile>
 			<id>sonar</id>

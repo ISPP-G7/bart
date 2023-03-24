@@ -97,11 +97,11 @@
                     <label class="col-md-3" for="precio">Precio</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{precio}" id="precio" class="form-control input-sm"
-                            required="required" />
+                            required="required" pattern="^\d+(\.\d+)?$" title="Ingrese un número decimal o entero válido" />
                     </div>
                 </div>
             </div>
-
+            
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="descripcionArtista">Descripción del artista</label>

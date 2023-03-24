@@ -92,6 +92,7 @@ public class AnuncioArrendadorController {
         model.addAttribute("anu", anu);
         model.addAttribute("message", message);
         model.addAttribute("arrendador", arrendador);
+        model.addAttribute("nombreUsuario", email);
 
         return "AddAnuncioArrendador";
     }

@@ -52,6 +52,7 @@ public class AnuncioArrendador {
     private String ofreceMesaDeMezclas;
     private String ofrecePortatil;
     private String ofreceOtrasEspecificaciones;
+    private Boolean ofreceActuacionPorEntradas;
     @OneToOne
     private Arrendador arrendador;
     private boolean estaAceptado = false;
@@ -62,7 +63,7 @@ public class AnuncioArrendador {
 
     public AnuncioArrendador(Long id, String nombreLocal, String ubicacion,
             Float precio, String descripcionArrendador, Estilo estilo,String ofreceMicrofono,String ofreceInstrumentos,String ofreceIluminacion,
-            String ofreceAltavoces,String ofreceMesaDeMezclas,String ofrecePortatil, String ofreceOtrasEspecificaciones) {
+            String ofreceAltavoces,String ofreceMesaDeMezclas,String ofrecePortatil, String ofreceOtrasEspecificaciones,Boolean ofreceActuacionPorEntradas ) {
         this.id = id;
         this.nombreLocal = nombreLocal;
         this.ubicacion = ubicacion;

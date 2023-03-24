@@ -39,6 +39,65 @@
             color: lightgray;
             text-decoration: none;
         }
+
+        .btn {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            color: rgb(255, 255, 255);
+            border-radius: 15px;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(to bottom right, #dc4e4f, #8e12ab) no-repeat;
+        }
+
+        .btn1 {
+            width: 30%;
+            background-color: #4e3bff;
+            color: rgb(0,0,0);
+            border-radius: 15px;
+            margin-left: 35.25%;
+        }
+
+        .btn1:hover {
+            background-color: #4e3bff;
+            color: rgb(0, 0, 0);
+        }
+
+        .btn2 {
+            background-color: #99f0f3;
+            color: rgb(0, 0, 0);
+            border-radius: 15px;
+            margin-right: 10px;
+        }
+
+        .btn2:hover {
+            background-color: #99f0f3;
+            color: rgb(0, 0, 0);
+        }
+
+        .clearable {
+            position: relative;
+        }
+        .clearable input[type="text"] {
+            padding-right: 30px;
+            padding-left: 10px;
+            width: 300px;
+        }
+        .clearable .clear {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-145%);
+            width: 20px;
+            height: 20px;
+            font-size: 35px;
+            color: #ccc;
+            cursor: pointer;
+        }
+        .clearable .clear:hover {
+            color: #080808;
+        }
     </style>
 </head>
 
@@ -48,14 +107,13 @@
         <h1 class="p-3">Anuncios de arrendadores</h1>
         <br>
             <form class="form-inline" th:action="@{/viewAnunciosArrendador}">
-                <div class="form-group mb-2">
-                    <label>Filtrar:</label>
+                <div class="form-floating mx-sm-3 mb-2 clearable">
+                    <input type="text" name="palabraClave" class="form-control search-input" id="palabraClave" th:value="${palabraClave}" placeholder="Busca por estilo o nombre del local" required>
+                    <span class="clear" onclick="limpiarCampos()">&times;</span>
                 </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <input type="text" name="palabraClave" class="form-control" id="palabraClave" th:value="${palabraClave}" placeholder="Búsqueda por estilo, nombre..." required>
-                </div>
-                <input type="submit" class="btn btn-info mb-2" value="Buscar">
-                <input type="button" class="btn btn-secondary mb-2" value="Limpiar" onclick="limpiarCampos()">
+                <button type="submit" class="btn2 btn-info mb-2">
+                    &#128269;
+                </button>
             </form>
     </br>
         <div class="row" style="margin-bottom: 10px;">
@@ -67,18 +125,16 @@
                         <h5 class="card-title" th:text="${Anuncio.nombreLocal}"></h5>
                         <p class="card-text" th:text="${Anuncio.ubicacion}"></p>
                         <p class="card-text" th:text="${Anuncio.precio}"></p>
-                        <a class="btn btn-primary" th:href="@{/anuncioArrendador/{id}(id=${Anuncio.id})}">Ver
-                            detalles</a>
-                        <button type="button" class="btn btn-success">
-                        <a th:href="@{/editAnuncioArrendador/{id}(id=${Anuncio.id})}">Editar</a>
-                        </button>
+                        <a class="btn btn-primary" th:href="@{/anuncioArrendador/{id}(id=${Anuncio.id})}">Ver detalles</a>
+                        <a class="btn btn-primary" th:href="@{/editAnuncioArrendador/{id}(id=${Anuncio.id})}">Editar</a>
+                        
                     </div>
                 </div>
                 <br>
             </div>
         </div>
 
-        <button type="button" class="btn btn-primary btn-block">
+        <button type="button" class="btn1 btn-primary btn-block">
             <a href="/addAnuncioArrendador">Añadir anuncio</a>
         </button>
 

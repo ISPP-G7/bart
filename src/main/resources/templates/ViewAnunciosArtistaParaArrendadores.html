@@ -29,6 +29,7 @@
         table.table-bordered tr:not(:first-child) td {
             background-color: #fff;
         }
+
         a{
         color: white;
 
@@ -38,6 +39,57 @@
             color: white;
             text-decoration: none;
         }
+
+        
+
+        .btn {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            color: rgb(255, 255, 255);
+            border-radius: 15px;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(to bottom right, #dc4e4f, #8e12ab) no-repeat;
+        }
+
+        .btn2 {
+            background-color: #99f0f3;
+            color: rgb(0, 0, 0);
+            border-radius: 15px;
+            margin-right: 10px;
+        }
+
+        .btn2:hover {
+            background-color: #99f0f3;
+        }
+
+        .clearable {
+            position: relative;
+        }
+        .clearable input[type="text"] {
+            padding-right: 30px;
+            padding-left: 10px;
+            width: 300px;
+        }
+        .clearable .clear {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-145%);
+            width: 20px;
+            height: 20px;
+            font-size: 35px;
+            color: #ccc;
+            cursor: pointer;
+        }
+        .clearable .clear:hover {
+            color: #080808;
+        }
+
+
+        
+
     </style>
 </head>
 
@@ -48,14 +100,13 @@
         <h1 class="p-3">Anuncios de artistas</h1>
         <br>
             <form class="form-inline" th:action="@{/viewAnunciosArtistaParaArrendadores}">
-                <div class="form-group mb-2">
-                    <label>Filtrar:</label>
+                <div class="form-floating mx-sm-3 mb-2 clearable">
+                    <input type="text" name="palabraClave" class="form-control search-input" id="palabraClave" th:value="${palabraClave}" placeholder="Busca por estilo o nombre del artista" required>
+                    <span class="clear" onclick="limpiarCampos()">&times;</span>
                 </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <input type="text" name="palabraClave" class="form-control" id="palabraClave" th:value="${palabraClave}" placeholder="Búsqueda por estilo, nombre..." required>
-                </div>
-                <input type="submit" class="btn btn-info mb-2" value="Buscar">
-                <input type="button" class="btn btn-secondary mb-2" value="Limpiar" onclick="limpiarCampos()">
+                <button type="submit" class="btn2 btn-info mb-2">
+                    &#128269;
+                </button>
             </form>
     </br>
         <div class="row" style="margin-bottom: 10px;">

@@ -4,6 +4,7 @@ TRUNCATE TABLE anuncios_arrendador CASCADE;
 TRUNCATE TABLE arrendadores CASCADE;
 TRUNCATE TABLE artistas CASCADE;
 TRUNCATE TABLE users CASCADE;
+TRUNCATE TABLE fotos CASCADE;
 
 -- Creación de tablas
 INSERT INTO users (id,first_name,last_name,email,dob,gender,password,es_arrendador,es_artista) VALUES

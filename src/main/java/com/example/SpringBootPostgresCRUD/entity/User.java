@@ -30,9 +30,9 @@ public class User {
     private Boolean es_arrendador;
     private Boolean es_artista;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    /*@OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
-    private List<Foto> fotos;
+    private List<Foto> fotos; */
 
     public User() {
     }

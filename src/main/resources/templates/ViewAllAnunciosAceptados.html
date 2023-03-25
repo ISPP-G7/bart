@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Anuncios de artistas</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            background-size: 100vw 200vh;
+        }
+
+        h1 {
+            color: white
+        }
+
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: lightgreen;
+            text-decoration: none;
+        }
+
+        .div-anuncios-artista,
+        .div-anuncios-arrendador {
+            position: absolute;
+            margin-top: 2%;
+            padding: 10px;
+            width: 45%;
+            text-align: center;
+            color: white;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            max-height: 68%;
+        }
+
+        .div-anuncios-artista {
+            margin-left: 5%;
+        }
+
+        .div-anuncios-arrendador {
+            margin-left: 52%;
+        }
+
+        .anuncio {
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 10px;
+            margin-bottom: 2%;
+        }
+
+        .mensaje-pagado {
+            color: green;
+        }
+
+        .boton-pagar {
+            font-size: 150%;
+            border-radius: 25px;
+            width: 100%;
+        }
+
+        .img-anuncio {
+            position: absolute;
+            left: 5%;
+            border-radius: 25px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .texto-anuncio {
+            margin-left: 10%;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="Home :: Home"></div>
+
+    <div class="div-anuncios-artista">
+        <h1>Anuncios de artistas</h1>
+        <table th:each="anuncioArtista : ${anunciosArtista}">
+            <div class="anuncio">
+                <img class="img-anuncio" th:src="${anuncioArtista.artista.urlImagen}">
+                <div class="texto-anuncio">
+                    <h2 th:text="${anuncioArtista.pseudonimoArtista}"></h2>
+                    <h4 th:text="${anuncioArtista.artista.email}"></h4>
+                    <hr>
+                </div>
+                <h4 th:text="'Precio: ' + ${anuncioArtista.precio} + '€'"></h4>
+                <h3 class="mensaje-pagado" th:if="${anuncioArtista.estaPagado}==true">Pagado</h3>
+                <button class="boton-pagar" th:if="${anuncioArtista.estaPagado}==false" type="button">
+                    <a th:href="@{/pagarAnuncioArtista/{id}(id=${anuncioArtista.id})}">Pagar</a>
+                </button>
+            </div>
+        </table>
+    </div>
+
+    <div class="div-anuncios-arrendador">
+        <h1>Sus Anuncios</h1>
+        <table th:each="anuncioArrendador: ${anunciosArrendador}">
+            <div class="anuncio">
+                <img class="img-anuncio" th:src="${anuncioArrendador.second.urlImagen}">
+                <div class="texto-anuncio">
+                    <h2 th:text="${anuncioArrendador.second.nombre_artistico}"></h2>
+                    <h4 th:text="${anuncioArrendador.second.email}"></h4>
+                    <hr>
+                </div>
+                <h4 th:text="'Precio: ' + ${anuncioArrendador.first.precio} + '€'"></h4>
+                <h3 class="mensaje-pagado" th:if="${anuncioArrendador.first.estaPagado}==true">Pagado</h3>
+                <button class="boton-pagar" th:if="${anuncioArrendador.first.estaPagado}==false" type="button">
+                    <a th:href="@{/pagarAnuncioArrendador/{id}(id=${anuncioArrendador.first.id})}">Pagar</a>
+                </button>
+            </div>
+        </table>
+    </div>
+
+    <footer th:replace="Home :: Footer"></footer>
+</body>
+
+</html>

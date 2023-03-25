@@ -34,25 +34,19 @@ public class AnuncioArtistaController {
 
     // working on arrendador acepta artista
     @GetMapping("/aceptarAnuncioArtista/{id}")
-    public String aceptarAnuncioArtista(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
+    public String aceptarAnuncioArtista(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
-        Long arrendador_accept_id = arrendador.getId();
+        Long arrendadorAcceptId = arrendador.getId();
         AnuncioArtista anar = anuncioArtistaService.getAnuncioArtistaById(id);
-
-        Boolean is_logged = false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged = true;
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
+        if (anuncioArtistaService.aceptarAnuncioArtista(anar, arrendadorAcceptId)) {
+            redirectAttributes.addFlashAttribute("message", "Accept Success");
+            return "redirect:/viewAnunciosArtistaParaArrendadores";
         }
-        model.addAttribute("isLogged", is_logged);
 
-        model.addAttribute("arrendador_id", arrendador_accept_id);
-        model.addAttribute("anuncio", anar);
-        return "Transaccion";
+        redirectAttributes.addFlashAttribute("message", "Delete Failure");
+        return "redirect:/viewAnunciosArtistaParaArrendadores";
     }
 
     @GetMapping({ "/viewAnunciosArtistaParaArrendadores" })
@@ -66,7 +60,7 @@ public class AnuncioArtistaController {
             model.addAttribute("nombreUsuario", email);
         }
         model.addAttribute("isLogged", is_logged);
-        List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArrendadorNoAceptados();
+        List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtistaNoAceptados();
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);

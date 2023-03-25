@@ -140,6 +140,9 @@
 							<a class="nav-link" href="/viewAnunciosArrendador">Cree y vea anuncios de arrendadores</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewAllAnunciosAceptados">Vea anuncios aceptados</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewAllMessages">Chat</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">

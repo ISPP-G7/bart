@@ -20,7 +20,7 @@
         .div-mensaje {
             background-color: white;
             border: 1px solid black;
-            border-radius: 25px;
+            border-radius: 10px;
             margin: auto;
             margin-top: 10%;
             width: fit-content;
@@ -38,7 +38,8 @@
 
         .boton {
             margin-top: 2%;
-            border-radius: 25px;
+            border-radius: 10px;
+            width: 100%;
         }
     </style>
 </head>
@@ -48,8 +49,8 @@
 
     <div class="div-mensaje">
         <h1>Error al procesar el pago</h1>
-        <form th:action="@{/}">
-            <input type="submit" class="boton" value="Volver a inicio" />
+        <form th:action="@{/viewAllAnunciosAceptados}">
+            <input type="submit" class="boton" value="Volver a anuncios" />
         </form>
     </div>
     <footer th:replace="Home :: Footer"></footer>

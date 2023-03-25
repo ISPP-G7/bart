@@ -30,14 +30,17 @@ public class AnuncioArtista {
     private Long arrendador_accept_id;
 
     // @NotBlank
-    /*@Min(5)
-     @Max(60)
+    /*
+     * @Min(5)
+     * 
+     * @Max(60)
      */
     private String ubicacion;
 
     /*
-    @NotNull
-    @Positive
+     * @NotNull
+     * 
+     * @Positive
      */
     private Float precio;
 
@@ -53,6 +56,7 @@ public class AnuncioArtista {
     @OneToOne
     private Artista artista;
     private boolean estaAceptado = false;
+    private boolean estaPagado = false;
 
     public AnuncioArtista() {
 
@@ -66,29 +70,32 @@ public class AnuncioArtista {
         this.precio = precio;
         this.descripcionArtista = descripcionArtista;
         this.estilo = estilo;
-        this.artista= artista;
+        this.artista = artista;
     }
 
-	public Long getId() {
-		// TODO Auto-generated method stub
-		return this.id;
-	}
+    public Long getId() {
+        // TODO Auto-generated method stub
+        return this.id;
+    }
+
     public boolean getEstaAceptado() {
         return estaAceptado;
     }
-    
+
     public void setEstaAceptado(boolean estaAceptado) {
         this.estaAceptado = estaAceptado;
     }
 
-	public void setArtista(Artista byId) {
-		// TODO Auto-generated method stub
-		this.artista = byId;
-		
-	}
+    public void setArtista(Artista byId) {
+        // TODO Auto-generated method stub
+        this.artista = byId;
+
+    }
+
     public Long getArrendador_accept_id() {
         return arrendador_accept_id;
     }
+
     public void setArrendador_accept_id(Long arrendador_accept_id) {
         this.arrendador_accept_id = arrendador_accept_id;
     }

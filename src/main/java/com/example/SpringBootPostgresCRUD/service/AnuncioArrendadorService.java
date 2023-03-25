@@ -26,17 +26,27 @@ public class AnuncioArrendadorService {
 
         return AnuncioArrendadorList;
     }
+
+    public List<AnuncioArrendador> getAllAnunciosArrendadorAceptados() {
+        List<AnuncioArrendador> ls = anuncioArrendadorRepository.findAll();
+        List<AnuncioArrendador> aux = new ArrayList<>();
+        for (AnuncioArrendador a : ls) {
+            if (a.getEstaAceptado() == true) {
+                aux.add(a);
+            }
+        }
+        return aux;
+    }
+
     public List<AnuncioArrendador> getAllAnunciosArrendadorNoAceptados() {
         List<AnuncioArrendador> AnuncioArrendadorList = anuncioArrendadorRepository.findAll();
         List<AnuncioArrendador> AnuncioArrendadorListAux = new ArrayList<>();
 
         for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
-            if(anuncioArrendador.getEstaAceptado()==false){
+            if (anuncioArrendador.getEstaAceptado() == false) {
                 AnuncioArrendadorListAux.add(anuncioArrendador);
             }
         }
-
-      
 
         return AnuncioArrendadorListAux;
     }
@@ -49,7 +59,7 @@ public class AnuncioArrendadorService {
         }
         return false;
     }
-    
+
     public AnuncioArrendador getAnuncioArrendadorById(Long id) {
         return anuncioArrendadorRepository.findById(id).get();
     }
@@ -61,17 +71,17 @@ public class AnuncioArrendadorService {
         }
         return false;
     }
-    public boolean aceptarAnuncioArrendador(AnuncioArrendador anar,Long artista_accept_id) {
+
+    public boolean aceptarAnuncioArrendador(AnuncioArrendador anar, Long artista_accept_id) {
         anar.setEstaAceptado(true);
         anar.setArtista_accept_id(artista_accept_id);
-       anuncioArrendadorRepository.save(anar);
+        anuncioArrendadorRepository.save(anar);
         if (anuncioArrendadorRepository.findById(anar.getId()) != null) {
             return true;
         }
         return false;
     }
-    
+
     // Actualizar el estado de la oferta y guardar los cambios en la base de datos
-   
-       
+
 }

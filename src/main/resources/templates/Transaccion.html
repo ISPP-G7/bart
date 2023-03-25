@@ -23,7 +23,7 @@
         }
 
         a {
-            color: white;
+            color: lightgreen;
         }
 
         .div-datos,
@@ -49,15 +49,24 @@
             margin-left: 53%;
         }
 
-        .img-artista {
-            border: 1px solid black;
+        .img {
+            position: absolute;
+            left: 5%;
             border-radius: 25px;
-            padding: 5px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .div-texto {
+            margin-left: 15%;
         }
 
         .boton {
+            width: 100%;
+            border-radius: 10px;
             margin-top: 5%;
-            margin-left: 80%;
+            color: white;
+            background-color: blue;
         }
     </style>
 </head>
@@ -65,15 +74,32 @@
 <body>
     <div th:replace="Home :: Home"></div>
 
-    <div class="div-datos">
-        <img class="img-artista" th:src="${anuncio.artista.urlImagen}">
-        <h2 th:text="${anuncio.pseudonimoArtista}"></h2>
-        <h4 th:text="'Ubicacion: ' + ${anuncio.ubicacion}"></h4>
-        <h4 th:text="'Estilo: ' +${anuncio.estilo}"></h4>
-        <h4 th:text="'Precio: ' +${anuncio.precio} + '€'"></h4>
-        <h4 th:text="'Descripcion: ' +${anuncio.descripcionArtista}"></h4>
-
+    <div th:if="${tipo}==artista" class="div-datos">
+        <img class="img" th:src="${anuncio.artista.urlImagen}">
+        <div class="div-texto">
+            <h2 th:text="${anuncio.pseudonimoArtista}"></h2>
+            <h4 th:text="${anuncio.artista.email}"></h4>
+            <hr>
+            <h4 th:text="'Ubicacion: ' + ${anuncio.ubicacion}"></h4>
+            <h4 th:text="'Estilo: ' +${anuncio.estilo}"></h4>
+            <h4 th:text="'Precio: ' +${anuncio.precio} + '€'"></h4>
+            <h4 th:text="'Descripcion: ' +${anuncio.descripcionArtista}"></h4>
+        </div>
     </div>
+
+    <div th:if="${tipo}==arrendador" class="div-datos">
+        <img class="img" th:src="${artista.urlImagen}">
+        <div class="div-texto">
+            <h2 th:text="${artista.nombre_artistico}"></h2>
+            <h4 th:text="${artista.email}"></h4>
+            <hr>
+            <h4 th:text="'Ubicacion: ' + ${anuncio.ubicacion}"></h4>
+            <h4 th:text="'Estilo: ' +${anuncio.estilo}"></h4>
+            <h4 th:text="'Precio: ' +${anuncio.precio} + '€'"></h4>
+            <h4 th:text="'Descripcion: ' +${anuncio.descripcionArrendador}"></h4>
+        </div>
+    </div>
+
     <div class="div-formulario">
         <form th:action="@{/pay}" th:object="${transaccionPaypal}" method="post">
             <h3>Pago</h3>

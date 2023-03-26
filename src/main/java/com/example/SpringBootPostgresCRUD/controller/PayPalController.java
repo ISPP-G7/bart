@@ -56,6 +56,9 @@ public class PayPalController {
     public static final String SUCCESS_URL = "pay/success";
     public static final String CANCEL_URL = "pay/cancel";
 
+    public static Long id_aux = 0L;
+    public static String tipo_anuncio = "";
+
     @GetMapping("/viewAllAnunciosAceptados")
     public String anunciosAceptados(Model model) {
         Boolean is_logged = false;
@@ -107,6 +110,8 @@ public class PayPalController {
         model.addAttribute("isLogged", is_logged);
 
         AnuncioArtista anuncio = anuncioArtistaService.getAnuncioArtistaById(id);
+        id_aux = id;
+        tipo_anuncio = "artista";
         model.addAttribute("tipo", "artista");
         model.addAttribute("anuncio", anuncio);
         return "Transaccion";
@@ -126,6 +131,8 @@ public class PayPalController {
 
         AnuncioArrendador anuncio = anuncioArrendadorService.getAnuncioArrendadorById(id);
         Artista artista = artistaService.getArtistaById(anuncio.getArtista_accept_id());
+        id_aux = id;
+        tipo_anuncio = "arrendador";
         model.addAttribute("tipo", "arrendador");
         model.addAttribute("artista", artista);
         model.addAttribute("anuncio", anuncio);
@@ -212,6 +219,15 @@ public class PayPalController {
             Payment payment = paypalService.executePayment(paymentId, payerId);
             System.out.println(payment.toJSON());
             if (payment.getState().equals("approved")) {
+                if (tipo_anuncio.equals("artista")) {
+                    AnuncioArtista anuncio = anuncioArtistaService.getAnuncioArtistaById(id_aux);
+                    anuncio.setEstaPagado(true);
+                    anuncioArtistaService.saveOrUpdateAnuncioArtista(anuncio, anuncio.getArtista().getId());
+                } else {
+                    AnuncioArrendador anuncio = anuncioArrendadorService.getAnuncioArrendadorById(id_aux);
+                    anuncio.setEstaPagado(true);
+                    anuncioArrendadorService.saveOrUpdateAnuncioArrendador(anuncio, anuncio.getArrendador().getId());
+                }
                 return "PaySuccess";
             }
         } catch (PayPalRESTException e) {

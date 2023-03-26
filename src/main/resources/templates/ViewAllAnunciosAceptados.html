@@ -96,8 +96,8 @@
                     <hr>
                 </div>
                 <h4 th:text="'Precio: ' + ${anuncioArtista.precio} + '€'"></h4>
-                <h3 class="mensaje-pagado" th:if="${anuncioArtista.estaPagado}==true">Pagado</h3>
-                <button class="boton-pagar" th:if="${anuncioArtista.estaPagado}==false" type="button">
+                <h3 class="mensaje-pagado" th:if="${anuncioArtista.estaPagado==true}">Pagado</h3>
+                <button class="boton-pagar" th:if="${anuncioArtista.estaPagado==false}" type="button">
                     <a th:href="@{/pagarAnuncioArtista/{id}(id=${anuncioArtista.id})}">Pagar</a>
                 </button>
             </div>

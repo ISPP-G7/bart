@@ -36,7 +36,7 @@ public class AnuncioArtistaService {
         if (anuncioArtistaRepository.findById(anu.getId()).isPresent()) {
             return true;
         }
-        return aux;
+        return false;
     }
 
     public AnuncioArtista getAnuncioArtistaById(Long id) {
@@ -62,6 +62,17 @@ public class AnuncioArtistaService {
 
         }
         return anuncioArtistaListAux;
+    }
+
+    public List<AnuncioArtista> getAllAnunciosArtistaAceptados() {
+        List<AnuncioArtista> ls = anuncioArtistaRepository.findAll();
+        List<AnuncioArtista> aux = new ArrayList<>();
+        for (AnuncioArtista a : ls) {
+            if (a.getEstaAceptado() == true) {
+                aux.add(a);
+            }
+        }
+        return aux;
     }
 
     public List<AnuncioArtista> getAllAnunciosArtistaFiltrados(String palabraClave) {

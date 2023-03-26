@@ -40,6 +40,19 @@ public class AnuncioArrendadorService {
         return AnuncioArrendadorListAux;
     }
 
+    public List<AnuncioArrendador> getAllAnunciosArrendadorAceptados() {
+        List<AnuncioArrendador> AnuncioArrendadorList = anuncioArrendadorRepository.findAll();
+        List<AnuncioArrendador> AnuncioArrendadorListAux = new ArrayList<>();
+
+        for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
+            if (anuncioArrendador.isEstaAceptado()) {
+                AnuncioArrendadorListAux.add(anuncioArrendador);
+            }
+        }
+
+        return AnuncioArrendadorListAux;
+    }
+
     public List<AnuncioArrendador> getAllAnunciosArrendadorFiltrados(String palabraClave) {
         List<AnuncioArrendador> AnuncioArrendadorList = new ArrayList<>();
         if (palabraClave != null) {

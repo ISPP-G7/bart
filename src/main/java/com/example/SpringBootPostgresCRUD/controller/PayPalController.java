@@ -68,6 +68,9 @@ public class PayPalController {
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
+            model.addAttribute("arrendador", usr);
+            model.addAttribute("artista", usr);
+
         }
         model.addAttribute("isLogged", is_logged);
 
@@ -106,6 +109,8 @@ public class PayPalController {
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
+            model.addAttribute("arrendador", usr);
+            model.addAttribute("artista", usr);
         }
         model.addAttribute("isLogged", is_logged);
 
@@ -114,6 +119,7 @@ public class PayPalController {
         tipo_anuncio = "artista";
         model.addAttribute("tipo", "artista");
         model.addAttribute("anuncio", anuncio);
+
         return "Transaccion";
     }
 
@@ -126,6 +132,8 @@ public class PayPalController {
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
+            model.addAttribute("arrendador", usr);
+            model.addAttribute("artista", usr);
         }
         model.addAttribute("isLogged", is_logged);
 
@@ -136,6 +144,7 @@ public class PayPalController {
         model.addAttribute("tipo", "arrendador");
         model.addAttribute("artista", artista);
         model.addAttribute("anuncio", anuncio);
+
         return "Transaccion";
     }
 
@@ -195,6 +204,8 @@ public class PayPalController {
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
+            model.addAttribute("arrendador", usr);
+            model.addAttribute("artista", usr);
         }
         model.addAttribute("isLogged", is_logged);
 
@@ -212,6 +223,8 @@ public class PayPalController {
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
+            model.addAttribute("arrendador", usr);
+            model.addAttribute("artista", usr);
         }
         model.addAttribute("isLogged", is_logged);
 

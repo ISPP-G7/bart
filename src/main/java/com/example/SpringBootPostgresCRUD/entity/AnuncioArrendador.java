@@ -57,8 +57,8 @@ public class AnuncioArrendador {
     private Boolean ofreceActuacionPorEntradas;
     @OneToOne
     private Arrendador arrendador;
-    private boolean estaAceptado = false;
-    private boolean estaPagado = false;
+    private Boolean estaAceptado = false;
+    private Boolean estaPagado = false;
 
     public AnuncioArrendador() {
 

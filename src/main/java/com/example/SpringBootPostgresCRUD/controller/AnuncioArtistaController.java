@@ -33,7 +33,9 @@ public class AnuncioArtistaController {
     @Autowired
     ArtistaService artistaService;
 
+
     String anonymousUser = "anonymousUser";
+
 
     // working on arrendador acepta artista
     @GetMapping("/aceptarAnuncioArtista/{id}")
@@ -53,6 +55,7 @@ public class AnuncioArtistaController {
     }
 
     @GetMapping({ "/viewAnunciosArtistaParaArrendadores" })
+
     public String viewAnunciosArtistaParaArrendadores(@ModelAttribute("message") String message, Model model,
             @Param("palabraClave") String palabraClave) {
 
@@ -68,12 +71,14 @@ public class AnuncioArtistaController {
     }
 
     @GetMapping({ "/viewAnunciosArtista" })
+
     public String viewAnuncioArtista(@ModelAttribute("message") String message, Model model,
             @Param("palabraClave") String palabraClave) {
 
         setUserIfLogged(model);
 
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtistaFiltrados(palabraClave);
+
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
@@ -148,9 +153,7 @@ public class AnuncioArtistaController {
         }
         AnuncioArtista ann = anuncioArtistaService.getAnuncioArtistaById(id);
         if (IDaux.equals(ann.getArtista().getId())) {
-
             model.addAttribute("isLogged", isLogged);
-
             model.addAttribute("anu", ann);
             model.addAttribute("message", message);
 

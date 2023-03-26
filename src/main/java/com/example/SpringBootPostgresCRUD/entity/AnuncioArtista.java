@@ -90,6 +90,10 @@ public class AnuncioArtista {
         this.ofreceActuacionPorEntradas=ofreceActuacionPorEntradas;
     }
    
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return this.id;
+	}
     public boolean getEstaAceptado() {
         return estaAceptado;
     }

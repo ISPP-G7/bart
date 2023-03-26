@@ -36,7 +36,7 @@ public class AnuncioArtistaService {
         if (anuncioArtistaRepository.findById(anu.getId()).isPresent()) {
             return true;
         }
-        return false;
+        return aux;
     }
 
     public AnuncioArtista getAnuncioArtistaById(Long id) {

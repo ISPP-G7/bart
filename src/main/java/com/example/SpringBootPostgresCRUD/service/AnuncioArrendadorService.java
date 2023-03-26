@@ -31,7 +31,7 @@ public class AnuncioArrendadorService {
         List<AnuncioArrendador> ls = anuncioArrendadorRepository.findAll();
         List<AnuncioArrendador> aux = new ArrayList<>();
         for (AnuncioArrendador a : ls) {
-            if (a.getEstaAceptado() == true) {
+            if (a.isEstaAceptado()) {
                 aux.add(a);
             }
         }
@@ -43,7 +43,7 @@ public class AnuncioArrendadorService {
         List<AnuncioArrendador> AnuncioArrendadorListAux = new ArrayList<>();
 
         for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
-            if (anuncioArrendador.getEstaAceptado() == false) {
+            if (!anuncioArrendador.isEstaAceptado()) {
                 AnuncioArrendadorListAux.add(anuncioArrendador);
             }
         }
@@ -54,7 +54,7 @@ public class AnuncioArrendadorService {
     public boolean saveOrUpdateAnuncioArrendador(AnuncioArrendador anuncioArrendador, Long arrendadorIdSeleccionado) {
         anuncioArrendador.setArrendador(arrendadorRepository.getById(arrendadorIdSeleccionado));
         AnuncioArrendador anu = anuncioArrendadorRepository.save(anuncioArrendador);
-        if (anuncioArrendadorRepository.findById(anu.getId()) != null) {
+        if (anuncioArrendadorRepository.findById(anu.getId()).isPresent()) {
             return true;
         }
         return false;
@@ -66,7 +66,7 @@ public class AnuncioArrendadorService {
 
     public boolean deleteAnuncioArrendador(Long id) {
         anuncioArrendadorRepository.deleteById(id);
-        if (anuncioArrendadorRepository.findById(id) != null) {
+        if (anuncioArrendadorRepository.findById(id).isPresent()) {
             return true;
         }
         return false;

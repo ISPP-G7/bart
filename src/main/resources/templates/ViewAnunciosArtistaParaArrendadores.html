@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Anuncios de artistas</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -39,6 +40,57 @@
             color: white;
             text-decoration: none;
         }
+
+        
+
+        .btn {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            color: rgb(255, 255, 255);
+            border-radius: 15px;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(to bottom right, #dc4e4f, #8e12ab) no-repeat;
+        }
+
+        .btn2 {
+            background-color: #99f0f3;
+            color: rgb(0, 0, 0);
+            border-radius: 15px;
+            margin-right: 10px;
+        }
+
+        .btn2:hover {
+            background-color: #99f0f3;
+        }
+
+        .clearable {
+            position: relative;
+        }
+        .clearable input[type="text"] {
+            padding-right: 30px;
+            padding-left: 10px;
+            width: 300px;
+        }
+        .clearable .clear {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-145%);
+            width: 20px;
+            height: 20px;
+            font-size: 35px;
+            color: #ccc;
+            cursor: pointer;
+        }
+        .clearable .clear:hover {
+            color: #080808;
+        }
+
+
+        
+
     </style>
 </head>
 
@@ -47,6 +99,17 @@
     <div class="container">
 
         <h1 class="p-3">Anuncios de artistas</h1>
+        <br>
+            <form class="form-inline" th:action="@{/viewAnunciosArtistaParaArrendadores}">
+                <div class="form-floating mx-sm-3 mb-2 clearable">
+                    <input type="text" name="palabraClave" class="form-control search-input" id="palabraClave" th:value="${palabraClave}" placeholder="Busca por estilo o nombre del artista" required>
+                    <span class="clear" onclick="limpiarCampos()">&times;</span>
+                </div>
+                <button type="submit" class="btn2 btn-info mb-2">
+                    &#128269;
+                </button>
+            </form>
+    </br>
         <div class="row" style="margin-bottom: 10px;">
             <div class="col-md-4" th:each="Anuncio : ${anuList}" style="margin-bottom: 10px;">
                 <div class="card">
@@ -57,14 +120,11 @@
                         <p class="card-text" th:text="${Anuncio.descripcionArtista}"></p>
                         <p class="card-text" th:text="${Anuncio.precio}"></p>
                         <a class="btn btn-primary" th:href="@{/anuncioArtista/{id}(id=${Anuncio.id})}">Ver detalles</a>
-                        <a class="btn btn-primary"
-                            th:href="@{/viewMessages/{email}(email=${Anuncio.Artista.email})}">Chat</a>
-                        <a class="btn btn-primary"
-                            th:href="@{/aceptarAnuncioArtista/{id}(id=${Anuncio.id})}">Aceptar</a>
-
-
+                        <a class="btn btn-primary" th:href="@{/viewMessages/{email}(email=${Anuncio.Artista.email})}">Chat</a>
+                        <a class="btn btn-primary" th:href="@{/aceptarAnuncioArtista/{id}(id=${Anuncio.id})}">Aceptar</a>
                     </div>
                 </div>
+                <br>
             </div>
         </div>
         <!--
@@ -135,6 +195,11 @@
         }
     </script>
 
+    <script type="text/javascript">
+        function limpiarCampos(){
+            window.location='/viewAnunciosArtistaParaArrendadores';
+        }
+    </script>
     <footer th:replace="Home :: Footer"></footer>
 </body>
 

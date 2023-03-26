@@ -2,6 +2,7 @@ package com.example.SpringBootPostgresCRUD.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,10 @@ public class AnuncioArtistaController {
     @Autowired
     ArtistaService artistaService;
 
+
+    String anonymousUser = "anonymousUser";
+
+
     // working on arrendador acepta artista
     @GetMapping("/aceptarAnuncioArtista/{id}")
     public String aceptarAnuncioArtista(@PathVariable Long id, RedirectAttributes redirectAttributes) {
@@ -50,53 +55,43 @@ public class AnuncioArtistaController {
     }
 
     @GetMapping({ "/viewAnunciosArtistaParaArrendadores" })
-    public String viewAnunciosArtistaParaArrendadores(@ModelAttribute("message") String message, Model model) {
-        Boolean is_logged = false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
-        model.addAttribute("isLogged", is_logged);
-        List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtistaNoAceptados();
+
+    public String viewAnunciosArtistaParaArrendadores(@ModelAttribute("message") String message, Model model,
+            @Param("palabraClave") String palabraClave) {
+
+        setUserIfLogged(model);
+
+        List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArrendadorNoAceptadosFiltrados(palabraClave);
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
+        model.addAttribute("palabraClave", palabraClave);
 
         return "viewAnunciosArtistaParaArrendadores";
     }
 
     @GetMapping({ "/viewAnunciosArtista" })
-    public String viewAnuncioArtista(@ModelAttribute("message") String message, Model model) {
-        Boolean is_logged = false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
-        model.addAttribute("isLogged", is_logged);
-        List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtista();
+
+    public String viewAnuncioArtista(@ModelAttribute("message") String message, Model model,
+            @Param("palabraClave") String palabraClave) {
+
+        setUserIfLogged(model);
+
+        List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtistaFiltrados(palabraClave);
+
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
+        model.addAttribute("palabraClave", palabraClave);
 
         return "ViewAnuncioArtista";
     }
 
     @GetMapping("/addAnuncioArtista")
     public String newAnuncioArtista(@ModelAttribute("message") String message, Model model) {
-        Boolean is_logged = false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-        }
-        model.addAttribute("isLogged", is_logged);
+
+        setUserIfLogged(model);
+
         AnuncioArtista anu = new AnuncioArtista();
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Artista artista = artistaService.getArtistaByMailArtista(email); // Con esto cogemos el artista logueado
@@ -138,22 +133,27 @@ public class AnuncioArtistaController {
             RedirectAttributes redirectAttributes) {
         Long IDaux = 0l;
 
-        Boolean is_logged = false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged = true;
+        Boolean isLogged = false;
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
+            isLogged = true;
             String email = SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
-            IDaux = usr.getId();
+            model.addAttribute("artista", usr);
 
+            IDaux = usr.getId();
+            if (usr.getEsArrendador()) {
+                Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+                model.addAttribute("arrendador", arrendador);
+            } else if (usr.getEsArtista()) {
+                Artista artista = artistaService.getArtistaByMailArtista(email);
+                model.addAttribute("artista", artista);
+            }
         }
         AnuncioArtista ann = anuncioArtistaService.getAnuncioArtistaById(id);
-
         if (IDaux.equals(ann.getArtista().getId())) {
-
-            model.addAttribute("isLogged", is_logged);
-
+            model.addAttribute("isLogged", isLogged);
             model.addAttribute("anu", ann);
             model.addAttribute("message", message);
 
@@ -179,18 +179,31 @@ public class AnuncioArtistaController {
 
     @GetMapping("/anuncioArtista/{id}")
     public String viewAnuncioArtista(@PathVariable Long id, Model model) {
-        Boolean is_logged = false;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
+
+        setUserIfLogged(model);
+
         AnuncioArtista anuncio = anuncioArtistaService.getAnuncioArtistaById(id);
-        model.addAttribute("isLogged", is_logged);
         model.addAttribute("anuncio", anuncio);
         return "AnuncioArtistaInfo";
     }
 
+    // Comprueba si el usuario está logueado y setea los valores correspondientes
+    public void setUserIfLogged(Model model) {
+        Boolean isLogged = false;
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
+            isLogged = true;
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
+            model.addAttribute("nombreUsuario", email);
+            if (usr.getEsArrendador()) {
+                Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+                model.addAttribute("arrendador", arrendador);
+            } else if (usr.getEsArtista()) {
+                Artista artista = artistaService.getArtistaByMailArtista(email);
+                model.addAttribute("artista", artista);
+            }
+        }
+        model.addAttribute("isLogged", isLogged);
+    }
 }

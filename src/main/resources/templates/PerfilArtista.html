@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Perfil artista</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -10,44 +12,96 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <style>
         body {
-            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
-            background-size: 100vw 200vh; 
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            background-size: 100vw 200vh;
             color: white;
         }
 
-        h1 {
-            color: white;
-        }
+        .artista-perfil {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    color: black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    }
 
-        table.table-bordered tr:first-child th {
-            background-color: #6B3D6E;
-            color: white;
-        }
+    .artista-perfil img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    border-radius: 20%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    }
 
-        table.table-bordered tr:not(:first-child) td {
-            background-color: #fff;
-        }
+    .artista-perfil table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 16px;
+    }
 
-        div {
-            color: white;
-        }
+    .artista-perfil table td,
+    .artista-perfil table th {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    }
 
-        a:hover {
-            color: white;
-            text-decoration: none;
-        }
+    .artista-perfil table th {
+    font-weight: 600;
+    background-color: #f8f8f8;
+    color: #333;
+    }
 
-        /* Centering content */
-        table {
-            margin: 0 auto;
-        }
+    .artista-perfil a {
+    color: #3d5afe;
+    text-decoration: none;
+    }
+
+    .artista-perfil a:hover {
+    text-decoration: underline;
+    }
+
+    .artista-perfil h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    }
+
+    .artista-perfil h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    }
+    .muestra{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .muestra img {
+        max-width: 400px;
+        margin-bottom: 10px;
+    }
+    a {
+        color: black;
+    }
+
+    a:hover {
+        color: lightgray;
+        text-decoration: none;
+    }
     </style>
 </head>
+
 <body>
     <div th:replace="Home :: Home"></div>
+    <div class="artista-perfil">
+        <h1>[[${art.nombre_artistico}]]</h1>
     <table>
         <tr>
-            <img th:src="${art.getUrlImagen()}" style="max-width: 200px;">
+            <img th:src="${art.getUrlImagen()}" style="max-width: 300px;" alt="Imagen de perfil">
         </tr>
         <tr>
             <td>Nombre artístico:</td>
@@ -70,7 +124,7 @@
             <td th:text="${art.getEmail()}"></td>
         </tr>
         <tr>
-            <td>Fecha de nacimiento:</td>
+            <td>Descripción:</td>
             <td th:text="${art.getDob()}"></td>
         </tr>
         <tr>
@@ -78,6 +132,17 @@
             <td th:text="${art.getGender()}"></td>
         </tr>
     </table>
+    </div>
+    <h2 style="text-align: center;">Muestras de trabajo</h2>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <button type="button" class="btn btn-primary">
+            <a href="/imagenes">Subir</a>
+        </button>
+    </div>
+    <div class="muestra" th:each="foto : ${fotos}">
+        <img th:src="@{/imagenes/{id}(id=${foto.id})}" alt="fotos de muestras">
+    </div>
     <footer th:replace="Home :: Footer"></footer>
 </body>
+
 </html>

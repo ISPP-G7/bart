@@ -10,8 +10,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.SpringBootPostgresCRUD.auxiliarClaseMap.Place;
 import com.example.SpringBootPostgresCRUD.entity.Arrendador;
+import com.example.SpringBootPostgresCRUD.entity.Artista;
 import com.example.SpringBootPostgresCRUD.entity.User;
 import com.example.SpringBootPostgresCRUD.service.ArrendadorService;
+import com.example.SpringBootPostgresCRUD.service.ArtistaService;
 import com.example.SpringBootPostgresCRUD.service.UserService;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -29,6 +31,8 @@ public class HomeController {
     private UserService userService;
     @Autowired
     private ArrendadorService arrService;
+    @Autowired
+    private ArtistaService artService;
 
     @GetMapping({ "/", "/home" })
     public String home(Model model,Authentication authentication) throws IOException {
@@ -63,14 +67,21 @@ public class HomeController {
 
         }
         model.addAttribute("arrendadoresNombreLocalMapListAux", arrendadoresNombreLocalMapListAux);
-
         // Para que aparezca el nombre de usuario
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
             is_logged=true;
             model.addAttribute("nombreUsuario", SecurityContextHolder.getContext().getAuthentication().getName());
             String email=SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
             model.addAttribute("usuario",usr);
+            if(usr.getEsArrendador()){
+                Arrendador arrendador= arrService.getArrendadorByMailArrendador(email);
+                model.addAttribute("arrendador", arrendador);
+            }
+            else if(usr.getEsArtista()){
+                Artista artista = artService.getArtistaByMailArtista(email);
+                model.addAttribute("artista", artista);
+            }
         } else {
             model.addAttribute("nombreUsuario", "");
         }

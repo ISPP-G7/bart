@@ -22,28 +22,31 @@ public class ArtistaService {
     }
 
     public Artista getArtistaById(Long id) {
-           return artistaRepository.findById(id).get();
+           return artistaRepository.findById(id).get();//aquí habría que comprobar que no es nulo antes de pasarlo, si es nulo pasar excepción. TODO
     }
     public Artista getArtistaByMailArtista(String mail){
         return artistaRepository.getArtistaByMailArtista(mail);
     }
+  
 
     public boolean saveOrUpdateArtista(Artista artista) {
         artista.setEsArtista(true);
         artista.setEsArrendador(false);
         Artista ars = artistaRepository.save(artista);
-        if (artistaRepository.findById(ars.getId()) != null) {
-            return true;
+        boolean res = false;
+        if (artistaRepository.findById(ars.getId()).isPresent()) {
+            res=true;
         }
-        return false;
+        return res;
     }
 
     public boolean deleteArtista(Long id) {
         artistaRepository.deleteById(id);
-        if (artistaRepository.findById(id) != null) {
-            return true;
+        boolean res = false;
+        if (artistaRepository.findById(id).isPresent()) {
+            res=true;
         }
-        return false;
+        return res;
     }
 
 }

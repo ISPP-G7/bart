@@ -1,6 +1,9 @@
 package com.example.SpringBootPostgresCRUD.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.URL;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,9 +14,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Artista extends User {
-
+    @NotBlank
     private String nombre_artistico;
+    @NotBlank
     private String categoria_artistica;
+    @NotBlank
+    @URL
     private String urlImagen;
 
     public Artista() {

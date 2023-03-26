@@ -60,12 +60,13 @@ public class AnuncioArtistaService {
      * }
      */
     public AnuncioArtista getAnuncioArtistaById(Long id) {
-        return anuncioArtistaRepository.findById(id).get();
+        return anuncioArtistaRepository.findById(id).get();// aquí habría que comprobar que no es nulo antes de pasarlo,
+                                                           // si es nulo pasar excepción. TODO
     }
 
     public boolean deleteAnuncioArtista(Long id) {
         anuncioArtistaRepository.deleteById(id);
-        if (anuncioArtistaRepository.findById(id) != null) {
+        if (anuncioArtistaRepository.findById(id).isPresent()) {
             return true;
         }
         return false;

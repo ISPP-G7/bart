@@ -1,5 +1,7 @@
 package com.example.SpringBootPostgresCRUD.entity;
 
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
@@ -28,7 +30,9 @@ public class User {
     private Boolean es_arrendador;
     private Boolean es_artista;
 
-
+    /*@OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private List<Foto> fotos; */
 
     public User() {
     }

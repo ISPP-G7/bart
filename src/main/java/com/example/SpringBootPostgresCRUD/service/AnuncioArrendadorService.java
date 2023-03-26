@@ -32,7 +32,7 @@ public class AnuncioArrendadorService {
         List<AnuncioArrendador> AnuncioArrendadorListAux = new ArrayList<>();
 
         for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
-            if (!anuncioArrendador.isEstaAceptado()) {
+            if (!anuncioArrendador.getEstaAceptado()) {
                 AnuncioArrendadorListAux.add(anuncioArrendador);
             }
         }
@@ -45,7 +45,7 @@ public class AnuncioArrendadorService {
         List<AnuncioArrendador> AnuncioArrendadorListAux = new ArrayList<>();
 
         for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
-            if (anuncioArrendador.isEstaAceptado()) {
+            if (anuncioArrendador.getEstaAceptado()) {
                 AnuncioArrendadorListAux.add(anuncioArrendador);
             }
         }
@@ -76,7 +76,7 @@ public class AnuncioArrendadorService {
         }
 
         for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
-            if (!anuncioArrendador.isEstaAceptado()) {
+            if (!anuncioArrendador.getEstaAceptado()) {
                 AnuncioArrendadorListAux.add(anuncioArrendador);
             }
         }

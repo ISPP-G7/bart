@@ -62,8 +62,8 @@ public class AnuncioArtista {
     @OneToOne
     private Artista artista;
 
-    private boolean estaAceptado = false;
-    private boolean estaPagado = false;
+    private Boolean estaAceptado = false;
+    private Boolean estaPagado = false;
 
     public AnuncioArtista() {
 

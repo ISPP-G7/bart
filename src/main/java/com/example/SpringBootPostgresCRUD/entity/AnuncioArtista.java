@@ -63,6 +63,7 @@ public class AnuncioArtista {
     private Artista artista;
 
     private boolean estaAceptado = false;
+    private boolean estaPagado = false;
 
     public AnuncioArtista() {
 
@@ -96,19 +97,21 @@ public class AnuncioArtista {
     public boolean getEstaAceptado() {
         return estaAceptado;
     }
-    
+
     public void setEstaAceptado(boolean estaAceptado) {
         this.estaAceptado = estaAceptado;
     }
 
-	public void setArtista(Artista byId) {
-		// TODO Auto-generated method stub
-		this.artista = byId;
-		
-	}
+    public void setArtista(Artista byId) {
+        // TODO Auto-generated method stub
+        this.artista = byId;
+
+    }
+
     public Long getArrendador_accept_id() {
         return arrendador_accept_id;
     }
+
     public void setArrendador_accept_id(Long arrendador_accept_id) {
         this.arrendador_accept_id = arrendador_accept_id;
     }

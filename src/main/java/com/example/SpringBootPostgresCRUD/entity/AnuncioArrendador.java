@@ -58,6 +58,7 @@ public class AnuncioArrendador {
     @OneToOne
     private Arrendador arrendador;
     private boolean estaAceptado = false;
+    private boolean estaPagado = false;
 
     public AnuncioArrendador() {
 

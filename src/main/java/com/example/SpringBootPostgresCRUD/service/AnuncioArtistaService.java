@@ -29,16 +29,36 @@ public class AnuncioArtistaService {
         return AnuncioArtistaList;
     }
 
+    public List<AnuncioArtista> getAllAnunciosArtistaAceptados() {
+        List<AnuncioArtista> ls = anuncioArtistaRepository.findAll();
+        List<AnuncioArtista> aux = new ArrayList<>();
+        for (AnuncioArtista a : ls) {
+            if (a.getEstaAceptado() == true) {
+                aux.add(a);
+            }
+        }
+        return aux;
+    }
+
     public boolean saveOrUpdateAnuncioArtista(AnuncioArtista anuncioArtista, Long artistaIdSeleccionado) {
         anuncioArtista.setArtista(artistaRepository.getById(artistaIdSeleccionado));// Esto hay que hacer que coja el id
                                                                                     // del artista automáticamente.
         AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
-        if (anuncioArtistaRepository.findById(anu.getId()).isPresent()) {
+        if (anuncioArtistaRepository.findById(anu.getId()) != null) {
             return true;
         }
         return false;
     }
 
+    /*
+     * public boolean updateAnuncioArtista(AnuncioArtista anuncioArtista) {
+     * AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
+     * if (anuncioArtistaRepository.findById(anu.getId()) != null) {
+     * return true;
+     * }
+     * return false;
+     * }
+     */
     public AnuncioArtista getAnuncioArtistaById(Long id) {
         return anuncioArtistaRepository.findById(id).get();// aquí habría que comprobar que no es nulo antes de pasarlo,
                                                            // si es nulo pasar excepción. TODO
@@ -52,41 +72,11 @@ public class AnuncioArtistaService {
         return false;
     }
 
-    public List<AnuncioArtista> getAllAnunciosArrendadorNoAceptados() {
+    public List<AnuncioArtista> getAllAnunciosArtistaNoAceptados() {
         List<AnuncioArtista> anuncioArtistaList = anuncioArtistaRepository.findAll();
         List<AnuncioArtista> anuncioArtistaListAux = new ArrayList<>();
         for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
-            if (!anuncioArtista.getEstaAceptado()) {
-                anuncioArtistaListAux.add(anuncioArtista);
-            }
-
-        }
-        return anuncioArtistaListAux;
-    }
-
-    public List<AnuncioArtista> getAllAnunciosArtistaFiltrados(String palabraClave) {
-        List<AnuncioArtista> AnuncioArtistaList = new ArrayList<>();
-        if (palabraClave != null) {
-            anuncioArtistaRepository.busquedaFiltrada(palabraClave)
-                    .forEach(AnuncioArtista -> AnuncioArtistaList.add(AnuncioArtista));
-            return anuncioArtistaRepository.busquedaFiltrada(palabraClave);
-        }
-        anuncioArtistaRepository.findAll().forEach(AnuncioArtista -> AnuncioArtistaList.add(AnuncioArtista));
-
-        return AnuncioArtistaList;
-    }
-
-    public List<AnuncioArtista> getAllAnunciosArrendadorNoAceptadosFiltrados(String palabraClave) {
-        List<AnuncioArtista> anuncioArtistaList = anuncioArtistaRepository.findAll();
-        List<AnuncioArtista> anuncioArtistaListAux = new ArrayList<>();
-        if (palabraClave != null) {
-            anuncioArtistaRepository.busquedaFiltrada(palabraClave)
-                    .forEach(AnuncioArrendador -> anuncioArtistaListAux.add(AnuncioArrendador));
-            return anuncioArtistaRepository.busquedaFiltrada(palabraClave);
-        }
-
-        for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
-            if (!anuncioArtista.getEstaAceptado()) {
+            if (anuncioArtista.getEstaAceptado() == false) {
                 anuncioArtistaListAux.add(anuncioArtista);
             }
 
@@ -98,7 +88,7 @@ public class AnuncioArtistaService {
         anar.setEstaAceptado(true);
         anar.setArrendador_accept_id(arrendador_accept_id);
         anuncioArtistaRepository.save(anar);
-        if (anuncioArtistaRepository.findById(anar.getId()).isPresent()) {
+        if (anuncioArtistaRepository.findById(anar.getId()) != null) {
             return true;
         }
         return false;

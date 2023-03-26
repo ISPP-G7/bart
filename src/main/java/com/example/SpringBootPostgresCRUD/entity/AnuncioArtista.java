@@ -8,6 +8,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.OneToOne;
 import lombok.Setter;
 import lombok.Getter;
@@ -40,6 +43,7 @@ public class AnuncioArtista {
     private Float precio;
 
     @NotBlank
+    //@Length(max = 200)
     private String descripcionArtista;
     private boolean requiereMicrofono;
     private boolean requiereInstrumentos;

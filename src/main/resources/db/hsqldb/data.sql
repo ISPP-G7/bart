@@ -19,4 +19,4 @@ INSERT INTO	anuncios_artista (id,pseudonimo_artista,ubicacion,precio,descripcion
 INSERT INTO	anuncios_arrendador (id,nombre_local,ubicacion,precio,descripcion_arrendador, estilo,ofrece_microfono,ofrece_instrumentos,ofrece_iluminacion,ofrece_altavoces, ofrece_mesa_de_mezclas,ofrece_portatil,ofrece_otras_especificaciones,ofrece_actuacion_por_entradas,arrendador_id,esta_aceptado) VALUES
 	(4,'Bocadillos Ñam Ñam','Avenida Reina Mercedes,31',100,'A nuestro público les gusta el rock','ROCK',' ',' ',' ',' ',' ',' ',' ',true,1,false);
 INSERT INTO messages (id,message_body,date,user_sender,user_receiver) VALUES
-	(1,'Hola, estarías dispuesto a tocar en mi garito?','2023-03-22',1,2);
+	(5,'Hola, estarías dispuesto a tocar en mi garito?','2023-03-22',1,2);

@@ -133,7 +133,7 @@ public class AnuncioArrendadorController {
             String email = SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
-            model.addAttribute("arrendador",usr);
+            model.addAttribute("arrendador", usr);
             model.addAttribute("nombreUsuario", email);
             IDaux = usr.getId();
         }
@@ -142,7 +142,7 @@ public class AnuncioArrendadorController {
         if (IDaux.equals(ann.getArrendador().getId())) {
 
             model.addAttribute("isLogged", isLogged);
-           
+
             model.addAttribute("anu", ann);
             model.addAttribute("message", message);
 

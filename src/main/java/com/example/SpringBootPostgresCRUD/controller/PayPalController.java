@@ -1,6 +1,5 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,20 +55,12 @@ public class PayPalController {
     public static final String SUCCESS_URL = "pay/success";
     public static final String CANCEL_URL = "pay/cancel";
 
+    String anonymousUser = "anonymousUser";
     public static Long id_aux = 0L;
     public static String tipo_anuncio = "";
 
     @GetMapping("/viewAllAnunciosAceptados")
     public String anunciosAceptados(Model model) {
-        Boolean is_logged = false;
-        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
-        model.addAttribute("isLogged", is_logged);
 
         String emailArrendador = SecurityContextHolder.getContext().getAuthentication().getName();
         Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(emailArrendador);
@@ -92,6 +83,7 @@ public class PayPalController {
                 auxArrendador.add(aux);
             }
         }
+        setUserIfLogged(model);
         model.addAttribute("anunciosArtista", auxArtista);
         model.addAttribute("anunciosArrendador", auxArrendador);
         return "ViewAllAnunciosAceptados";
@@ -99,19 +91,10 @@ public class PayPalController {
 
     @GetMapping("/pagarAnuncioArtista/{id}")
     public String pagarAnuncioArtista(@PathVariable("id") Long id, Model model) {
-        Boolean is_logged = false;
-        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
-        model.addAttribute("isLogged", is_logged);
-
         AnuncioArtista anuncio = anuncioArtistaService.getAnuncioArtistaById(id);
         id_aux = id;
         tipo_anuncio = "artista";
+        setUserIfLogged(model);
         model.addAttribute("tipo", "artista");
         model.addAttribute("anuncio", anuncio);
         return "Transaccion";
@@ -119,53 +102,19 @@ public class PayPalController {
 
     @GetMapping("/pagarAnuncioArrendador/{id}")
     public String pagarAnuncioArrendador(@PathVariable("id") Long id, Model model) {
-        Boolean is_logged = false;
-        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
-        model.addAttribute("isLogged", is_logged);
-
         AnuncioArrendador anuncio = anuncioArrendadorService.getAnuncioArrendadorById(id);
         Artista artista = artistaService.getArtistaById(anuncio.getArtista_accept_id());
         id_aux = id;
         tipo_anuncio = "arrendador";
+        setUserIfLogged(model);
         model.addAttribute("tipo", "arrendador");
         model.addAttribute("artista", artista);
         model.addAttribute("anuncio", anuncio);
         return "Transaccion";
     }
 
-    @GetMapping("/paypal")
-    public String home(Model model) {
-        Boolean is_logged = false;
-        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
-        model.addAttribute("isLogged", is_logged);
-        return "home";
-    }
-
     @PostMapping("/pay")
     public String payment(@ModelAttribute("order") TransaccionPaypal order, Model model) {
-
-        Boolean is_logged = false;
-        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
-        model.addAttribute("isLogged", is_logged);
-
         try {
             Payment payment = paypalService.createPayment(order.getPrice(),
                     order.getCurrency(), order.getMethod(),
@@ -182,38 +131,20 @@ public class PayPalController {
 
             e.printStackTrace();
         }
+        setUserIfLogged(model);
         return "redirect:/";
     }
 
     @GetMapping(value = CANCEL_URL)
     public String cancelPay(Model model) {
-
-        Boolean is_logged = false;
-        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
-        model.addAttribute("isLogged", is_logged);
-
+        setUserIfLogged(model);
         return "PayFail";
     }
 
     @GetMapping(value = SUCCESS_URL)
     public String successPay(@RequestParam("paymentId") String paymentId,
             @RequestParam("PayerID") String payerId, Model model) {
-
-        Boolean is_logged = false;
-        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-        }
-        model.addAttribute("isLogged", is_logged);
+        setUserIfLogged(model);
 
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
@@ -221,19 +152,37 @@ public class PayPalController {
             if (payment.getState().equals("approved")) {
                 if (tipo_anuncio.equals("artista")) {
                     AnuncioArtista anuncio = anuncioArtistaService.getAnuncioArtistaById(id_aux);
-                    anuncio.setEstaPagado(true);
-                    anuncioArtistaService.saveOrUpdateAnuncioArtista(anuncio, anuncio.getArtista().getId());
+                    anuncioArtistaService.pagarAnuncioArtista(anuncio);
                 } else {
                     AnuncioArrendador anuncio = anuncioArrendadorService.getAnuncioArrendadorById(id_aux);
-                    anuncio.setEstaPagado(true);
-                    anuncioArrendadorService.saveOrUpdateAnuncioArrendador(anuncio, anuncio.getArrendador().getId());
+                    anuncioArrendadorService.pagarAnuncioArrendador(anuncio);
                 }
+
                 return "PaySuccess";
             }
         } catch (PayPalRESTException e) {
             System.out.println(e.getMessage());
         }
         return "redirect:/";
+    }
+
+    public void setUserIfLogged(Model model) {
+        Boolean isLogged = false;
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals(anonymousUser)) {
+            isLogged = true;
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
+            model.addAttribute("nombreUsuario", email);
+            if (usr.getEsArrendador()) {
+                Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+                model.addAttribute("arrendador", arrendador);
+            } else if (usr.getEsArtista()) {
+                Artista artista = artistaService.getArtistaByMailArtista(email);
+                model.addAttribute("artista", artista);
+            }
+        }
+        model.addAttribute("isLogged", isLogged);
     }
 
 }

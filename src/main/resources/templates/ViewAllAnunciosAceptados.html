@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Anuncios de aceptados</title>
+    <title>Anuncios de artistas</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -115,8 +115,8 @@
                     <hr>
                 </div>
                 <h4 th:text="'Precio: ' + ${anuncioArrendador.first.precio} + '€'"></h4>
-                <h3 class="mensaje-pagado" th:if="${anuncioArrendador.first.estaPagado==true}">Pagado</h3>
-                <button class="boton-pagar" th:if="${anuncioArrendador.first.estaPagado==false}" type="button">
+                <h3 class="mensaje-pagado" th:if="${anuncioArrendador.first.estaPagado}==true">Pagado</h3>
+                <button class="boton-pagar" th:if="${anuncioArrendador.first.estaPagado}==false" type="button">
                     <a th:href="@{/pagarAnuncioArrendador/{id}(id=${anuncioArrendador.first.id})}">Pagar</a>
                 </button>
             </div>

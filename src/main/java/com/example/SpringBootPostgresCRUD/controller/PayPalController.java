@@ -91,6 +91,7 @@ public class PayPalController {
 
     @GetMapping("/pagarAnuncioArtista/{id}")
     public String pagarAnuncioArtista(@PathVariable("id") Long id, Model model) {
+
         AnuncioArtista anuncio = anuncioArtistaService.getAnuncioArtistaById(id);
         id_aux = id;
         tipo_anuncio = "artista";
@@ -115,6 +116,7 @@ public class PayPalController {
 
     @PostMapping("/pay")
     public String payment(@ModelAttribute("order") TransaccionPaypal order, Model model) {
+
         try {
             Payment payment = paypalService.createPayment(order.getPrice(),
                     order.getCurrency(), order.getMethod(),
@@ -144,6 +146,7 @@ public class PayPalController {
     @GetMapping(value = SUCCESS_URL)
     public String successPay(@RequestParam("paymentId") String paymentId,
             @RequestParam("PayerID") String payerId, Model model) {
+
         setUserIfLogged(model);
 
         try {

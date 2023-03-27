@@ -27,6 +27,7 @@ public class AnuncioArrendador {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+   
     private Long artista_accept_id;
 
     @NotBlank

@@ -67,6 +67,9 @@ public class PayPalController {
             String email = SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
+            model.addAttribute("artista", usr);
+            model.addAttribute("arrendador", usr);
+
             model.addAttribute("nombreUsuario", email);
         }
         model.addAttribute("isLogged", is_logged);
@@ -105,6 +108,8 @@ public class PayPalController {
             String email = SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
+            model.addAttribute("artista", usr);
+            model.addAttribute("arrendador", usr);
             model.addAttribute("nombreUsuario", email);
         }
         model.addAttribute("isLogged", is_logged);
@@ -163,8 +168,12 @@ public class PayPalController {
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
+            model.addAttribute("artista", usr);
+            model.addAttribute("arrendador", usr);
         }
         model.addAttribute("isLogged", is_logged);
+        System.out.println("betiiiiiiiiiiiii");
+        System.out.println(order.getPrice());
 
         try {
             Payment payment = paypalService.createPayment(order.getPrice(),
@@ -212,6 +221,8 @@ public class PayPalController {
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
+            model.addAttribute("artista", usr);
+            model.addAttribute("arrendador", usr);
         }
         model.addAttribute("isLogged", is_logged);
 

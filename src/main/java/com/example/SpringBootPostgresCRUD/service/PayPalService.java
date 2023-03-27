@@ -38,7 +38,9 @@ public class PayPalService {
 
         Transaction transaction = new Transaction();
         transaction.setDescription(description);
+        System.out.println("sevillaweno");
         transaction.setAmount(amount);
+        System.out.println(amount);
 
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction);

@@ -29,6 +29,36 @@ public class AnuncioArtistaService {
         return AnuncioArtistaList;
     }
 
+    public List<AnuncioArtista> getAllAnunciosArtistaFiltrados(String palabraClave) {
+        List<AnuncioArtista> AnuncioArtistaList = new ArrayList<>();
+        if (palabraClave != null) {
+            anuncioArtistaRepository.busquedaFiltrada(palabraClave)
+                    .forEach(AnuncioArtista -> AnuncioArtistaList.add(AnuncioArtista));
+            return anuncioArtistaRepository.busquedaFiltrada(palabraClave);
+        }
+        anuncioArtistaRepository.findAll().forEach(AnuncioArtista -> AnuncioArtistaList.add(AnuncioArtista));
+
+        return AnuncioArtistaList;
+    }
+
+    public List<AnuncioArtista> getAllAnunciosArrendadorNoAceptadosFiltrados(String palabraClave) {
+        List<AnuncioArtista> anuncioArtistaList = anuncioArtistaRepository.findAll();
+        List<AnuncioArtista> anuncioArtistaListAux = new ArrayList<>();
+        if (palabraClave != null) {
+            anuncioArtistaRepository.busquedaFiltrada(palabraClave)
+                    .forEach(AnuncioArrendador -> anuncioArtistaListAux.add(AnuncioArrendador));
+            return anuncioArtistaRepository.busquedaFiltrada(palabraClave);
+        }
+
+        for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
+            if (!anuncioArtista.getEstaAceptado()) {
+                anuncioArtistaListAux.add(anuncioArtista);
+            }
+
+        }
+        return anuncioArtistaListAux;
+    }
+
     public List<AnuncioArtista> getAllAnunciosArtistaAceptados() {
         List<AnuncioArtista> ls = anuncioArtistaRepository.findAll();
         List<AnuncioArtista> aux = new ArrayList<>();

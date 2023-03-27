@@ -27,6 +27,37 @@ public class AnuncioArrendadorService {
         return AnuncioArrendadorList;
     }
 
+    public List<AnuncioArrendador> getAllAnunciosArrendadorFiltrados(String palabraClave) {
+        List<AnuncioArrendador> AnuncioArrendadorList = new ArrayList<>();
+        if (palabraClave != null) {
+            anuncioArrendadorRepository.busquedaFiltrada(palabraClave)
+                    .forEach(AnuncioArrendador -> AnuncioArrendadorList.add(AnuncioArrendador));
+            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave);
+        }
+        anuncioArrendadorRepository.findAll()
+                .forEach(AnuncioArrendador -> AnuncioArrendadorList.add(AnuncioArrendador));
+        return AnuncioArrendadorList;
+    }
+
+    public List<AnuncioArrendador> getAllAnunciosArrendadorNoAceptadosFiltrados(String palabraClave) {
+        List<AnuncioArrendador> AnuncioArrendadorList = anuncioArrendadorRepository.findAll();
+        List<AnuncioArrendador> AnuncioArrendadorListAux = new ArrayList<>();
+
+        if (palabraClave != null) {
+            anuncioArrendadorRepository.busquedaFiltrada(palabraClave)
+                    .forEach(AnuncioArrendador -> AnuncioArrendadorListAux.add(AnuncioArrendador));
+            return anuncioArrendadorRepository.busquedaFiltrada(palabraClave);
+        }
+
+        for (AnuncioArrendador anuncioArrendador : AnuncioArrendadorList) {
+            if (!anuncioArrendador.isEstaAceptado()) {
+                AnuncioArrendadorListAux.add(anuncioArrendador);
+            }
+        }
+
+        return AnuncioArrendadorListAux;
+    }
+
     public List<AnuncioArrendador> getAllAnunciosArrendadorAceptados() {
         List<AnuncioArrendador> ls = anuncioArrendadorRepository.findAll();
         List<AnuncioArrendador> aux = new ArrayList<>();

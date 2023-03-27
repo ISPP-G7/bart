@@ -32,7 +32,7 @@ public class AnuncioArtista {
 
     @NotBlank
     private String pseudonimoArtista;
-    
+
     private Long arrendador_accept_id;
 
     @NotBlank
@@ -43,7 +43,7 @@ public class AnuncioArtista {
     private Float precio;
 
     @NotBlank
-    //@Length(max = 200)
+    // @Length(max = 200)
     private String descripcionArtista;
     private boolean requiereMicrofono;
     private boolean requiereInstrumentos;
@@ -51,7 +51,7 @@ public class AnuncioArtista {
     private boolean requiereAltavoces;
     private boolean requiereMesaDeMezclas;
     private boolean requierePortatil;
-    private String  requiereOtrasEspecificaciones;
+    private String requiereOtrasEspecificaciones;
     private Boolean ofreceActuacionPorEntradas;
     // @NotNull
 
@@ -62,38 +62,35 @@ public class AnuncioArtista {
     @OneToOne
     private Artista artista;
 
-    private boolean estaAceptado = false;
-    private boolean estaPagado = false;
+    private boolean estaAceptado;
+    private boolean estaPagado;
 
     public AnuncioArtista() {
 
     }
 
     public AnuncioArtista(Long id, String pseudonimoArtista, String ubicacion,
-        Float precio, String descripcionArtista, Estilo estilo, Artista artista,
-        boolean requiereMicrofono, boolean requiereInstrumentos, boolean requiereIluminacion,
-        boolean requiereAltavoces, boolean requiereMesaDeMezclas, boolean requierePortatil,String requiereOtrasEspecificaciones,Boolean ofreceActuacionPorEntradas ) {
+            Float precio, String descripcionArtista, Estilo estilo, Artista artista,
+            boolean requiereMicrofono, boolean requiereInstrumentos, boolean requiereIluminacion,
+            boolean requiereAltavoces, boolean requiereMesaDeMezclas, boolean requierePortatil,
+            String requiereOtrasEspecificaciones, Boolean ofreceActuacionPorEntradas) {
         this.id = id;
         this.pseudonimoArtista = pseudonimoArtista;
         this.ubicacion = ubicacion;
         this.precio = precio;
         this.descripcionArtista = descripcionArtista;
         this.estilo = estilo;
-        this.artista= artista;
+        this.artista = artista;
         this.requiereMicrofono = requiereMicrofono;
         this.requiereInstrumentos = requiereInstrumentos;
         this.requiereIluminacion = requiereIluminacion;
         this.requiereAltavoces = requiereAltavoces;
         this.requiereMesaDeMezclas = requiereMesaDeMezclas;
         this.requierePortatil = requierePortatil;
-        this.requiereOtrasEspecificaciones=requiereOtrasEspecificaciones;
-        this.ofreceActuacionPorEntradas=ofreceActuacionPorEntradas;
+        this.requiereOtrasEspecificaciones = requiereOtrasEspecificaciones;
+        this.ofreceActuacionPorEntradas = ofreceActuacionPorEntradas;
     }
-   
-	public Long getId() {
-		// TODO Auto-generated method stub
-		return this.id;
-	}
+
     public boolean getEstaAceptado() {
         return estaAceptado;
     }

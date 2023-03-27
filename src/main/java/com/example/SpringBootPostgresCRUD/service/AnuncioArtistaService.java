@@ -70,6 +70,36 @@ public class AnuncioArtistaService {
         return aux;
     }
 
+    public List<AnuncioArtista> getAllAnunciosArtistaFiltrados(String palabraClave) {
+        List<AnuncioArtista> AnuncioArtistaList = new ArrayList<>();
+        if (palabraClave != null) {
+            anuncioArtistaRepository.busquedaFiltrada(palabraClave)
+                    .forEach(AnuncioArtista -> AnuncioArtistaList.add(AnuncioArtista));
+            return anuncioArtistaRepository.busquedaFiltrada(palabraClave);
+        }
+        anuncioArtistaRepository.findAll().forEach(AnuncioArtista -> AnuncioArtistaList.add(AnuncioArtista));
+
+        return AnuncioArtistaList;
+    }
+
+    public List<AnuncioArtista> getAllAnunciosArrendadorNoAceptadosFiltrados(String palabraClave) {
+        List<AnuncioArtista> anuncioArtistaList = anuncioArtistaRepository.findAll();
+        List<AnuncioArtista> anuncioArtistaListAux = new ArrayList<>();
+        if (palabraClave != null) {
+            anuncioArtistaRepository.busquedaFiltrada(palabraClave)
+                    .forEach(AnuncioArrendador -> anuncioArtistaListAux.add(AnuncioArrendador));
+            return anuncioArtistaRepository.busquedaFiltrada(palabraClave);
+        }
+
+        for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
+            if (!anuncioArtista.getEstaAceptado()) {
+                anuncioArtistaListAux.add(anuncioArtista);
+            }
+
+        }
+        return anuncioArtistaListAux;
+    }
+
     public boolean saveOrUpdateAnuncioArtista(AnuncioArtista anuncioArtista, Long artistaIdSeleccionado) {
         anuncioArtista.setArtista(artistaRepository.getById(artistaIdSeleccionado));// Esto hay que hacer que coja el id
                                                                                     // del artista automáticamente.
@@ -119,6 +149,15 @@ public class AnuncioArtistaService {
         anar.setArrendador_accept_id(arrendador_accept_id);
         anuncioArtistaRepository.save(anar);
         if (anuncioArtistaRepository.findById(anar.getId()) != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean pagarAnuncioArtista(AnuncioArtista anuncio) {
+        anuncio.setEstaPagado(true);
+        anuncioArtistaRepository.save(anuncio);
+        if (anuncioArtistaRepository.findById(anuncio.getId()) != null) {
             return true;
         }
         return false;

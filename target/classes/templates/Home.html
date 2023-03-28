@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Bart - Contratación bidireccional entre artistas y locales</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+	<style>
+		.navbar-brand img {
+			max-height: 50px;
+			border-radius: 8px;
+		}
+
+		body {
+			background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+			background-size: 100vw 200vh;
+		}
+
+		.navbar {
+			background-color: #6B3D6E;
+		}
+
+		.nav-link {
+			color: white !important;
+		}
+		.cont {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.playlist-container {
+			margin-top: 20px;
+			border-radius: 12px;
+			width: 80%;
+		}
+
+		h1,
+		p {
+			color: white;
+		}
+
+		#map-container {
+			width: 80%;
+			margin: 0 auto;
+			border: 1px;
+			border-radius: 8px;
+			overflow: hidden;
+			margin-top: 20px;
+		}
+
+		/* Estilos para dispositivos móviles */
+		@media (max-width: 767px) {
+			.anuncio {
+				padding: 20px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div th:fragment="Home">
+		<style>
+			.navbar-brand img {
+				max-height: 50px;
+				border-radius: 8px;
+			}
+
+			.navbar {
+				background-color: #6B3D6E;
+			}
+
+			.nav-link {
+				color: white !important;
+			}
+
+			#map-container {
+				width: 80%;
+				margin: 0 auto;
+				border: 1px;
+				border-radius: 8px;
+				overflow: hidden;
+				margin-top: 20px;
+			}
+
+		</style>
+
+		<nav class="navbar navbar-expand-lg navbar-dark">
+			<a class="navbar-brand" href="/home">
+				<img src="/logo.png" alt="Logo de Bart">
+			</a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<!-- Si el usuario no está logueado -->
+					<th:block th:if="${not isLogged}">
+						<li class="nav-item">
+							<a class="nav-link" href="/login">Iniciar sesión</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/SignUpArtista">Registrarse como artista</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/SignUpArrendador">Registrarse como arrendador</a>
+						</li>
+					</th:block>
+
+					<!-- Si el usuario está logueado -->
+					<th:block th:if="${isLogged}">
+						<li class="nav-item active">
+							<a class="nav-link" href="/home">Inicio</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Contacto</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/viewUsers">Lista de usuarios</a>
+						</li>
+						<li th:if="${usuario.esArtista}" class="nav-item">
+							<a class="nav-link" href="/viewArtistas">Lista de artistas</a>
+						</li>
+						<li th:if="${usuario.esArtista}" class="nav-item">
+							<a class="nav-link" href="/viewAnunciosArrendadorParaArtistas">Anuncios de
+								Locales</a>
+						</li>
+						<li th:if="${usuario.esArtista}" class="nav-item">
+							<a class="nav-link" href="/viewAnunciosArtista">Crea y vea anuncios de artistas</a>
+						</li>
+						<li th:if="${usuario.esArtista}" class="nav-item">
+							<a class="nav-link" href="/viewAllMessages">Chat</a>
+						</li>
+						<li th:if="${usuario.esArtista}" class="nav-item">
+							<a class="nav-link" href="/viewArrendadores">Lista de locales</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewArrendadores">Lista de locales</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewAnunciosArtistaParaArrendadores">Anuncios de
+								artistas</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewAnunciosArrendador">Crea y vea anuncios de locales</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewAllAnunciosAceptados">Vea anuncios aceptados</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewAllMessages">Chat</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewArtistas">Lista de Artistas</a>
+						</li>
+				
+						<nav class="navbar navbar-expand-lg " th:if="${usuario.esArrendador}">
+							  <ul class="navbar-nav ml-auto ">
+								<li class="nav-item dropdown ">
+								  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="background-color: #C094E4;" th:text="${nombreUsuario}"></a>
+								  <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color: #C094E4;" >
+									<a class="dropdown-item"  style="color: white;" th:href="@{/perfilArrendador/{id}(id=${arrendador.id})}">Ver mi perfil</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item"  style="color: white;"  th:href="@{/editArrendador/{id}(id=${arrendador.id})}">Editar perfil</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" style="color: white;" href="/logout">Cerrar sesión</a>
+								  </div>
+								</li>
+							  </ul>
+						</nav>
+						<nav class="navbar navbar-expand-lg "  th:if="${usuario.esArtista} ">
+							<ul class="navbar-nav ml-auto ">
+							  <li class="nav-item dropdown ">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="background-color: #C094E4;" th:text="${nombreUsuario}"></a>
+								<div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color: #C094E4;" >
+								  <a class="dropdown-item"  style="color: white;" th:href="@{/perfilArtista/{id}(id=${artista.id})}">Ver mi perfil</a>
+								  <div class="dropdown-divider"></div>
+								  <a class="dropdown-item"  style="color: white;"  th:href="@{/editArtista/{id}(id=${artista.id})}">Editar perfil</a>
+								  <div class="dropdown-divider"></div>
+								  <a class="dropdown-item" style="color: white;" href="/logout">Cerrar sesión</a>
+								</div>
+							  </li>
+							</ul>
+						</nav>
+					</th:block>
+
+				</ul>
+			</div>
+		</nav>
+
+
+	</div>
+
+
+
+	<div class="container mt-5">
+		<h1>Bienvenido a Bart</h1>
+		<p>La plataforma de contratación bidireccional entre artistas y locales.</p>
+		<!-- Aquí podrías añadir más contenido HTML, como formularios, listas, etc. -->
+		<p>Artistas anunciados</p>
+		<iframe style="border-radius:12px"
+			src="https://open.spotify.com/embed/playlist/7mlc9n74nSDqgUh339UXtO?utm_source=generator&theme=0"
+			width="100%" height="375" frameBorder="0" allowfullscreen=""
+			allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+	</div>
+
+	<div class="container mt-5" id="map-container">
+		<p>Nuestros locales disponibles:</p>
+		<div id="map" th:data-arrendadores="${arrendadoresNombreLocalMapListAux}" style="width: 600px; height: 400px">
+		</div>
+	</div>
+
+	<!-- Agrega el script para inicializar el mapa -->
+	<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+	<
+	<script>
+	// Crea el mapa centrado en Sevilla
+	var map = L.map('map').setView([37.3891, -5.9845], 14);
+	// Agrega una capa de OpenStreetMap al mapa
+	var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: '&copy; ' + mapLink + ' Contributors',
+		maxZoom: 18
+	}).addTo(map);
+
+	// Variable con una lista de coordenadas
+	var coordenadasList = [[${ coordenadasList }]];
+	var arrendadoresNombreLocalMapListAux = document.getElementById('map').getAttribute('data-arrendadores').replace("[", "").replace("]", "").split(",");
+	/* manual debbuger pa js le das a f12 en navegador y miras console
+	console.error(arrendadoresNombreLocalMapListAux[1])
+	console.error("uwu")
+	*/
+
+	// Función que agrega marcadores al mapa desde una lista de coordenadas
+	function agregarMarcadoresDesdeCoordenadas(coordList) {
+		for (var i = 0; i < coordList.length; i++) {
+			var marker = L.marker(coordList[i]).addTo(map);
+			marker.bindPopup("<b>Ubicación " + arrendadoresNombreLocalMapListAux[i] + "</b><br>Latitud: " + coordList[i][0] + "<br>Longitud: " + coordList[i][1]).openPopup();
+		}
+	}
+
+	// Llama a la función para agregar los marcadores al mapa
+	agregarMarcadoresDesdeCoordenadas(coordenadasList);
+
+	</script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<footer class="footer" th:fragment="Footer">
+		<style>
+			html {
+				min-height: 100%;
+				position: relative;
+			}
+
+			body {
+				margin: 0;
+				margin-bottom: 40px;
+			}
+		
+
+			.center {
+				display: block;
+				text-align: center;
+			}
+
+			footer {
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				height: 40px;
+				color: white;
+			}
+		</style>
+	<footer>
+
+			
+		<div class="container" style="color: white;">
+			<span class="center">© 2023 Bart. Todos los derechos reservados. <a href="https://ispp-g7.github.io/"
+					style="color:white;">Visita nuestra página web</a></span>
+		</div>
+	</footer>
+
+
+</html> 

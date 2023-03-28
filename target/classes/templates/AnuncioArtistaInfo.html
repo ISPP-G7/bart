@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Anuncio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
+        }
+
+        h1 {
+            color: white
+        }
+
+        table.table-bordered tr:first-child th {
+            background-color: #6B3D6E;
+            color: white;
+        }
+
+        table.table-bordered tr:not(:first-child) td {
+            background-color: #fff;
+        }
+
+        div {
+            color: white;
+        }
+        a {
+            color: white;
+        }
+
+        a:hover {
+            color: lightgray;
+            text-decoration: none;
+        }
+        .anuncio label.form-check-input {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="Home :: Home"></div>
+    <div class="container">
+        <h1 class="p-3">Anuncio de [[${anuncio.pseudonimoArtista}]]</h1>
+
+        <div class="anuncio">
+            <div class="row">
+                <div class="col-md-4">
+                    <img th:src="${anuncio.artista.urlImagen}" class="img-fluid" alt="Imagen del artista">
+                </div>
+                <div class="col-md-8">
+                    <h2 class="mb-3"><a th:href="@{/perfilArtista/{id}(id=${anuncio.artista.id})}">[[${anuncio.pseudonimoArtista}]]</a></h2>
+                    <p class="mb-1"><strong>Ubicación:</strong> [[${anuncio.ubicacion}]]</p>
+                    <p class="mb-1"><strong>Precio:</strong> [[${anuncio.precio}]]</p>
+                    <p class="mb-1"><strong>Descripción:</strong> [[${anuncio.descripcionArtista}]]</p>
+                    <p class="mb-1"><strong>Estilo:</strong> [[${anuncio.estilo}]]</p>
+                    <div class="d-flex flex-wrap">
+                        <div class="form-check mr-4">
+                            <input class="form-check-input" type="checkbox" th:checked="${anuncio.requiereInstrumentos}" disabled>
+                            <label class="form-check-label" for="requiereInstrumentos">Requiere instrumentos</label>
+                        </div>
+                        <div class="form-check mr-4">
+                            <input class="form-check-input" type="checkbox" th:checked="${anuncio.requiereIluminacion}" disabled>
+                            <label class="form-check-label" for="requiereIluminacion">Requiere iluminación</label>
+                        </div>
+                        <div class="form-check mr-4">
+                            <input class="form-check-input" type="checkbox" th:checked="${anuncio.requiereAltavoces}" disabled>
+                            <label class="form-check-label" for="requiereAltavoces">Requiere altavoces</label>
+                        </div>
+                        <div class="form-check mr-4">
+                            <input class="form-check-input" type="checkbox" th:checked="${anuncio.requiereMesaDeMezclas}" disabled>
+                            <label class="form-check-label" for="requiereMesaDeMezclas">Requiere mesa de mezclas</label>
+                        </div>
+                        <div class="form-check mr-4">
+                            <input class="form-check-input" type="checkbox" th:checked="${anuncio.requierePortatil}" disabled>
+                            <label class="form-check-label" for="requierePortatil">Requiere portátil</label>
+                        </div>
+                        <div class="form-check mr-4">
+                            <input class="form-check-input" type="checkbox" th:checked="${anuncio.ofreceActuacionPorEntradas}" disabled>
+                            <label class="form-check-label" for="ofreceActuacionPorEntradas">Requiere actuacion por entradas</label>
+                        </div>
+                    </div>
+                    <p class="mb-1"><strong>Otros requerimientos:</strong> [[${anuncio.requiereOtrasEspecificaciones}]]</p>
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <footer th:replace="Home :: Footer"></footer>
+</body>
+
+</html>

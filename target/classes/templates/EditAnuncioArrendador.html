@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar anuncio de arrendador</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
+        }
+
+        h1,
+        div {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="Home :: Home"></div>
+    <div class="container">
+
+        <h1 class="p-3">Editar anuncio de arrendador</h1>
+
+        <form th:action="@{/editSaveAnuncioArrendador}" th:object="${anu}" method="post">
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <div class="col-md-6">
+                        <input type="hidden" th:field="*{id}" class="form-control input-sm" />
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" th:field="*{arrendador.id}" class="form-control input-sm" />
+
+            <div class="row">
+                <div class="form-group col-md-12">
+
+                    <label class="col-md-3" for="nombreLocal">Nombre del local</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{nombreLocal}" id="nombreLocal" class="form-control input-sm"
+                            required="required" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ubicacion">Ubicación</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ubicacion}" id="ubicacion" class="form-control input-sm"
+                            required="required" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="precio">Precio</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{precio}" id="precio" class="form-control input-sm"
+                            required="required" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="descripcionArrendador">Descripción del arrendador</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{descripcionArrendador}" id="descripcionArrendador"
+                            class="form-control input-sm" required="required" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">Estilo</label>
+                    <div class="col-md-6">
+
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                    value="REGGAETON" />Reggaeton
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="POP" />Pop
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="ROCK" />Rock
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="TRAP" />Trap
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                    value="HIPHOP" />HipHop
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                    value="FLAMENCO" />Flamenco
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="JAZZ" />Jazz
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                    value="ELECTRONICA" />Electrónica
+                            </label>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofreceMicrofono">¿Ofrece microfono? Indíquelo.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofreceMicrofono}" id="ofreceMicrofono" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofreceInstrumentos">¿Ofrece instrumentos? Indíquelo.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofreceInstrumentos}" id="ofreceInstrumentos" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofreceIluminacion">¿Ofrece iluminacion? Indíquelo.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofreceIluminacion}" id="ofreceIluminacion" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofreceAltavoces">¿Ofrece altavoces? Indíquelo.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofreceAltavoces}" id="ofreceAltavoces" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofreceMesaDeMezclas">¿Ofrece mesa de mezclas? Indíquelo.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofreceMesaDeMezclas}" id="ofreceMesaDeMezclas" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofrecePortatil">¿Ofrece portatil? Indíquelo.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofrecePortatil}" id="ofrecePortatil" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="ofreceOtrasEspecificaciones">¿Ofrece otas especificaciones? Indíquelas.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{ofreceOtrasEspecificaciones}" id="ofreceOtrasEspecificaciones" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>    
+            <div class="form-check-inline">
+                <div class="form-check-inline">
+                    <label class="col-md-3" for="ofreceActuacionPorEntradas">¿Requiere venta de entradas?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{ofreceActuacionPorEntradas}" id="ofreceActuacionPorEntradas"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>    
+
+            <div class="row p-2">
+                <div class="col-md-2">
+                    <button class="btn btn-success">Editar</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <script th:inline="javascript">
+        window.onload = function () {
+
+            var msg = [[${ message }]];
+            if (msg == "Save Failure") {
+                Command: toastr["error"]("Some error occurred, couldn't save Anuncio")
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+        }
+    </script>
+    <footer th:replace="Home :: Footer"></footer>
+</body>
+
+</html>

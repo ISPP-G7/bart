@@ -78,7 +78,7 @@ public class AnuncioArrendadorController {
         model.addAttribute("message", message);
         model.addAttribute("palabraClave", palabraClave);
 
-        return "viewAnunciosArrendadorParaArtistas";
+        return "ViewAnunciosArrendadorParaArtistas";
     }
 
     @GetMapping("/addAnuncioArrendador")

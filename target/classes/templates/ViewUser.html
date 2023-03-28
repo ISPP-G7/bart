@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de usuarios</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
+        } 
+        h1{
+            color: white
+        }
+        table.table-bordered tr:first-child th {
+             background-color: #6B3D6E;
+             color: white;
+        }
+
+        table.table-bordered tr:not(:first-child) td {
+            background-color: #fff;
+        }
+        a{
+        color: white;
+        }
+        a:hover {
+        color: white;
+        text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="Home :: Home"></div>
+    <div class="container">
+
+        <h1 class="p-3">Lista de usuarios</h1>
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Género</th>
+                    <th>Es artista</th>
+                    <th>Es arrendador</th>
+                   
+                </tr>
+
+                    <tr th:each="user : ${usrList}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.dob}"></td>
+                        <td th:text="${user.gender}"></td>
+                        <td th:text="${user.esArtista}"></td>
+                        <td th:text="${user.esArrendador}"></td>
+
+                    </tr>
+
+            </table>
+
+        <button type="button" class="btn btn-primary btn-block">
+            <a href="/addUser">Añadir nuevo usuario</a>
+        </button>
+
+    </div>
+
+    <script th:inline="javascript">
+        window.onload = function() {
+
+            var msg = [[${message}]];
+            if (msg == "Save Success") {
+				Command: toastr["success"]("Usuario creado con éxito")
+			} else if (msg == "Delete Success") {
+				Command: toastr["success"]("Usuario eliminado con éxito")
+			} else if (msg == "Delete Error") {
+			    Command: toastr["error"]("Ha ocurrido un error, no se pudo eliminar el usuario")
+			} else if (msg == "Edit Success") {
+				Command: toastr["success"]("Usuario actualizado con éxito")
+			}
+
+			toastr.options = {
+                  "closeButton": true,
+                  "debug": false,
+                  "newestOnTop": false,
+                  "progressBar": true,
+                  "positionClass": "toast-top-right",
+                  "preventDuplicates": false,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                }
+	    }
+    </script>
+    <footer th:replace="Home :: Footer"></footer>
+</body>
+</html>

@@ -73,12 +73,7 @@
 			<version>2.0.1.Final</version>
 		</dependency>
 
-		<dependency>
-			<groupId>jakarta.platform</groupId>
-			<artifactId>jakarta.jakartaee-web-api</artifactId>
-			<version>9.0.0</version>
-			<scope>provided</scope>
-		</dependency>
+		
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -148,26 +143,11 @@
 
 	</dependencies>
 
-	<profiles>
-		<profile>
-			<id>sonar</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-
-			</properties>
-		</profile>
-	</profiles>
+	
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>3.9.1.2184</version>
-			</plugin>
-
+			
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>sql-maven-plugin</artifactId>

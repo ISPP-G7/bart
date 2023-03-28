@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #dd5555;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 24px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        a {
+            color: #4b4bff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Error</h1>
+    <p>Se ha producido un error en la aplicación.</p>
+    
+    <p>Error code: <span th:text="${statusCode}"></span></p>
+    
+    <p th:if="${detailedErrorMessage}">Descripción detallada del error:</p>
+    <pre th:if="${detailedErrorMessage}" th:text="${detailedErrorMessage}"></pre>
+    
+    <p>Por favor, intenta de nuevo más tarde o contacta al soporte técnico.</p>
+    
+    <a href="/">Volver a la página principal</a>
+    
+</body>
+</html>

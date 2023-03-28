@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="UTF-8">
+	<title>Perfil arrendador</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<style>
+		body {
+			background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
+			color: white;
+		}
+
+		/* Estilo para el perfil del arrendador */
+    .arrendador-perfil {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    color: black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    }
+
+    .arrendador-perfil img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    border-radius: 20%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    }
+
+    .arrendador-perfil table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 16px;
+    }
+
+    .arrendador-perfil table td,
+    .arrendador-perfil table th {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    }
+
+    .arrendador-perfil table th {
+    font-weight: 600;
+    background-color: #f8f8f8;
+    color: #333;
+    }
+
+    .arrendador-perfil a {
+    color: #3d5afe;
+    text-decoration: none;
+    }
+
+    .arrendador-perfil a:hover {
+    text-decoration: underline;
+    }
+
+    .arrendador-perfil h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    }
+
+    .arrendador-perfil h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    }
+
+	</style>
+</head>
+<body>
+    <div th:replace="Home :: Home"></div>
+    <div class="arrendador-perfil">
+        <h1>[[${arr.nombreLocal}]]</h1>
+    <table>
+        <tr>
+            <img th:src="${arr.getUrlImagen()}" style="max-width: 300px;" alt="Imagen de perfil">
+        </tr>
+        <tr>
+            <td><h2>Dirección:</h2></td>
+            <td th:text="${arr.getDireccion()}"></td>
+        </tr>
+        <tr>
+            <td><h2>Nombre del local:</h2></td>
+            <td th:text="${arr.getNombreLocal()}"></td>
+        </tr>
+        <tr>
+            <td><h2>Nombre:</h2></td>
+            <td th:text="${arr.getFirstName()}"></td>
+        </tr>
+        <tr>
+            <td><h2>Apellidos:</h2></td>
+            <td th:text="${arr.getLastName()}"></td>
+        </tr>
+        <tr>
+            <td><h2>Email:</h2></td>
+            <td th:text="${arr.getEmail()}"></td>
+        </tr>
+        <tr>
+            <td><h2>Fecha de nacimiento:</h2></td>
+            <td th:text="${arr.getDob()}"></td>
+        </tr>
+        <tr>
+            <td><h2>Género:</h2></td>
+            <td th:text="${arr.getGender()}"></td>
+        </tr>
+    </table>
+    </div>
+    <footer th:replace="Home :: Footer"></footer>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
+        }
+
+        h1 {
+            color: white
+        }
+
+        table.table-bordered tr:first-child th {
+            background-color: #6B3D6E;
+            color: white;
+        }
+
+        table.table-bordered tr:not(:first-child) td {
+            background-color: #fff;
+        }
+
+        div {
+            color: white;
+        }
+
+        a:hover {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+    <title>Subir imágenes</title>
+</head>
+<body>
+    <div th:replace="Home :: Home"></div>
+    <form th:action="@{/imagenes}" th:object="${foto}" method="post" enctype="multipart/form-data">
+        <label for="data">data</label>
+        <input type="file" th:field="*{data}" id="data">
+        <button type="submit">send</button>
+    </form>
+    <footer th:replace="Home :: Footer"></footer>
+</body>
+</html>

@@ -23,7 +23,7 @@ public class ArrendadorService {
     }
 
     public Arrendador getArrendadorById(Long id) {
-        return arrRepository.findById(id).get();
+        return arrRepository.findById(id).get();//aquí habría que comprobar que no es nulo antes de pasarlo, si es nulo pasar excepción. TODO
     }
 
     public Arrendador getArrendadorByMailArrendador(String mail) {
@@ -34,7 +34,7 @@ public class ArrendadorService {
         arrendador.setEsArrendador(true);
         arrendador.setEsArtista(false);
         Arrendador arr = arrRepository.save(arrendador);
-        if (arrRepository.findById(arr.getId()) != null) {
+        if (arrRepository.findById(arr.getId()).isPresent()) {
             return true;
         }
         return false;
@@ -42,7 +42,7 @@ public class ArrendadorService {
 
     public boolean deleteArrendador(Long id) {
         arrRepository.deleteById(id);
-        if (arrRepository.findById(id) != null) {
+        if (arrRepository.findById(id).isPresent()) {
             return true;
         }
         return false;

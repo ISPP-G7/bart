@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Transaccion</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh;
+        }
+
+        h1 {
+            color: white
+        }
+
+        a {
+            color: lightgreen;
+        }
+
+        .div-datos,
+        .div-formulario {
+            width: 50%;
+            position: absolute;
+            max-width: 42%;
+            padding: 10px;
+            margin-top: 1%;
+            color: white;
+            border: 2px solid black;
+            border-radius: 25px;
+            height: fit-content;
+            max-height: 80%;
+            text-align: center;
+        }
+
+        .div-datos {
+            margin-left: 5%;
+        }
+
+        .div-formulario {
+            margin-left: 53%;
+        }
+
+        .img {
+            position: absolute;
+            left: 5%;
+            border-radius: 25px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .div-texto {
+            margin-left: 15%;
+        }
+
+        .boton {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 5%;
+            color: white;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="Home :: Home"></div>
+
+    <div th:if="${tipo}==artista" class="div-datos">
+        <img class="img" th:src="${anuncio.artista.urlImagen}">
+        <div class="div-texto">
+            <h2 th:text="${anuncio.pseudonimoArtista}"></h2>
+            <h4 th:text="${anuncio.artista.email}"></h4>
+            <hr>
+            <h4 th:text="'Ubicacion: ' + ${anuncio.ubicacion}"></h4>
+            <h4 th:text="'Estilo: ' +${anuncio.estilo}"></h4>
+            <h4 th:text="'Precio: ' +${anuncio.precio} + '€'"></h4>
+            <h4 th:text="'Descripcion: ' +${anuncio.descripcionArtista}"></h4>
+        </div>
+    </div>
+
+    <div th:if="${tipo}==arrendador" class="div-datos">
+        <img class="img" th:src="${artista.urlImagen}">
+        <div class="div-texto">
+            <h2 th:text="${artista.nombre_artistico}"></h2>
+            <h4 th:text="${artista.email}"></h4>
+            <hr>
+            <h4 th:text="'Ubicacion: ' + ${anuncio.ubicacion}"></h4>
+            <h4 th:text="'Estilo: ' +${anuncio.estilo}"></h4>
+            <h4 th:text="'Precio: ' +${anuncio.precio} + '€'"></h4>
+            <h4 th:text="'Descripcion: ' +${anuncio.descripcionArrendador}"></h4>
+        </div>
+    </div>
+
+    <div class="div-formulario">
+        <form th:action="@{/pay}" th:object="${transaccionPaypal}" method="post">
+            <h3>Pago</h3>
+            <div class="tarjetas">
+                <label>Tarjetas aceptadas &rarr; </label>
+                <i class="fa fa-cc-visa" style="color:navy; background-color: white;"></i>
+                <i class="fa fa-cc-amex" style="color:blue; background-color: white;"></i>
+                <i class="fa fa-cc-mastercard" style="color:red; background-color: white;"></i>
+                <i class="fa fa-cc-discover" style="color:orange; background-color: white;"></i>
+            </div>
+
+            <div class="label">
+                <label for="price">Precio</label>
+                <input type="text" id="price" name="price" th:value="${anuncio.precio}" required>
+            </div>
+            <div class="label">
+                <label for="currency">Moneda</label>
+                <input type="text" id="currency" name="currency" value="EUR" required>
+            </div>
+            <div class="label">
+                <label for="method">Metodo de pago</label>
+                <input type="text" id="method" name="method" value="paypal" required>
+            </div>
+            <div class="label">
+                <label for="intent">Intencion</label>
+                <input type="text" id="intent" name="intent" value="order" required>
+            </div>
+            <div class="label">
+                <label for="description">Descripcion</label>
+                <input type="text" id="description" name="description" placeholder="Descripcion">
+            </div>
+
+            <button class="boton" type="submit">Pagar</button>
+        </form>
+    </div>
+
+    <footer th:replace="Home :: Footer"></footer>
+</body>
+
+</html>

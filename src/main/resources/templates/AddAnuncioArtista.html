@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Añadir anuncio</title>
+    <title>Añadir anuncio de artista</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -13,8 +14,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <style>
         body {
-            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
-            height: 100vh;
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
         }
 
         h1,
@@ -61,7 +62,7 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
 
-        <h1 class="p-3">Añadir anuncio</h1>
+        <h1 class="p-3">Añadir anuncio de artista</h1>
 
         <form th:action="@{/saveAnuncioArtista}" th:object="${anu}" method="post">
             <div>
@@ -96,11 +97,11 @@
                     <label class="col-md-3" for="precio">Precio</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{precio}" id="precio" class="form-control input-sm"
-                            required="required" />
+                            required="required" pattern="^\d+(\.\d+)?$" title="Ingrese un número decimal o entero válido" />
                     </div>
                 </div>
             </div>
-
+            
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="descripcionArtista">Descripción del artista</label>
@@ -118,45 +119,45 @@
 
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                <input type="radio" class="form-check-input" th:field="*{estilo}"
                                     value="REGGAETON" />Reggaetón
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="POP" />Pop
+                                <input type="radio" class="form-check-input" th:field="*{estilo}" value="POP" />Pop
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="ROCK" />Rock
+                                <input type="radio" class="form-check-input" th:field="*{estilo}" value="ROCK" />Rock
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="TRAP" />Trap
+                                <input type="radio" class="form-check-input" th:field="*{estilo}" value="TRAP" />Trap
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                <input type="radio" class="form-check-input" th:field="*{estilo}"
                                     value="HIPHOP" />Hip Hop
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                <input type="radio" class="form-check-input" th:field="*{estilo}"
                                     value="FLAMENCO" />Flamenco
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}" value="JAZZ" />Jazz
+                                <input type="radio" class="form-check-input" th:field="*{estilo}" value="JAZZ" />Jazz
                             </label>
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" th:field="*{estilo}"
+                                <input type="radio" class="form-check-input" th:field="*{estilo}"
                                     value="ELECTRONICA" />Electrónica
                             </label>
                         </div>
@@ -165,6 +166,82 @@
                     </div>
                 </div>
             </div>
+            <div class="form-check-inline">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requiereMicrofono">¿Requiere micrófono?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{requiereMicrofono}" id="requiereMicrofono"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-check-inline">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requiereInstrumentos">¿Requiere instrumentos?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{requiereInstrumentos}" id="requiereInstrumentos"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-check-inline">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requiereIluminacion">¿Requiere iluminación?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{requiereIluminacion}" id="requiereIluminacion"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-check-inline">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requiereAltavoces">¿Requiere altavoces?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{requiereAltavoces}" id="requiereAltavoces"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-check-inline">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requiereMesaDeMezclas">¿Requiere mesa de mezclas?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{requiereMesaDeMezclas}" id="requiereMesaDeMezclas"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-check-inline">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requierePortatil">¿Requiere portátil?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{requierePortatil}" id="requierePortatil"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="requiereOtrasEspecificaciones">¿Requiere otas especificaciones? Indíquelas.</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{requiereOtrasEspecificaciones}" id="requiereOtrasEspecificaciones" class="form-control input-sm"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-check-inline">
+                <div class="form-check-inline">
+                    <label class="col-md-3" for="ofreceActuacionPorEntradas">¿Requiere venta de entradas?</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" th:field="*{ofreceActuacionPorEntradas}" id="ofreceActuacionPorEntradas"
+                            class="form-check-input" />
+                    </div>
+                </div>
+            </div>    
 
             <div class="row p-2">
                 <div class="col-md-2">
@@ -201,6 +278,7 @@
             }
         }
     </script>
+    <footer th:replace="Home :: Footer"></footer>
 </body>
 
 </html>

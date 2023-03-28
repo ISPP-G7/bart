@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Artist List</title>
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
     <style>
         body {
-            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
-            height: 100vh;
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
         }
 
         h1 {
@@ -30,37 +28,24 @@
             background-color: #fff;
         }
 
-        a {
+        div {
             color: white;
         }
-    </style>
-</head>
 
+        a:hover {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+    <title>Subir imágenes</title>
+</head>
 <body>
     <div th:replace="Home :: Home"></div>
-    <table class="table table-bordered">
-        <tr>
-            <th>Id</th>
-            <th>Mensaje</th>
-            <th>Remitente</th>
-            <th>Destinatario</th>
-        </tr>
-
-        <tr th:each="Message : ${mensajes}">
-            <td th:text="${Message.id}"></td>
-            <td th:text="${Message.messageBody}"></td>
-            <td th:text="${Message.userSender.email}"></td>
-            <td th:text="${Message.userReceiver.email}"></td>
-        </tr>
-    </table>
-
-
-
-    <form method="post" th:action="@{/saveMessage/}+${emailReceiverS}">
-        <input type="text" name="bodyMessage">
-        <input type="submit" value="Enviar">
+    <form th:action="@{/imagenes}" th:object="${foto}" method="post" enctype="multipart/form-data">
+        <label for="data">data</label>
+        <input type="file" th:field="*{data}" id="data">
+        <button type="submit">send</button>
     </form>
-
+    <footer th:replace="Home :: Footer"></footer>
 </body>
-
 </html>

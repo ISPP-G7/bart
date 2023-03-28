@@ -3,126 +3,146 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Título</title>
+    <title>Perfil artista</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
     <style>
         body {
-            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
-            height: 100vh;
-        }
-
-        h1 {
-            color: white
-        }
-
-        table.table-bordered tr:first-child th {
-            background-color: #6B3D6E;
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            background-size: 100vw 200vh;
             color: white;
         }
 
-        table.table-bordered tr:not(:first-child) td {
-            background-color: #fff;
-        }
+        .artista-perfil {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    color: black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    }
 
-        div {
-            color: white;
-        }
+    .artista-perfil img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    border-radius: 20%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    }
 
-        a:hover {
-            color: white;
-            text-decoration: none;
-        }
+    .artista-perfil table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 16px;
+    }
+
+    .artista-perfil table td,
+    .artista-perfil table th {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    }
+
+    .artista-perfil table th {
+    font-weight: 600;
+    background-color: #f8f8f8;
+    color: #333;
+    }
+
+    .artista-perfil a {
+    color: #3d5afe;
+    text-decoration: none;
+    }
+
+    .artista-perfil a:hover {
+    text-decoration: underline;
+    }
+
+    .artista-perfil h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    }
+
+    .artista-perfil h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    }
+    .muestra{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .muestra img {
+        max-width: 400px;
+        margin-bottom: 10px;
+    }
+    a {
+        color: black;
+    }
+
+    a:hover {
+        color: lightgray;
+        text-decoration: none;
+    }
     </style>
 </head>
 
 <body>
     <div th:replace="Home :: Home"></div>
-    <div class="container">
-        <h1 class="p-3">Perfil artista</h1>
-
-        <form th:object="${art}">
-
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <div class="col-md-6">
-                        <input type="hidden" th:field="*{id}" class="form-control input-sm" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3" for="firstName">Nombre</label>
-                    <div class="col-md-6">
-                        <input type="text" th:field="*{firstName}" id="firstName" class="form-control input-sm"
-                            required="required" readonly/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3" for="lastName">Apellidos</label>
-                    <div class="col-md-6">
-                        <input type="text" th:field="*{lastName}" id="lastName" class="form-control input-sm"
-                            required="required" readonly/>
-                    </div>
-                </div>
-            </div>
-			
-            <div class="row">
-				<td th:text="${art.getGender()}"></td>
-                <div class="form-group col-md-12">
-                    <label class="col-md-3">Género: <td th:text="${art.getGender()}"></td></label>
-					<td th:text="${art.getGender()}"></td>
-					
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3">Fecha de nacimiento</label>
-                    <div class="col-md-6">
-                        <input type="date" th:field="*{dob}" id="dob" class="form-control input-sm"
-                            required="required" readonly/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3">Email</label>
-                    <div class="col-md-6">
-                        <input type="email" th:field="*{email}" id="email" class="form-control input-sm"
-                            required="required" readonly/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="col-md-3">Nombre artístico</label>
-                    <div class="col-md-6">
-                        <input type="text" th:field="*{nombre_artistico}" id="nombre_artistico"
-                            class="form-control input-sm" required="required" readonly/>
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <label class="col-md-3">Categoría artística</label>
-                    <div class="col-md-6">
-                        <input type="text" th:field="*{categoria_artistica}" id="categoria_artistica"
-                            class="form-control input-sm" required="required" readonly/>
-                    </div>
-                </div>
-            </div>
-
-        </form>
+    <div class="artista-perfil">
+        <h1>[[${art.nombre_artistico}]]</h1>
+    <table>
+        <tr>
+            <img th:src="${art.getUrlImagen()}" style="max-width: 300px;" alt="Imagen de perfil">
+        </tr>
+        <tr>
+            <td>Nombre artístico:</td>
+            <td th:text="${art.getNombre_artistico()}"></td>
+        </tr>
+        <tr>
+            <td>Categoría artística:</td>
+            <td th:text="${art.getCategoria_artistica()}"></td>
+        </tr>
+        <tr>
+            <td>Nombre:</td>
+            <td th:text="${art.getFirstName()}"></td>
+        </tr>
+        <tr>
+            <td>Apellidos:</td>
+            <td th:text="${art.getLastName()}"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td th:text="${art.getEmail()}"></td>
+        </tr>
+        <tr>
+            <td>Descripción:</td>
+            <td th:text="${art.getDob()}"></td>
+        </tr>
+        <tr>
+            <td>Género:</td>
+            <td th:text="${art.getGender()}"></td>
+        </tr>
+    </table>
     </div>
-
+    <h2 style="text-align: center;">Muestras de trabajo</h2>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <button type="button" class="btn btn-primary">
+            <a href="/imagenes">Subir</a>
+        </button>
+    </div>
+    <div class="muestra" th:each="foto : ${fotos}">
+        <img th:src="@{/imagenes/{id}(id=${foto.id})}" alt="fotos de muestras">
+    </div>
+    <footer th:replace="Home :: Footer"></footer>
 </body>
 
 </html>

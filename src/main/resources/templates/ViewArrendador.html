@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Ver lista de arrendadores</title>
+    <title>Lista de arrendadores</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -13,20 +13,23 @@
 
     <style>
         body {
-            background-image: linear-gradient(to bottom right , #8e12ab, #dc4e4f);
-            height: 100vh;
-        } 
-        h1{
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh; 
+        }
+
+        h1 {
             color: white
         }
+
         table.table-bordered tr:first-child th {
-             background-color: #6B3D6E;
-             color: white;
+            background-color: #6B3D6E;
+            color: white;
         }
 
         table.table-bordered tr:not(:first-child) td {
             background-color: #fff;
         }
+
         a {
             color: white;
         }
@@ -41,8 +44,6 @@
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="container">
-
-        <h1 th:text="${message}"></h1>
 
         <h1 class="p-3">Lista de arrendadores</h1>
 
@@ -115,7 +116,7 @@
             }
         }
     </script>
-
+    <footer th:replace="Home :: Footer"></footer>
 </body>
 
 </html>

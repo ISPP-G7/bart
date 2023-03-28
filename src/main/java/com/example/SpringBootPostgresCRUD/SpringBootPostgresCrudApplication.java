@@ -5,8 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 //@EnableJpaRepositories("com.example.SpringBootPostgresCRUD.*")
 @SpringBootApplication
-//@ComponentScan(basePackages = {"com.example.SpringBootPostgresCRUD.service","com.example.SpringBootPostgresCRUD.controller","com.example.SpringBootPostgresCRUD.repo"})
-//@EntityScan("com.example.SpringBootPostgresCRUD.entity")
+// @ComponentScan(basePackages =
+// {"com.example.SpringBootPostgresCRUD.service","com.example.SpringBootPostgresCRUD.controller","com.example.SpringBootPostgresCRUD.repo"})
+// @EntityScan("com.example.SpringBootPostgresCRUD.entity")
 public class SpringBootPostgresCrudApplication {
 
 	public static void main(String[] args) {

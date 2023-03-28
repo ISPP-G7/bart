@@ -1,4 +1,7 @@
 package com.example.SpringBootPostgresCRUD.entity;
+
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,10 +11,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TransaccionPaypal 
-{
+public class TransaccionPaypal {
 
-    private double price;
+    private BigDecimal total;
     private String currency;
     private String method;
     private String intent;

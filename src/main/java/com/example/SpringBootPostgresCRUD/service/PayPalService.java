@@ -24,7 +24,7 @@ public class PayPalService {
     private APIContext apiContext;
 
     public Payment createPayment(
-            Double total,
+            BigDecimal total,
             String currency,
             String method,
             String intent,
@@ -33,14 +33,11 @@ public class PayPalService {
             String successUrl) throws PayPalRESTException {
         Amount amount = new Amount();
         amount.setCurrency(currency);
-        total = new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue();
-        amount.setTotal(String.format("%.2f", total));
+        amount.setTotal(total.setScale(2, RoundingMode.HALF_UP).toString());
 
         Transaction transaction = new Transaction();
         transaction.setDescription(description);
-        System.out.println("sevillaweno");
         transaction.setAmount(amount);
-        System.out.println(amount);
 
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction);

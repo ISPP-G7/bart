@@ -1,6 +1,7 @@
 package com.example.SpringBootPostgresCRUD.controller;
 
 import java.io.Console;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,38 +160,27 @@ public class PayPalController {
     }
 
     @PostMapping("/pay")
-    public String payment(@ModelAttribute("order") TransaccionPaypal order, Model model) {
-
-        Boolean is_logged = false;
-        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
-            is_logged = true;
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
-            model.addAttribute("usuario", usr);
-            model.addAttribute("nombreUsuario", email);
-            model.addAttribute("artista", usr);
-            model.addAttribute("arrendador", usr);
-        }
-        model.addAttribute("isLogged", is_logged);
-        System.out.println("betiiiiiiiiiiiii");
-        System.out.println(order.getPrice());
-
+    public String handlePayment(@ModelAttribute("transaction") TransaccionPaypal transaccion, Model model) {
         try {
-            Payment payment = paypalService.createPayment(order.getPrice(),
-                    order.getCurrency(), order.getMethod(),
-                    order.getIntent(), order.getDescription(), BASE_URL +
-                            CANCEL_URL,
+
+            Payment payment = paypalService.createPayment(
+                    transaccion.getTotal(),
+                    transaccion.getCurrency(),
+                    transaccion.getMethod(),
+                    transaccion.getIntent(),
+                    transaccion.getDescription(),
+                    BASE_URL + CANCEL_URL,
                     BASE_URL + SUCCESS_URL);
+
             for (Links link : payment.getLinks()) {
                 if (link.getRel().equals("approval_url")) {
                     return "redirect:" + link.getHref();
                 }
             }
-
         } catch (PayPalRESTException e) {
-
             e.printStackTrace();
         }
+
         return "redirect:/";
     }
 

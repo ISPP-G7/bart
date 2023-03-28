@@ -147,8 +147,6 @@ public class AnuncioArtistaController {
             }
         }
         AnuncioArtista ann = anuncioArtistaService.getAnuncioArtistaById(id);
-        System.out.println(IDaux);
-        System.out.println("betiiiiiiii");
         if (IDaux.equals(ann.getArtista().getId())) {
 
             model.addAttribute("isLogged", isLogged);

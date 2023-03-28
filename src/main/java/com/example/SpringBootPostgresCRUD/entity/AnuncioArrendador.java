@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 import javax.persistence.OneToOne;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
@@ -59,6 +58,7 @@ public class AnuncioArrendador {
     @OneToOne
     private Arrendador arrendador;
     private boolean estaAceptado = false;
+    private boolean estaPagado = false;
 
     public AnuncioArrendador() {
 

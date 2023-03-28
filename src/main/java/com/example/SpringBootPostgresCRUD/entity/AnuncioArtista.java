@@ -6,10 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
+
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.OneToOne;
 import lombok.Setter;
 import lombok.Getter;
@@ -42,6 +43,7 @@ public class AnuncioArtista {
     private Float precio;
 
     @NotBlank
+    //@Length(max = 200)
     private String descripcionArtista;
     private boolean requiereMicrofono;
     private boolean requiereInstrumentos;
@@ -61,6 +63,7 @@ public class AnuncioArtista {
     private Artista artista;
 
     private boolean estaAceptado = false;
+    private boolean estaPagado = false;
 
     public AnuncioArtista() {
 
@@ -94,19 +97,21 @@ public class AnuncioArtista {
     public boolean getEstaAceptado() {
         return estaAceptado;
     }
-    
+
     public void setEstaAceptado(boolean estaAceptado) {
         this.estaAceptado = estaAceptado;
     }
 
-	public void setArtista(Artista byId) {
-		// TODO Auto-generated method stub
-		this.artista = byId;
-		
-	}
+    public void setArtista(Artista byId) {
+        // TODO Auto-generated method stub
+        this.artista = byId;
+
+    }
+
     public Long getArrendador_accept_id() {
         return arrendador_accept_id;
     }
+
     public void setArrendador_accept_id(Long arrendador_accept_id) {
         this.arrendador_accept_id = arrendador_accept_id;
     }

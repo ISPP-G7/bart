@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <style>
         body {
-            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
             background-size: 100vw 200vh;
             color: white;
         }
@@ -74,6 +74,24 @@
     font-size: 24px;
     margin-bottom: 10px;
     }
+    .muestra{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .muestra img {
+        max-width: 400px;
+        margin-bottom: 10px;
+    }
+    a {
+        color: black;
+    }
+
+    a:hover {
+        color: lightgray;
+        text-decoration: none;
+    }
     </style>
 </head>
 
@@ -84,9 +102,6 @@
     <table>
         <tr>
             <img th:src="${art.getUrlImagen()}" style="max-width: 300px;" alt="Imagen de perfil">
-        </tr>
-        <tr>
-            <td><img th:src="${art.getUrlImagen()}" style="max-width: 200px;"></td>
         </tr>
         <tr>
             <td>Nombre artístico:</td>
@@ -117,6 +132,15 @@
             <td th:text="${art.getGender()}"></td>
         </tr>
     </table>
+    </div>
+    <h2 style="text-align: center;">Muestras de trabajo</h2>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <button type="button" class="btn btn-primary">
+            <a href="/imagenes">Subir</a>
+        </button>
+    </div>
+    <div class="muestra" th:each="foto : ${fotos}">
+        <img th:src="@{/imagenes/{id}(id=${foto.id})}" alt="fotos de muestras">
     </div>
     <footer th:replace="Home :: Footer"></footer>
 </body>

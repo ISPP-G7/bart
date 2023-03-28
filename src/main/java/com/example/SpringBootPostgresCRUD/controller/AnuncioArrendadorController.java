@@ -44,7 +44,6 @@ public class AnuncioArrendadorController {
         setUserIfLogged(model);
 
         List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendadorFiltrados(palabraClave);
-        ;
 
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);

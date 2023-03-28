@@ -152,6 +152,9 @@
 							<a class="nav-link" href="/viewAnunciosArrendador">Crea y vea anuncios de locales</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
+							<a class="nav-link" href="/viewAllAnunciosAceptados">Vea anuncios aceptados</a>
+						</li>
+						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewAllMessages">Chat</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
@@ -262,6 +265,7 @@
 				margin: 0;
 				margin-bottom: 40px;
 			}
+		
 
 			.center {
 				display: block;
@@ -276,6 +280,9 @@
 				color: white;
 			}
 		</style>
+	<footer>
+
+			
 		<div class="container" style="color: white;">
 			<span class="center">© 2023 Bart. Todos los derechos reservados. <a href="https://ispp-g7.github.io/"
 					style="color:white;">Visita nuestra página web</a></span>

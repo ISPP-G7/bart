@@ -2,15 +2,18 @@ package com.example.SpringBootPostgresCRUD.controller;
 
 import com.example.SpringBootPostgresCRUD.entity.Arrendador;
 import com.example.SpringBootPostgresCRUD.entity.Artista;
+import com.example.SpringBootPostgresCRUD.entity.Foto;
 import com.example.SpringBootPostgresCRUD.entity.User;
 import com.example.SpringBootPostgresCRUD.service.ArrendadorService;
 import com.example.SpringBootPostgresCRUD.service.ArtistaService;
+import com.example.SpringBootPostgresCRUD.service.FotoService;
 import com.example.SpringBootPostgresCRUD.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +31,8 @@ public class ArtistaController {
     ArtistaService artService;
     @Autowired
     ArrendadorService arrendadorService;
+    @Autowired
+    FotoService fotoService;
 
     String anonymousUser = "anonymousUser";
 
@@ -107,11 +112,14 @@ public class ArtistaController {
         }
     }
     @GetMapping("/perfilArtista/{id}")
+    @Transactional
     public String perfilArtista(@PathVariable Long id, @ModelAttribute("message") String message, Model model) {
         
         setUserIfLogged(model);
 
         Artista art = artService.getArtistaById(id);
+        List<Foto> fotos= fotoService.getFotosByUser(art.getEmail());
+        model.addAttribute("fotos", fotos);
         model.addAttribute("art", art);
         model.addAttribute("message", message);
         model.addAttribute("nombreArtistitico", art.getNombre_artistico());

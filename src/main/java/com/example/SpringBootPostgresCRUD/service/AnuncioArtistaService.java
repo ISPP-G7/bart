@@ -29,41 +29,6 @@ public class AnuncioArtistaService {
         return AnuncioArtistaList;
     }
 
-    public boolean saveOrUpdateAnuncioArtista(AnuncioArtista anuncioArtista, Long artistaIdSeleccionado) {
-        anuncioArtista.setArtista(artistaRepository.getById(artistaIdSeleccionado));// Esto hay que hacer que coja el id
-                                                                                    // del artista automáticamente.
-        AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
-        if (anuncioArtistaRepository.findById(anu.getId()).isPresent()) {
-            return true;
-        }
-        return false;
-    }
-
-    public AnuncioArtista getAnuncioArtistaById(Long id) {
-        return anuncioArtistaRepository.findById(id).get();// aquí habría que comprobar que no es nulo antes de pasarlo,
-                                                           // si es nulo pasar excepción. TODO
-    }
-
-    public boolean deleteAnuncioArtista(Long id) {
-        anuncioArtistaRepository.deleteById(id);
-        if (anuncioArtistaRepository.findById(id).isPresent()) {
-            return true;
-        }
-        return false;
-    }
-
-    public List<AnuncioArtista> getAllAnunciosArrendadorNoAceptados() {
-        List<AnuncioArtista> anuncioArtistaList = anuncioArtistaRepository.findAll();
-        List<AnuncioArtista> anuncioArtistaListAux = new ArrayList<>();
-        for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
-            if (!anuncioArtista.getEstaAceptado()) {
-                anuncioArtistaListAux.add(anuncioArtista);
-            }
-
-        }
-        return anuncioArtistaListAux;
-    }
-
     public List<AnuncioArtista> getAllAnunciosArtistaFiltrados(String palabraClave) {
         List<AnuncioArtista> AnuncioArtistaList = new ArrayList<>();
         if (palabraClave != null) {
@@ -94,11 +59,66 @@ public class AnuncioArtistaService {
         return anuncioArtistaListAux;
     }
 
+    public List<AnuncioArtista> getAllAnunciosArtistaAceptados() {
+        List<AnuncioArtista> ls = anuncioArtistaRepository.findAll();
+        List<AnuncioArtista> aux = new ArrayList<>();
+        for (AnuncioArtista a : ls) {
+            if (a.getEstaAceptado() == true) {
+                aux.add(a);
+            }
+        }
+        return aux;
+    }
+
+    public boolean saveOrUpdateAnuncioArtista(AnuncioArtista anuncioArtista, Long artistaIdSeleccionado) {
+        anuncioArtista.setArtista(artistaRepository.getById(artistaIdSeleccionado));// Esto hay que hacer que coja el id
+                                                                                    // del artista automáticamente.
+        AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
+        if (anuncioArtistaRepository.findById(anu.getId()) != null) {
+            return true;
+        }
+        return false;
+    }
+
+    /*
+     * public boolean updateAnuncioArtista(AnuncioArtista anuncioArtista) {
+     * AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
+     * if (anuncioArtistaRepository.findById(anu.getId()) != null) {
+     * return true;
+     * }
+     * return false;
+     * }
+     */
+    public AnuncioArtista getAnuncioArtistaById(Long id) {
+        return anuncioArtistaRepository.findById(id).get();// aquí habría que comprobar que no es nulo antes de pasarlo,
+                                                           // si es nulo pasar excepción. TODO
+    }
+
+    public boolean deleteAnuncioArtista(Long id) {
+        anuncioArtistaRepository.deleteById(id);
+        if (anuncioArtistaRepository.findById(id).isPresent()) {
+            return true;
+        }
+        return false;
+    }
+
+    public List<AnuncioArtista> getAllAnunciosArtistaNoAceptados() {
+        List<AnuncioArtista> anuncioArtistaList = anuncioArtistaRepository.findAll();
+        List<AnuncioArtista> anuncioArtistaListAux = new ArrayList<>();
+        for (AnuncioArtista anuncioArtista : anuncioArtistaList) {
+            if (anuncioArtista.getEstaAceptado() == false) {
+                anuncioArtistaListAux.add(anuncioArtista);
+            }
+
+        }
+        return anuncioArtistaListAux;
+    }
+
     public boolean aceptarAnuncioArtista(AnuncioArtista anar, Long arrendador_accept_id) {
         anar.setEstaAceptado(true);
         anar.setArrendador_accept_id(arrendador_accept_id);
         anuncioArtistaRepository.save(anar);
-        if (anuncioArtistaRepository.findById(anar.getId()).isPresent()) {
+        if (anuncioArtistaRepository.findById(anar.getId()) != null) {
             return true;
         }
         return false;

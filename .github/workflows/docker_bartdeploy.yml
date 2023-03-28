@@ -6,7 +6,7 @@ name: Build and deploy JAR app to Azure Web App - bartdeploy
 on:
   push:
     branches:
-      - docker
+      - deploy-limpio
   workflow_dispatch:
 
 jobs:

@@ -44,6 +44,8 @@ public class AnuncioArtistaController {
         Long arrendadorAcceptId = arrendador.getId();
         AnuncioArtista anar = anuncioArtistaService.getAnuncioArtistaById(id);
         if (anuncioArtistaService.aceptarAnuncioArtista(anar, arrendadorAcceptId)) {
+            anar.getArtista().setAnuncioNoVisto(true);
+            artistaService.saveOrUpdateArtista(anar.getArtista());
             redirectAttributes.addFlashAttribute("message", "Accept Success");
             return "redirect:/viewAnunciosArtistaParaArrendadores";
         }
@@ -74,11 +76,14 @@ public class AnuncioArtistaController {
         setUserIfLogged(model);
 
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtistaFiltrados(palabraClave);
-
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
         model.addAttribute("palabraClave", palabraClave);
-
+        //add notificacion
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User usr = userService.getUserByEmail(email); 
+        usr.setAnuncioNoVisto(false);
+        userService.saveOrUpdateUser(usr);        
         return "ViewAnuncioArtista";
     }
 

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sobre Nosotros</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        body {
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            height: 100vh;
+        }
+
+        h1 {
+            color: white
+        }
+
+        p {
+            color: white
+        }
+
+        a {
+            color: white;
+        }
+
+        .titulo {
+            margin-top: 2%;
+            font-family: monospace;
+            text-align: center;
+        }
+
+        .div-tabla {
+            margin: auto;
+            width: fit-content;
+            height: fit-content;
+            /* background-color: #b74dcc; */
+            border-radius: 25px;
+        }
+
+
+        .tabla {
+            border-collapse: separate;
+            border-spacing: 20px;
+            text-align: center;
+        }
+
+        .contacto {
+            width: 75%;
+            color: white;
+            font-size: large;
+            border-bottom: solid black 1px;
+            padding-bottom: 10px;
+        }
+
+        .boton {
+            border-radius: 25px;
+            color: white;
+            background-image: linear-gradient(to bottom right, #dd1759, #b50fc4);
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div th:replace="Home :: Home"></div>
+
+    <h1>¿QUIENES SOMOS?</h1>
+	<p>Bart es una plataforma que busca poner en contacto a Artistas Musicales y a Locales, con el fin de que <br>
+        ambos puedan contratarse para actuaciones en directo. En el mercado actual, son los artistas quienes publican<br>
+         sus ofertas, y los locales quienes las aceptan. Nosotros queremos romper con ese esquema, y permitir a ambos publicar<br>
+          y aceptar ofertas de trabajo. De esta forma, los artistas no tendrán que pasar semanas esperando a que <br>
+          alguien les hable, y los dueños de los locales no tendrán que perder su tiempo en buscar a su artista ideal <br>
+          entre cientos de posibilidades, olvidandose además de los pagos tediosos y espera de los mismos, así como<br>
+          de ser timado por malhechores.
+    </p>
+    <br>
+
+    <h1>¿COMO FUNCIONAN LOS PAGOS?</h1>
+    <p>Por cada transaccion bidireccional que se realice en nuestra App, al pago se aplica un 10% de iva <br>si es autónomo o 21% si trabaja con una empresa</p>
+    <br>
+
+    <h1>¿QUIERES CONTACTAR CON NOSOTROS?</h1>
+    <p>Para contactar con nostros puedes enviar un correo con su duda, sugerencia, o fallo a la siguiente dirección:
+        <br>
+        infobartoficial@gmail.com
+        <br>
+        Y algún asistente de nuestra aplicación se pondra en contacto con usted lo antes posible.
+    </p>
+    <br>
+
+</body>
+</html>

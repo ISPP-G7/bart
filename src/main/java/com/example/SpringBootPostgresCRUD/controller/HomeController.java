@@ -91,4 +91,27 @@ public class HomeController {
         return "Home";
     }
 
+    @GetMapping("/aboutUs")
+    public String aboutUs(Model model) {
+        Boolean isLogged=false;
+                if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
+                    isLogged=true;
+                    String email=SecurityContextHolder.getContext().getAuthentication().getName();
+                    User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
+                    model.addAttribute("usuario",usr);
+                    model.addAttribute("nombreUsuario",email);
+                    if(usr.getEsArrendador()){
+                        Arrendador arrendador = arrService.getArrendadorByMailArrendador(email);
+                        model.addAttribute("arrendador", arrendador);
+                    } else if(usr.getEsArtista()){
+                        Artista artista = artService.getArtistaByMailArtista(email);
+                        model.addAttribute("artista", artista);
+                    }
+                }
+                model.addAttribute("isLogged", isLogged);
+        return "AboutUs";
+    }
+
+   
+
 }

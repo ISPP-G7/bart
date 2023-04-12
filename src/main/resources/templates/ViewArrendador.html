@@ -58,6 +58,7 @@
                 <th>Nombre del local</th>
                 <th>Dirección del local</th>
                 <th>Editar</th>
+                <th>Perfil</th>
 
             </tr>
 
@@ -72,7 +73,10 @@
                 <td th:text="${Arrendador.direccion}"></td>
                 <td><button type="button" class="btn btn-success">
                         <a th:href="@{/editArrendador/{id}(id=${Arrendador.id})}">Editar</a>
-                    </button></td>
+                </button></td>
+                <td><button type="button" class="btn btn-success">
+                    <a th:href="@{/perfilArrendador/{id}(id=${Arrendador.id})}">Ver perfil</a>
+                </button></td>
 
             </tr>
 

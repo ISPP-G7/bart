@@ -110,7 +110,7 @@
         <h1>Sus Anuncios</h1>
         <table th:each="anuncioArrendador: ${anunciosArrendador}">
             <div class="anuncio">
-                <a th:href="@{/perfilArrendador/{id}(id=${anuncioArrendador.second.id})}">
+                <a th:href="@{/perfilArtista/{id}(id=${anuncioArrendador.second.id})}">
                     <img class="img-anuncio" th:src="${anuncioArrendador.second.urlImagen}">
                     <div class="texto-anuncio">
                         <h2 th:text="${anuncioArrendador.second.nombre_artistico}"></h2>

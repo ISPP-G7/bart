@@ -21,16 +21,19 @@ public class Arrendador extends User {
     @URL(message = "Tiene que ser una URL válida")
     @NotBlank(message="La url de una imagen es obligatoria")
     private String urlImagen;
+    @NotBlank
+    private String links;
     
     public Arrendador() {
 
     }
 
-    public Arrendador(Long id,String password, String firstName, String lastName, String email, String dob, String gender, String nombreLocal, String direccion,String urlImagen) {
+    public Arrendador(Long id,String password, String firstName, String lastName, String email, String dob, String gender, String nombreLocal, String direccion,String urlImagen, String links) {
         super(id,password, firstName, lastName, email, dob, gender);
         this.nombreLocal = nombreLocal;
         this.direccion = direccion;
         this.urlImagen = urlImagen;
+        this.links = links;
     }
 
     public String getNombreLocal() {
@@ -47,6 +50,14 @@ public class Arrendador extends User {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getLinks() {
+        return links;
+    }
+
+    public void setLinks(String links) {
+        this.links = links;
     }
 
 }

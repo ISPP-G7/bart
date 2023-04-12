@@ -57,6 +57,7 @@
                 <th>Género</th>
                 <th>Nombre del local</th>
                 <th>Dirección del local</th>
+                <th>Link a redes</th>
                 <th>Editar</th>
 
             </tr>
@@ -70,6 +71,7 @@
                 <td th:text="${Arrendador.gender}"></td>
                 <td th:text="${Arrendador.nombreLocal}"></td>
                 <td th:text="${Arrendador.direccion}"></td>
+                <td th:text="${Arrendador.links}"></td>
                 <td><button type="button" class="btn btn-success">
                         <a th:href="@{/editArrendador/{id}(id=${Arrendador.id})}">Editar</a>
                     </button></td>

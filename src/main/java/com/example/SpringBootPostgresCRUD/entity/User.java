@@ -31,6 +31,7 @@ public class User {
     private String gender;
 
     private String password;
+
     
     private Boolean es_arrendador;
     private Boolean es_artista;

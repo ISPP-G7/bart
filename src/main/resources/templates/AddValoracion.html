@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir valoración</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</head>
+
+<body>
+    <div th:replace="Home :: Home"></div>
+    <div class="container">
+        <h1 class="p-3">Añadir valoración para <span th:text="${nombreReceiver}"></span></h1>
+        <form th:action="@{/saveValoracion/}+${emailReceiver}" th:object="${val}" method="post">
+            
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="firstName">Mensaje</label>
+                    <div class="col-md-6">
+                        <input type="text" th:field="*{mensaje}" id="mensaje" class="form-control input-sm"
+                            required="required" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3" for="firstName">Nota</label>
+                    <div class="col-md-6">
+                        <select th:field="*{nota}">
+                            <option th:value="1" th:text="1"></option>
+                            <option th:value="2" th:text="2"></option>
+                            <option th:value="3" th:text="3"></option>
+                            <option th:value="4" th:text="4"></option>
+                            <option th:value="5" th:text="5"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col-md-2">
+                    <button class="btn btn-success">Añadir</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <script th:inline="javascript">
+        window.onload = function () {
+
+            var msg = [[${ message }]];
+            if (msg == "Save Failure") {
+                Command: toastr["error"]("Ha ocurrido un error, no se pudo actualizar la valoracion")
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+        }
+    </script>
+    <footer th:replace="Home :: Footer"></footer>
+</body>

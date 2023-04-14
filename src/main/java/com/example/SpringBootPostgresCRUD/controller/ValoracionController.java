@@ -71,39 +71,61 @@ public class ValoracionController {
         return "ViewValoracionesHechas";
     }
 
+    @GetMapping("/addValoracion/{idReceiver}")
+    public String newValoracion(@PathVariable Long idReceiver, @ModelAttribute("message") String message, Model model) {
+        String emailReceiver = userService.getUserById(idReceiver).getEmail();
+        String nombreReceiver = userService.getUserById(idReceiver).getFirstName();
+        model.addAttribute("val", new Valoracion());
+        model.addAttribute("emailReceiver", emailReceiver);
+        model.addAttribute("nombreReceiver", nombreReceiver);
+        return "AddValoracion";
+    }
+
     @PostMapping("/saveValoracion/{emailReceiver}")
-    public String saveValoracion(@PathVariable("emailReceiver") String emailReceiver, 
-            @RequestParam("mensaje") String mensaje, @RequestParam("nota") Integer nota,
+    public String saveValoracion(Valoracion val, @PathVariable("emailReceiver") String emailReceiver,
             RedirectAttributes redirectAttributes) {
-        Valoracion v = new Valoracion();
+        
         String emailSender = SecurityContextHolder.getContext().getAuthentication().getName();
-        User sender = userService.getUserByEmail(emailSender);
-        User receiver = userService.getUserByEmail(emailReceiver);
-        v.setSender(sender);
-        v.setReceiver(receiver);
-        v.setMensaje(mensaje);
-        v.setNota(nota);
-
+        User userSender = userService.getUserByEmail(emailSender);
+        User userReceiver = userService.getUserByEmail(emailReceiver);
         Date now = Date.from(Instant.now());
-        v.setFecha(now);
+        val.setSender(userSender);
+        val.setReceiver(userReceiver);
+        val.setFecha(now);
 
-        if (valoracionService.saveorUpdateValoracion(v)) {
+        if (valoracionService.saveorUpdateValoracion(val)) {
             redirectAttributes.addFlashAttribute("valoracion", "Save Success");
         } else {
             redirectAttributes.addFlashAttribute("valoracion", "Save Failure");
         }
-        return "redirect:/viewValoracionesHechas/" + emailSender;
+
+        if (val.getReceiver().getEsArtista()) {
+            return "redirect:/perfilArtista/" + val.getReceiver().getId();
+        } else {
+            return "redirect:/perfilArrendador/" + val.getReceiver().getId();
+        }
     }
 
-    @GetMapping("deleteValoracion/{id}")
-    public String deleteValoracion(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    @GetMapping("deleteValoracion/{id}/{emailReceiver}")
+    public String deleteValoracion(@PathVariable Long id, @PathVariable("emailReceiver") String emailReceiver,
+            RedirectAttributes redirectAttributes) {
+        User receiver = userService.getUserByEmail(emailReceiver);
         String emailSender = SecurityContextHolder.getContext().getAuthentication().getName();
         if (valoracionService.deleteValoracion(id)) {
             redirectAttributes.addFlashAttribute("valoracion", "Delete Success");
-            return "redirect:/viewValoracionesHechas/" + emailSender;
+            if (receiver.getEsArtista()) {
+                return "redirect:/perfilArtista/" + receiver.getId();
+            } else {
+                return "redirect:/perfilArrendador/" + receiver.getId();
+            }
         }
         redirectAttributes.addFlashAttribute("valoracion", "Delete Failure");
-        return "redirect:/viewValoracionesHechas/" + emailSender;
+        
+        if (receiver.getEsArtista()) {
+            return "redirect:/perfilArtista/" + receiver.getId();
+        } else {
+            return "redirect:/perfilArrendador/" + receiver.getId();
+        }
     }
 
     public void loginCheck(Model model) {

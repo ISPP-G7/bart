@@ -32,7 +32,7 @@ public class SeleniumTests {
   @Before
   public void setUp() {
     //System.setProperty("webdriver.edge.driver", "..\\bart\\src\\test\\msedgedriver.exe");
-    System.setProperty("webdriver.chrome.driver", "..\\bart\\src\\test\\chromedriver.exe");
+    System.setProperty("webdriver.chrome.driver", "..\\bart\\src\\test\\chromedriver111.exe");
     driver = new ChromeDriver();
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();

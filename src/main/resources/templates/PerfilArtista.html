@@ -18,80 +18,88 @@
         }
 
         .artista-perfil {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    color: black;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
-    border-radius: 5px;
-    }
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            color: black;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+            border-radius: 5px;
+        }
 
-    .artista-perfil img {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
-    border-radius: 20%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
-    }
+        .artista-perfil img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            border-radius: 20%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+        }
 
-    .artista-perfil table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    border-spacing: 0;
-    font-size: 16px;
-    }
+        .artista-perfil table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            border-spacing: 0;
+            font-size: 16px;
+        }
 
-    .artista-perfil table td,
-    .artista-perfil table th {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    }
+        .artista-perfil table td,
+        .artista-perfil table th {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-    .artista-perfil table th {
-    font-weight: 600;
-    background-color: #f8f8f8;
-    color: #333;
-    }
+        .artista-perfil table th {
+            font-weight: 600;
+            background-color: #f8f8f8;
+            color: #333;
+        }
 
-    .artista-perfil a {
-    color: #3d5afe;
-    text-decoration: none;
-    }
+        .artista-perfil a {
+            color: #3d5afe;
+            text-decoration: none;
+        }
 
-    .artista-perfil a:hover {
-    text-decoration: underline;
-    }
+        .artista-perfil a:hover {
+            text-decoration: underline;
+        }
 
-    .artista-perfil h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
-    }
+        .artista-perfil h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
 
-    .artista-perfil h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    }
-    .muestra{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+        .artista-perfil h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
 
-    .muestra img {
-        max-width: 400px;
-        margin-bottom: 10px;
-    }
-    a {
-        color: black;
-    }
+        .muestra {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    a:hover {
-        color: lightgray;
-        text-decoration: none;
-    }
+        .valorar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .muestra img {
+            max-width: 400px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: lightgray;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -99,44 +107,49 @@
     <div th:replace="Home :: Home"></div>
     <div class="artista-perfil">
         <h1>[[${art.nombre_artistico}]]</h1>
-    <table>
-        <tr>
-            <img th:src="${art.getUrlImagen()}" style="max-width: 300px;" alt="Imagen de perfil">
-        </tr>
-        <tr>
-            <td>Nombre artístico:</td>
-            <td th:text="${art.getNombre_artistico()}"></td>
-        </tr>
-        <tr>
-            <td>Categoría artística:</td>
-            <td th:text="${art.getCategoria_artistica()}"></td>
-        </tr>
-        <tr>
-            <td>Nombre:</td>
-            <td th:text="${art.getFirstName()}"></td>
-        </tr>
-        <tr>
-            <td>Apellidos:</td>
-            <td th:text="${art.getLastName()}"></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td th:text="${art.getEmail()}"></td>
-        </tr>
-        <tr>
-            <td>Descripción:</td>
-            <td th:text="${art.getDob()}"></td>
-        </tr>
-        <tr>
-            <td>Género:</td>
-            <td th:text="${art.getGender()}"></td>
-        </tr>
-    </table>
+        <table>
+            <tr>
+                <img th:src="${art.getUrlImagen()}" style="max-width: 300px;" alt="Imagen de perfil">
+            </tr>
+            <tr>
+                <td>Nombre artístico:</td>
+                <td th:text="${art.getNombre_artistico()}"></td>
+            </tr>
+            <tr>
+                <td>Categoría artística:</td>
+                <td th:text="${art.getCategoria_artistica()}"></td>
+            </tr>
+            <tr>
+                <td>Nombre:</td>
+                <td th:text="${art.getFirstName()}"></td>
+            </tr>
+            <tr>
+                <td>Apellidos:</td>
+                <td th:text="${art.getLastName()}"></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td th:text="${art.getEmail()}"></td>
+            </tr>
+            <tr>
+                <td>Descripción:</td>
+                <td th:text="${art.getDob()}"></td>
+            </tr>
+            <tr>
+                <td>Género:</td>
+                <td th:text="${art.getGender()}"></td>
+            </tr>
+        </table>
     </div>
     <h2 style="text-align: center;">Muestras de trabajo</h2>
     <div style="display: flex; justify-content: center; align-items: center;">
         <button type="button" class="btn btn-primary">
             <a href="/imagenes">Subir</a>
+        </button>
+    </div>
+    <div class="valorar" th:if="${usuario.esArrendador}">
+        <button type="button" class="btn btn-primary">
+            <a th:href="@{/addValoracion/{id}(id=${art.id})}">Valorar</a>
         </button>
     </div>
     <div class="muestra" th:each="foto : ${fotos}">

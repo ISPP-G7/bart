@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.SpringBootPostgresCRUD.entity.Arrendador;
@@ -41,7 +40,7 @@ public class ValoracionController {
 
     @GetMapping("/viewAllValoraciones")
     public String viewAllValoraciones(@ModelAttribute("message") String message, Model model) {
-        loginCheck(model);
+        setUserIfLogged(model);
 
         List<Valoracion> todasValoraciones = valoracionService.getAllValoraciones();
         model.addAttribute("email", todasValoraciones);
@@ -52,7 +51,7 @@ public class ValoracionController {
     @GetMapping("/viewValoracionesRecibidas/{email}")
     public String viewValoracionesRecibidas(@PathVariable("email") String email, @ModelAttribute("message") String message, 
             Model model) {
-        loginCheck(model);
+        setUserIfLogged(model);
 
         List<Valoracion> valoraciones = valoracionService.findByReceiver(email);
         model.addAttribute("valoraciones", valoraciones);
@@ -63,7 +62,7 @@ public class ValoracionController {
     @GetMapping("/viewValoracionesHechas/{email}")
     public String viewValoracionesHechas(@PathVariable("email") String email, @ModelAttribute("message") String message, 
             Model model) {
-        loginCheck(model);
+        setUserIfLogged(model);
 
         List<Valoracion> valoraciones = valoracionService.findBySender(email);
         model.addAttribute("valoraciones", valoraciones);
@@ -128,23 +127,24 @@ public class ValoracionController {
         }
     }
 
-    public void loginCheck(Model model) {
-        Boolean isLogged = false;
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (!email.equals("anonymousUser")) {
-            isLogged=true;
-            User usr = userService.getUserByEmail(email);
+    //Comprueba si el usuario está logueado y setea los valores correspondientes
+    public void setUserIfLogged(Model model){
+        Boolean is_logged = false;
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
+            is_logged = true;
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
             model.addAttribute("nombreUsuario", email);
-            if (usr.getEsArrendador()){
+            if(usr.getEsArrendador()){
                 Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
                 model.addAttribute("arrendador", arrendador);
-            } else if (usr.getEsArtista()){
+            } else if(usr.getEsArtista()){
                 Artista artista = artistaService.getArtistaByMailArtista(email);
                 model.addAttribute("artista", artista);
             }
         }
-        model.addAttribute("isLogged", isLogged);
+        model.addAttribute("isLogged", is_logged);
     }
     
 }

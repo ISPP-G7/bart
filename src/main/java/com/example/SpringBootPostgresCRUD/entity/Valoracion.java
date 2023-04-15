@@ -32,7 +32,7 @@ public class Valoracion {
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "reciever")
+    @JoinColumn(name = "receiver")
     private User receiver;
     
     private Integer nota;

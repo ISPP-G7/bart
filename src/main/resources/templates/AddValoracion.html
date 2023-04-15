@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<style>
+    body {
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            height: 100vh;
+        }
+
+        h1 {
+            color: white
+        }
+
+        a {
+            color: white;
+        }
+
+        .titulo {
+            margin-top: 2%;
+            font-family: monospace;
+            text-align: center;
+        }
+</style>
+
 <head>
     <meta charset="UTF-8">
     <title>Añadir valoración</title>
@@ -14,6 +35,7 @@
 </head>
 
 <body>
+   
     <div th:replace="Home :: Home"></div>
     <div class="container">
         <h1 class="p-3">Añadir valoración para <span th:text="${nombreReceiver}"></span></h1>
@@ -52,6 +74,7 @@
 
         </form>
     </div>
+
 
     <script th:inline="javascript">
         window.onload = function () {

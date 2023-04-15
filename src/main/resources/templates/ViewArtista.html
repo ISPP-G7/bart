@@ -14,7 +14,7 @@
     <style>
         body {
             background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
-            background-size: 100vw 200vh; 
+            background-size: 100vw 200vh;
         }
 
         h1 {
@@ -74,17 +74,14 @@
                 <td th:text="${Artist.categoria_artistica}"></td>
                 <td><button type="button" class="btn btn-success">
                         <a th:href="@{/editArtista/{id}(id=${Artist.id})}">Editar</a>
-                </button></td>
+                    </button></td>
                 <td><button type="button" class="btn btn-success">
-                    <a th:href="@{/perfilArtista/{id}(id=${Artist.id})}">Ver perfil</a>
-                </button></td>
+                        <a th:href="@{/perfilArtista/{id}(id=${Artist.id})}">Ver perfil</a>
+                    </button></td>
 
             </tr>
 
         </table>
-
-
-
     </div>
 
     <script th:inline="javascript">

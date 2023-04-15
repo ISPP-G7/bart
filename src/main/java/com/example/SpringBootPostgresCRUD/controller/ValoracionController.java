@@ -48,24 +48,32 @@ public class ValoracionController {
         return "ViewAllValoraciones";
     }
 
-    @GetMapping("/viewValoracionesRecibidas/{email}")
-    public String viewValoracionesRecibidas(@PathVariable("email") String email, @ModelAttribute("message") String message, 
+    @GetMapping("/viewValoracionesRecibidas/{idReceiver}")
+    public String viewValoracionesRecibidas(@PathVariable Long idReceiver, @ModelAttribute("message") String message, 
             Model model) {
         setUserIfLogged(model);
 
-        List<Valoracion> valoraciones = valoracionService.findByReceiver(email);
+        String emailReceiver = userService.getUserById(idReceiver).getEmail();
+        String nombreReceiver = userService.getUserById(idReceiver).getFirstName();
+        List<Valoracion> valoraciones = valoracionService.findByReceiver(emailReceiver);
+
         model.addAttribute("valoraciones", valoraciones);
+        model.addAttribute("nombreReceiver", nombreReceiver);
         model.addAttribute("message", message);
         return "ViewValoracionesRecibidas";
     }
 
-    @GetMapping("/viewValoracionesHechas/{email}")
-    public String viewValoracionesHechas(@PathVariable("email") String email, @ModelAttribute("message") String message, 
+    @GetMapping("/viewValoracionesHechas/{idSender}")
+    public String viewValoracionesHechas(@PathVariable Long idSender, @ModelAttribute("message") String message, 
             Model model) {
         setUserIfLogged(model);
 
-        List<Valoracion> valoraciones = valoracionService.findBySender(email);
+        String emailSender = userService.getUserById(idSender).getEmail();
+        String nombreSender = userService.getUserById(idSender).getFirstName();
+        List<Valoracion> valoraciones = valoracionService.findBySender(emailSender);
+
         model.addAttribute("valoraciones", valoraciones);
+        model.addAttribute("nombreSender", nombreSender);
         model.addAttribute("message", message);
         return "ViewValoracionesHechas";
     }

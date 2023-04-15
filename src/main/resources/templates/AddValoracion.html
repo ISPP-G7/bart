@@ -8,10 +8,14 @@
         }
 
         h1 {
-            color: white
+            color: white;
         }
 
         a {
+            color: white;
+        }
+
+        label {
             color: white;
         }
 
@@ -35,25 +39,25 @@
 </head>
 
 <body>
-   
-    <div th:replace="Home :: Home"></div>
+    <!--
+    <div th:replace="Home :: Home"></div>-->
     <div class="container">
         <h1 class="p-3">Añadir valoración para <span th:text="${nombreReceiver}"></span></h1>
         <form th:action="@{/saveValoracion/}+${emailReceiver}" th:object="${val}" method="post">
             
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="firstName">Mensaje</label>
+                    <label class="col-md-3" for="mensaje">Mensaje</label>
                     <div class="col-md-6">
-                        <input type="text" th:field="*{mensaje}" id="mensaje" class="form-control input-sm"
-                            required="required" />
+                        <input type="textarea" th:field="*{mensaje}" id="mensaje" class="form-control input-sm"
+                            rows="5" cols="50" required="required" />
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3" for="firstName">Nota</label>
+                    <label class="col-md-3" for="nota">Nota</label>
                     <div class="col-md-6">
                         <select th:field="*{nota}">
                             <option th:value="1" th:text="1"></option>

@@ -19,6 +19,7 @@ import com.example.SpringBootPostgresCRUD.entity.Artista;
 import com.example.SpringBootPostgresCRUD.entity.User;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.engine.AttributeName;
 import org.springframework.ui.Model;
 import java.util.List;
 
@@ -73,17 +74,24 @@ public class AnuncioArtistaController {
     public String viewAnuncioArtista(@ModelAttribute("message") String message, Model model,
             @Param("palabraClave") String palabraClave) {
 
+        String emailLogged =  SecurityContextHolder.getContext().getAuthentication().getName();
         setUserIfLogged(model);
 
         List<AnuncioArtista> anuList = anuncioArtistaService.getAllAnunciosArtistaFiltrados(palabraClave);
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
         model.addAttribute("palabraClave", palabraClave);
+
+        model.addAttribute("emailLogged", emailLogged);
+
+
+
         //add notificacion
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User usr = userService.getUserByEmail(email); 
         usr.setAnuncioNoVisto(false);
         userService.saveOrUpdateUser(usr);        
+
         return "ViewAnuncioArtista";
     }
 

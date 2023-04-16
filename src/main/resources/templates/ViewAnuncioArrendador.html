@@ -126,7 +126,9 @@
                         <p class="card-text" th:text="${Anuncio.ubicacion}"></p>
                         <p class="card-text" th:text="${Anuncio.precio}"></p>
                         <a class="btn btn-primary" th:href="@{/anuncioArrendador/{id}(id=${Anuncio.id})}">Ver detalles</a>
-                        <a class="btn btn-primary" th:href="@{/editAnuncioArrendador/{id}(id=${Anuncio.id})}">Editar</a>
+                        <div th:if="${Anuncio.arrendador.email} == ${emailLogged}">
+                            <a class="btn btn-primary" th:href="@{/editAnuncioArrendador/{id}(id=${Anuncio.id})}">Editar</a>
+                        </div>
                         
                     </div>
                 </div>

@@ -45,12 +45,14 @@ public class ArrendadorController {
     @GetMapping({"/viewArrendadores"})
     public String viewArrendadores(@ModelAttribute("message") String message, Model model) {
 
+        String emailLogged =  SecurityContextHolder.getContext().getAuthentication().getName();
         setUserIfLogged(model);
 
         List<Arrendador> arrList = arrService.getAllArrendadores();
 
         model.addAttribute("arrList", arrList);
         model.addAttribute("message", message);
+        model.addAttribute("emailLogged", emailLogged);
 
         return "ViewArrendador";
     }

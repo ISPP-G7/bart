@@ -34,6 +34,7 @@ public class User {
     
     private Boolean es_arrendador;
     private Boolean es_artista;
+    private Boolean anuncioNoVisto = false; // valor por defecto
 
 
     public User() {

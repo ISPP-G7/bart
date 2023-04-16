@@ -6,9 +6,12 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
 	<style>
 		.navbar-brand img {
 			max-height: 50px;
@@ -280,6 +283,8 @@
 				color: white;
 			}
 		</style>
+		
+		  
 	<footer>
 
 			
@@ -287,6 +292,17 @@
 			<span class="center">© 2023 Bart. Todos los derechos reservados. <a href="https://ispp-g7.github.io/"
 					style="color:white;">Visita nuestra página web</a></span>
 		</div>
+		<script>
+			/* Obtener el valor de anuncioNoVisto */		  
+			/* Verificar si hay anuncios pendientes y mostrar la notificación emergente */
+			if ("[[${usuario.anuncioNoVisto}]]" === "true") {
+			  toastr.success('Tienes un nuevo anuncio pendiente,vaya a verlo', '¡Atención!');
+			}
+		  </script>
+		  
+		  
+		  
+		  
 	</footer>
 
 

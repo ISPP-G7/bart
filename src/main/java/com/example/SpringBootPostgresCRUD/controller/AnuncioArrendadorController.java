@@ -44,11 +44,11 @@ public class AnuncioArrendadorController {
         setUserIfLogged(model);
 
         List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendadorFiltrados(palabraClave);
-           //add notificacion
-           String email = SecurityContextHolder.getContext().getAuthentication().getName();
-           User usr = userService.getUserByEmail(email); 
-           usr.setAnuncioNoVisto(false);
-           userService.saveOrUpdateUser(usr);        
+        // add notificacion
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User usr = userService.getUserByEmail(email);
+        usr.setAnuncioNoVisto(false);
+        userService.saveOrUpdateUser(usr);
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
         model.addAttribute("palabraClave", palabraClave);
@@ -68,7 +68,7 @@ public class AnuncioArrendadorController {
             arrendadorService.saveOrUpdateArrendador(anar.getArrendador());
             redirectAttributes.addFlashAttribute("message", "Accept Success");
             return "redirect:/viewAnunciosArrendadorParaArtistas";
-          
+
         }
 
         redirectAttributes.addFlashAttribute("message", "Delete Failure");
@@ -85,7 +85,7 @@ public class AnuncioArrendadorController {
         model.addAttribute("message", message);
         model.addAttribute("palabraClave", palabraClave);
 
-        return "ViewAnunciosArrendadorParaArtistas";
+        return "viewAnunciosArrendadorParaArtistas";
     }
 
     @GetMapping("/addAnuncioArrendador")
@@ -140,7 +140,7 @@ public class AnuncioArrendadorController {
             String email = SecurityContextHolder.getContext().getAuthentication().getName();
             User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
             model.addAttribute("usuario", usr);
-            model.addAttribute("arrendador",usr);
+            model.addAttribute("arrendador", usr);
             model.addAttribute("nombreUsuario", email);
             IDaux = usr.getId();
         }
@@ -149,7 +149,7 @@ public class AnuncioArrendadorController {
         if (IDaux.equals(ann.getArrendador().getId())) {
 
             model.addAttribute("isLogged", isLogged);
-           
+
             model.addAttribute("anu", ann);
             model.addAttribute("message", message);
 

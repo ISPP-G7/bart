@@ -53,7 +53,7 @@ public class PayPalController {
     @Autowired
     AnuncioArrendadorService anuncioArrendadorService;
 
-    public static final String BASE_URL = "http://localhost:8080/";
+    public static final String BASE_URL = "https://bartdeploy3.azurewebsites.net/";
     public static final String SUCCESS_URL = "pay/success";
     public static final String CANCEL_URL = "pay/cancel";
 

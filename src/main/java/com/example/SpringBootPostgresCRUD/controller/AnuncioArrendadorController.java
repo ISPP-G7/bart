@@ -41,6 +41,7 @@ public class AnuncioArrendadorController {
     public String viewAnunciosArrendador(@ModelAttribute("message") String message, Model model,
             @Param("palabraClave") String palabraClave) {
 
+        String emailLogged =  SecurityContextHolder.getContext().getAuthentication().getName();
         setUserIfLogged(model);
 
         List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendadorFiltrados(palabraClave);
@@ -48,6 +49,7 @@ public class AnuncioArrendadorController {
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
         model.addAttribute("palabraClave", palabraClave);
+        model.addAttribute("emailLogged", emailLogged);
 
         return "ViewAnuncioArrendador";
     }

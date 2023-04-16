@@ -57,7 +57,7 @@
                 <th>Género</th>
                 <th>Nombre del local</th>
                 <th>Dirección del local</th>
-                <th>Editar</th>
+                <!--<th>Editar</th>-->
 
             </tr>
 
@@ -70,9 +70,13 @@
                 <td th:text="${Arrendador.gender}"></td>
                 <td th:text="${Arrendador.nombreLocal}"></td>
                 <td th:text="${Arrendador.direccion}"></td>
-                <td><button type="button" class="btn btn-success">
+                <!--<td>
+                <div th:if="${Arrendador.email} == ${emailLogged}">
+                <button type="button" class="btn btn-success">
                         <a th:href="@{/editArrendador/{id}(id=${Arrendador.id})}">Editar</a>
-                    </button></td>
+                    </button>
+                 </div>
+                </td>-->
 
             </tr>
 

@@ -306,9 +306,8 @@
 					style="color:white;">Visita nuestra página web</a></span>
 		</div>
 		<script th:if="${usuario}">
-			/* Obtener el valor de anuncioNoVisto */		  
-			/* Verificar si hay anuncios pendientes y mostrar la notificación emergente */
-			if ("[[${usuario.anuncioNoVisto}]]" == true) {
+			console.log("[[${usuario.anuncioNoVisto}]]");
+			if ("[[${usuario.anuncioNoVisto}]]" == "true") {
 			  toastr.success('Tienes un nuevo anuncio pendiente,vaya a verlo', '¡Atención!');
 			}
 		  </script>

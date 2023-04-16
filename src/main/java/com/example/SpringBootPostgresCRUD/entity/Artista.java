@@ -18,6 +18,8 @@ public class Artista extends User {
     private String nombre_artistico;
     @NotBlank
     private String categoria_artistica;
+
+    private String links;
     @NotBlank
     @URL
     private String urlImagen;
@@ -26,12 +28,20 @@ public class Artista extends User {
     }
 
     public Artista(Long id, String password, String firstName, String lastName, String email, String dob, String gender,
-            String nombre_artistico, String categoria_artistica, String urlImagen) {
+            String nombre_artistico, String categoria_artistica, String urlImagen, String links) {
         super(id, password, firstName, lastName, email, dob, gender);
         this.nombre_artistico = nombre_artistico;
         this.categoria_artistica = categoria_artistica;
-        this.urlImagen=urlImagen;
+        this.urlImagen = urlImagen;
+        this.links = links;
     }
 
-  
+    public String getLinks() {
+        return links;
+    }
+
+    public void setLinks(String links) {
+        this.links = links;
+    }
+
 }

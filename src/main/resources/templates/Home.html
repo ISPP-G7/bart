@@ -292,13 +292,14 @@
 			<span class="center">© 2023 Bart. Todos los derechos reservados. <a href="https://ispp-g7.github.io/"
 					style="color:white;">Visita nuestra página web</a></span>
 		</div>
-		<script>
+		<script th:if="${usuario}">
 			/* Obtener el valor de anuncioNoVisto */		  
 			/* Verificar si hay anuncios pendientes y mostrar la notificación emergente */
-			if ("[[${usuario.anuncioNoVisto}]]" === "true") {
+			if ("[[${usuario.anuncioNoVisto}]]" == true) {
 			  toastr.success('Tienes un nuevo anuncio pendiente,vaya a verlo', '¡Atención!');
 			}
 		  </script>
+		  
 		  
 		  
 		  

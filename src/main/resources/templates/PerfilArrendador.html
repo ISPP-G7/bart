@@ -1,83 +1,113 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-	<meta charset="UTF-8">
-	<title>Perfil arrendador</title>
+    <meta charset="UTF-8">
+    <title>Perfil arrendador</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-	<style>
-		body {
-			background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
-            background-size: 100vw 200vh; 
-			color: white;
-		}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
+            background-size: 100vw 200vh;
+            color: white;
+        }
 
-		/* Estilo para el perfil del arrendador */
-    .arrendador-perfil {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    color: black;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
-    border-radius: 5px;
-    }
+        /* Estilo para el perfil del arrendador */
+        .arrendador-perfil {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            color: black;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+            border-radius: 5px;
+        }
 
-    .arrendador-perfil img {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
-    border-radius: 20%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
-    }
+        .arrendador-perfil img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            border-radius: 20%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+        }
 
-    .arrendador-perfil table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    border-spacing: 0;
-    font-size: 16px;
-    }
+        .arrendador-perfil table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            border-spacing: 0;
+            font-size: 16px;
+        }
 
-    .arrendador-perfil table td,
-    .arrendador-perfil table th {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    }
+        .arrendador-perfil table td,
+        .arrendador-perfil table th {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-    .arrendador-perfil table th {
-    font-weight: 600;
-    background-color: #f8f8f8;
-    color: #333;
-    }
+        .arrendador-perfil table th {
+            font-weight: 600;
+            background-color: #f8f8f8;
+            color: #333;
+        }
 
-    .arrendador-perfil a {
-    color: #3d5afe;
-    text-decoration: none;
-    }
+        .arrendador-perfil a {
+            color: #3d5afe;
+            text-decoration: none;
+        }
 
-    .arrendador-perfil a:hover {
-    text-decoration: underline;
-    }
+        .arrendador-perfil a:hover {
+            text-decoration: underline;
+        }
 
-    .arrendador-perfil h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
-    }
+        .arrendador-perfil h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
 
-    .arrendador-perfil h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    }
+        .arrendador-perfil h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
 
-	</style>
+        /*
+        .valorar button{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #000;
+        }*/
+
+        .valorar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .opiniones {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: lightgray;
+            text-decoration: none;
+        }
+    </style>
 </head>
+
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="arrendador-perfil">
@@ -120,6 +150,19 @@
         </tr>
     </table>
     </div>
+    <br>
+    <div class="valorar" th:if="${usuario.esArtista}">
+        <button type="button" class="btn btn-primary">
+            <a th:href="@{/addValoracion/{id}(id=${arr.id})}">Valorar</a>
+        </button>
+    </div>
+    <br>
+    <div class="opiniones">
+        <button type="button" class="btn btn-primary">
+            <a th:href="@{/viewValoracionesRecibidas/{idReceiver}(idReceiver=${arr.id})}">Ver opiniones</a>
+        </button>
+    </div>
     <footer th:replace="Home :: Footer"></footer>
 </body>
+
 </html>

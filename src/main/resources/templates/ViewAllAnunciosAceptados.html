@@ -89,12 +89,14 @@
         <h1>Anuncios de artistas</h1>
         <table th:each="anuncioArtista : ${anunciosArtista}">
             <div class="anuncio">
-                <img class="img-anuncio" th:src="${anuncioArtista.artista.urlImagen}">
-                <div class="texto-anuncio">
-                    <h2 th:text="${anuncioArtista.pseudonimoArtista}"></h2>
-                    <h4 th:text="${anuncioArtista.artista.email}"></h4>
-                    <hr>
-                </div>
+                <a th:href="@{/perfilArtista/{id}(id=${anuncioArtista.artista.id})}">
+                    <img class="img-anuncio" th:src="${anuncioArtista.artista.urlImagen}">                
+                    <div class="texto-anuncio">
+                        <h2 th:text="${anuncioArtista.pseudonimoArtista}"></h2>
+                        <h4 th:text="${anuncioArtista.artista.email}"></h4>
+                        <hr>
+                    </div>
+                </a>
                 <h4 th:text="'Precio: ' + ${anuncioArtista.precio} + '€'"></h4>
                 <h3 class="mensaje-pagado" th:if="${anuncioArtista.estaPagado==true}">Pagado</h3>
                 <button class="boton-pagar" th:if="${anuncioArtista.estaPagado==false}" type="button">
@@ -108,12 +110,14 @@
         <h1>Sus Anuncios</h1>
         <table th:each="anuncioArrendador: ${anunciosArrendador}">
             <div class="anuncio">
-                <img class="img-anuncio" th:src="${anuncioArrendador.second.urlImagen}">
-                <div class="texto-anuncio">
-                    <h2 th:text="${anuncioArrendador.second.nombre_artistico}"></h2>
-                    <h4 th:text="${anuncioArrendador.second.email}"></h4>
-                    <hr>
-                </div>
+                <a th:href="@{/perfilArtista/{id}(id=${anuncioArrendador.second.id})}">
+                    <img class="img-anuncio" th:src="${anuncioArrendador.second.urlImagen}">
+                    <div class="texto-anuncio">
+                        <h2 th:text="${anuncioArrendador.second.nombre_artistico}"></h2>
+                        <h4 th:text="${anuncioArrendador.second.email}"></h4>
+                        <hr>
+                    </div>
+                </a>
                 <h4 th:text="'Precio: ' + ${anuncioArrendador.first.precio} + '€'"></h4>
                 <h3 class="mensaje-pagado" th:if="${anuncioArrendador.first.estaPagado}==true">Pagado</h3>
                 <button class="boton-pagar" th:if="${anuncioArrendador.first.estaPagado}==false" type="button">

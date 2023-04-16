@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<style>
+    body {
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            height: 100vh;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        p {
+            color: white;
+        }
+
+        b {
+            color: white;
+        }
+
+        .titulo {
+            margin-top: 2%;
+            font-family: monospace;
+            text-align: center;
+        }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Valoraciones hechas</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</head>
+
+<body>
+    
+    <div th:replace="Home :: Home"></div>
+    <div class="container">
+        <br>
+        <h1>Valoraciones hechas por <span th:text="${nombreSender}"></span></h1><br>
+        <div class="valoraciones" th:each="valoracion : ${valoraciones}">
+            <p>
+                <b>Realizada a: </b><span th:text="${valoracion.receiver.firstName}"></span><br>
+                <b>Nota: </b><span th:text="${valoracion.nota}"></span>
+            </p>
+            <p th:text="${valoracion.mensaje}"></p>
+            <hr>
+        </div>
+    </div>
+    <footer th:replace="Home :: Footer"></footer>
+</body>

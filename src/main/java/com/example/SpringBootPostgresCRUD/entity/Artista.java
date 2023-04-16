@@ -18,7 +18,7 @@ public class Artista extends User {
     private String nombre_artistico;
     @NotBlank
     private String categoria_artistica;
-    @NotBlank
+
     private String links;
     @NotBlank
     @URL
@@ -32,8 +32,8 @@ public class Artista extends User {
         super(id, password, firstName, lastName, email, dob, gender);
         this.nombre_artistico = nombre_artistico;
         this.categoria_artistica = categoria_artistica;
-        this.urlImagen=urlImagen;
-        this.links=links;
+        this.urlImagen = urlImagen;
+        this.links = links;
     }
 
     public String getLinks() {
@@ -44,5 +44,4 @@ public class Artista extends User {
         this.links = links;
     }
 
-  
 }

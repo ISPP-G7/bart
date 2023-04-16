@@ -77,13 +77,34 @@
             margin-bottom: 10px;
         }
 
+        /*
         .valorar button{
             display: flex;
             flex-direction: column;
             align-items: center;
             background-color: #000;
+        }*/
+
+        .valorar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
+        .opiniones {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: lightgray;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -139,9 +160,16 @@
             </tr>
         </table>
     </div>
+    <br>
     <div class="valorar" th:if="${usuario.esArtista}">
         <button type="button" class="btn btn-primary">
             <a th:href="@{/addValoracion/{id}(id=${arr.id})}">Valorar</a>
+        </button>
+    </div>
+    <br>
+    <div class="opiniones">
+        <button type="button" class="btn btn-primary">
+            <a th:href="@{/viewValoracionesRecibidas/{idReceiver}(idReceiver=${arr.id})}">Ver opiniones</a>
         </button>
     </div>
     <footer th:replace="Home :: Footer"></footer>

@@ -39,9 +39,10 @@
 </head>
 
 <body>
-    <!--
-    <div th:replace="Home :: Home"></div>-->
+    
+    <div th:replace="Home :: Home"></div>
     <div class="container">
+        <br>
         <h1>Valoraciones hechas por <span th:text="${nombreSender}"></span></h1><br>
         <div class="valoraciones" th:each="valoracion : ${valoraciones}">
             <p>

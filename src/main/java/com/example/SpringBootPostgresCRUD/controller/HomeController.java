@@ -35,8 +35,8 @@ public class HomeController {
     private ArtistaService artService;
 
     @GetMapping({ "/", "/home" })
-    public String home(Model model,Authentication authentication) throws IOException {
-        Boolean is_logged= false;
+    public String home(Model model, Authentication authentication) throws IOException {
+        Boolean is_logged = false;
         List<List<String>> coordenadasList = new ArrayList<>();
 
         List<Arrendador> arrendadoresList = arrService.getAllArrendadores();
@@ -69,16 +69,15 @@ public class HomeController {
         model.addAttribute("arrendadoresNombreLocalMapListAux", arrendadoresNombreLocalMapListAux);
         // Para que aparezca el nombre de usuario
         if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
-            is_logged=true;
+            is_logged = true;
             model.addAttribute("nombreUsuario", SecurityContextHolder.getContext().getAuthentication().getName());
-            String email=SecurityContextHolder.getContext().getAuthentication().getName();
-            User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
-            model.addAttribute("usuario",usr);
-            if(usr.getEsArrendador()){
-                Arrendador arrendador= arrService.getArrendadorByMailArrendador(email);
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
+            if (usr.getEsArrendador()) {
+                Arrendador arrendador = arrService.getArrendadorByMailArrendador(email);
                 model.addAttribute("arrendador", arrendador);
-            }
-            else if(usr.getEsArtista()){
+            } else if (usr.getEsArtista()) {
                 Artista artista = artService.getArtistaByMailArtista(email);
                 model.addAttribute("artista", artista);
             }
@@ -86,7 +85,6 @@ public class HomeController {
             model.addAttribute("nombreUsuario", "");
         }
         model.addAttribute("isLogged", is_logged);
-
 
         return "Home";
     }

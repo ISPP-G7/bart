@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+	<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Bart - Contratación bidireccional entre artistas y locales</title>
 	<meta charset="UTF-8">
@@ -118,6 +118,10 @@
 						<li class="nav-item">
 							<a class="nav-link" href="/aboutUs">Sobre Nosotros</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/PreguntasFrecuentes">Preguntas frecuentes</a>
+						</li>
+						
 					</th:block>
 
 					<!-- Si el usuario está logueado -->
@@ -165,6 +169,9 @@
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewArtistas">Lista de Artistas</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/PreguntasFrecuentes">Preguntas frecuentes</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="/aboutUs">Sobre Nosotros</a>

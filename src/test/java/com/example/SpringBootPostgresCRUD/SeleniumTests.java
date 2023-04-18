@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -34,6 +35,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Random;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -89,10 +91,40 @@ public class SeleniumTests {
       driver.findElement(By.cssSelector(".btn")).click();
     }
     driver.findElement(By.linkText("Iniciar sesión")).click();
-    driver.findElement(By.id("username")).sendKeys("john@gmail.com");
-    driver.findElement(By.id("password")).sendKeys("password");
+    //driver.findElement(By.id("username")).sendKeys("admin1");
+    //driver.findElement(By.id("password")).sendKeys("4dm1n");
+    //driver.findElement(By.cssSelector(".container")).click();
+    driver.findElement(By.id("username")).sendKeys("johnlennon@gmail.com");
+    driver.findElement(By.id("password")).sendKeys("contraseña");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+  }
+  
+  @Test
+  public void signUpAndLoginArtistaTest() {
+	Random random = new Random();
+    int randomNumber = random.nextInt(100000000) + 1;
+    driver.get("http://localhost:8080/");
+    driver.findElement(By.linkText("Registrarse como artista")).click();
+
+    //  Rellena el formulario de artista
+    driver.findElement(By.id("email")).sendKeys("mickealJackson"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("urlImagen")).sendKeys("https://yt3.googleusercontent.com/DYNuiKlx93gnqckBObvCa_HSW8iR-XQNqND9OAVBgrTKEnxtVZaGQ_WYfH3DA6nmeCmhraRC=s900-c-k-c0x00ffffff-no-rj");
+    driver.findElement(By.id("firstName")).sendKeys("Mickeal");
+    driver.findElement(By.id("lastName")).sendKeys("Jackson");
+    driver.findElement(By.id("dob")).sendKeys("2000-09-10");
+    driver.findElement(By.id("nombre_artistico")).sendKeys("Mickey");
+    driver.findElement(By.id("categoria_artistica")).sendKeys("Pop");
     driver.findElement(By.cssSelector(".btn")).click();
 
+    //  Inicia sesión con el artista creado
+    driver.findElement(By.linkText("Iniciar sesión")).click();
+    driver.findElement(By.id("username")).clear();
+    driver.findElement(By.id("username")).sendKeys("mickealJackson"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+    
+    //  Comprueba que se ha creado correctamente el artista
     driver.findElement(By.id("navbarDropdown")).click();
     driver.findElement(By.linkText("Ver mi perfil")).click();
     driver.findElement(By.cssSelector("html")).click();
@@ -100,6 +132,39 @@ public class SeleniumTests {
     String expectedTitle = "Perfil artista";
     String actualTitle = driver.getTitle();
     assertEquals(expectedTitle, actualTitle);
+  }
+  
+  @Test
+  public void signUpAndLoginArrendadorTest() {
+	Random random = new Random();
+	int randomNumber = random.nextInt(100000000) + 1;
+    driver.get("http://localhost:8080/");
+    driver.findElement(By.linkText("Registrarse como arrendador")).click();
+    
+    //  Rellena el formulario de arrendador
+    driver.findElement(By.id("email")).sendKeys("barPaco"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("urlImagen")).sendKeys("https://media-cdn.tripadvisor.com/media/photo-s/15/7b/5b/0f/paco-pepe.jpg");
+    driver.findElement(By.id("firstName")).sendKeys("Francisco");
+    driver.findElement(By.id("lastName")).sendKeys("Pérez");
+    driver.findElement(By.id("dob")).sendKeys("2000-04-20");
+    driver.findElement(By.id("nombreLocal")).sendKeys("Bar Paco");
+    driver.findElement(By.id("direccion")).sendKeys("Sevilla");
+    driver.findElement(By.cssSelector(".btn")).click();
 
+    //  Inicia sesión con el arrendador creado
+    driver.findElement(By.linkText("Iniciar sesión")).click();
+    driver.findElement(By.id("username")).sendKeys("barPaco"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+    
+    //  Comprueba que se ha creado correctamente el arrendador
+    driver.findElement(By.id("navbarDropdown")).click();
+    driver.findElement(By.linkText("Ver mi perfil")).click();
+    driver.findElement(By.cssSelector("html")).click();
+
+    String expectedTitle = "Perfil arrendador";
+    String actualTitle = driver.getTitle();
+    assertEquals(expectedTitle, actualTitle);
   }
 }

@@ -107,6 +107,11 @@ public class SeleniumTests {
     driver.findElement(By.id("categoria_artistica")).click();
     driver.findElement(By.id("categoria_artistica")).sendKeys("Pop");
     driver.findElement(By.cssSelector(".btn")).click();
+    driver.get("http://localhost:8080/");
+    driver.findElement(By.linkText("Iniciar sesión")).click();
+    driver.findElement(By.id("username")).sendKeys("mickealJackson"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
   }
   
   @Test
@@ -137,5 +142,10 @@ public class SeleniumTests {
     driver.findElement(By.id("direccion")).click();
     driver.findElement(By.id("direccion")).sendKeys("Sevilla");
     driver.findElement(By.cssSelector(".btn")).click();
+    driver.get("http://localhost:8080/");
+    driver.findElement(By.linkText("Iniciar sesión")).click();
+    driver.findElement(By.id("username")).sendKeys("mickealJackson"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
   }
 }

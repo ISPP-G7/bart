@@ -24,6 +24,7 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Random;
 
 public class SeleniumTests {
   private WebDriver driver;
@@ -45,11 +46,96 @@ public class SeleniumTests {
   public void login() {
     driver.get("http://localhost:8080/");
     driver.findElement(By.linkText("Iniciar sesión")).click();
-    driver.findElement(By.id("username")).sendKeys("admin1");
-    driver.findElement(By.id("password")).sendKeys("4dm1n");
-    driver.findElement(By.cssSelector(".container")).click();
+    //driver.findElement(By.id("username")).sendKeys("admin1");
+    //driver.findElement(By.id("password")).sendKeys("4dm1n");
+    //driver.findElement(By.cssSelector(".container")).click();
     driver.findElement(By.id("username")).sendKeys("johnlennon@gmail.com");
     driver.findElement(By.id("password")).sendKeys("contraseña");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+  }
+  
+  @Test
+  public void registerartist() {
+	Random random = new Random();
+    int randomNumber = random.nextInt(100000000) + 1;
+    driver.get("http://localhost:8080/");
+    driver.manage().window().setSize(new Dimension(1296, 736));
+    driver.findElement(By.linkText("Registrarse como artista")).click();
+    driver.findElement(By.id("email")).sendKeys("mickealJackson"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("urlImagen")).click();
+    driver.findElement(By.id("urlImagen")).sendKeys("https://yt3.googleusercontent.com/DYNuiKlx93gnqckBObvCa_HSW8iR-XQNqND9OAVBgrTKEnxtVZaGQ_WYfH3DA6nmeCmhraRC=s900-c-k-c0x00ffffff-no-rj");
+    driver.findElement(By.id("firstName")).click();
+    driver.findElement(By.id("firstName")).sendKeys("Mickeal");
+    driver.findElement(By.id("lastName")).click();
+    driver.findElement(By.id("lastName")).sendKeys("Jackson");
+    driver.findElement(By.cssSelector(".form-check-inline:nth-child(1) > .form-check-label")).click();
+    driver.findElement(By.id("dob")).click();
+    driver.findElement(By.id("dob")).click();
+    driver.findElement(By.id("dob")).sendKeys("0002-09-10");
+    driver.findElement(By.id("dob")).sendKeys("0020-09-10");
+    driver.findElement(By.id("dob")).sendKeys("0200-09-10");
+    driver.findElement(By.id("dob")).sendKeys("2000-09-10");
+    driver.findElement(By.id("email")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).clickAndHold().perform();
+    }
+    {
+      WebElement element = driver.findElement(By.cssSelector("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.cssSelector("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).release().perform();
+    }
+    driver.findElement(By.cssSelector("body")).click();
+    driver.findElement(By.id("email")).sendKeys("mickealJackson"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("password")).click();
+    {
+      WebElement element = driver.findElement(By.id("password"));
+      Actions builder = new Actions(driver);
+      builder.doubleClick(element).perform();
+    }
+    driver.findElement(By.id("password")).click();
+    driver.findElement(By.id("nombre_artistico")).click();
+    driver.findElement(By.id("nombre_artistico")).click();
+    driver.findElement(By.id("nombre_artistico")).sendKeys("Mickey");
+    driver.findElement(By.id("categoria_artistica")).click();
+    driver.findElement(By.id("categoria_artistica")).sendKeys("Pop");
+    driver.findElement(By.cssSelector(".btn")).click();
+  }
+  
+  @Test
+  public void registerarrendador() {
+	Random random = new Random();
+	int randomNumber = random.nextInt(100000000) + 1;
+    driver.get("http://localhost:8080/");
+    driver.manage().window().setSize(new Dimension(1296, 736));
+    driver.findElement(By.linkText("Registrarse como arrendador")).click();
+    driver.findElement(By.id("email")).sendKeys("mickealJackson"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("urlImagen")).click();
+    driver.findElement(By.id("urlImagen")).sendKeys("https://yt3.googleusercontent.com/DYNuiKlx93gnqckBObvCa_HSW8iR-XQNqND9OAVBgrTKEnxtVZaGQ_WYfH3DA6nmeCmhraRC=s900-c-k-c0x00ffffff-no-rj");
+    driver.findElement(By.id("firstName")).click();
+    driver.findElement(By.id("firstName")).sendKeys("Mickeal");
+    driver.findElement(By.id("lastName")).click();
+    driver.findElement(By.id("lastName")).sendKeys("Jackson");
+    driver.findElement(By.id("gender1")).click();
+    driver.findElement(By.id("dob")).click();
+    driver.findElement(By.id("dob")).sendKeys("0002-04-20");
+    driver.findElement(By.id("dob")).sendKeys("0020-04-20");
+    driver.findElement(By.id("dob")).sendKeys("0200-04-20");
+    driver.findElement(By.id("dob")).sendKeys("2000-04-20");
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("password")).click();
+    driver.findElement(By.id("nombreLocal")).click();
+    driver.findElement(By.id("nombreLocal")).sendKeys("mickealInn");
+    driver.findElement(By.id("direccion")).click();
+    driver.findElement(By.id("direccion")).sendKeys("Sevilla");
+    driver.findElement(By.cssSelector(".btn")).click();
   }
 }

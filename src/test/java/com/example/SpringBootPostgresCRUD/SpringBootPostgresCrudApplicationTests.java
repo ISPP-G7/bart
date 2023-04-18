@@ -101,6 +101,20 @@ class SpringBootPostgresCrudApplicationTests {
         assertEquals("John Lennon", Artista.getFirstName());
     }
 
+    @Test
+    void testGetArtistaByEmail() {
+        // Mock repository method
+        String mail = mockArtista.getEmail();
+        when(artistaRepository.getArtistaByMailArtista(mail)).thenReturn(mockArtista);
+
+        // Call service method
+        Artista Artista = artistaService.getArtistaByMailArtista(mail);
+
+        // Verify result
+        assertEquals(1L, Artista.getId());
+        assertEquals("John Lennon", Artista.getFirstName());
+    }
+
 	@Test
 	void testGetArrendadorByMail() {
         // Mock repository method

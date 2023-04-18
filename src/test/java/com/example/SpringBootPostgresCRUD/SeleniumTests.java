@@ -112,6 +112,14 @@ public class SeleniumTests {
     driver.findElement(By.id("username")).sendKeys("mickealJackson"+randomNumber+"@gmail.com");
     driver.findElement(By.id("password")).sendKeys("123456");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+    
+    driver.findElement(By.id("navbarDropdown")).click();
+    driver.findElement(By.linkText("Ver mi perfil")).click();
+    driver.findElement(By.cssSelector("html")).click();
+
+    String expectedTitle = "Perfil artista";
+    String actualTitle = driver.getTitle();
+    assertEquals(expectedTitle, actualTitle);
   }
   
   @Test
@@ -147,5 +155,13 @@ public class SeleniumTests {
     driver.findElement(By.id("username")).sendKeys("mickealJackson"+randomNumber+"@gmail.com");
     driver.findElement(By.id("password")).sendKeys("123456");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+    
+    driver.findElement(By.id("navbarDropdown")).click();
+    driver.findElement(By.linkText("Ver mi perfil")).click();
+    driver.findElement(By.cssSelector("html")).click();
+
+    String expectedTitle = "Perfil arrendador";
+    String actualTitle = driver.getTitle();
+    assertEquals(expectedTitle, actualTitle);
   }
 }

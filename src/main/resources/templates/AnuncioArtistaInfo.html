@@ -58,7 +58,7 @@
                     <img th:src="${anuncio.artista.urlImagen}" class="img-fluid" alt="Imagen del artista">
                 </div>
                 <div class="col-md-8">
-                    <h2 class="mb-3"><a th:href="@{/perfilArtista/{id}(id=${anuncio.artista.id})}">[[${anuncio.pseudonimoArtista}]]</a></h2>
+                    <h2 class="mb-3"><a th:href="@{/perfilUsuario/{id}(id=${anuncio.artista.id})}">[[${anuncio.pseudonimoArtista}]]</a></h2>
                     <p class="mb-1"><strong>Ubicación:</strong> [[${anuncio.ubicacion}]]</p>
                     <p class="mb-1"><strong>Precio:</strong> [[${anuncio.precio}]]</p>
                     <p class="mb-1"><strong>Descripción:</strong> [[${anuncio.descripcionArtista}]]</p>

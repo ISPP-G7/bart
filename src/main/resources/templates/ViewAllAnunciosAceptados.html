@@ -89,7 +89,7 @@
         <h1>Anuncios de artistas</h1>
         <table th:each="anuncioArtista : ${anunciosArtista}">
             <div class="anuncio">
-                <a th:href="@{/perfilArtista/{id}(id=${anuncioArtista.artista.id})}">
+                <a th:href="@{/perfilUsuario/{id}(id=${anuncioArtista.artista.id})}">
                     <img class="img-anuncio" th:src="${anuncioArtista.artista.urlImagen}">                
                     <div class="texto-anuncio">
                         <h2 th:text="${anuncioArtista.pseudonimoArtista}"></h2>
@@ -110,7 +110,7 @@
         <h1>Sus Anuncios</h1>
         <table th:each="anuncioArrendador: ${anunciosArrendador}">
             <div class="anuncio">
-                <a th:href="@{/perfilArtista/{id}(id=${anuncioArrendador.second.id})}">
+                <a th:href="@{/perfilUsuario/{id}(id=${anuncioArrendador.second.id})}">
                     <img class="img-anuncio" th:src="${anuncioArrendador.second.urlImagen}">
                     <div class="texto-anuncio">
                         <h2 th:text="${anuncioArrendador.second.nombre_artistico}"></h2>

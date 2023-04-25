@@ -15,6 +15,10 @@
             color: white;
         }
 
+        p {
+            color: white;
+        }
+
         label {
             color: white;
         }
@@ -42,8 +46,8 @@
     <!--
     <div th:replace="Home :: Home"></div>-->
     <div class="container">
-        <h1 class="p-3">Añadir valoración para <span th:text="${nombreReceiver}"></span></h1>
-        <form th:action="@{/saveValoracion/}+${emailReceiver}" th:object="${val}" method="post">
+        <h1 class="p-3">Añadir valoración para <span th:text="${receiver.getFirstName}"></span></h1>
+        <form th:action="@{/saveValoracion/}+${receiver.getEmail}" th:object="${val}" method="post">
             
             <div class="row">
                 <div class="form-group col-md-12">
@@ -71,10 +75,16 @@
             </div>
 
             <div class="row p-2">
-                <div class="col-md-2">
+                <div class="col-md-2" th:if="${receiver.esArtista != sender.esArtista 
+                    and receiver.esArrendador != sender.esArrendador}">
                     <button class="btn btn-success">Añadir</button>
                 </div>
+                <div class="col-m2-2" th:unless="${receiver.esArtista != sender.esArtista 
+                    and receiver.esArrendador != sender.esArrendador}">
+                    <p>ERROR: un artista solo puede valorar a arrendadores y viceversa.</p>
+                </div>
             </div>
+            
 
         </form>
     </div>

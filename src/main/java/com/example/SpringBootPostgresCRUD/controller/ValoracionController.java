@@ -80,11 +80,11 @@ public class ValoracionController {
 
     @GetMapping("/addValoracion/{idReceiver}")
     public String newValoracion(@PathVariable Long idReceiver, @ModelAttribute("message") String message, Model model) {
-        String emailReceiver = userService.getUserById(idReceiver).getEmail();
-        String nombreReceiver = userService.getUserById(idReceiver).getFirstName();
+        User receiver = userService.getUserById(idReceiver);
+        User sender = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("val", new Valoracion());
-        model.addAttribute("emailReceiver", emailReceiver);
-        model.addAttribute("nombreReceiver", nombreReceiver);
+        model.addAttribute("receiver", receiver);
+        model.addAttribute("sender", sender);
         return "AddValoracion";
     }
 
@@ -105,12 +105,8 @@ public class ValoracionController {
         } else {
             redirectAttributes.addFlashAttribute("valoracion", "Save Failure");
         }
-
-        if (val.getReceiver().getEsArtista()) {
-            return "redirect:/perfilArtista/" + val.getReceiver().getId();
-        } else {
-            return "redirect:/perfilArrendador/" + val.getReceiver().getId();
-        }
+        
+        return "redirect:/perfilUsuario/" + val.getReceiver().getId();
     }
 
     @GetMapping("deleteValoracion/{id}/{emailReceiver}")

@@ -157,13 +157,13 @@
     </table>
     </div>
     <h2 style="text-align: center;">Muestras de trabajo</h2>
-    <div style="display: flex; justify-content: center; align-items: center;" th:if="${user.id == val.id}">
+    <div style="display: flex; justify-content: center; align-items: center;" th:if="${user.id == valid.id}">
         <button type="button" class="btn btn-primary">
             <a href="/imagenes">Subir</a>
         </button>
     </div>
     <br>
-    <div class="valorar" th:if="${user.esArtista != val.esArtista and user.esArrendador != val.esArrendador}">
+    <div class="valorar" th:if="${user.esArtista != valid.esArtista and user.esArrendador != valid.esArrendador}">
         <button type="button" class="btn btn-primary">
             <a th:href="@{/addValoracion/{id}(id=${user.id})}">Valorar</a>
         </button>

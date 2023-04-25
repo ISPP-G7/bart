@@ -91,13 +91,11 @@ public class ValoracionController {
     @PostMapping("/saveValoracion/{emailReceiver}")
     public String saveValoracion(Valoracion val, @PathVariable("emailReceiver") String emailReceiver,
             RedirectAttributes redirectAttributes) {
-        
-        String emailSender = SecurityContextHolder.getContext().getAuthentication().getName();
-        User userSender = userService.getUserByEmail(emailSender);
-        User userReceiver = userService.getUserByEmail(emailReceiver);
+        User sender = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        User receiver = userService.getUserByEmail(emailReceiver);
         Date now = Date.from(Instant.now());
-        val.setSender(userSender);
-        val.setReceiver(userReceiver);
+        val.setSender(sender);
+        val.setReceiver(receiver);
         val.setFecha(now);
 
         if (valoracionService.saveorUpdateValoracion(val)) {
@@ -105,7 +103,7 @@ public class ValoracionController {
         } else {
             redirectAttributes.addFlashAttribute("valoracion", "Save Failure");
         }
-        
+
         return "redirect:/perfilUsuario/" + val.getReceiver().getId();
     }
 
@@ -113,22 +111,14 @@ public class ValoracionController {
     public String deleteValoracion(@PathVariable Long id, @PathVariable("emailReceiver") String emailReceiver,
             RedirectAttributes redirectAttributes) {
         User receiver = userService.getUserByEmail(emailReceiver);
-        String emailSender = SecurityContextHolder.getContext().getAuthentication().getName();
+
         if (valoracionService.deleteValoracion(id)) {
             redirectAttributes.addFlashAttribute("valoracion", "Delete Success");
-            if (receiver.getEsArtista()) {
-                return "redirect:/perfilArtista/" + receiver.getId();
-            } else {
-                return "redirect:/perfilArrendador/" + receiver.getId();
-            }
+            return "redirect:/perfilUsuario/" + receiver.getId();
         }
+
         redirectAttributes.addFlashAttribute("valoracion", "Delete Failure");
-        
-        if (receiver.getEsArtista()) {
-            return "redirect:/perfilArtista/" + receiver.getId();
-        } else {
-            return "redirect:/perfilArrendador/" + receiver.getId();
-        }
+        return "redirect:/perfilUsuario/" + receiver.getId();
     }
 
     //Comprueba si el usuario está logueado y setea los valores correspondientes

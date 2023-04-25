@@ -125,11 +125,11 @@ public class UserController {
         setUserIfLogged(model);
 
         User user = userService.getUserById(id);
-        User val = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        User valid = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         List<Foto> fotos = fotoService.getFotosByUser(user.getEmail());
 
         model.addAttribute("user", user);
-        model.addAttribute("val", val);
+        model.addAttribute("valid", valid);
         model.addAttribute("fotos", fotos);
         model.addAttribute("message", message);
         if (user.getEsArtista()) {

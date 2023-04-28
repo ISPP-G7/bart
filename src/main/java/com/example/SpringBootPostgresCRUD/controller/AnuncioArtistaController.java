@@ -19,7 +19,6 @@ import com.example.SpringBootPostgresCRUD.entity.Artista;
 import com.example.SpringBootPostgresCRUD.entity.User;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.engine.AttributeName;
 import org.springframework.ui.Model;
 import java.util.List;
 

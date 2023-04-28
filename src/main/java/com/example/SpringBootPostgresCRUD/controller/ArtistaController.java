@@ -10,7 +10,6 @@ import com.example.SpringBootPostgresCRUD.service.FotoService;
 import com.example.SpringBootPostgresCRUD.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class ArtistaService {
@@ -22,7 +24,12 @@ public class ArtistaService {
     }
 
     public Artista getArtistaById(Long id) {
-           return artistaRepository.findById(id).get();//aquí habría que comprobar que no es nulo antes de pasarlo, si es nulo pasar excepción. TODO
+        Optional<Artista> optionalArtista = artistaRepository.findById(id);
+        if(optionalArtista.isPresent()){
+            return optionalArtista.get();
+        }else{
+            throw new NoSuchElementException("No se encontró AnuncioArrendador con id " + id);
+        }
     }
     public Artista getArtistaByMailArtista(String mail){
         return artistaRepository.getArtistaByMailArtista(mail);

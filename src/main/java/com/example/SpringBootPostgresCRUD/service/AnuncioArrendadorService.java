@@ -2,6 +2,8 @@ package com.example.SpringBootPostgresCRUD.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,7 +94,12 @@ public class AnuncioArrendadorService {
     }
 
     public AnuncioArrendador getAnuncioArrendadorById(Long id) {
-        return anuncioArrendadorRepository.findById(id).get();
+        Optional<AnuncioArrendador> optionalAnuncio = anuncioArrendadorRepository.findById(id);
+        if (optionalAnuncio.isPresent()) {
+            return optionalAnuncio.get();
+        } else {
+            throw new NoSuchElementException("No se encontró AnuncioArrendador con id " + id);
+        }
     }
 
     public boolean deleteAnuncioArrendador(Long id) {

@@ -8,8 +8,8 @@ TRUNCATE TABLE fotos CASCADE;
 
 -- Creación de tablas
 INSERT INTO users (id,first_name,last_name,email,dob,gender,password,es_arrendador,es_artista) VALUES
-	(1,'José','Fernández', 'namnam@gmail.com','venta de bocadillos y dulce en reina mercedes', 'Masculino','joseNamNam',true,false),
-	(2,'Manolo', 'Platero', 'platero@gmail.com','El mejor rock de los 80 hasta ahora', 'Masculino', 'platero', false, true);
+	(1,'José','Fernández', 'namnam@gmail.com','2000-01-01', 'Masculino','joseNamNam',true,false),
+	(2,'Manolo', 'Platero', 'platero@gmail.com','1990-01-01', 'Masculino', 'platero', false, true);
 INSERT INTO arrendadores (id,direccion,nombre_local,url_imagen) VALUES
 	(1,'Avenida de la Reina Mercedes,31, Sevilla','Bocatería ÑAM ÑAM','https://media-cdn.tripadvisor.com/media/photo-s/13/0e/7f/68/sala-principal-escenario.jpg');
 INSERT INTO artistas (id,nombre_artistico, categoria_artistica,url_imagen) VALUES

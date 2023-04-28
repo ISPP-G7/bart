@@ -1,6 +1,5 @@
 package com.example.SpringBootPostgresCRUD.entity;
 
-import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -24,6 +23,7 @@ public class User {
     
     private String lastName;
     @Email
+    @Column(unique = true)//funciona pero salta la página de error, estaría bien que saltase en el html
     private String email;
 
     private String dob;

@@ -2,6 +2,8 @@ package com.example.SpringBootPostgresCRUD.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,12 @@ public class ValoracionService {
     }
 
     public Valoracion getValoracionById(Long id) {
-        return valoracionRepository.findById(id).get();
+        Optional<Valoracion> optionalVal = valoracionRepository.findById(id);
+        if (optionalVal.isPresent()) {
+            return optionalVal.get();
+        } else {
+            throw new NoSuchElementException("No se encontró AnuncioArrendador con id " + id);
+        }
     }
 
     public boolean saveorUpdateValoracion(Valoracion valoracion) {

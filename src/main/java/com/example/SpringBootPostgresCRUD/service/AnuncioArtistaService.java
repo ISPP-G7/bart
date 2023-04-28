@@ -2,6 +2,8 @@ package com.example.SpringBootPostgresCRUD.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,7 +76,7 @@ public class AnuncioArtistaService {
         anuncioArtista.setArtista(artistaRepository.getById(artistaIdSeleccionado));// Esto hay que hacer que coja el id
                                                                                     // del artista automáticamente.
         AnuncioArtista anu = anuncioArtistaRepository.save(anuncioArtista);
-        if (anuncioArtistaRepository.findById(anu.getId()) != null) {
+        if (anuncioArtistaRepository.findById(anu.getId()).isPresent()) {
             return true;
         }
         return false;
@@ -90,8 +92,12 @@ public class AnuncioArtistaService {
      * }
      */
     public AnuncioArtista getAnuncioArtistaById(Long id) {
-        return anuncioArtistaRepository.findById(id).get();// aquí habría que comprobar que no es nulo antes de pasarlo,
-                                                           // si es nulo pasar excepción. TODO
+        Optional<AnuncioArtista> optionalAnuncio = anuncioArtistaRepository.findById(id);
+        if (optionalAnuncio.isPresent()) {
+            return optionalAnuncio.get();
+        } else {
+            throw new NoSuchElementException("No se encontró AnuncioArtista con id " + id);
+        }
     }
 
     public boolean deleteAnuncioArtista(Long id) {
@@ -118,7 +124,7 @@ public class AnuncioArtistaService {
         anar.setEstaAceptado(true);
         anar.setArrendador_accept_id(arrendador_accept_id);
         anuncioArtistaRepository.save(anar);
-        if (anuncioArtistaRepository.findById(anar.getId()) != null) {
+        if (anuncioArtistaRepository.findById(anar.getId()).isPresent()) {
             return true;
         }
         return false;

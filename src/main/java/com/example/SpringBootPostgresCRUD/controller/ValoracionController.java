@@ -117,7 +117,7 @@ public class ValoracionController {
     public String deleteValoracion(@PathVariable Long id, @PathVariable("emailReceiver") String emailReceiver,
             RedirectAttributes redirectAttributes) {
         User receiver = userService.getUserByEmail(emailReceiver);
-        String emailSender = SecurityContextHolder.getContext().getAuthentication().getName();
+        //String emailSender = SecurityContextHolder.getContext().getAuthentication().getName();
         if (valoracionService.deleteValoracion(id)) {
             redirectAttributes.addFlashAttribute("valoracion", "Delete Success");
             if (receiver.getEsArtista()) {

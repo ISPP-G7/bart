@@ -9,8 +9,6 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.OneToOne;
 import lombok.Setter;
 import lombok.Getter;

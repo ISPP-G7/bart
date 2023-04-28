@@ -2,6 +2,8 @@ package com.example.SpringBootPostgresCRUD.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,12 @@ public class MessageService {
     }
 
     public Message getMessageById(Long id) {
-        return messageRepository.findById(id).get();//aquí habría que comprobar que no es nulo antes de pasarlo, si es nulo pasar excepción. TODO
+        Optional<Message> optionalMessage = messageRepository.findById(id);
+        if (optionalMessage.isPresent()) {
+            return optionalMessage.get();
+        } else {
+            throw new NoSuchElementException("No se encontró Message con id " + id);
+        }
     }
 
     public boolean saveOrUpdateMessage(Message Message) {

@@ -108,12 +108,16 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-3">Fecha de nacimiento</label>
                     <div class="col-md-6">
-                        <input type="date" th:field="*{dob}" id="dob" class="form-control input-sm"
+                        <input type="date" th:field="*{dob}" id="dob" max="{{ 'now'|date('Y-m-d') }}" class="form-control input-sm"
                             required="required" />
                     </div>
                 </div>
             </div>
-
+            <script>
+                var now = new Date();
+                var maxFecha = now.toISOString().split('T')[0];
+                document.getElementById("dob").max = maxFecha;
+            </script>
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3">Email</label>

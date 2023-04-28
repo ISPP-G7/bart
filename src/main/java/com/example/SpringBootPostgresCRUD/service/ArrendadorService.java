@@ -2,6 +2,8 @@ package com.example.SpringBootPostgresCRUD.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,12 @@ public class ArrendadorService {
     }
 
     public Arrendador getArrendadorById(Long id) {
-        return arrRepository.findById(id).get();//aquí habría que comprobar que no es nulo antes de pasarlo, si es nulo pasar excepción. TODO
+        Optional<Arrendador> optionalArr = arrRepository.findById(id);
+        if (optionalArr.isPresent()) {
+            return optionalArr.get();
+        } else {
+            throw new NoSuchElementException("No se encontró Arrendador con id " + id);
+        }
     }
 
     public Arrendador getArrendadorByMailArrendador(String mail) {

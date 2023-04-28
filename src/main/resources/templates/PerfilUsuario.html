@@ -156,13 +156,6 @@
         </tr>
     </table>
     </div>
-    <h2 style="text-align: center;">Muestras de trabajo</h2>
-    <div style="display: flex; justify-content: center; align-items: center;" th:if="${user.id == valid.id}">
-        <button type="button" class="btn btn-primary">
-            <a href="/imagenes">Subir</a>
-        </button>
-    </div>
-    <br>
     <div class="valorar" th:if="${user.esArtista != valid.esArtista and user.esArrendador != valid.esArrendador}">
         <button type="button" class="btn btn-primary">
             <a th:href="@{/addValoracion/{id}(id=${user.id})}">Valorar</a>
@@ -174,6 +167,14 @@
             <a th:href="@{/viewValoracionesRecibidas/{idReceiver}(idReceiver=${user.id})}">Ver opiniones</a>
         </button>
     </div>
+    <h2 style="text-align: center;">Muestras de trabajo</h2>
+    <div style="display: flex; justify-content: center; align-items: center;" th:if="${user.id == valid.id}">
+        <button type="button" class="btn btn-primary">
+            <a href="/imagenes">Subir</a>
+        </button>
+    </div>
+    <br>
+    
     <div class="muestra" th:each="foto : ${fotos}">
         <img th:src="@{/imagenes/{id}(id=${foto.id})}" alt="fotos de muestras">
     </div>

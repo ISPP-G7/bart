@@ -43,13 +43,16 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
         <br>
-        <h1>Valoraciones hechas por <span th:text="${nombreSender}"></span></h1><br>
+        <h1>Valoraciones hechas por <span th:text="${sender.firstName}"></span></h1><br>
         <div class="valoraciones" th:each="valoracion : ${valoraciones}">
             <p>
                 <b>Realizada a: </b><span th:text="${valoracion.receiver.firstName}"></span><br>
                 <b>Nota: </b><span th:text="${valoracion.nota}"></span>
             </p>
             <p th:text="${valoracion.mensaje}"></p>
+            <form th:action="@{/deleteValoracion/{id}(id=${valoracion.id})}" method="post" th:if="sender.id == valid.id">
+                <button class="btn btn-primary">Eliminar</button>
+            </form>
             <hr>
         </div>
     </div>

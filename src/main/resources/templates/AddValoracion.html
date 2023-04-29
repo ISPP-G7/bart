@@ -76,12 +76,15 @@
 
             <div class="row p-2">
                 <div class="col-md-2" th:if="${receiver.esArtista != sender.esArtista 
-                    and receiver.esArrendador != sender.esArrendador}">
+                    and receiver.esArrendador != sender.esArrendador} and ${!validRepetido}">
                     <button class="btn btn-success">Añadir</button>
                 </div>
-                <div class="col-m2-2" th:unless="${receiver.esArtista != sender.esArtista 
-                    and receiver.esArrendador != sender.esArrendador}">
+                <div class="col-m2-2" th:if="${receiver.esArtista == sender.esArtista 
+                    or receiver.esArrendador == sender.esArrendador}">
                     <p>ERROR: un artista solo puede valorar a arrendadores y viceversa.</p>
+                </div>
+                <div class="col-m2-2" th:if="${validRepetido}">
+                    <p>ERROR: ya has valorado a este usuario.</p>
                 </div>
             </div>
             

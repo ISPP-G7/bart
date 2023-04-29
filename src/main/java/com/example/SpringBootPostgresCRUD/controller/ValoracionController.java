@@ -53,12 +53,15 @@ public class ValoracionController {
             Model model) {
         setUserIfLogged(model);
 
-        String emailReceiver = userService.getUserById(idReceiver).getEmail();
-        String nombreReceiver = userService.getUserById(idReceiver).getFirstName();
-        List<Valoracion> valoraciones = valoracionService.findByReceiver(emailReceiver);
+        User receiver = userService.getUserById(idReceiver);
+        User sender = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        List<Valoracion> valoraciones = valoracionService.findByReceiver(receiver.getEmail());
+        Valoracion tuValoracion = valoracionService.findBySenderAndReceiver(sender.getEmail(), receiver.getEmail());
 
         model.addAttribute("valoraciones", valoraciones);
-        model.addAttribute("nombreReceiver", nombreReceiver);
+        model.addAttribute("tuValoracion", tuValoracion);
+        model.addAttribute("receiver", receiver);
         model.addAttribute("message", message);
         return "ViewValoracionesRecibidas";
     }
@@ -68,12 +71,13 @@ public class ValoracionController {
             Model model) {
         setUserIfLogged(model);
 
-        String emailSender = userService.getUserById(idSender).getEmail();
-        String nombreSender = userService.getUserById(idSender).getFirstName();
-        List<Valoracion> valoraciones = valoracionService.findBySender(emailSender);
+        User sender = userService.getUserById(idSender);
+        User valid = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Valoracion> valoraciones = valoracionService.findBySender(sender.getEmail());
 
         model.addAttribute("valoraciones", valoraciones);
-        model.addAttribute("nombreSender", nombreSender);
+        model.addAttribute("sender", sender);
+        model.addAttribute("valid", valid);
         model.addAttribute("message", message);
         return "ViewValoracionesHechas";
     }
@@ -82,9 +86,13 @@ public class ValoracionController {
     public String newValoracion(@PathVariable Long idReceiver, @ModelAttribute("message") String message, Model model) {
         User receiver = userService.getUserById(idReceiver);
         User sender = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Boolean validRepetido = valoracionService.validacionValoracionRepetida(sender.getEmail(), receiver.getEmail());
+
         model.addAttribute("val", new Valoracion());
         model.addAttribute("receiver", receiver);
         model.addAttribute("sender", sender);
+        model.addAttribute("validRepetido", validRepetido);
+
         return "AddValoracion";
     }
 
@@ -107,10 +115,9 @@ public class ValoracionController {
         return "redirect:/perfilUsuario/" + val.getReceiver().getId();
     }
 
-    @GetMapping("deleteValoracion/{id}/{emailReceiver}")
-    public String deleteValoracion(@PathVariable Long id, @PathVariable("emailReceiver") String emailReceiver,
-            RedirectAttributes redirectAttributes) {
-        User receiver = userService.getUserByEmail(emailReceiver);
+    @PostMapping("deleteValoracion/{id}")
+    public String deleteValoracion(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        User receiver = valoracionService.getValoracionById(id).getReceiver();
 
         if (valoracionService.deleteValoracion(id)) {
             redirectAttributes.addFlashAttribute("valoracion", "Delete Success");

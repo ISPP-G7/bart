@@ -12,10 +12,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <style>
-
         .sobre-nosotros {
             max-width: 1000px;
-            margin: 20px auto;
+            margin: 30px auto;
             padding: 20px;
             background-color: #fff;
             color: black;
@@ -28,59 +27,69 @@
             margin-bottom: 10px;
         }
 
-        .sobre-nosotros h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        
-        body {
-            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
-            height: 100vh;
+        .sobre-nosotros p {
+            text-align: justify;
+            margin-right: 20px;
         }
 
+        .sobre-nosotros a {
+            display: block;
+            text-align: center;
+        }
+
+        body {
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+        }
     </style>
 </head>
 
 <body>
     <div th:replace="Home :: Home"></div>
     <div class="sobre-nosotros">
-    <h1>¿QUIÉNES SOMOS?</h1>
-	<p>
-        Bart es una plataforma que busca poner en contacto a artistas musicales y a locales, con el fin de que
-        ambos puedan contratarse para actuaciones en directo. En el mercado actual, son los artistas quienes publican
-        sus ofertas, y los locales quienes las aceptan. Nosotros queremos romper con ese esquema, y permitir a ambos publicar
-        y aceptar ofertas de trabajo. De esta forma, los artistas no tendrán que pasar semanas esperando a que 
-        alguien les hable, y los dueños de los locales no tendrán que perder su tiempo en buscar a su artista ideal 
-        entre cientos de posibilidades, olvidandose además de los pagos tediosos y espera de los mismos, así como
-        de ser timado por malhechores.
-    </p>
+        <h1>¿QUIÉNES SOMOS?</h1>
+        <p>
+            Bart es una plataforma que busca poner en contacto a <b>artistas musicales</b> y a <b>locales</b>, con el
+            fin de que ambos puedan contratarse para actuaciones en directo.
+            <br>
+            En el mercado actual, son los artistas quienes publican sus ofertas, y los locales quienes las aceptan.
+            Nosotros queremos romper con ese esquema, y permitir a ambos publicar y aceptar ofertas de trabajo. De esta
+            forma, los artistas no tendrán que pasar semanas esperando a que alguien les hable, 
+            y los dueños de los locales no tendrán que perder su tiempo en buscar a su artista ideal entre cientos de posibilidades, 
+            olvidándose además de los pagos tediosos y espera de los mismos, así como de ser timado por malhechores.
+        </p>
 
-    <h1>¿QUÉ PUEDO HACER EN LA APLICACIÓN?</h1>
-    <p>
-        Tanto artistas como arrendadores pueden crear anuncios de sus servicios, especificando detalles como su ubicación,
-        precio y los elementos que necesiten o tengan disponibles para el espectáculo. En caso de necesitarlo, ambas partes 
-        pueden contactarse en una sala de chat, y una vez acepten la oferta, el uno pagará al otro.
-        <br>
-        Tras realizar el espectáculo, tanto el artista como el arrendador podrán valorarse entre sí con un comentario
-        y una puntuación de 1 a 5 estrellas. También tienen la opción de subir fotos de sus actuaciones o de su local
-        para mostrarlas en su perfil de usuario.
-    </p>
+        <h1>¿QUÉ PUEDO HACER EN LA APLICACIÓN?</h1>
+        <p>
+            Tanto artistas como arrendadores pueden crear anuncios de sus servicios, especificando detalles como su
+            ubicación,
+            precio y los elementos que necesiten o tengan disponibles para el espectáculo. En caso de necesitarlo, ambas
+            partes
+            pueden contactarse en una sala de chat, y una vez acepten la oferta, el uno pagará al otro.
+            <br>
+            Tras realizar el espectáculo, tanto el artista como el arrendador podrán valorarse entre sí con un
+            comentario
+            y una puntuación de 1 a 5 estrellas. También tienen la opción de subir fotos de sus actuaciones o de su
+            local
+            para mostrarlas en su perfil de usuario.
+        </p>
 
-    <h1>¿CÓMO FUNCIONAN LOS PAGOS?</h1>
-    <p>
-        La aplicación acepta pagos mediante PayPal. Por cada transacción bidireccional que se realice en nuestra app, 
-        al pago se aplicará un 10% de IVA si es autónomo o 21% si trabaja con una empresa.
-    </p>
+        <h1>¿CÓMO FUNCIONAN LOS PAGOS?</h1>
+        <p>
+            La aplicación acepta pagos mediante PayPal. Por cada transacción bidireccional que se realice en nuestra
+            app,
+            al pago se aplicará un 10% de IVA si es autónomo o 21% si trabaja con una empresa.
+        </p>
 
-    <h1>CONTACTO</h1>
-    <p>
-        Para contactar con nosotros puede enviar un correo con su duda, sugerencia o fallo a la siguiente dirección:
-        <br>
-        <a href="mailto:infobartoficial@gmail.com">infobartoficial@gmail.com</a>
-        <br>
-        Y algún asistente de nuestra aplicación se pondrá en contacto con usted lo antes posible.
-    </p>
+        <h1>CONTACTO</h1>
+        <p>
+            Para contactar con nosotros puede enviar un correo con su duda, sugerencia o fallo a la siguiente dirección:
+            <br>
+            <a href="mailto:infobartoficial@gmail.com">infobartoficial@gmail.com</a>
+            y algún asistente de nuestra aplicación se pondrá en contacto con usted lo antes posible.
+        </p>
     </div>
+    <br>
     <footer th:replace="Home :: Footer"></footer>
 </body>
+
 </html>

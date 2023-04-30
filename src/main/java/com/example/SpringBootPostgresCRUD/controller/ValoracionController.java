@@ -72,12 +72,12 @@ public class ValoracionController {
         setUserIfLogged(model);
 
         User sender = userService.getUserById(idSender);
-        User valid = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        User login = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         List<Valoracion> valoraciones = valoracionService.findBySender(sender.getEmail());
 
         model.addAttribute("valoraciones", valoraciones);
         model.addAttribute("sender", sender);
-        model.addAttribute("valid", valid);
+        model.addAttribute("login", login);
         model.addAttribute("message", message);
         return "ViewValoracionesHechas";
     }

@@ -62,13 +62,15 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
         <br>
-        <h1>Opiniones sobre <span th:text="${receiver.firstName}"></span></h1><br>
+        <h1>Opiniones sobre [[${receiver.firstName}]]</h1><br>
         <div class="tuValoracion" th:if="${tuValoracion}">
             <h2>Tu valoración</h2>
             <p>
-                <b>Nota: </b><span th:text="${tuValoracion.nota}"></span>
+                <b>Nota: </b>[[${tuValoracion.nota}]]
                 <p th:text="${tuValoracion.mensaje}"></p>
             </p>
+            <!--Ambos botones deberían tener el texto en negro-->
+            <!--El de eliminar debería estar a la derecha del de ver opiniones-->
             <button type="button" class="btn btn-primary">
                 <a th:href="@{/viewValoracionesHechas/{idSender}(idSender=${tuValoracion.sender.id})}">
                     Ver opiniones realizadas
@@ -81,8 +83,10 @@
         </div>
         <div class="valoraciones" th:each="valoracion : ${valoraciones}">
             <p>
-                <b>Realizada por: </b><span th:text="${valoracion.sender.firstName}"></span><br>
-                <b>Nota: </b><span th:text="${valoracion.nota}"></span>
+                <!--El enlace debería ser de color blanco-->
+                <b>Realizada por: </b><a th:href="@{/perfilUsuario/{id}(id=${valoracion.sender.id})}">
+                    [[${valoracion.sender.firstName}]]</a><br>
+                <b>Nota: </b>[[${valoracion.nota}]]
                 <p th:text="${valoracion.mensaje}"></p>
             </p>
             <hr>

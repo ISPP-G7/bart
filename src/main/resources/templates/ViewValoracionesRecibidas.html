@@ -43,6 +43,22 @@
             color: lightgray;
             text-decoration: none;
         }
+        .button {
+            display: inline-block;
+            padding: 0.5em 1em;
+            border-radius: 0.3em;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            color: black;
+          }
+          
+          .button-yellow {
+            background-color: #007bff;
+            border: 2px solid #333;
+          }
+          
 </style>
 
 <head>
@@ -84,8 +100,8 @@
         <div class="valoraciones" th:each="valoracion : ${valoraciones}">
             <p>
                 <!--El enlace debería ser de color blanco-->
-                <b>Realizada por: </b><a th:href="@{/perfilUsuario/{id}(id=${valoracion.sender.id})}">
-                    [[${valoracion.sender.firstName}]]</a><br>
+                <b>Realizada por: </b><a th:href="@{/perfilUsuario/{id}(id=${valoracion.sender.id})}" class="button button-yellow">[[${valoracion.sender.firstName}]]</a>
+                <br>
                 <b>Nota: </b>[[${valoracion.nota}]]
                 <p th:text="${valoracion.mensaje}"></p>
             </p>

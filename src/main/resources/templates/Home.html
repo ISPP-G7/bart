@@ -132,12 +132,12 @@
 						<li class="nav-item">
 							<a class="nav-link" href="/atencionCliente">Contacto</a>
 						</li>
-						<li class="nav-item">
+						<!--<li class="nav-item">
 							<a class="nav-link" href="/viewUsers">Lista de usuarios</a>
-						</li>
-						<li th:if="${usuario.esArtista}" class="nav-item">
+						</li>-->
+						<!--<li th:if="${usuario.esArtista}" class="nav-item">
 							<a class="nav-link" href="/viewArtistas">Lista de artistas</a>
-						</li>
+						</li>-->
 						<li th:if="${usuario.esArtista}" class="nav-item">
 							<a class="nav-link" href="/viewAnunciosArrendadorParaArtistas">Anuncios de
 								Locales</a>
@@ -148,12 +148,12 @@
 						<li th:if="${usuario.esArtista}" class="nav-item">
 							<a class="nav-link" href="/viewAllMessages">Chat</a>
 						</li>
-						<li th:if="${usuario.esArtista}" class="nav-item">
+						<!--<li th:if="${usuario.esArtista}" class="nav-item">
 							<a class="nav-link" href="/viewArrendadores">Lista de locales</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewArrendadores">Lista de locales</a>
-						</li>
+						</li>-->
 						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewAnunciosArtistaParaArrendadores">Anuncios de
 								artistas</a>
@@ -167,9 +167,9 @@
 						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewAllMessages">Chat</a>
 						</li>
-						<li th:if="${usuario.esArrendador}" class="nav-item">
+						<!--<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewArtistas">Lista de Artistas</a>
-						</li>
+						</li>-->
 						<li class="nav-item">
 							<a class="nav-link" href="/PreguntasFrecuentes">Preguntas frecuentes</a>
 						</li>
@@ -182,7 +182,7 @@
 								<li class="nav-item dropdown ">
 								  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="background-color: #C094E4;" th:text="${nombreUsuario}"></a>
 								  <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color: #C094E4;" >
-									<a class="dropdown-item"  style="color: white;" th:href="@{/perfilArrendador/{id}(id=${arrendador.id})}">Ver mi perfil</a>
+									<a class="dropdown-item"  style="color: white;" th:href="@{/perfilUsuario/{id}(id=${arrendador.id})}">Ver mi perfil</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item"  style="color: white;"  th:href="@{/editArrendador/{id}(id=${arrendador.id})}">Editar perfil</a>
 									<div class="dropdown-divider"></div>
@@ -196,7 +196,7 @@
 							  <li class="nav-item dropdown ">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="background-color: #C094E4;" th:text="${nombreUsuario}"></a>
 								<div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color: #C094E4;" >
-								  <a class="dropdown-item"  style="color: white;" th:href="@{/perfilArtista/{id}(id=${artista.id})}">Ver mi perfil</a>
+								  <a class="dropdown-item"  style="color: white;" th:href="@{/perfilUsuario/{id}(id=${artista.id})}">Ver mi perfil</a>
 								  <div class="dropdown-divider"></div>
 								  <a class="dropdown-item"  style="color: white;"  th:href="@{/editArtista/{id}(id=${artista.id})}">Editar perfil</a>
 								  <div class="dropdown-divider"></div>

@@ -58,15 +58,6 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">Contraseña</label>
-                    <div class="col-md-6">
-                        <input type="password" th:field="*{password}" id="password" class="form-control input-sm"
-                            required="required" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-12">
                     <label class="col-md-3" for="lastName">Apellido/s</label>
                     <div class="col-md-6">
                         <input type="text" th:field="*{lastName}" id="lastName" class="form-control input-sm"
@@ -74,12 +65,10 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3">Género</label>
                     <div class="col-md-6">
-
                         <div class="form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" th:field="*{gender}" value="Male" />Masculino
@@ -100,17 +89,15 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="form-group col-md-12">
-                    <label class="col-md-3">Fecha de nacimiento</label>
+                    <label class="col-md-3">Descripción</label>
                     <div class="col-md-6">
-                        <input type="date" th:field="*{dob}" id="dob" class="form-control input-sm"
+                        <input type="text" th:field="*{dob}" id="dob" class="form-control input-sm"
                             required="required" />
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3">Email</label>
@@ -120,8 +107,17 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="col-md-3">Contraseña</label>
+                    <div class="col-md-6">
+                        <input type="password" th:field="*{password}" id="password" class="form-control input-sm"
+                            required="required" />
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="row">
                 <div class="form-group col-md-12">
                     <label class="col-md-3">Link a redes</label>
                     <div class="col-md-6">
@@ -129,7 +125,7 @@
                             required="required" />
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <div class="row p-2">
                 <div class="col-md-2">

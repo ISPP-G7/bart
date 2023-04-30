@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            background-size: 100vw 200vh;
+            color: white;
+        }
+
+        .usuario-perfil {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            color: black;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+            border-radius: 5px;
+        }
+
+        .usuario-perfil img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            border-radius: 20%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+        }
+
+        .usuario-perfil table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            border-spacing: 0;
+            font-size: 16px;
+        }
+
+        .usuario-perfil table td,
+        .usuario-perfil table th {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .usuario-perfil table th {
+            font-weight: 600;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        .usuario-perfil a {
+            color: #3d5afe;
+            text-decoration: none;
+        }
+
+        .usuario-perfil a:hover {
+            text-decoration: underline;
+        }
+
+        .usuario-perfil h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .usuario-perfil h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .muestra {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .valorar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .opiniones {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .muestra img {
+            max-width: 400px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: lightgray;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="Home :: Home"></div>
+    <div class="usuario-perfil">
+        <h1 th:if="${user.esArtista}">[[${art.getNombre_artistico()}]]</h1> 
+        <h1 th:if="${user.esArrendador}">[[${arr.getNombreLocal()}]]</h1>
+    <table>
+        <tr>
+            <img th:src="${user.getUrlImagen()}" style="max-width: 300px;" alt="Imagen de perfil">
+        </tr>
+        <tr th:if="${user.esArtista}">
+            <td>Nombre artístico:</td>
+            <td th:text="${art.getNombre_artistico()}"></td>
+        </tr>
+        <tr th:if="${user.esArtista}">
+            <td>Categoría artística:</td>
+            <td th:text="${art.getCategoria_artistica()}"></td>
+        </tr>
+        <tr th:if="${user.esArrendador}">
+            <td>Nombre del local:</td>
+            <td th:text="${arr.getNombreLocal()}"></td>
+        </tr>
+        <tr th:if="${user.esArrendador}">
+            <td>Dirección:</td>
+            <td th:text="${arr.getDireccion()}"></td>
+        </tr>
+        <tr>
+            <td>Nombre completo:</td>
+            <td th:text="|${user.getFirstName()} ${user.getLastName()}|"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td th:text="${user.getEmail()}"></td>
+        </tr>
+        <tr>
+            <td>Redes sociales:</td>
+            <td th:text="${user.getLinks()}"></td>
+        </tr>
+        <tr>
+            <td>Descripción:</td>
+            <td th:text="${user.getDob()}"></td>
+        </tr>
+        <tr>
+            <td>Género:</td>
+            <td th:text="${user.getGender()}"></td>
+        </tr>
+    </table>
+    </div>
+    <div class="valorar" th:if="${user.esArtista != valid.esArtista and user.esArrendador != valid.esArrendador}">
+        <button type="button" class="btn btn-primary">
+            <a th:href="@{/addValoracion/{id}(id=${user.id})}">Valorar</a>
+        </button>
+    </div>
+    <br>
+    <div class="opiniones">
+        <button type="button" class="btn btn-primary">
+            <a th:href="@{/viewValoracionesRecibidas/{idReceiver}(idReceiver=${user.id})}">Ver opiniones</a>
+        </button>
+    </div>
+    <h2 style="text-align: center;">Muestras de trabajo</h2>
+    <div style="display: flex; justify-content: center; align-items: center;" th:if="${user.id == valid.id}">
+        <button type="button" class="btn btn-primary">
+            <a href="/imagenes">Subir</a>
+        </button>
+    </div>
+    <br>
+    
+    <div class="muestra" th:each="foto : ${fotos}">
+        <img th:src="@{/imagenes/{id}(id=${foto.id})}" alt="fotos de muestras">
+    </div>
+    <footer th:replace="Home :: Footer"></footer>
+</body>
+
+</html>

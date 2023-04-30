@@ -37,11 +37,10 @@ public class ValoracionService {
 
     public boolean deleteValoracion(Long id) {
         valoracionRepository.deleteById(id);
-        boolean res = false;
         if (valoracionRepository.findById(id).isPresent()) {
-            res = true;
+            return true;
         }
-        return res;
+        return false;
     }
 
     public List<Valoracion> findByReceiver(String email) {
@@ -50,6 +49,19 @@ public class ValoracionService {
 
     public List<Valoracion> findBySender(String email) {
         return valoracionRepository.findAllValoracionesBySender(email);
+    }
+
+    public Valoracion findBySenderAndReceiver(String emailSender, String emailReceiver) {
+        List<Valoracion> list = valoracionRepository.findAllValoracionesBySenderAndReceiver(emailSender, emailReceiver);
+        if (list.size() > 0) {
+            return list.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public Boolean validacionValoracionRepetida(String emailSender, String emailReceiver) {
+        return valoracionRepository.findAllValoracionesBySenderAndReceiver(emailSender, emailReceiver).size() > 0;
     }
 
     public Double findAverageNota(String email) {

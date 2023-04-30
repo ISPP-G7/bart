@@ -53,12 +53,15 @@ public class ValoracionController {
             Model model) {
         setUserIfLogged(model);
 
-        String emailReceiver = userService.getUserById(idReceiver).getEmail();
-        String nombreReceiver = userService.getUserById(idReceiver).getFirstName();
-        List<Valoracion> valoraciones = valoracionService.findByReceiver(emailReceiver);
+        User receiver = userService.getUserById(idReceiver);
+        User sender = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        List<Valoracion> valoraciones = valoracionService.findByReceiver(receiver.getEmail());
+        Valoracion tuValoracion = valoracionService.findBySenderAndReceiver(sender.getEmail(), receiver.getEmail());
 
         model.addAttribute("valoraciones", valoraciones);
-        model.addAttribute("nombreReceiver", nombreReceiver);
+        model.addAttribute("tuValoracion", tuValoracion);
+        model.addAttribute("receiver", receiver);
         model.addAttribute("message", message);
         return "ViewValoracionesRecibidas";
     }
@@ -68,36 +71,39 @@ public class ValoracionController {
             Model model) {
         setUserIfLogged(model);
 
-        String emailSender = userService.getUserById(idSender).getEmail();
-        String nombreSender = userService.getUserById(idSender).getFirstName();
-        List<Valoracion> valoraciones = valoracionService.findBySender(emailSender);
+        User sender = userService.getUserById(idSender);
+        User login = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Valoracion> valoraciones = valoracionService.findBySender(sender.getEmail());
 
         model.addAttribute("valoraciones", valoraciones);
-        model.addAttribute("nombreSender", nombreSender);
+        model.addAttribute("sender", sender);
+        model.addAttribute("login", login);
         model.addAttribute("message", message);
         return "ViewValoracionesHechas";
     }
 
     @GetMapping("/addValoracion/{idReceiver}")
     public String newValoracion(@PathVariable Long idReceiver, @ModelAttribute("message") String message, Model model) {
-        String emailReceiver = userService.getUserById(idReceiver).getEmail();
-        String nombreReceiver = userService.getUserById(idReceiver).getFirstName();
+        User receiver = userService.getUserById(idReceiver);
+        User sender = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Boolean validRepetido = valoracionService.validacionValoracionRepetida(sender.getEmail(), receiver.getEmail());
+
         model.addAttribute("val", new Valoracion());
-        model.addAttribute("emailReceiver", emailReceiver);
-        model.addAttribute("nombreReceiver", nombreReceiver);
+        model.addAttribute("receiver", receiver);
+        model.addAttribute("sender", sender);
+        model.addAttribute("validRepetido", validRepetido);
+
         return "AddValoracion";
     }
 
     @PostMapping("/saveValoracion/{emailReceiver}")
     public String saveValoracion(Valoracion val, @PathVariable("emailReceiver") String emailReceiver,
             RedirectAttributes redirectAttributes) {
-        
-        String emailSender = SecurityContextHolder.getContext().getAuthentication().getName();
-        User userSender = userService.getUserByEmail(emailSender);
-        User userReceiver = userService.getUserByEmail(emailReceiver);
+        User sender = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        User receiver = userService.getUserByEmail(emailReceiver);
         Date now = Date.from(Instant.now());
-        val.setSender(userSender);
-        val.setReceiver(userReceiver);
+        val.setSender(sender);
+        val.setReceiver(receiver);
         val.setFecha(now);
 
         if (valoracionService.saveorUpdateValoracion(val)) {
@@ -106,33 +112,20 @@ public class ValoracionController {
             redirectAttributes.addFlashAttribute("valoracion", "Save Failure");
         }
 
-        if (val.getReceiver().getEsArtista()) {
-            return "redirect:/perfilArtista/" + val.getReceiver().getId();
-        } else {
-            return "redirect:/perfilArrendador/" + val.getReceiver().getId();
-        }
+        return "redirect:/perfilUsuario/" + val.getReceiver().getId();
     }
 
-    @GetMapping("deleteValoracion/{id}/{emailReceiver}")
-    public String deleteValoracion(@PathVariable Long id, @PathVariable("emailReceiver") String emailReceiver,
-            RedirectAttributes redirectAttributes) {
-        User receiver = userService.getUserByEmail(emailReceiver);
-        String emailSender = SecurityContextHolder.getContext().getAuthentication().getName();
+    @PostMapping("deleteValoracion/{id}")
+    public String deleteValoracion(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        User receiver = valoracionService.getValoracionById(id).getReceiver();
+
         if (valoracionService.deleteValoracion(id)) {
             redirectAttributes.addFlashAttribute("valoracion", "Delete Success");
-            if (receiver.getEsArtista()) {
-                return "redirect:/perfilArtista/" + receiver.getId();
-            } else {
-                return "redirect:/perfilArrendador/" + receiver.getId();
-            }
+            return "redirect:/perfilUsuario/" + receiver.getId();
         }
+
         redirectAttributes.addFlashAttribute("valoracion", "Delete Failure");
-        
-        if (receiver.getEsArtista()) {
-            return "redirect:/perfilArtista/" + receiver.getId();
-        } else {
-            return "redirect:/perfilArrendador/" + receiver.getId();
-        }
+        return "redirect:/perfilUsuario/" + receiver.getId();
     }
 
     //Comprueba si el usuario está logueado y setea los valores correspondientes

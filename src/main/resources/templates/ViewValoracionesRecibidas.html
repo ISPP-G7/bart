@@ -11,6 +11,10 @@
             color: white;
         }
 
+        h2 {
+            color:white;
+        }
+
         p {
             color: white;
         }
@@ -31,7 +35,7 @@
             align-items: center;
         }
 
-        .tusOpiniones a {
+        .tuValoracion a {
             color: black;
         }
 
@@ -39,6 +43,22 @@
             color: lightgray;
             text-decoration: none;
         }
+        .button {
+            display: inline-block;
+            padding: 0.5em 1em;
+            border-radius: 0.3em;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            color: black;
+          }
+          
+          .button-yellow {
+            background-color: #007bff;
+            border: 2px solid #333;
+          }
+          
 </style>
 
 <head>
@@ -58,19 +78,34 @@
     <div th:replace="Home :: Home"></div>
     <div class="container">
         <br>
-        <h1>Opiniones sobre <span th:text="${nombreReceiver}"></span></h1><br>
-        <div class="valoraciones" th:each="valoracion : ${valoraciones}">
+        <h1>Opiniones sobre [[${receiver.firstName}]]</h1><br>
+        <div class="tuValoracion" th:if="${tuValoracion}">
+            <h2>Tu valoración</h2>
             <p>
-                <b>Realizada por: </b><span th:text="${valoracion.sender.firstName}"></span><br>
-                <b>Opinión: </b><span th:text="${valoracion.mensaje}"></span><br>
-                <b>Nota: </b><span th:text="${valoracion.nota}"></span>
+                <b>Nota: </b>[[${tuValoracion.nota}]]
+                <p th:text="${tuValoracion.mensaje}"></p>
             </p>
+            <!--Ambos botones deberían tener el texto en negro-->
+            <!--El de eliminar debería estar a la derecha del de ver opiniones-->
+            <button type="button" class="btn btn-primary">
+                <a th:href="@{/viewValoracionesHechas/{idSender}(idSender=${tuValoracion.sender.id})}">
+                    Ver opiniones realizadas
+                </a>
+            </button>
+            <form th:action="@{/deleteValoracion/{id}(id=${tuValoracion.id})}" method="post">
+                <button class="btn btn-primary">Eliminar</button>
+            </form>
             <hr>
         </div>
-        <div class="tusOpiniones">
-            <button type="button" class="btn btn-primary">
-                <a th:href="@{/viewValoracionesHechas/{idSender}(idSender=${usuario.id})}">Ver opiniones realizadas</a>
-            </button>
+        <div class="valoraciones" th:each="valoracion : ${valoraciones}">
+            <p>
+                <!--El enlace debería ser de color blanco-->
+                <b>Realizada por: </b><a th:href="@{/perfilUsuario/{id}(id=${valoracion.sender.id})}" class="button button-yellow">[[${valoracion.sender.firstName}]]</a>
+                <br>
+                <b>Nota: </b>[[${valoracion.nota}]]
+                <p th:text="${valoracion.mensaje}"></p>
+            </p>
+            <hr>
         </div>
     </div>
     <footer th:replace="Home :: Footer"></footer>

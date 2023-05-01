@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -44,6 +45,9 @@ public class SeleniumTests {
   private Map<String, Object> vars;
   JavascriptExecutor js;
 
+  Random random = new Random();
+  int randomNumber;
+
   @Mock
   private ArrendadorRepository arrendadorRepository;
 
@@ -64,80 +68,25 @@ public class SeleniumTests {
     driver = new ChromeDriver();
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
-  }
 
-  @After
-  public void tearDown() {
-    driver.quit();
-  }
+    randomNumber = random.nextInt(100000000) + 1;
 
-  @Test
-  public void signUpAndLoginTest() {
-    driver.get("http://localhost:8080/");
-    Artista artista = artistaService.getArtistaByMailArtista("john@gmail.com");
-    if (artista != null) {
-      driver.findElement(By.linkText("Registrarse como artista")).click();
-
-      driver.findElement(By.id("urlImagen"))
-          .sendKeys("https://album.mediaset.es/eimg/10000/2021/07/28/clipping_40n7Tq_ded9.jpg?w=1200");
-      driver.findElement(By.id("firstName")).sendKeys("John");
-      driver.findElement(By.id("lastName")).sendKeys("Lennon");
-      driver.findElement(By.id("gender1")).click();
-      driver.findElement(By.id("dob")).sendKeys("2023-04-01");
-      driver.findElement(By.id("email")).sendKeys("john@gmail.com");
-      driver.findElement(By.id("password")).sendKeys("password");
-      driver.findElement(By.id("nombre_artistico")).sendKeys("John Lennon");
-      driver.findElement(By.id("categoria_artistica")).sendKeys("rock");
-      driver.findElement(By.cssSelector(".btn")).click();
-    }
-    driver.findElement(By.linkText("Iniciar sesión")).click();
-    //driver.findElement(By.id("username")).sendKeys("admin1");
-    //driver.findElement(By.id("password")).sendKeys("4dm1n");
-    //driver.findElement(By.cssSelector(".container")).click();
-    driver.findElement(By.id("username")).sendKeys("johnlennon@gmail.com");
-    driver.findElement(By.id("password")).sendKeys("contraseña");
-    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-  }
-  
-  @Test
-  public void signUpAndLoginArtistaTest() {
-	Random random = new Random();
-    int randomNumber = random.nextInt(100000000) + 1;
+    // Registro de un artista
     driver.get("http://localhost:8080/");
     driver.findElement(By.linkText("Registrarse como artista")).click();
 
     //  Rellena el formulario de artista
-    driver.findElement(By.id("email")).sendKeys("mickealJackson"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("email")).sendKeys("michaelJackson"+randomNumber+"@gmail.com");
     driver.findElement(By.id("password")).sendKeys("123456");
     driver.findElement(By.id("urlImagen")).sendKeys("https://yt3.googleusercontent.com/DYNuiKlx93gnqckBObvCa_HSW8iR-XQNqND9OAVBgrTKEnxtVZaGQ_WYfH3DA6nmeCmhraRC=s900-c-k-c0x00ffffff-no-rj");
-    driver.findElement(By.id("firstName")).sendKeys("Mickeal");
+    driver.findElement(By.id("firstName")).sendKeys("Michael");
     driver.findElement(By.id("lastName")).sendKeys("Jackson");
     driver.findElement(By.id("dob")).sendKeys("2000-09-10");
-    driver.findElement(By.id("nombre_artistico")).sendKeys("Mickey");
+    driver.findElement(By.id("nombre_artistico")).sendKeys("Michael Jackson");
     driver.findElement(By.id("categoria_artistica")).sendKeys("Pop");
     driver.findElement(By.cssSelector(".btn")).click();
 
-    //  Inicia sesión con el artista creado
-    driver.findElement(By.linkText("Iniciar sesión")).click();
-    driver.findElement(By.id("username")).clear();
-    driver.findElement(By.id("username")).sendKeys("mickealJackson"+randomNumber+"@gmail.com");
-    driver.findElement(By.id("password")).sendKeys("123456");
-    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
-    
-    //  Comprueba que se ha creado correctamente el artista
-    driver.findElement(By.id("navbarDropdown")).click();
-    driver.findElement(By.linkText("Ver mi perfil")).click();
-    driver.findElement(By.cssSelector("html")).click();
-
-    String expectedTitle = "Perfil artista";
-    String actualTitle = driver.getTitle();
-    assertEquals(expectedTitle, actualTitle);
-  }
-  
-  @Test
-  public void signUpAndLoginArrendadorTest() {
-	Random random = new Random();
-	int randomNumber = random.nextInt(100000000) + 1;
+    // Registro de un arrendador
     driver.get("http://localhost:8080/");
     driver.findElement(By.linkText("Registrarse como arrendador")).click();
     
@@ -151,6 +100,88 @@ public class SeleniumTests {
     driver.findElement(By.id("nombreLocal")).sendKeys("Bar Paco");
     driver.findElement(By.id("direccion")).sendKeys("Sevilla");
     driver.findElement(By.cssSelector(".btn")).click();
+  }
+
+  @After
+  public void tearDown() {
+    driver.quit();
+  }
+
+  @Test
+  public void loginTest() {
+
+    // Login como artista
+    driver.get("http://localhost:8080/");
+    driver.findElement(By.linkText("Iniciar sesión")).click();
+    driver.findElement(By.id("username")).sendKeys("michaelJackson"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+
+    // Comprobar el perfil de artista
+    driver.findElement(By.id("navbarDropdown")).click();
+    driver.findElement(By.linkText("Ver mi perfil")).click();
+    String nombreArtistico = driver.findElement(By.xpath("//h1")).getText();
+    assertEquals(nombreArtistico, "Michael Jackson");
+    
+    // Log out
+    driver.findElement(By.id("navbarDropdown")).click();
+    driver.findElement(By.linkText("Cerrar sesión")).click();
+    driver.findElement(By.cssSelector(".btn")).click();
+
+    // Login como arrendador
+    driver.get("http://localhost:8080/");
+    driver.findElement(By.linkText("Iniciar sesión")).click();
+    driver.findElement(By.id("username")).sendKeys("barPaco"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+
+    // Comprobar el perfil de arrendador
+    driver.findElement(By.id("navbarDropdown")).click();
+    driver.findElement(By.linkText("Ver mi perfil")).click();
+    String nombreLocal = driver.findElement(By.xpath("//h1")).getText();
+    assertEquals(nombreLocal, "Bar Paco");
+
+    // Log out
+    driver.findElement(By.id("navbarDropdown")).click();
+    driver.findElement(By.linkText("Cerrar sesión")).click();
+    driver.findElement(By.cssSelector(".btn")).click();
+  }
+  
+  @Test
+  public void AddAnuncioArtistaTest() {
+
+    //  Inicia sesión con el artista creado
+    driver.findElement(By.linkText("Iniciar sesión")).click();
+    driver.findElement(By.id("username")).clear();
+    driver.findElement(By.id("username")).sendKeys("michaelJackson"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+    
+    //  Crea anuncio de artista
+    driver.get("http://localhost:8080/");
+    driver.findElement(By.linkText("Crea y vea anuncios de artistas")).click();
+    driver.findElement(By.linkText("Añadir anuncio")).click();
+    driver.findElement(By.id("pseudonimoArtista")).sendKeys("Michael Jackson");
+    driver.findElement(By.id("ubicacion")).sendKeys("Sevilla");
+    driver.findElement(By.id("precio")).sendKeys("4500");
+    driver.findElement(By.id("descripcionArtista")).sendKeys("El rey del pop");
+    driver.findElement(By.cssSelector(".form-check-inline:nth-child(2) > .form-check-label")).click();
+    driver.findElement(By.id("requiereMicrofono")).click();
+    driver.findElement(By.id("requiereInstrumentos")).click();
+    driver.findElement(By.id("requiereAltavoces")).click();
+    driver.findElement(By.id("ofreceActuacionPorEntradas")).click();
+    driver.findElement(By.id("requiereOtrasEspecificaciones")).sendKeys("Ninguna");
+    driver.findElement(By.cssSelector(".btn")).click();
+    driver.findElement(By.cssSelector(".col-md-4:last-child .btn:nth-child(4)")).click();
+
+    // Comprueba si se ha creado correctamente el anuncio de artista
+    String nombre = driver.findElement(By.xpath("//h2[@class='mb-3']")).getText();
+    assertEquals(nombre, "Michael Jackson");
+  }
+  
+  
+  @Test
+  public void AddAnuncioArrendadorTest() {
 
     //  Inicia sesión con el arrendador creado
     driver.findElement(By.linkText("Iniciar sesión")).click();
@@ -158,13 +189,29 @@ public class SeleniumTests {
     driver.findElement(By.id("password")).sendKeys("123456");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
     
-    //  Comprueba que se ha creado correctamente el arrendador
-    driver.findElement(By.id("navbarDropdown")).click();
-    driver.findElement(By.linkText("Ver mi perfil")).click();
-    driver.findElement(By.cssSelector("html")).click();
+    //  Crea anuncio de arrendador
+    driver.get("http://localhost:8080/");
+    driver.findElement(By.linkText("Crea y vea anuncios de locales")).click();
+    driver.findElement(By.linkText("Añadir anuncio")).click();
+    driver.findElement(By.id("nombreLocal")).sendKeys("Bar Paco");
+    driver.findElement(By.id("ubicacion")).sendKeys("Sevilla");
+    driver.findElement(By.id("precio")).sendKeys("1000");
+    driver.findElement(By.id("descripcionArrendador")).sendKeys("Descripción");
+    driver.findElement(By.cssSelector(".form-check-inline:nth-child(6) > .form-check-label")).click();
+    driver.findElement(By.id("ofreceMicrofono")).sendKeys("Sí");
+    driver.findElement(By.id("ofreceInstrumentos")).sendKeys("No");
+    driver.findElement(By.id("ofreceIluminacion")).sendKeys("Sí");
+    driver.findElement(By.id("ofreceAltavoces")).sendKeys("Sí");
+    driver.findElement(By.id("ofreceMesaDeMezclas")).sendKeys("No");
+    driver.findElement(By.id("ofrecePortatil")).sendKeys("No");
+    driver.findElement(By.id("ofreceOtrasEspecificaciones")).sendKeys("Ninguna más");
+    driver.findElement(By.id("ofreceActuacionPorEntradas")).click();
+    driver.findElement(By.cssSelector(".btn")).click();
+    driver.findElement(By.cssSelector(".col-md-4:last-child .btn:nth-child(4)")).click();
 
-    String expectedTitle = "Perfil arrendador";
-    String actualTitle = driver.getTitle();
-    assertEquals(expectedTitle, actualTitle);
+    // Comprueba si se ha creado correctamente el anuncio de arrendador
+    String nombre = driver.findElement(By.xpath("//h2[@class='mb-3']")).getText();
+    assertEquals(nombre, "Bar Paco");
   }
+
 }

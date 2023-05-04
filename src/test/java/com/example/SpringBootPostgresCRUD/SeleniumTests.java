@@ -6,7 +6,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.After;
+import org.junit.AfterClass;
+
 import static org.junit.Assert.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -41,12 +44,14 @@ import java.util.Random;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class SeleniumTests {
-  private WebDriver driver;
-  private Map<String, Object> vars;
-  JavascriptExecutor js;
+  public static WebDriver driver;
+  public static Map<String, Object> vars;
+  public static JavascriptExecutor js;
 
-  Random random = new Random();
-  int randomNumber;
+  static Random random = new Random();
+  static int randomNumber;
+  static String emailArtista;
+  static String emailArrendador;
 
   @Mock
   private ArrendadorRepository arrendadorRepository;
@@ -61,8 +66,12 @@ public class SeleniumTests {
   private ArtistaService artistaService;
 
 
-  @Before
-  public void setUp() {
+  @BeforeClass
+  public static void setUp() {
+   
+
+    
+
     //System.setProperty("webdriver.edge.driver", "..\\bart\\src\\test\\msedgedriver.exe");
     System.setProperty("webdriver.chrome.driver", "..\\bart\\src\\test\\chromedriver111.exe");
     driver = new ChromeDriver();
@@ -70,13 +79,15 @@ public class SeleniumTests {
     vars = new HashMap<String, Object>();
 
     randomNumber = random.nextInt(100000000) + 1;
+    emailArtista = "michaelJackson"+randomNumber+"@gmail.com";
+    emailArrendador = "barPaco"+randomNumber+"@gmail.com";
 
     // Registro de un artista
     driver.get("http://localhost:8080/");
     driver.findElement(By.linkText("Registrarse como artista")).click();
 
     //  Rellena el formulario de artista
-    driver.findElement(By.id("email")).sendKeys("michaelJackson"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("email")).sendKeys(emailArtista);
     driver.findElement(By.id("password")).sendKeys("123456");
     driver.findElement(By.id("urlImagen")).sendKeys("https://yt3.googleusercontent.com/DYNuiKlx93gnqckBObvCa_HSW8iR-XQNqND9OAVBgrTKEnxtVZaGQ_WYfH3DA6nmeCmhraRC=s900-c-k-c0x00ffffff-no-rj");
     driver.findElement(By.id("firstName")).sendKeys("Michael");
@@ -91,7 +102,7 @@ public class SeleniumTests {
     driver.findElement(By.linkText("Registrarse como arrendador")).click();
     
     //  Rellena el formulario de arrendador
-    driver.findElement(By.id("email")).sendKeys("barPaco"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("email")).sendKeys(emailArrendador);
     driver.findElement(By.id("password")).sendKeys("123456");
     driver.findElement(By.id("urlImagen")).sendKeys("https://media-cdn.tripadvisor.com/media/photo-s/15/7b/5b/0f/paco-pepe.jpg");
     driver.findElement(By.id("firstName")).sendKeys("Francisco");
@@ -102,11 +113,12 @@ public class SeleniumTests {
     driver.findElement(By.cssSelector(".btn")).click();
   }
 
-  @After
-  public void tearDown() {
+  @AfterClass
+  public static void tearDown() {
     driver.quit();
   }
 
+  
   @Test
   public void loginTest() {
 
@@ -151,9 +163,10 @@ public class SeleniumTests {
   public void AddAnuncioArtistaTest() {
 
     //  Inicia sesión con el artista creado
+    driver.get("http://localhost:8080/");
     driver.findElement(By.linkText("Iniciar sesión")).click();
     driver.findElement(By.id("username")).clear();
-    driver.findElement(By.id("username")).sendKeys("michaelJackson"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("username")).sendKeys(emailArtista);
     driver.findElement(By.id("password")).sendKeys("123456");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
     
@@ -177,6 +190,11 @@ public class SeleniumTests {
     // Comprueba si se ha creado correctamente el anuncio de artista
     String nombre = driver.findElement(By.xpath("//h2[@class='mb-3']")).getText();
     assertEquals(nombre, "Michael Jackson");
+
+    // Log out
+    driver.findElement(By.id("navbarDropdown")).click();
+    driver.findElement(By.linkText("Cerrar sesión")).click();
+    driver.findElement(By.cssSelector(".btn")).click();
   }
   
   
@@ -184,8 +202,9 @@ public class SeleniumTests {
   public void AddAnuncioArrendadorTest() {
 
     //  Inicia sesión con el arrendador creado
+    driver.get("http://localhost:8080/");
     driver.findElement(By.linkText("Iniciar sesión")).click();
-    driver.findElement(By.id("username")).sendKeys("barPaco"+randomNumber+"@gmail.com");
+    driver.findElement(By.id("username")).sendKeys(emailArrendador);
     driver.findElement(By.id("password")).sendKeys("123456");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
     
@@ -212,6 +231,41 @@ public class SeleniumTests {
     // Comprueba si se ha creado correctamente el anuncio de arrendador
     String nombre = driver.findElement(By.xpath("//h2[@class='mb-3']")).getText();
     assertEquals(nombre, "Bar Paco");
+    
+    // Log out
+    driver.findElement(By.id("navbarDropdown")).click();
+    driver.findElement(By.linkText("Cerrar sesión")).click();
+    driver.findElement(By.cssSelector(".btn")).click();
+  }
+  
+   
+
+  @Test
+  public void AcceptAnuncioArtistaTest() {
+
+    //  Inicia sesión con el arrendador creado
+    driver.get("http://localhost:8080/");
+    driver.findElement(By.linkText("Iniciar sesión")).click();
+    driver.findElement(By.id("username")).sendKeys(emailArrendador);
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+
+    // Aceptar anuncio 
+    driver.findElement(By.linkText("Anuncios de artistas")).click();
+    driver.findElement(By.xpath("//div[2]/div/div[last()]/div/div/a[3]")).click();
+    driver.findElement(By.linkText("Vea anuncios aceptados")).click();
+    
+    // Comprueba si se ha aceptado correctamente el anuncio de artista
+    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    String email = driver.findElement(By.xpath("//body/div[2]/div[last()]/div/h4")).getText();
+    String precio = driver.findElement(By.xpath("//body/div[2]/div[last()]/h4")).getText();
+    assertEquals(email, emailArtista);
+    assertEquals(precio, "Precio: 4500.0€");
+
+    // Log out
+    driver.findElement(By.id("navbarDropdown")).click();
+    driver.findElement(By.linkText("Cerrar sesión")).click();
+    driver.findElement(By.cssSelector(".btn")).click();
   }
 
 }

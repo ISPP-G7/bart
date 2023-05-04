@@ -84,13 +84,13 @@ public class PayPalController {
         List<Pair<AnuncioArrendador, Artista>> auxArrendador = new ArrayList<>();
 
         for (AnuncioArtista anuncioArtista : anunciosArtistaAceptados) {
-            if (anuncioArtista.getArrendador_accept_id() == arrendador.getId()) {
+            if (anuncioArtista.getArrendador_accept_id().equals(arrendador.getId())) {
                 auxArtista.add(anuncioArtista);
             }
         }
 
         for (AnuncioArrendador anuncioArrendador : anunciosArrendadorAceptados) {
-            if (anuncioArrendador.getArrendador().getId() == arrendador.getId()) {
+            if (anuncioArrendador.getArrendador().getId().equals(arrendador.getId())) {
                 Artista artista = artistaService.getArtistaById(anuncioArrendador.getArtista_accept_id());
                 Pair<AnuncioArrendador, Artista> aux = Pair.of(anuncioArrendador, artista);
                 auxArrendador.add(aux);

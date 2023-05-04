@@ -42,6 +42,17 @@
             color: lightgray;
             text-decoration: none;
         }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 
@@ -69,6 +80,13 @@
                     <div class="form-check mr-4">
                         <input class="form-check-input" type="checkbox" th:checked="${anuncio.ofreceActuacionPorEntradas}" disabled>
                         <label class="form-check-label" for="ofreceActuacionPorEntradas">Ofrece actuacion por entradas</label>
+                    </div>
+                    <br>
+                    <div th:if="${nombreartista != null}" style="background-color: #FFC0CB; padding: 10px; border-radius: 10px; animation: pulse 2s infinite;">
+                        <hr>
+                        <p style="font-weight: bold; color: black   ; text-align: center;">¡Enhorabuena! Has sido aceptado por el artista:</p>
+                        <p style="font-size: 1.2em; text-align: center;"><span th:text="${nombreartista}" style="color: #8B0000;"></span></p>
+                        <hr>
                     </div>
 
                 </div>

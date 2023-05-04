@@ -84,14 +84,11 @@ public class AnuncioArtistaController {
 
         model.addAttribute("emailLogged", emailLogged);
 
-
-
         //add notificacion
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User usr = userService.getUserByEmail(email); 
         usr.setAnuncioNoVisto(false);
         userService.saveOrUpdateUser(usr);        
-
         return "ViewAnuncioArtista";
     }
 
@@ -194,6 +191,9 @@ public class AnuncioArtistaController {
 
         AnuncioArtista anuncio = anuncioArtistaService.getAnuncioArtistaById(id);
         model.addAttribute("anuncio", anuncio);
+        if(!anuncio.getArrendador_accept_id().equals(null)){            
+            model.addAttribute("nombrelocal", arrendadorService.getArrendadorById(anuncio.getArrendador_accept_id()).getNombreLocal());            
+        }
         return "AnuncioArtistaInfo";
     }
 

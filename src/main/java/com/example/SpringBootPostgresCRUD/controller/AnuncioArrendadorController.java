@@ -180,6 +180,10 @@ public class AnuncioArrendadorController {
         setUserIfLogged(model);
         AnuncioArrendador anuncio = anuncioArrendadorService.getAnuncioArrendadorById(id);
         model.addAttribute("anuncio", anuncio);
+        if(!anuncio.getArtista_accept_id().equals(null)){
+            //ernesto poppero
+            model.addAttribute("nombreartista", artistaService.getArtistaById(anuncio.getArtista_accept_id()).getNombre_artistico());
+        }
         return "AnuncioArrendadorInfo";
     }
 

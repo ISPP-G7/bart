@@ -68,10 +68,7 @@ public class SeleniumTests {
 
   @BeforeClass
   public static void setUp() {
-   
-
-    
-
+  
     //System.setProperty("webdriver.edge.driver", "..\\bart\\src\\test\\msedgedriver.exe");
     System.setProperty("webdriver.chrome.driver", "..\\bart\\src\\test\\chromedriver111.exe");
     driver = new ChromeDriver();
@@ -82,7 +79,7 @@ public class SeleniumTests {
     emailArtista = "michaelJackson"+randomNumber+"@gmail.com";
     emailArrendador = "barPaco"+randomNumber+"@gmail.com";
 
-    // Registro de un artista
+    //  Registro de un artista
     driver.get("http://localhost:8080/");
     driver.findElement(By.linkText("Registrarse como artista")).click();
 
@@ -97,7 +94,7 @@ public class SeleniumTests {
     driver.findElement(By.id("categoria_artistica")).sendKeys("Pop");
     driver.findElement(By.cssSelector(".btn")).click();
 
-    // Registro de un arrendador
+    //  Registro de un arrendador
     driver.get("http://localhost:8080/");
     driver.findElement(By.linkText("Registrarse como arrendador")).click();
     
@@ -122,38 +119,38 @@ public class SeleniumTests {
   @Test
   public void loginTest() {
 
-    // Login como artista
+    //  Login como artista
     driver.get("http://localhost:8080/");
     driver.findElement(By.linkText("Iniciar sesión")).click();
     driver.findElement(By.id("username")).sendKeys("michaelJackson"+randomNumber+"@gmail.com");
     driver.findElement(By.id("password")).sendKeys("123456");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
 
-    // Comprobar el perfil de artista
+    //  Comprobar el perfil de artista
     driver.findElement(By.id("navbarDropdown")).click();
     driver.findElement(By.linkText("Ver mi perfil")).click();
     String nombreArtistico = driver.findElement(By.xpath("//h1")).getText();
     assertEquals(nombreArtistico, "Michael Jackson");
     
-    // Log out
+    //  Log out
     driver.findElement(By.id("navbarDropdown")).click();
     driver.findElement(By.linkText("Cerrar sesión")).click();
     driver.findElement(By.cssSelector(".btn")).click();
 
-    // Login como arrendador
+    //  Login como arrendador
     driver.get("http://localhost:8080/");
     driver.findElement(By.linkText("Iniciar sesión")).click();
     driver.findElement(By.id("username")).sendKeys("barPaco"+randomNumber+"@gmail.com");
     driver.findElement(By.id("password")).sendKeys("123456");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
 
-    // Comprobar el perfil de arrendador
+    //  Comprobar el perfil de arrendador
     driver.findElement(By.id("navbarDropdown")).click();
     driver.findElement(By.linkText("Ver mi perfil")).click();
     String nombreLocal = driver.findElement(By.xpath("//h1")).getText();
     assertEquals(nombreLocal, "Bar Paco");
 
-    // Log out
+    //  Log out
     driver.findElement(By.id("navbarDropdown")).click();
     driver.findElement(By.linkText("Cerrar sesión")).click();
     driver.findElement(By.cssSelector(".btn")).click();
@@ -228,11 +225,11 @@ public class SeleniumTests {
     driver.findElement(By.cssSelector(".btn")).click();
     driver.findElement(By.cssSelector(".col-md-4:last-child .btn:nth-child(4)")).click();
 
-    // Comprueba si se ha creado correctamente el anuncio de arrendador
+    //  Comprueba si se ha creado correctamente el anuncio de arrendador
     String nombre = driver.findElement(By.xpath("//h2[@class='mb-3']")).getText();
     assertEquals(nombre, "Bar Paco");
     
-    // Log out
+    //  Log out
     driver.findElement(By.id("navbarDropdown")).click();
     driver.findElement(By.linkText("Cerrar sesión")).click();
     driver.findElement(By.cssSelector(".btn")).click();
@@ -250,19 +247,56 @@ public class SeleniumTests {
     driver.findElement(By.id("password")).sendKeys("123456");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
 
-    // Aceptar anuncio 
+    //  Aceptar anuncio 
     driver.findElement(By.linkText("Anuncios de artistas")).click();
     driver.findElement(By.xpath("//div[2]/div/div[last()]/div/div/a[3]")).click();
-    driver.findElement(By.linkText("Vea anuncios aceptados")).click();
     
-    // Comprueba si se ha aceptado correctamente el anuncio de artista
-    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    //  Comprueba si se ha aceptado correctamente el anuncio de artista
+    driver.findElement(By.linkText("Vea anuncios aceptados")).click();
     String email = driver.findElement(By.xpath("//body/div[2]/div[last()]/div/h4")).getText();
     String precio = driver.findElement(By.xpath("//body/div[2]/div[last()]/h4")).getText();
     assertEquals(email, emailArtista);
     assertEquals(precio, "Precio: 4500.0€");
 
-    // Log out
+    //  Log out
+    driver.findElement(By.id("navbarDropdown")).click();
+    driver.findElement(By.linkText("Cerrar sesión")).click();
+    driver.findElement(By.cssSelector(".btn")).click();
+  }
+
+  @Test
+  public void AcceptAnuncioArrendadorTest() {
+
+    //  Inicia sesión con el artista creado
+    driver.get("http://localhost:8080/");
+    driver.findElement(By.linkText("Iniciar sesión")).click();
+    driver.findElement(By.id("username")).sendKeys(emailArtista);
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+
+    //  Aceptar anuncio 
+    driver.findElement(By.linkText("Anuncios de Locales")).click();
+    driver.findElement(By.xpath("//div[2]/div/div[last()]/div/div/a[3]")).click();
+
+    //  Inicia sesión con el arrendador del local
+    driver.findElement(By.id("navbarDropdown")).click();
+    driver.findElement(By.linkText("Cerrar sesión")).click();
+    driver.findElement(By.cssSelector(".btn")).click();
+
+    driver.get("http://localhost:8080/");
+    driver.findElement(By.linkText("Iniciar sesión")).click();
+    driver.findElement(By.id("username")).sendKeys(emailArrendador);
+    driver.findElement(By.id("password")).sendKeys("123456");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+
+    //  Comprueba si se ha aceptado correctamente el anuncio de arrendador
+    driver.findElement(By.linkText("Vea anuncios aceptados")).click();
+    String email = driver.findElement(By.xpath("//body/div[3]/div[last()]/div/h4")).getText();
+    String precio = driver.findElement(By.xpath("//body/div[3]/div[last()]/h4")).getText();
+    assertEquals(email, emailArtista);
+    assertEquals(precio, "Precio: 1000.0€");
+
+    //  Log out
     driver.findElement(By.id("navbarDropdown")).click();
     driver.findElement(By.linkText("Cerrar sesión")).click();
     driver.findElement(By.cssSelector(".btn")).click();

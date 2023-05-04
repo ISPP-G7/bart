@@ -3,7 +3,7 @@
 	<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Bart - Contratación bidireccional entre artistas y locales</title>
-	<meta charset="UTF-8">
+	<meta name="description" content="Página principal de la aplicación Bart: Contratación bidireccional entre artistas y locales" charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -130,14 +130,14 @@
 							<a class="nav-link" href="/home">Inicio</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Contacto</a>
+							<a class="nav-link" href="/atencionCliente">Contacto</a>
 						</li>
-						<li class="nav-item">
+						<!--<li class="nav-item">
 							<a class="nav-link" href="/viewUsers">Lista de usuarios</a>
-						</li>
-						<li th:if="${usuario.esArtista}" class="nav-item">
+						</li>-->
+						<!--<li th:if="${usuario.esArtista}" class="nav-item">
 							<a class="nav-link" href="/viewArtistas">Lista de artistas</a>
-						</li>
+						</li>-->
 						<li th:if="${usuario.esArtista}" class="nav-item">
 							<a class="nav-link" href="/viewAnunciosArrendadorParaArtistas">Anuncios de
 								Locales</a>
@@ -148,12 +148,12 @@
 						<li th:if="${usuario.esArtista}" class="nav-item">
 							<a class="nav-link" href="/viewAllMessages">Chat</a>
 						</li>
-						<li th:if="${usuario.esArtista}" class="nav-item">
+						<!--<li th:if="${usuario.esArtista}" class="nav-item">
 							<a class="nav-link" href="/viewArrendadores">Lista de locales</a>
 						</li>
 						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewArrendadores">Lista de locales</a>
-						</li>
+						</li>-->
 						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewAnunciosArtistaParaArrendadores">Anuncios de
 								artistas</a>
@@ -167,9 +167,9 @@
 						<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewAllMessages">Chat</a>
 						</li>
-						<li th:if="${usuario.esArrendador}" class="nav-item">
+						<!--<li th:if="${usuario.esArrendador}" class="nav-item">
 							<a class="nav-link" href="/viewArtistas">Lista de Artistas</a>
-						</li>
+						</li>-->
 						<li class="nav-item">
 							<a class="nav-link" href="/PreguntasFrecuentes">Preguntas frecuentes</a>
 						</li>
@@ -182,7 +182,7 @@
 								<li class="nav-item dropdown ">
 								  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="background-color: #C094E4;" th:text="${nombreUsuario}"></a>
 								  <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color: #C094E4;" >
-									<a class="dropdown-item"  style="color: white;" th:href="@{/perfilArrendador/{id}(id=${arrendador.id})}">Ver mi perfil</a>
+									<a class="dropdown-item"  style="color: white;" th:href="@{/perfilUsuario/{id}(id=${arrendador.id})}">Ver mi perfil</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item"  style="color: white;"  th:href="@{/editArrendador/{id}(id=${arrendador.id})}">Editar perfil</a>
 									<div class="dropdown-divider"></div>
@@ -196,7 +196,7 @@
 							  <li class="nav-item dropdown ">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="background-color: #C094E4;" th:text="${nombreUsuario}"></a>
 								<div class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color: #C094E4;" >
-								  <a class="dropdown-item"  style="color: white;" th:href="@{/perfilArtista/{id}(id=${artista.id})}">Ver mi perfil</a>
+								  <a class="dropdown-item"  style="color: white;" th:href="@{/perfilUsuario/{id}(id=${artista.id})}">Ver mi perfil</a>
 								  <div class="dropdown-divider"></div>
 								  <a class="dropdown-item"  style="color: white;"  th:href="@{/editArtista/{id}(id=${artista.id})}">Editar perfil</a>
 								  <div class="dropdown-divider"></div>
@@ -220,13 +220,18 @@
 		<h1>Bienvenido a Bart</h1>
 		<p>La plataforma de contratación bidireccional entre artistas y locales.</p>
 		<!-- Aquí podrías añadir más contenido HTML, como formularios, listas, etc. -->
-		<p>Artistas anunciados</p>
-		<iframe style="border-radius:12px"
-			src="https://open.spotify.com/embed/playlist/7mlc9n74nSDqgUh339UXtO?utm_source=generator&theme=0"
-			width="100%" height="375" frameBorder="0" allowfullscreen=""
-			allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+		
 	</div>
-
+	<div style="background-color: #9D64C9; border-radius: 12px; padding: 12px; color: white; text-align: center;">
+		<h2 style="margin-top: 0;">Artistas anunciados</h2>
+		<p style="margin-bottom: 12px;">¡Destaca en nuestra página principal y llega a más fans! Conviértete en un artista anunciado y aparece en nuestra lista de reproducción de Spotify por solo 3 euros.</p>
+		<div style="max-width: 400px; margin: 0 auto;">
+		  <iframe style="border-radius: 12px;" src="https://open.spotify.com/embed/playlist/7mlc9n74nSDqgUh339UXtO?utm_source=generator&theme=0" width="100%" height="180" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+		</div>
+		<p style="margin-top: 12px;">Contáctanos para realizar el pago y aparecer en nuestra lista de reproducción. ¡No pierdas esta oportunidad de impulsar tu carrera musical!</p>
+	  </div>
+	  
+	  
 	<div class="container mt-5" id="map-container">
 		<p>Nuestros locales disponibles:</p>
 		<div id="map" th:data-arrendadores="${arrendadoresNombreLocalMapListAux}" style="width: 600px; height: 400px">

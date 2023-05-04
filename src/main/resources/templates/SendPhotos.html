@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta name="description" content="Los usuarios podrán subir fotos a sus perfiles" charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -15,8 +15,24 @@
             background-size: 100vw 200vh; 
         }
 
-        h1 {
-            color: white
+        .subir-foto {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            color: black;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+            border-radius: 5px;
+        }
+
+        .subir-foto h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .subir-foto h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
         }
 
         table.table-bordered tr:first-child th {
@@ -41,11 +57,15 @@
 </head>
 <body>
     <div th:replace="Home :: Home"></div>
-    <form th:action="@{/imagenes}" th:object="${foto}" method="post" enctype="multipart/form-data">
-        <label for="data">data</label>
-        <input type="file" th:field="*{data}" id="data">
-        <button type="submit">send</button>
-    </form>
+    <div class="subir-foto">
+        <h1>Subir foto</h1>
+        <p>Añade fotos de tu trabajo a tu perfil.</p>
+        <p>ADVERTENCIA: actualmente no es posible editar o eliminar las imágenes que subas.</p>
+        <form th:action="@{/imagenes}" th:object="${foto}" method="post" enctype="multipart/form-data">
+            <input type="file" th:field="*{data}" id="data" accept="image/*">
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
     <footer th:replace="Home :: Footer"></footer>
 </body>
 </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<style>
+    body {
+            background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+            height: 100vh;
+        }
+
+        h1, p, b, a {
+            color: white;
+        }
+
+        a:hover {
+            color:lightgray;
+        }
+
+        .titulo {
+            margin-top: 2%;
+            font-family: monospace;
+            text-align: center;
+        }
+</style>
+
+<head>
+    <meta name="description" content="Los usuarios podrán ver las valoraciones realizadas por el resto de usuarios a un local o artista musical en concreto" charset="UTF-8">
+    <title>Valoraciones hechas</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</head>
+
+<body>
+    
+    <div th:replace="Home :: Home"></div>
+    <div class="container">
+        <br>
+        <h1>Valoraciones hechas por [[${sender.firstName}]]</h1><br>
+        <div class="valoraciones" th:each="valoracion : ${valoraciones}">
+            <p>
+                <!--El enlace debería ser de color blanco-->
+                <b>Realizada a: </b><a th:href="@{/perfilUsuario/{id}(id=${valoracion.receiver.id})}">
+                    [[${valoracion.receiver.firstName}]]</a><br>
+                <b>Nota: </b>[[${valoracion.nota}]]
+            </p>
+            <p th:text="${valoracion.mensaje}"></p>
+            <!--Debería aparecer un botón de eliminar si la id de la url es igual al del usuario logueado-->
+            <form th:action="@{/deleteValoracion/{id}(id=${valoracion.id})}" method="post" th:if="sender.id == login.id">
+                <button class="btn btn-primary">Eliminar</button>
+            </form>
+            <hr>
+        </div>
+    </div>
+    <footer th:replace="Home :: Footer"></footer>
+</body>

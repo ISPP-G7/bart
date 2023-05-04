@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
+    <meta name="description" content="Un usuario podrá ver un anuncio publicado por un artista musical" charset="UTF-8">
     <title>Anuncios de artistas</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -126,7 +126,9 @@
                         <h5 class="card-title" th:text="${Anuncio.pseudonimoArtista}"></h5>
                         <p class="card-text" th:text="${Anuncio.descripcionArtista}"></p><p class="card-text" th:text="${Anuncio.precio}"></p>
                         <a class="btn btn-primary" th:href="@{/anuncioArtista/{id}(id=${Anuncio.id})}">Ver detalles</a>
-                        <a class="btn btn-primary" th:href="@{/editAnuncioArtista/{id}(id=${Anuncio.id})}">Editar</a>
+                        <div th:if="${Anuncio.artista.email} == ${emailLogged}">
+                            <a class="btn btn-primary" th:href="@{/editAnuncioArtista/{id}(id=${Anuncio.id})}">Editar</a>
+                         </div>
                     </div>
                 </div>
                 <br>

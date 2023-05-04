@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
+    <meta name="description" content="Perfil del artista musical público para todos los usuarios" charset="UTF-8">
     <title>Lista de artistas</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -14,7 +14,7 @@
     <style>
         body {
             background: linear-gradient(to bottom right, #8e12ab, #dc4e4f) no-repeat;
-            background-size: 100vw 200vh; 
+            background-size: 100vw 200vh;
         }
 
         h1 {
@@ -49,7 +49,6 @@
 
         <table class="table table-bordered">
             <tr>
-                <th>Id</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Email</th>
@@ -58,13 +57,15 @@
                 <th>Género</th>
                 <th>Nombre artístico</th>
                 <th>Categoria artística</th>
+
+                
+
                 <th>Link a redes</th>
-                <th>Editar</th>
+
 
             </tr>
 
             <tr th:each="Artist : ${artList}">
-                <td th:text="${Artist.id}"></td>
                 <td th:text="${Artist.firstName}"></td>
                 <td th:text="${Artist.lastName}"></td>
                 <td th:text="${Artist.email}"></td>
@@ -72,17 +73,15 @@
                 <td th:text="${Artist.gender}"></td>
                 <td th:text="${Artist.nombre_artistico}"></td>
                 <td th:text="${Artist.categoria_artistica}"></td>
+
+                
+
                 <td th:text="${Artist.links}"></td>
-                <td><button type="button" class="btn btn-success">
-                        <a th:href="@{/editArtista/{id}(id=${Artist.id})}">Editar</a>
-                    </button></td>
+
 
             </tr>
 
         </table>
-
-
-
     </div>
 
     <script th:inline="javascript">

@@ -41,6 +41,7 @@ public class AnuncioArrendadorController {
     public String viewAnunciosArrendador(@ModelAttribute("message") String message, Model model,
             @Param("palabraClave") String palabraClave) {
 
+        String emailLogged =  SecurityContextHolder.getContext().getAuthentication().getName();
         setUserIfLogged(model);
 
         List<AnuncioArrendador> anuList = anuncioArrendadorService.getAllAnunciosArrendadorFiltrados(palabraClave);
@@ -52,6 +53,7 @@ public class AnuncioArrendadorController {
         model.addAttribute("anuList", anuList);
         model.addAttribute("message", message);
         model.addAttribute("palabraClave", palabraClave);
+        model.addAttribute("emailLogged", emailLogged);
 
         return "ViewAnuncioArrendador";
     }
@@ -178,6 +180,10 @@ public class AnuncioArrendadorController {
         setUserIfLogged(model);
         AnuncioArrendador anuncio = anuncioArrendadorService.getAnuncioArrendadorById(id);
         model.addAttribute("anuncio", anuncio);
+        if(!anuncio.getArtista_accept_id().equals(null)){
+            //ernesto poppero
+            model.addAttribute("nombreartista", artistaService.getArtistaById(anuncio.getArtista_accept_id()).getNombre_artistico());
+        }
         return "AnuncioArrendadorInfo";
     }
 

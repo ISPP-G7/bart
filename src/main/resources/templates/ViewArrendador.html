@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
+    <meta name="description" content="Perfil del local o arrendador público para todos los usuarios" charset="UTF-8">
     <title>Lista de arrendadores</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -49,7 +49,6 @@
 
         <table class="table table-bordered">
             <tr>
-                <th>Id</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Email</th>
@@ -58,24 +57,19 @@
                 <th>Nombre del local</th>
                 <th>Dirección del local</th>
                 <th>Link a redes</th>
-                <th>Editar</th>
+
 
             </tr>
 
             <tr th:each="Arrendador : ${arrList}">
-                <td th:text="${Arrendador.id}"></td>
                 <td th:text="${Arrendador.firstName}"></td>
                 <td th:text="${Arrendador.lastName}"></td>
                 <td th:text="${Arrendador.email}"></td>
                 <td th:text="${Arrendador.dob}"></td>
                 <td th:text="${Arrendador.gender}"></td>
                 <td th:text="${Arrendador.nombreLocal}"></td>
-                <td th:text="${Arrendador.direccion}"></td>
+                <td th:text="${Arrendador.direccion}"></td>               
                 <td th:text="${Arrendador.links}"></td>
-                <td><button type="button" class="btn btn-success">
-                        <a th:href="@{/editArrendador/{id}(id=${Arrendador.id})}">Editar</a>
-                    </button></td>
-
             </tr>
 
         </table>

@@ -191,9 +191,13 @@ public class AnuncioArtistaController {
 
         AnuncioArtista anuncio = anuncioArtistaService.getAnuncioArtistaById(id);
         model.addAttribute("anuncio", anuncio);
-        if(!anuncio.getArrendador_accept_id().equals(null)){            
+        Long aux=anuncio.getArrendador_accept_id();
+        System.out.println(aux);
+        if(aux!=null){
             model.addAttribute("nombrelocal", arrendadorService.getArrendadorById(anuncio.getArrendador_accept_id()).getNombreLocal());            
         }
+                   
+
         return "AnuncioArtistaInfo";
     }
 

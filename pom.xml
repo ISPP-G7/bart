@@ -60,13 +60,13 @@
 		</contributor>
 	</contributors>
 	<dependencies>
-					
 
-	<dependency>
-    <groupId>org.apache.logging.log4j</groupId>
-    <artifactId>log4j-core</artifactId>
-    <version>2.14.1</version>
-    </dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.14.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -148,15 +148,15 @@
 		</dependency>
 -->
 		<dependency>
-        	<groupId>org.mockito</groupId>
-        	<artifactId>mockito-all</artifactId>
-        	<version>1.8.4</version>
-        	<scope>test</scope>
-    	</dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.8.4</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
-   			<groupId>junit</groupId>
-    		<artifactId>junit</artifactId>
-    		<version>4.13.2</version> <!-- Or whatever JUnit you're using. -->
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version> <!-- Or whatever JUnit you're using. -->
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
@@ -203,20 +203,6 @@
 					<username>root</username>
 					<password>root</password>
 				</configuration>
-				<executions>
-					<execution>
-						<id>execute-sql</id>
-						<phase>package</phase>
-						<goals>
-							<goal>execute</goal>
-						</goals>
-						<configuration>
-							<srcFiles>
-								<srcFile>src/main/resources/db/hsqldb/data.sql</srcFile>
-							</srcFiles>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

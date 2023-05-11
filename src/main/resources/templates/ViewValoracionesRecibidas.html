@@ -2,6 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <style>
+    .estrellas {
+        display: inline-block;
+        font-size: 20px;
+        line-height: 1;
+    }
+    
+    .estrellas span {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: url('https://example.com/estrella.png') no-repeat 0 0;
+        background-size: contain;
+    }
+    
+    .estrellas span:hover:before,
+    .estrellas span:hover ~ span:before {
+        content: '★';
+        position: absolute;
+    }
+    
     body {
             background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
             height: 100vh;
@@ -99,14 +119,22 @@
         </div>
         <div class="valoraciones" th:each="valoracion : ${valoraciones}">
             <p>
-                <!--El enlace debería ser de color blanco-->
+                <!-- El enlace debería ser de color blanco -->
                 <b>Realizada por: </b><a th:href="@{/perfilUsuario/{id}(id=${valoracion.sender.id})}" class="button button-yellow">[[${valoracion.sender.firstName}]]</a>
                 <br>
-                <b>Nota: </b>[[${valoracion.nota}]]
+                <b>Nota: </b>
+                <span class="estrellas">
+                    <span th:if="${valoracion.nota >= 1}">★</span>
+                    <span th:if="${valoracion.nota >= 2}">★</span>
+                    <span th:if="${valoracion.nota >= 3}">★</span>
+                    <span th:if="${valoracion.nota >= 4}">★</span>
+                    <span th:if="${valoracion.nota == 5}">★</span>
+                </span>
                 <p th:text="${valoracion.mensaje}"></p>
             </p>
             <hr>
         </div>
+        
     </div>
     <footer th:replace="Home :: Footer"></footer>
 </body>

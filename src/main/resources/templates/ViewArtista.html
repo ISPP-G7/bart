@@ -51,9 +51,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Email</th>
 
-                <th>Fecha de nacimiento</th>
                 <th>Género</th>
                 <th>Nombre artístico</th>
                 <th>Categoria artística</th>
@@ -68,8 +66,7 @@
             <tr th:each="Artist : ${artList}">
                 <td th:text="${Artist.firstName}"></td>
                 <td th:text="${Artist.lastName}"></td>
-                <td th:text="${Artist.email}"></td>
-                <td th:text="${Artist.dob}"></td>
+
                 <td th:text="${Artist.gender}"></td>
                 <td th:text="${Artist.nombre_artistico}"></td>
                 <td th:text="${Artist.categoria_artistica}"></td>

@@ -51,8 +51,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Email</th>
-                <th>Fecha de nacimiento</th>
+
                 <th>Género</th>
                 <th>Nombre del local</th>
                 <th>Dirección del local</th>
@@ -64,8 +63,7 @@
             <tr th:each="Arrendador : ${arrList}">
                 <td th:text="${Arrendador.firstName}"></td>
                 <td th:text="${Arrendador.lastName}"></td>
-                <td th:text="${Arrendador.email}"></td>
-                <td th:text="${Arrendador.dob}"></td>
+
                 <td th:text="${Arrendador.gender}"></td>
                 <td th:text="${Arrendador.nombreLocal}"></td>
                 <td th:text="${Arrendador.direccion}"></td>               

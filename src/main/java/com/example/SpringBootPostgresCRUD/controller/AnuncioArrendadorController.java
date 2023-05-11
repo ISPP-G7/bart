@@ -22,6 +22,8 @@ import com.example.SpringBootPostgresCRUD.entity.User;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -89,6 +91,34 @@ public class AnuncioArrendadorController {
 
         return "ViewAnunciosArrendadorParaArtistas";
     }
+
+    @GetMapping({ "/viewAnunciosArrendadorParaArtistasAceptados" })
+    public String viewAnunciosArrendadorParaArtistasAceptados(@ModelAttribute("message") String message, Model model,
+            @Param("palabraClave") String palabraClave) {
+        setUserIfLogged(model);
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Artista artista = artistaService.getArtistaByMailArtista(email);
+        Long artistaId = artista.getId();
+        List<AnuncioArrendador> anuList2 = anuncioArrendadorService
+        .getAllAnunciosArrendadorAceptados();
+        List<AnuncioArrendador> res= new ArrayList<>();
+        int i = 0;
+        while(i<anuList2.size()){
+            if(anuList2.get(i).getArtista_accept_id()==artistaId){
+                res.add(anuList2.get(i));
+            }
+            i++;
+        }
+        artista.setAnuncioNoVisto(false);
+        artistaService.saveOrUpdateArtista(artista);
+        model.addAttribute("anuList2", res);
+
+        model.addAttribute("message", message);
+        model.addAttribute("palabraClave", palabraClave);
+
+        return "viewAnunciosArrendadorParaArtistasAceptados";
+    }
+
 
     @GetMapping("/addAnuncioArrendador")
     public String newAnuncioArrendador(@ModelAttribute("message") String message, Model model) {

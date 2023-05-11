@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.URL;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +21,6 @@ public class Artista extends User {
     private String categoria_artistica;
 
     private String links;
-    @NotBlank
     @URL
     private String urlImagen;
 

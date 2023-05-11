@@ -129,19 +129,32 @@
 						<li class="nav-item active">
 							<a class="nav-link" href="/home">Inicio</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/atencionCliente">Contacto</a>
-						</li>
+						
 						<!--<li class="nav-item">
 							<a class="nav-link" href="/viewUsers">Lista de usuarios</a>
 						</li>-->
 						<!--<li th:if="${usuario.esArtista}" class="nav-item">
 							<a class="nav-link" href="/viewArtistas">Lista de artistas</a>
 						</li>-->
-						<li th:if="${usuario.esArtista}" class="nav-item">
-							<a class="nav-link" href="/viewAnunciosArrendadorParaArtistas">Anuncios de
-								Locales</a>
-						</li>
+						<nav class="navbar navbar-expand-lg" th:if="${usuario.esArtista}">
+							<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon"></span>
+							</button>
+							<div class="collapse navbar-collapse" id="navbarNavDropdown">
+								<ul class="navbar-nav ml-auto">
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAnuncios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Anuncios de locales
+										</a>
+										<div class="dropdown-menu" aria-labelledby="navbarDropdownAnuncios">
+											<a class="dropdown-item" href="/viewAnunciosArrendadorParaArtistas">Listado de anuncios</a>
+											<a class="dropdown-item" href="/viewAnunciosArrendadorParaArtistasAceptados">Ya has aceptado</a>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</nav>
+						
 						<li th:if="${usuario.esArtista}" class="nav-item">
 							<a class="nav-link" href="/viewAnunciosArtista">Crea y vea anuncios de artistas</a>
 						</li>

@@ -43,7 +43,7 @@ public class ArtistaController {
         model.addAttribute("art", art);
         model.addAttribute("message", message);
         model.addAttribute("isLogged", false);
-        return "signUpArtista";
+        return "SignUpArtista";
     }
 
     @GetMapping({ "/viewArtistas" })

@@ -1,0 +1,32 @@
+.sobre-nosotros {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    color: black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    border-radius: 5px;
+}
+
+.sobre-nosotros h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.sobre-nosotros p {
+    text-align: justify;
+    margin-right: 20px;
+}
+
+.sobre-nosotros a {
+    display: block;
+    text-align: center;
+}
+
+body {
+    background-image: linear-gradient(to bottom right, #8e12ab, #dc4e4f);
+}
+.navbar-brand img {
+    max-height: 50px;
+    border-radius: 8px;
+}

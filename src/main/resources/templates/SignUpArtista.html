@@ -52,7 +52,7 @@
                 <div class="form-group col-md-12">
                     <label class="col-md-3" for="urlImagen">URL Imagen de Perfil</label>
                     <div class="col-md-6">
-                        <input type="text" th:field="*{urlImagen}" id="urlImagen" class="form-control input-sm" pattern="^(http(s)?://)?([^\s/.]+\.)?(es|com)(/[^\s]*)?$" required />
+                        <input type="url" th:field="*{urlImagen}" id="urlImagen" class="form-control input-sm" required />
                     </div>
                 </div>
             </div>

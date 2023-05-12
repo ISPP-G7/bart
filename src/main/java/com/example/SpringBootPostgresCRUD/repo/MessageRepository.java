@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.SpringBootPostgresCRUD.entity.Message;
+import com.example.SpringBootPostgresCRUD.entity.User;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
@@ -27,4 +28,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     @Query("SELECT message FROM Message message WHERE message.userReceiver.email= :email1 and message.userSender.email=:email2 ORDER BY message.date")
     public List<Message> findAllMessagesBySenderAndReceiver(@Param("email1") String email1,
             @Param("email2") String email2);
+
+    @Query("SELECT user FROM User user WHERE user.email = :email")
+    public User findUserByEmail(@Param("email") String email);
 }

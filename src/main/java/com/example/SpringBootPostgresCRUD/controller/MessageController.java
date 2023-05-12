@@ -46,78 +46,82 @@ public class MessageController {
     @GetMapping("/viewAllMessages")
     public String viewAllMessages(@ModelAttribute("message") String message,
             Model model) {
-                Boolean isLogged=false;
-                if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
-                    isLogged=true;
-                    String email=SecurityContextHolder.getContext().getAuthentication().getName();
-                    User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
-                    model.addAttribute("usuario",usr);
-                    model.addAttribute("nombreUsuario",email);
-                    if(usr.getEsArrendador()){
-                        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
-                        model.addAttribute("arrendador", arrendador);
-                    } else if(usr.getEsArtista()){
-                        Artista artista = artistaService.getArtistaByMailArtista(email);
-                        model.addAttribute("artista", artista);
-                    }
-                }
-                model.addAttribute("isLogged", isLogged);
+        Boolean isLogged = false;
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
+            isLogged = true;
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
+            model.addAttribute("nombreUsuario", email);
+            if (usr.getEsArrendador()) {
+                Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+                model.addAttribute("arrendador", arrendador);
+            } else if (usr.getEsArtista()) {
+                Artista artista = artistaService.getArtistaByMailArtista(email);
+                model.addAttribute("artista", artista);
+            }
+        }
+        model.addAttribute("isLogged", isLogged);
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         List<Message> todosMensajes = messageService.findBySenderOrReceiverEmail(email);
-        Set<String> contactos = new HashSet<>();
+        Set<String> auxEmails = new HashSet<>();
         for (Message m : todosMensajes) {
             if (m.getUserSender().getEmail().equals(email)) {
-                contactos.add(m.getUserReceiver().getEmail());
+                auxEmails.add(m.getUserReceiver().getEmail());
             } else {
-                contactos.add(m.getUserSender().getEmail());
-
+                auxEmails.add(m.getUserSender().getEmail());
             }
+        }
+        Set<User> contactos = new HashSet<>();
+        for (String sEmail : auxEmails) {
+            User user = messageService.getUserByEmail(sEmail);
+            contactos.add(user);
         }
         model.addAttribute("contactos", contactos);
         model.addAttribute("message", message);
         return "ViewAllMessages";
     }
 
-    @GetMapping("/viewMessages/{email2}")
-    public String viewMessages(@PathVariable("email2") String email2, @ModelAttribute("message") String message,
+    @GetMapping("/viewMessages/{id}")
+    public String viewMessages(@PathVariable("id") Long id, @ModelAttribute("message") String message,
             Model model) {
-            
-                Boolean isLogged=false;
-                if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
-                    isLogged=true;
-                    String email=SecurityContextHolder.getContext().getAuthentication().getName();
-                    User usr = userService.getUserByEmail(email); //Con esto cogemos el artista logueado
-                    model.addAttribute("usuario",usr);
-                    model.addAttribute("nombreUsuario",email);
-                    if(usr.getEsArrendador()){
-                        Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
-                        model.addAttribute("arrendador", arrendador);
-                    } else if(usr.getEsArtista()){
-                        Artista artista = artistaService.getArtistaByMailArtista(email);
-                        model.addAttribute("artista", artista);
-                    }
-                }
-                model.addAttribute("isLogged", isLogged);
 
+        Boolean isLogged = false;
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
+            isLogged = true;
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            User usr = userService.getUserByEmail(email); // Con esto cogemos el artista logueado
+            model.addAttribute("usuario", usr);
+            model.addAttribute("nombreUsuario", email);
+            if (usr.getEsArrendador()) {
+                Arrendador arrendador = arrendadorService.getArrendadorByMailArrendador(email);
+                model.addAttribute("arrendador", arrendador);
+            } else if (usr.getEsArtista()) {
+                Artista artista = artistaService.getArtistaByMailArtista(email);
+                model.addAttribute("artista", artista);
+            }
+        }
+        model.addAttribute("isLogged", isLogged);
 
         String email1 = SecurityContextHolder.getContext().getAuthentication().getName();
-        List<Message> mensajes = messageService.getByPreviousChat(email1, email2);
-        model.addAttribute("emailReceiverS", email2);
+        User userReceiver = userService.getUserById(id);
+        List<Message> mensajes = messageService.getByPreviousChat(email1, userReceiver.getEmail());
+        model.addAttribute("userReceiver", userReceiver);
         model.addAttribute("mensajes", mensajes);
         model.addAttribute("message", message);
         return "ViewMessage";
     }
 
-    @PostMapping("/saveMessage/{emailReceiver}")
-    public String saveMessage(@PathVariable("emailReceiver") String emailReceiver,
+    @PostMapping("/saveMessage/{id}")
+    public String saveMessage(@PathVariable("id") Long id,
             @RequestParam("bodyMessage") String bodyMessage,
             RedirectAttributes redirectAttributes) {
 
         Message msg = new Message();
         String emailSender = SecurityContextHolder.getContext().getAuthentication().getName();
         User userSender = userService.getUserByEmail(emailSender);
-        User userReceiver = userService.getUserByEmail(emailReceiver);
+        User userReceiver = userService.getUserById(id);
         msg.setUserSender(userSender);
         msg.setUserReceiver(userReceiver);
         msg.setMessageBody(bodyMessage);
@@ -130,18 +134,7 @@ public class MessageController {
         } else {
             redirectAttributes.addFlashAttribute("message", "Save Failure");
         }
-        return "redirect:/viewMessages/" + emailReceiver;
-    }
-
-    @GetMapping("/deleteMessage/{id}/{emailReceiver}")
-    public String deleteMessage(@PathVariable Long id, @PathVariable("emailReceiver") String emailReceiver,
-            RedirectAttributes redirectAttributes) {
-        if (messageService.deleteMessage(id)) {
-            redirectAttributes.addFlashAttribute("message", "Delete Success");
-            return "redirect:/viewMessages/" + emailReceiver;
-        }
-        redirectAttributes.addFlashAttribute("message", "Delete Failure");
-        return "redirect:/viewMessages/" + emailReceiver;
+        return "redirect:/viewMessages/" + id;
     }
 
     @GetMapping("/refresh")

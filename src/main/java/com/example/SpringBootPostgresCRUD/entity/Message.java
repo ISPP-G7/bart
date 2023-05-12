@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +28,7 @@ public class Message {
 
     private String messageBody;
 
+    @DateTimeFormat(iso = ISO.DATE_TIME)
     private Date date;
 
     @ManyToOne

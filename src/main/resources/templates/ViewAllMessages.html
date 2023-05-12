@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta name="description" content="Un usuario podrá ver todos sus chats anteriores con otros usuarios" charset="UTF-8">
+    <meta name="description" content="Un usuario podrá ver todos sus chats anteriores con otros usuarios"
+        charset="UTF-8">
     <title>Chat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -70,13 +71,13 @@
     <div class="div-tabla">
         <table class="tabla">
 
-            <tr th:each="email : ${contactos}">
+            <tr th:each="contact : ${contactos}">
 
-                <td class="contacto" th:text="${email}"></td>
+                <td class="contacto" th:text="${contact.email}"></td>
 
                 <td><button type="button" class="boton">
 
-                        <a th:href="@{/viewMessages/{email}(email=${email})}">Ir al chat</a>
+                        <a th:href="@{/viewMessages/{id}(id=${contact.id})}">Ir al chat</a>
 
                     </button>
                 </td>

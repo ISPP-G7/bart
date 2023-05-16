@@ -112,7 +112,7 @@
                         <h5 class="card-title" th:text="${Anuncio.nombreLocal}"></h5>
                         <p class="card-text" th:text="${Anuncio.ubicacion}"></p><p class="card-text" th:text="${Anuncio.precio}"></p>
                         <a class="btn btn-primary" th:href="@{/anuncioArrendador/{id}(id=${Anuncio.id})}">Ver detalles</a>
-                        <a class="btn btn-primary" th:href="@{/viewMessages/{email}(email=${Anuncio.Arrendador.email})}">Chat</a>
+                        <a class="btn btn-primary" th:href="@{/viewMessages/{id}(id=${Anuncio.Arrendador.id})}">Chat</a>
                         <a class="btn btn-primary" th:href="@{/aceptarAnuncioArrendador/{id}(id=${Anuncio.id})}">Aceptar</a>
                     </div>
                 </div>

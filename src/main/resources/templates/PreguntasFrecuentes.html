@@ -1,53 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Preguntas Frecuentes - Bart</title>
-    <meta name="description" content="Preguntas frecuentes que pueda tener cualquier usuario de la aplicación Bart, resueltas" charset="UTF-8">
+    <meta name="description" content="Información general, pagos y contacto sobre Bart, 
+    empresa bidireccional de contrataciones entre artistas y locales" charset="UTF-8">
+    <title>Sobre Nosotros</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <style>
-        .faq-section {
-            margin-top: 50px;
-            margin-bottom: 50px;
+        body{
+            color: white;
         }
+        
 
         .faq-section h1 {
             text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .faq-question {
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-
-        .faq-question h5 {
-            margin-bottom: 0;
-        }
-
-        .faq-answer {
-            display: none;
-            margin-bottom: 20px;
-            border: 1px solid #dee2e6;
-            border-radius: 0.25rem;
-            padding: 1rem;
-        }
-
-        .faq-answer p {
-            margin-bottom: 0;
-        }
-
-        .faq-question.active .arrow {
-            transform: rotate(180deg);
-        }
-
-        .arrow {
-            float: right;
-            transition: transform 0.3s ease;
         }
 
         body {
@@ -57,15 +29,6 @@
 
         h1 {
             color: white
-        }
-
-        table.table-bordered tr:first-child th {
-            background-color: #6B3D6E;
-            color: white;
-        }
-
-        table.table-bordered tr:not(:first-child) td {
-            background-color: #fff;
         }
 
         div {
@@ -88,8 +51,8 @@
 	<div class="container faq-section">
 		<h1>Preguntas Frecuentes</h1>
 
-        <div class="faq-question" onclick="toggleAnswer(this)">
-			<h5>¿En qué consiste BART?<span class="arrow">&#9660;</span></h5>
+        <div class="faq-question">
+			<h5>¿En qué consiste BART?</h5>
 			<div class="faq-answer">
 				<p>BART es una plataforma para facilitar y formentar el crecimiento de bares y artista para su beneficio. BART se encarga de facilitar el contacto y transacción entre
                     artistas y arrendadores. 
@@ -97,8 +60,8 @@
 			</div>
 		</div>
 
-		<div class="faq-question" onclick="toggleAnswer(this)">
-            <h5>¿Cómo puedo registrarme en Bart?<span class="arrow">&#9660;</span></h5>
+		<div class="faq-question">
+            <h5>¿Cómo puedo registrarme en Bart?</h5>
 			<div class="faq-answer">
 				<p>Para registrarte en Bart, debes hacer clic en el botón "Registrarse" que aparece en la página de inicio. Encontrarás dos opciones, Artista y Arrendador, 
                     dependiendo de cual sea tu oficio.
@@ -106,22 +69,8 @@
 			</div>
 		</div>
 
-		<div class="faq-question" onclick="toggleAnswer(this)">
-			<h5>¿Cómo puedo crear un anuncio como artista?<span class="arrow">&#9660;</span></h5>
-			<div class="faq-answer">
-				<p>Para crear un anuncio como artista, primero debes iniciar sesión en tu cuenta de Bart. Luego, dirígete a la sección "Crear anuncio" y completa el formulario con los detalles de tu presentación. Finalmente, haz clic en "Añadir anuncio" para que tu anuncio esté disponible para los arrendadores de locales.</p>
-			</div>
-		</div>
-
-        <div class="faq-question" onclick="toggleAnswer(this)">
-			<h5>¿Dónde se encuentra disponible BART?<span class="arrow">&#9660;</span></h5>
-			<div class="faq-answer">
-				<p>A dia de hoy BART se encuentra disponible únicamente en la provincia de Sevilla</p>
-			</div>
-		</div>
-
-        <div class="faq-question" onclick="toggleAnswer(this)">
-			<h5>Transacciones<span class="arrow">&#9660;</span></h5>
+        <div class="faq-question">
+			<h5>Transacciones</h5>
 			<div class="faq-answer">
 				<p>Para realizar transacciones en BART se requiere de una cuenta de PayPal, esto se debe a que BART se preocupa por la seguridad de datos e información de sus clientes
                     por lo que la plataforma más segura para proteger todo es PayPal.
@@ -129,8 +78,8 @@
 			</div>
 		</div>
 
-        <div class="faq-question" onclick="toggleAnswer(this)">
-			<h5>Tratamiento de datos<span class="arrow">&#9660;</span></h5>
+        <div class="faq-question">
+			<h5>Tratamiento de datos</h5>
 			<div class="faq-answer">
 				<p>La empresa responsable del tratamiento de datos personales de los usuarios de BART es BART. 
                     Los usuarios pueden contactar con la empresa en todo momento a través de la dirección de correo electrónico infobartoficial@gmail.com.
@@ -147,8 +96,8 @@
 			</div>
 		</div>
 
-        <div class="faq-question" onclick="toggleAnswer(this)">
-			<h5>¿Cuáles son mis derechos cómo usuario de BART?<span class="arrow">&#9660;</span></h5>
+        <div class="faq-question">
+			<h5>¿Cuáles son mis derechos cómo usuario de BART?</h5>
 			<div class="faq-answer">
 				<p>Los usuarios de BART tienen derecho a acceder, rectificar, suprimir, limitar el tratamiento y portar sus datos personales a otro responsable del tratamiento.
                      Para ejercer estos derechos, el usuario deberá enviar una solicitud a través de la dirección de correo electrónico infobartoficial@gmail.com
@@ -161,19 +110,9 @@
 
 	</div>
 
-	<script>
-		// Función para mostrar/ocultar la respuesta a una pregunta
-		function toggleAnswer(question) {
-			var answer = question.getElementsByClassName("faq-answer")[0];
-			answer.style.display = answer.style.display === "none" ? "block" : "none";
-		}
-	</script>
-
 <footer th:replace="Home :: Footer"></footer>
 
 
-
-	<!-- Agrega aquí tus scripts y enlaces a librerías JavaScript si es necesario -->
 
 </body>
 

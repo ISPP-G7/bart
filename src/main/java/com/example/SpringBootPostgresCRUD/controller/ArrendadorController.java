@@ -40,7 +40,7 @@ public class ArrendadorController {
         model.addAttribute("arr", arr);
         model.addAttribute("message", message);
 
-        return "signUpArrendador";
+        return "SignUpArrendador";
     }
     @GetMapping({"/viewArrendadores"})
     public String viewArrendadores(@ModelAttribute("message") String message, Model model) {
